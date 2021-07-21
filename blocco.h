@@ -3,7 +3,7 @@
 
 // Struttura del blocco di transazioni:
 //Aggiunto messaggio di prova
-
+//Aggiunto ulteriore commento di prova
 #ifndef blocco_h
 #define blocco_h
 
