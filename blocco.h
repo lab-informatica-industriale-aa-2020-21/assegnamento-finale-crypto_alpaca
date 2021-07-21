@@ -1,6 +1,6 @@
 /*  Di seguito viene riportato l'header file per la gestione dei blocchi 
     di transazione da inserire nella blockchain */
-
+// ennesima prova
 // Struttura del blocco di transazioni:
 //Aggiunto messaggio di prova 1
 //Aggiunto ulteriore commento di prova 2
