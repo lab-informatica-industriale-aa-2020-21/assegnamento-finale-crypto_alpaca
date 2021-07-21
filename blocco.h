@@ -2,6 +2,7 @@
     di transazione da inserire nella blockchain */
 
 // Struttura del blocco di transazioni:
+//Aggiunto messaggio di prova
 
 #ifndef blocco_h
 #define blocco_h
