@@ -81,7 +81,120 @@
                     0xbef9a3f7,\
                     0xc67178f2
 
+unsigned int rotate (unsigned int num, int n_bit);
+unsigned int sigma_0 (unsigned int x);
+unsigned int sigma_1 (unsigned int x);
+unsigned int usigma_0 (unsigned int x);
+unsigned int usigma_1 (unsigned int x);
+unsigned int maggiority (unsigned int x, unsigned int y,  unsigned int z);
+unsigned int choice ( unsigned int x, unsigned int y,  unsigned int z);
+unsigned int bin_to_decimal (bool *x, int len_x);
+void decimal_to_bin (unsigned int x, bool *vett, int len_vett);
+
 int main (int argc, char ** argv){
 
 return 0;
+}
+
+
+/*Funzioni elementari per hash
+**  >> shift vs destra
+**  ^  operatore di XOR
+*/
+unsigned int sigma_0 (unsigned int x)
+{
+    unsigned int num=0;
+    num = (rotate(x,7)) ^ (rotate(x,18)) ^ (x >> 3);
+return num;
+}
+
+unsigned int sigma_1 (unsigned int x)
+{
+    unsigned int num=0;
+    num = (rotate(x,17)) ^ (rotate(x,19)) ^ (x >> 10);
+return num;
+}
+
+unsigned int usigma_0 (unsigned int x)
+{
+    unsigned int num=0;
+    num = (rotate(x,2)) ^ (rotate(x,13)) ^ (rotate(x,22));
+return num;
+}
+
+unsigned int usigma_1 (unsigned int x)
+{
+    unsigned int num=0;
+    num = (rotate(x,6)) ^ (rotate(x,11)) ^ (rotate(x,25));
+return num;
+}
+
+unsigned int rotate (unsigned int x, int n_bit)
+{
+    unsigned int num=0;
+    num = (x >> n_bit) | (x << (word_len-n_bit));
+return num;
+}
+
+//Il formato è v[max] = MSB; v[0] = LSB; LITTEL ENDIAN.
+void decimal_to_bin (unsigned int x, bool *vett, int len_vett)
+{ 
+    for (int i = 0; i < len_vett && x > 0 ; i++){
+        vett[i] = x % 2;
+        x = x / 2;
+    }
+}
+
+unsigned int bin_to_decimal (bool *x, int len_x)
+{
+    unsigned int vett = 0;
+    for (int i = 0; i < word_len && x > 0 ; i++){
+        vett = vett + x[i] * pow(2, i);
+    }
+return vett;
+}
+
+unsigned int choice (unsigned int x, unsigned int y, unsigned int z)
+{
+    bool x_bit[word_len] = {0};
+    bool y_bit[word_len] = {0};
+    bool z_bit[word_len] = {0};
+
+    bool num[word_len] = {0};
+
+    decimal_to_bin(x, x_bit, word_len);
+    decimal_to_bin(y, y_bit, word_len);
+    decimal_to_bin(z, z_bit, word_len);
+ 
+    for (int i = 0; i < word_len; i++)
+    {
+        if(x_bit[i] == 0)
+            num[i] = z_bit[i];
+        else   
+            num[i] = y_bit[i];
+    }
+
+return bin_to_decimal(num, word_len);
+}
+
+unsigned int maggiority (unsigned int x, unsigned int y, unsigned int z)
+{
+    bool x_bit[word_len] = {0};
+    bool y_bit[word_len] = {0};
+    bool z_bit[word_len] = {0};
+
+    bool num[word_len] = {0};
+
+    decimal_to_bin(x, x_bit, word_len);
+    decimal_to_bin(y, y_bit, word_len);
+    decimal_to_bin(z, z_bit, word_len);
+
+    for (int i = 0; i < word_len; i++){
+        if((x_bit[i] && y_bit[i]) || (z_bit[i] && y_bit[i]) || (x_bit[i] && z_bit[i])) 
+            num[i] = 1;
+        else   
+            num[i] = 0;
+    }
+    
+return bin_to_decimal(num, word_len);
 }
