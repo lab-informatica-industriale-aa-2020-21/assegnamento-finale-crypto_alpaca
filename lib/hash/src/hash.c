@@ -99,9 +99,9 @@ unsigned int choice ( unsigned int x, unsigned int y,  unsigned int z);
 unsigned int bin_to_decimal (bool *x, int len_x);
 void decimal_to_bin (unsigned int x, bool *vett, int len_vett);
 void uint32_to_uint8 (unsigned int input, u_int8_t *n);
-char* int_32_to_char(unsigned int input, int *dim_eff);
-unsigned int* create_block(unsigned int list_trans_len, int *n_block, unsigned int nonce);
-void loading_data (unsigned int* block_data, int n_block, const unsigned int* prev_hash, unsigned int dim_prev_hash, unsigned int nonce, unsigned int dim_nonce, unsigned int* list_trans, unsigned int list_trans_len);
+char* int_32_to_char(unsigned int input, unsigned int *dim_eff);
+unsigned int* create_block(unsigned int list_trans_len, int *n_block, unsigned int nonce, char *nonce_char);
+void loading_data (unsigned int* block_data, int n_block, const unsigned int* prev_hash, unsigned int nonce, unsigned int dim_nonce, unsigned int* list_trans, unsigned int list_trans_len);
 
 
 int main (int argc, char ** argv){
@@ -111,7 +111,7 @@ int main (int argc, char ** argv){
     char *digit = NULL;      
     int dim_eff = 0;      
 
-    digit = int_32_to_char(input, &dim_eff);
+    //digit = int_32_to_char(input, &dim_eff);
     printf("dim: %d\n\n", dim_eff);
 
     for (int i = 0; i < dim_eff; i++){
@@ -232,15 +232,15 @@ return bin_to_decimal(num, word_len);
 **
 **Restituisce il block_data che dorvà essere processato dall'hash e il numero di blocchi da 512bit che sono presenti in esso.
 */
-unsigned int* create_block(unsigned int list_trans_len, int *n_block, unsigned int nonce)
+unsigned int* create_block(unsigned int list_trans_len, int *n_block, unsigned int nonce, char *nonce_char)
 {
     u_int64_t dim_dati = 0;             //Dimensione in bit
     u_int64_t dim_tot = 0;
     unsigned int *block_data = NULL;
-    int dim_nonce = 0;
+    unsigned int dim_nonce = 0;
 
-    int_32_to_char(nonce, dim_nonce);
-    dim_dati = list_trans_len + dim_prev_hash + (dim_nonce * bit_per_char)     
+    nonce_char = int_32_to_char(nonce, &dim_nonce);
+    dim_dati = list_trans_len + dim_prev_hash + (dim_nonce * bit_per_char);    
 
     //Calcolo dim totale del blocco da generare.
     if(dim_dati == 0)
@@ -260,13 +260,13 @@ unsigned int* create_block(unsigned int list_trans_len, int *n_block, unsigned i
     }    
          
     block_data = malloc(sizeof(unsigned int) * (*n_block) * dim_block_hash);        //fare controllo malloc
-    if(block_data == NULL)
-        return 1;
+    if(block_data == NULL){}
+        //Segnalare errore.
         
 return block_data;
 }
 
-void loading_data (unsigned int* block_data, int n_block, const unsigned int* prev_hash, unsigned int dim_prev_hash, unsigned int nonce, unsigned int dim_nonce, unsigned int* list_trans, unsigned int list_trans_len)
+void loading_data (unsigned int* block_data, int n_block, const unsigned int* prev_hash, unsigned int nonce, unsigned int dim_nonce, unsigned int* list_trans, unsigned int list_trans_len)
 {
     u_int64_t dim_dati = 0;     //Dimensione blocco (dati) in bit.
     int list_tran_index = 0;
@@ -307,11 +307,11 @@ void uint32_to_uint8 (unsigned int input, u_int8_t *n){
 /*Funzione che permette di convertire un unsigned int in un vettore di char che ne descriva le singole cifre in codice ASCII.
 **Viene inoltre calcolata il numero effettivo di caratteri (celle) char realmente necessarie a descrivere il numero in esame.
 */
-char* int_32_to_char(unsigned int input, int *dim_eff){
+char* int_32_to_char(unsigned int input, unsigned int *dim_eff){
     //Sempre in BIG ENDIAN
     int i=10;                               //Offset per utilizzare l'ordine dei byte di tipo BIG ENDIAN
     int j=0;                                //Indice per il vettore digit_eff
-    int dim = 10;                           //Dimensione per memorizzare il max numero di cifre che un uint_32 può essere max (10).
+    unsigned int dim = 10;                      //Dimensione per memorizzare il max numero di cifre che un uint_32 può essere max (10).
     bool found_non_zero = 0;                //Flag 
     char *digit = NULL;
     char *digit_eff = NULL;
