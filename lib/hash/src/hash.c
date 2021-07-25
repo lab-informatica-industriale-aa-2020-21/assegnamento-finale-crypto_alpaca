@@ -10,6 +10,9 @@
 #define pci_hash 65                     //Dimensione info di ridondanza definite dall'algoritmo SHA-256
 #define dim_block_hash 16               //Dimensione blocco hash in W32
 #define val_max_32bit 2147483648
+#define dim_prev_hash 256               //Dimesione hash sempre pari a 256, per definizione.
+#define bit_per_char 8                  //Numero di bit per char.
+
 
 
 #define h_iniziali  0x6a09e667,\
@@ -97,6 +100,8 @@ unsigned int bin_to_decimal (bool *x, int len_x);
 void decimal_to_bin (unsigned int x, bool *vett, int len_vett);
 void uint32_to_uint8 (unsigned int input, u_int8_t *n);
 char* int_32_to_char(unsigned int input, int *dim_eff);
+unsigned int* create_block(unsigned int list_trans_len, int *n_block, unsigned int nonce);
+void loading_data (unsigned int* block_data, int n_block, const unsigned int* prev_hash, unsigned int dim_prev_hash, unsigned int nonce, unsigned int dim_nonce, unsigned int* list_trans, unsigned int list_trans_len);
 
 
 int main (int argc, char ** argv){
@@ -221,24 +226,29 @@ return bin_to_decimal(num, word_len);
 
 
 /*Creazione del messaggio a partire dai dati ricevuti dal blocco.
-**list_trans_len := indica la dimensione in W32 dei dati che andranno a comporre il blocco
-**dim_hash := lunghezza in W32 del prev_hash, ha dimensione fissa (16word)
-**nonce := ha dimensione fissa poichè è un unsigned int (1word)
+**list_trans_len := indica la dimensione in BIT dei dati che andranno a comporre il blocco
+**dim_prev_hash := lunghezza in bit del prev_hash. Come da definizione ha dimensione fissa pari a 256bit.
+**dim_nonce := ha dimensione che può variare. Per questo, questa viene calcolata. 
 **
 **Restituisce il block_data che dorvà essere processato dall'hash e il numero di blocchi da 512bit che sono presenti in esso.
 */
-/*Considera che gli altri ti passeranno un vettore di char per la lista di transazioni.*/
-unsigned int* create_block(unsigned int list_trans_len, int *n_block, const unsigned int* prev_hash, unsigned int dim_prev_hash, unsigned int nonce, unsigned int dim_nonce)
+unsigned int* create_block(unsigned int list_trans_len, int *n_block, unsigned int nonce)
 {
+    u_int64_t dim_dati = 0;             //Dimensione in bit
     u_int64_t dim_tot = 0;
     unsigned int *block_data = NULL;
+    int dim_nonce = 0;
 
-    dim_tot = list_trans_len + dim_prev_hash + dim_nonce;     //Dimensione in bit.
+    int_32_to_char(nonce, dim_nonce);
+    dim_dati = list_trans_len + dim_prev_hash + (dim_nonce * bit_per_char)     
 
-    //Se non ho dati da inserire nel blocco di hash anche la dimensione dei dati sarà posta a 0.
-    if (dim_tot != 0)
-        dim_tot += pci_hash;
+    //Calcolo dim totale del blocco da generare.
+    if(dim_dati == 0)
+        dim_tot = dim_dati + pci_hash - 1;      //-1: indica il bit che separa dati dal padding.
+    else   
+        dim_tot = dim_dati + pci_hash;
 
+    
     if(dim_tot <= dim_block_hash*word_len){
         *n_block = 1;
     }
@@ -250,6 +260,9 @@ unsigned int* create_block(unsigned int list_trans_len, int *n_block, const unsi
     }    
          
     block_data = malloc(sizeof(unsigned int) * (*n_block) * dim_block_hash);        //fare controllo malloc
+    if(block_data == NULL)
+        return 1;
+        
 return block_data;
 }
 
@@ -291,6 +304,9 @@ void uint32_to_uint8 (unsigned int input, u_int8_t *n){
     n[3] = (input >> 24);  
 }
 
+/*Funzione che permette di convertire un unsigned int in un vettore di char che ne descriva le singole cifre in codice ASCII.
+**Viene inoltre calcolata il numero effettivo di caratteri (celle) char realmente necessarie a descrivere il numero in esame.
+*/
 char* int_32_to_char(unsigned int input, int *dim_eff){
     //Sempre in BIG ENDIAN
     int i=10;                               //Offset per utilizzare l'ordine dei byte di tipo BIG ENDIAN
@@ -301,7 +317,7 @@ char* int_32_to_char(unsigned int input, int *dim_eff){
     char *digit_eff = NULL;
 
     digit = malloc(sizeof(char) * dim);
-    digit_eff = malloc(sizeof(char) * (dim));     //Variabile che conterrà le cifre effettive.
+    digit_eff = malloc(sizeof(char) * (dim));           //Variabile che conterrà le cifre effettive.
     *dim_eff = dim;                                     //Dimensione effettiva per mem tutte le cifre (tolgo gli zeri superflui).
 
     //Ricavo le cifre e le converto in char.
