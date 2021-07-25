@@ -95,9 +95,29 @@ unsigned int maggiority (unsigned int x, unsigned int y,  unsigned int z);
 unsigned int choice ( unsigned int x, unsigned int y,  unsigned int z);
 unsigned int bin_to_decimal (bool *x, int len_x);
 void decimal_to_bin (unsigned int x, bool *vett, int len_vett);
+void uint32_to_uint8 (unsigned int input, u_int8_t *n);
+
 
 int main (int argc, char ** argv){
+    unsigned int input = 2147483648;
+    u_int8_t x[4] = {0};
+    bool b_x[32] = {0};
+    char out[10] = {0};
+    int i=10;
+    
+    //uint32_to_uint8(input, x);
 
+    decimal_to_bin(input, b_x, 32);
+    for(int i = 0; i < 32; i++)
+        printf("%d", b_x[i]);
+
+    i = bin_to_decimal(b_x, 32);
+    printf("\n\n%u", i);
+    /*while (input){
+        out [--i] = input % 10);
+        input /= 10;   
+    }*/
+    
 return 0;
 }
 
@@ -141,10 +161,10 @@ unsigned int rotate (unsigned int x, int n_bit)
 return num;
 }
 
-//Il formato è v[max] = MSB; v[0] = LSB; LITTEL ENDIAN.
+//Il formato è BIG ENDIAN. v[0] = MSB; v[max] = LSB;
 void decimal_to_bin (unsigned int x, bool *vett, int len_vett)
 { 
-    for (int i = 0; i < len_vett && x > 0 ; i++){
+    for (int i = len_vett - 1; i >= 0 && x > 0 ; i--){
         vett[i] = x % 2;
         x = x / 2;
     }
@@ -153,8 +173,8 @@ void decimal_to_bin (unsigned int x, bool *vett, int len_vett)
 unsigned int bin_to_decimal (bool *x, int len_x)
 {
     unsigned int vett = 0;
-    for (int i = 0; i < word_len && x > 0 ; i++){
-        vett = vett + x[i] * pow(2, i);
+    for (int i = len_x - 1; i >= 0 && x > 0 ; i--){
+        vett = vett + x[i] * pow(2, 31-i);
     }
 return vett;
 }
@@ -217,7 +237,7 @@ unsigned int* create_block(unsigned int list_trans_len, int *n_block, const unsi
     u_int64_t dim_tot = 0;
     unsigned int *block_data = NULL;
 
-    dim_tot = (list_trans_len + dim_prev_hash + dim_nonce) * word_len;     //Dimensione in bit.
+    dim_tot = list_trans_len + dim_prev_hash + dim_nonce;     //Dimensione in bit.
 
     //Se non ho dati da inserire nel blocco di hash anche la dimensione dei dati sarà posta a 0.
     if (dim_tot != 0)
@@ -266,3 +286,12 @@ void loading_data (unsigned int* block_data, int n_block, const unsigned int* pr
     block_data[(n_block * dim_block_hash) - 2] = (dim_dati) >> word_len;
     block_data[(n_block * dim_block_hash) - 1] = ((dim_dati) << word_len ) >> word_len ;
 }
+
+
+void uint32_to_uint8 (unsigned int input, u_int8_t *n){
+    n[0] = input; 
+    n[1] = (input >> 8); 
+    n[2] = (input >> 16); 
+    n[3] = (input >> 24);  
+}
+
