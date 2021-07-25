@@ -100,14 +100,14 @@ char* int_32_to_char(unsigned int input, int *dim_eff);
 
 
 int main (int argc, char ** argv){
-    unsigned int input = 483648;
+    unsigned int input = 0;
     u_int8_t x[4] = {0};
     bool b_x[32] = {0};
     char *digit = NULL;      
     int dim_eff = 0;      
 
     digit = int_32_to_char(input, &dim_eff);
-    printf("%d\n\n", dim_eff);
+    printf("dim: %d\n\n", dim_eff);
 
     for (int i = 0; i < dim_eff; i++){
         printf("%c\n", digit[i]);
@@ -227,6 +227,7 @@ return bin_to_decimal(num, word_len);
 **
 **Restituisce il block_data che dorvà essere processato dall'hash e il numero di blocchi da 512bit che sono presenti in esso.
 */
+/*Considera che gli altri ti passeranno un vettore di char per la lista di transazioni.*/
 unsigned int* create_block(unsigned int list_trans_len, int *n_block, const unsigned int* prev_hash, unsigned int dim_prev_hash, unsigned int nonce, unsigned int dim_nonce)
 {
     u_int64_t dim_tot = 0;
@@ -321,6 +322,11 @@ char* int_32_to_char(unsigned int input, int *dim_eff){
             j++; 
         }   
     }
+    if (found_non_zero == 0){        //Vuol dire che il valore di input è proprio 0.
+        *dim_eff = 1;
+        digit_eff[0] = 0 + '0';
+    }
+    
     free(digit); 
 return digit_eff;  
 }
