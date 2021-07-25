@@ -6,6 +6,11 @@
 
 
 #define word_len 32
+#define dim_hash 8                      //L'hash avrà sempre dimensione pari a 256bit -> 8word
+#define pci_hash 65                     //Dimensione info di ridondanza definite dall'algoritmo SHA-256
+#define dim_block_hash 16               //Dimensione blocco hash in W32
+#define val_max_32bit 2147483648
+
 
 #define h_iniziali  0x6a09e667,\
                     0xbb67ae85,\
@@ -197,4 +202,67 @@ unsigned int maggiority (unsigned int x, unsigned int y, unsigned int z)
     }
     
 return bin_to_decimal(num, word_len);
+}
+
+
+/*Creazione del messaggio a partire dai dati ricevuti dal blocco.
+**list_trans_len := indica la dimensione in W32 dei dati che andranno a comporre il blocco
+**dim_hash := lunghezza in W32 del prev_hash, ha dimensione fissa (16word)
+**nonce := ha dimensione fissa poichè è un unsigned int (1word)
+**
+**Restituisce il block_data che dorvà essere processato dall'hash e il numero di blocchi da 512bit che sono presenti in esso.
+*/
+unsigned int* create_block(unsigned int list_trans_len, int *n_block, const unsigned int* prev_hash, unsigned int dim_prev_hash, unsigned int nonce, unsigned int dim_nonce)
+{
+    u_int64_t dim_tot = 0;
+    unsigned int *block_data = NULL;
+
+    dim_tot = (list_trans_len + dim_prev_hash + dim_nonce) * word_len;     //Dimensione in bit.
+
+    //Se non ho dati da inserire nel blocco di hash anche la dimensione dei dati sarà posta a 0.
+    if (dim_tot != 0)
+        dim_tot += pci_hash;
+
+    if(dim_tot <= dim_block_hash*word_len){
+        *n_block = 1;
+    }
+    else{
+        if (dim_tot % (dim_block_hash*word_len) != 0)
+            *n_block = (dim_tot/dim_block_hash)+1;
+        else
+            *n_block = (dim_tot/dim_block_hash);
+    }    
+         
+    block_data = malloc(sizeof(unsigned int) * (*n_block) * dim_block_hash);        //fare controllo malloc
+return block_data;
+}
+
+void loading_data (unsigned int* block_data, int n_block, const unsigned int* prev_hash, unsigned int dim_prev_hash, unsigned int nonce, unsigned int dim_nonce, unsigned int* list_trans, unsigned int list_trans_len)
+{
+    u_int64_t dim_dati = 0;     //Dimensione blocco (dati) in bit.
+    int list_tran_index = 0;
+
+    dim_dati = (dim_nonce + dim_prev_hash + list_trans_len) * word_len;
+    
+    for (int i = 0; i < dim_block_hash * n_block; i++){
+        if (i < dim_prev_hash){
+            block_data[i] = prev_hash[i];                       //Memorizzazione del previous_hash.
+        }
+        else if (i == dim_prev_hash && dim_nonce != 0){
+            block_data[i] = nonce;                              //Memorizzazione del nonce.
+        }
+        else if (i < dim_prev_hash + dim_nonce + list_trans_len){
+            block_data[i] = list_trans[list_tran_index];        //Memorizzazione delle transazioni
+            list_tran_index++;
+        }
+        else if ((i == dim_prev_hash + dim_nonce + list_trans_len) &&  dim_dati != 0){
+            block_data[i] = val_max_32bit;                      //Sarà il valor che mi permette di mettere un 1 per separare i dati dal padding. 
+        }
+        else {
+            block_data[i] = 0;                                  //Imposto le restanti celle a zero.
+        }    
+    }
+    //Le ultime due locazioni di 32 bit del blocco di hash dovranno contenera la dimensione dei dati in esso contenuti.
+    block_data[(n_block * dim_block_hash) - 2] = (dim_dati) >> word_len;
+    block_data[(n_block * dim_block_hash) - 1] = ((dim_dati) << word_len ) >> word_len ;
 }
