@@ -96,27 +96,22 @@ unsigned int choice ( unsigned int x, unsigned int y,  unsigned int z);
 unsigned int bin_to_decimal (bool *x, int len_x);
 void decimal_to_bin (unsigned int x, bool *vett, int len_vett);
 void uint32_to_uint8 (unsigned int input, u_int8_t *n);
+char* int_32_to_char(unsigned int input, int *dim_eff);
 
 
 int main (int argc, char ** argv){
-    unsigned int input = 2147483648;
+    unsigned int input = 483648;
     u_int8_t x[4] = {0};
     bool b_x[32] = {0};
-    char out[10] = {0};
-    int i=10;
-    
-    //uint32_to_uint8(input, x);
+    char *digit = NULL;      
+    int dim_eff = 0;      
 
-    decimal_to_bin(input, b_x, 32);
-    for(int i = 0; i < 32; i++)
-        printf("%d", b_x[i]);
+    digit = int_32_to_char(input, &dim_eff);
+    printf("%d\n\n", dim_eff);
 
-    i = bin_to_decimal(b_x, 32);
-    printf("\n\n%u", i);
-    /*while (input){
-        out [--i] = input % 10);
-        input /= 10;   
-    }*/
+    for (int i = 0; i < dim_eff; i++){
+        printf("%c\n", digit[i]);
+    }
     
 return 0;
 }
@@ -295,3 +290,37 @@ void uint32_to_uint8 (unsigned int input, u_int8_t *n){
     n[3] = (input >> 24);  
 }
 
+char* int_32_to_char(unsigned int input, int *dim_eff){
+    //Sempre in BIG ENDIAN
+    int i=10;                               //Offset per utilizzare l'ordine dei byte di tipo BIG ENDIAN
+    int j=0;                                //Indice per il vettore digit_eff
+    int dim = 10;                           //Dimensione per memorizzare il max numero di cifre che un uint_32 può essere max (10).
+    bool found_non_zero = 0;                //Flag 
+    char *digit = NULL;
+    char *digit_eff = NULL;
+
+    digit = malloc(sizeof(char) * dim);
+    digit_eff = malloc(sizeof(char) * (dim));     //Variabile che conterrà le cifre effettive.
+    *dim_eff = dim;                                     //Dimensione effettiva per mem tutte le cifre (tolgo gli zeri superflui).
+
+    //Ricavo le cifre e le converto in char.
+    while (input){
+        digit[--i] = input % 10 + '0';
+        input /= 10;   
+    }
+    
+    //Scorro le cifre partendo dal MSB
+    for (int i = 0; i < dim; i++){
+        if(digit[i] == 0 && found_non_zero == 0){
+            *dim_eff = *dim_eff - 1;
+            free(digit_eff);
+            digit_eff = malloc(sizeof(char) * (*dim_eff));
+        }else{
+            found_non_zero = 1;
+            digit_eff[j] = digit[i];            //Non posso usare lo stesso indice (violo le posizioni).
+            j++; 
+        }   
+    }
+    free(digit); 
+return digit_eff;  
+}
