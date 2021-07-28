@@ -1,15 +1,18 @@
 // Di seguito viene riportato l'header file per la gestione della transazione
 
-// Definizione della struttura della struttura della transazione
+// Definizione della struttura della transazione
 
 #ifndef transaction_h
 #define transaction_h
+
+#include<stdio.h>
+#include<stdbool.h>
 
 typedef struct 
 {
     uint32_t sender;        // chiave pubblica del mittente 
     uint32_t receiver;      // chiave pubblica del destinatario
-    uint32_t amount;            // importo della transazione
+    uint32_t amount;        // importo della transazione
     trans *next;            // puntatore alla transazione successiva
 } trans;
 
@@ -23,6 +26,5 @@ bool add_trans(trans *head, trans *new_node);
 
 // Conteggio numero di transazioni aggiunte 
 uint count_node(trans *head);
-
 
 #endif 
