@@ -25,13 +25,15 @@ trans *new_trans(int32_t public_key_sender, int32_t public_key_receiver, int32_t
     tmp_transaction -> sender = public_key_sender;            // inserimento della chiave pubblica del mittente 
     tmp_transaction -> receiver = public_key_receiver;        // inserimenro della chiave pubblica del ricevente 
     tmp_transaction -> amount = amount_transaction;           // inserimento dell'importo da trasferire nella transazione
+    tmp_transaction -> next = NULL;
 
     *count ++;
-    head = tmp_transaction;
 
-    return new_trans;
+    return tmp_transaction;
 }
 
 void add_trans(const uint32_t sender,const uint32_t receiver, const uint32_t amount, trans *head, int &count);{
-
+    trans *old_head = head;
+    head = new_trans(int32_t public_key_sender, int32_t public_key_receiver, int32_t amount_transaction, int &count );
+    old_head -> next = head;
 }
