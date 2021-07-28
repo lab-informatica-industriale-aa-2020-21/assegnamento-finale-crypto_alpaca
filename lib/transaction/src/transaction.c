@@ -27,6 +27,7 @@ trans *new_trans(int32_t public_key_sender, int32_t public_key_receiver, int32_t
     tmp_transaction -> amount = amount_transaction;           // inserimento dell'importo da trasferire nella transazione
 
     *count ++;
+    head = tmp_transaction;
 
     return new_trans;
 }
