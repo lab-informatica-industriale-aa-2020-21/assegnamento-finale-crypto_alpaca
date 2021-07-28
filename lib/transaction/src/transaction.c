@@ -6,17 +6,17 @@
 #include "transaction.h"
 
 // Dichiarazione variabili: 
-int count = 0; 
-int *count_pointer;
-trans tmp_transaction;
+int count = 0;
+trans *head = NULL;
 
 // Funzione creazione di una nuova transazione 
 
-trans *new_trans(int32_t public_key_sender, int32_t public_key_receiver, int32_t amount_transaction, int  ){
-   
-    trans = malloc(sizeof( trans ));
+trans *new_trans(int32_t public_key_sender, int32_t public_key_receiver, int32_t amount_transaction, int &count ){
+    trans *tmp_transaction;
+    tmp_transaction = malloc(sizeof(trans));
+
     // Controllo funzioanmento malloc():
-    if(new_trans == NULL){
+    if(tmp_transaction == NULL){
         printf("Error: malloc() failed");
         exit(EXIT_FAILURE)
     } 
@@ -26,9 +26,11 @@ trans *new_trans(int32_t public_key_sender, int32_t public_key_receiver, int32_t
     tmp_transaction -> receiver = public_key_receiver;        // inserimenro della chiave pubblica del ricevente 
     tmp_transaction -> amount = amount_transaction;           // inserimento dell'importo da trasferire nella transazione
 
+    *count ++;
+
     return new_trans;
 }
 
-bool add_trans(trans *head, trans *new_node){
+void add_trans(const uint32_t sender,const uint32_t receiver, const uint32_t amount, trans *head, int &count);{
 
 }
