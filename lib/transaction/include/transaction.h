@@ -25,6 +25,6 @@ trans *new_trans(sender, receiver, amount);
 bool add_trans(trans *head, trans *new_node);
 
 // Conteggio numero di transazioni aggiunte 
-uint count_node(trans *head);
+uint get_count_trans();
 
 #endif 
