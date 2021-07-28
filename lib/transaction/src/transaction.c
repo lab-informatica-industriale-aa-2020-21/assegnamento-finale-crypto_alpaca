@@ -8,14 +8,23 @@
 // Dichiarazione variabili: 
 int count = 0; 
 int *count_pointer;
+trans tmp_transaction;
 
 // Funzione creazione di una nuova transazione 
 
-struct trans *new_trans(public_key_sender, public_key_receiver, amount_transaction, ){
-    struct  trans = malloc(sizeof(struct trans)); 
-    new_trans -> sender = public_key_sender;            // inserimento della chiave pubblica del mittente 
-    new_trans -> receiver = public_key_receiver;        // inserimenro della chiave pubblica del ricevente 
-    new_trans -> amount = amount_transaction;           // inserimento 
+trans *new_trans(int32_t public_key_sender, int32_t public_key_receiver, int32_t amount_transaction, int  ){
+   
+    trans = malloc(sizeof( trans ));
+    // Controllo funzioanmento malloc():
+    if(new_trans == NULL){
+        printf("Error: malloc() failed");
+        exit(EXIT_FAILURE)
+    } 
+
+    // Inserimento dati della transazione:
+    tmp_transaction -> sender = public_key_sender;            // inserimento della chiave pubblica del mittente 
+    tmp_transaction -> receiver = public_key_receiver;        // inserimenro della chiave pubblica del ricevente 
+    tmp_transaction -> amount = amount_transaction;           // inserimento dell'importo da trasferire nella transazione
 
     return new_trans;
 }
