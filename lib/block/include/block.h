@@ -9,6 +9,8 @@
 #include<stdio.h>
 #include<stdbool.h>
 
+#define MAX_VALID_FIRST_HASH_ELEMENT 0x0FFFFFFF
+
 typedef struct
 {
     uint32_t *prev_hash;            // puntatore a 'hash' del blocco precedente
@@ -20,12 +22,12 @@ typedef struct
 } block;
 
 // Funzione per la creazione di uno nuovo blocco di transazioni della blockchain:
-block *new_block(block *last, trans *head);
+block *new_block(const block *last, const trans *head);
+
+// Mina il nuovo blocco creato, ovvero aggiunge il blocco alla blockchain:
+void mine(block *const block_to_mine, uint *const count_index);
 
 // Funzione per l'aggiunta del nuovo blocco nella blockchain: 
 void add_block(block *last, trans *head);
-
-// Mina il nuovo blocco creato, ovvero aggiunge il blocco alla blockchain:
-bool mine(block *tail, block *tmp_block);
 
 #endif
