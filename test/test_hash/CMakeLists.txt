@@ -7,7 +7,7 @@ project( test_lib_hash
 
 add_executable( hash_app_test src/hash.c )
 
-target_link_libraries( modulo_app_test
+target_link_libraries( hash_app_test
         PRIVATE
         LII::hash
         Unity
