@@ -7,7 +7,7 @@
 #include<time.h>
 
 // Dichiarazioni delle variabili:
-uint count_index = 0;
+uint32_t count_index = 0;
 block *last = NULL;
 
 // Funzione per la creazione di uno nuovo blocco di transazioni della blockchain:
@@ -31,7 +31,7 @@ block *new_block(const block *last, const trans *head){
     return tmp_block;
 }
 
-void mine(block *const block_to_mine, uint *const count_index){
+void mine(block *const block_to_mine, uint32_t *const count_index){
 
     while (block_to_mine -> hash[0] > MAX_VALID_FIRST_HASH_ELEMENT){     //controllo se i primi 4 bit (del primo uint_32) sono diversi da 0
         block_to_mine -> nonce ++;              // incremento del valore di 'nonce' fino a trovare quello corretto, in base alle condizione di hash scelte
