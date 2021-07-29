@@ -19,7 +19,7 @@ void print_line(const char *title, const char *arg, char str_out){
     snprintf(str_out, LINE_LENGTH + 1, "%-*s%*s", TITLE_LENGTH, title, ARG_LENGTH, arg);
 }
 
-void print_block_header(const block *block_to_print, char str_out){
+void print_block_header(const block *block_to_print, char *str_out){
     //line1 -> index
     char line1 [LINE_LENGTH + 1];
     char tmp [ARG_LENGTH + 1];
@@ -58,4 +58,15 @@ void print_block_header(const block *block_to_print, char str_out){
     print_line(NONCE, tmp, line9)
 
     snprintf(str_out, BLOCK_HEADER_LENGTH + 1, "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n"), line1, line2, line3, line4, line5, line6, line7, line8, line9)
+}
+
+void print_block_trans(const block *block_to_print, char *str_out){
+    int num_trans = *block_to_print -> num_trans;
+
+    trans *next = block_to_print -> first_trans;
+
+    do {
+        //stampa prima transazione
+        //aggiorna il puntatore next alla successiva transazione
+    } while (next == NULL);
 }
