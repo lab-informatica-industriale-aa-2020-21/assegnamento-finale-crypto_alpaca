@@ -8,6 +8,8 @@
 
 #include<stdio.h>
 #include<stdbool.h>
+#include<time.h>
+#include "transaction.h"
 
 #define MAX_VALID_FIRST_HASH_ELEMENT 0x0FFFFFFF
 
@@ -15,10 +17,11 @@ typedef struct
 {
     uint32_t *prev_hash;            // puntatore a 'hash' del blocco precedente
     uint32_t hash[6];               // 'hash' del blocco corrente  
-    uint32_t nonce;                 // valore di nonce
-    trans *head;                    // puntatore alla testa della lista 
+    uint32_t nonce;                 
+    trans *head;                    // puntatore alla testa della lista
+    int num_trans;                  // numero di transazioni nel blocco
     time_t creation_time;           // tempo per la creazione del blocco 
-    uint32_t index;                     // indice numerico del blocco
+    uint index;                     // indice numerico del blocco
 } block;
 
 // Funzione per la creazione di uno nuovo blocco di transazioni della blockchain:
@@ -26,5 +29,8 @@ block *new_block(const block *last, const trans *head);
 
 // Mina il nuovo blocco creato, ovvero aggiunge il blocco alla blockchain:
 void mine(block *const block_to_mine, uint *const count_index);
+
+// Funzione per l'aggiunta del nuovo blocco nella blockchain: 
+void add_block(block *last, trans *head);
 
 #endif
