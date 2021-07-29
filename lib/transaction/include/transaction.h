@@ -27,4 +27,6 @@ void add_trans(const uint32_t sender,const uint32_t receiver, const uint32_t amo
 // Conteggio numero di transazioni aggiunte 
 uint get_count_trans();
 
+// Indirizzo primo elemento della lista
+uint *get_first_trans();
 #endif 

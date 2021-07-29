@@ -11,7 +11,7 @@ uint32_t count_index = 0;
 block *last = NULL;
 
 // Funzione per la creazione di uno nuovo blocco di transazioni della blockchain:
-block *new_block(const block *last, const trans *head){
+block *new_block(const block *last, const trans *first_trans){
 
     block *tmp_block;
     tmp_block = malloc(sizeof(block));
@@ -24,10 +24,10 @@ block *new_block(const block *last, const trans *head){
 
     tmp_block -> prev_hash = last -> hash;      // assegnazione dell'hash del blocco precedente al prev_hash del blocco attuale
     last -> hash = tmp_block -> prev_hash;      // si accede all'hash del blocco precedente e lo si salva in quello nuovo              
-    *tmp_block -> nonce = 0;     //valore temporaneo di nonce
-    tmp_block -> head = head;
-    *tmp_block -> num_trans = get_count_trans();
-    *tmp_block -> index = 0;     //valore temporaneo di index
+    tmp_block -> nonce = 0;     //valore temporaneo di nonce
+    tmp_block -> first_trans = first_trans;
+    tmp_block -> num_trans = get_count_trans();
+    tmp_block -> index = 0;     //valore temporaneo di index
     // hash = (richiamo funzione di calcolo dell'hash)    //assegnazione hash
 
     return tmp_block;
@@ -44,5 +44,5 @@ void mine(block *const block_to_mine, uint32_t *const count_index){
     block_to_mine -> creation_time = time(&info_time);      // info gg/mm/yy (data) - h:min:sec (ora) sulla creazione del nuovo blocco
     // !!ATTENZIONE!! -> quando andremo a stampare l'indice creation_time del blocco sarà necessario usare la funzione 'ctime()' per convertire il contenuto della struttura time in stringa  
     *count_index ++;                                        // conteggio del numero di blocchi minati
-    *block_to_mine -> index = count_index;                  // inserisco il numero corrispondente al blocco 
+    block_to_mine -> index = count_index;                  // inserisco il numero corrispondente al blocco 
 }
