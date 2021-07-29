@@ -5,7 +5,7 @@ project( test_lib_hash
         DESCRIPTION "Testing the hashing function."
         )
 
-add_executable( hash_app_test src/hash.c )
+add_executable( hash_app_test src/test_hash.c )
 
 target_link_libraries( hash_app_test
         PRIVATE
