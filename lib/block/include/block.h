@@ -15,7 +15,7 @@ typedef struct
 {
     uint32_t *prev_hash;            // puntatore a 'hash' del blocco precedente
     uint32_t hash[6];               // 'hash' del blocco corrente  
-    uint32_t nonce;                 
+    uint32_t nonce;                 // valore di nonce
     trans *head;                    // puntatore alla testa della lista 
     time_t creation_time;           // tempo per la creazione del blocco 
     uint index;                     // indice numerico del blocco
