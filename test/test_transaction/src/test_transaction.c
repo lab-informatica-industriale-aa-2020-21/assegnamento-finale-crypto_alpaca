@@ -18,13 +18,20 @@ void test_new_trans_shouldAssignParametersToNewTransaction(void) {
 
 void test_new_trans_bound_shouldAssignParametersToNewTransaction(void) {
 	int test_count = INT_MAX - 1;
-
 	trans *test_trans = new_trans(UINT_MAX, UINT_MAX, UINT_MAX, &test_count);
 
 	TEST_ASSERT_EQUAL_INT32(UINT_MAX, test_trans->sender);
 	TEST_ASSERT_EQUAL_INT32(UINT_MAX, test_trans->receiver);
 	TEST_ASSERT_EQUAL_INT32(UINT_MAX, test_trans->amount);
 	TEST_ASSERT_EQUAL_INT(INT_MAX, count);
+
+	test_count = INT_MIN;
+	trans *test_trans = new_trans(0, 0, 0, &test_count);
+
+	TEST_ASSERT_EQUAL_INT32(0, test_trans->sender);
+	TEST_ASSERT_EQUAL_INT32(0, test_trans->receiver);
+	TEST_ASSERT_EQUAL_INT32(0, test_trans->amount);
+	TEST_ASSERT_EQUAL_INT(INT_MIN+1, count);
 }
 
 int main(void) {
