@@ -14,7 +14,7 @@ else()
         add_compile_options(-Wall -Wextra -pedantic)
 endif()
 
-set(TARGET_GROUP production CACHE STRING "Group to build")
+set(TARGET_GROUP test CACHE STRING "Group to build")
 
 add_subdirectory(lib/hash)
 
@@ -25,6 +25,9 @@ elseif(TARGET_GROUP STREQUAL test)
 
         add_subdirectory(external/Unity)
         add_subdirectory(test/test_hash)
+	add_subdirectory(test/test_transaction)
+	add_subdirectory(test/test_block)
+	add_subdirectory(test/test_chain)
 else()
         message(FATAL_ERROR "Given TARGET_GROUP unknown")
 endif()
