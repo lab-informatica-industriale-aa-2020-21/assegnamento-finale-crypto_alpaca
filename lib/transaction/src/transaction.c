@@ -21,7 +21,7 @@ trans *new_trans(const int32_t public_key_sender, const int32_t public_key_recei
     // Controllo funzioanmento corretto di malloc():
     if(tmp_transaction == NULL){
         printf("Error: malloc() failed");
-        exit(EXIT_FAILURE)
+        exit(EXIT_FAILURE);
     } 
 
     // Inserimento dati della transazione:
@@ -41,11 +41,11 @@ trans *new_trans(const int32_t public_key_sender, const int32_t public_key_recei
 void add_trans(const uint32_t sender,const uint32_t receiver, const uint32_t amount, trans *head, int *const count){
     trans *old_head = head_trans;                                         // salvataggio della 'testa' della lista 
     if (head_trans == NULL){
-        first_trans = new_trans(sender, receiver, transaction, &count);
+        first_trans = new_trans(sender, receiver, amount, &count);
         head_trans = first_trans;
     }
     else{
-        head_trans = new_trans(sender, receiver, transaction, &count); // assegnazione della nuova 'testa' della lista
+        head_trans = new_trans(sender, receiver, amount, &count);        // assegnazione della nuova 'testa' della lista
     }
 
     old_head -> next = head_trans;                                        // assegnazione del puntatore 'next' della transazione precedente

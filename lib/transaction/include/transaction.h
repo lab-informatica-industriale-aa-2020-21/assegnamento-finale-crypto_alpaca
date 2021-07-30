@@ -13,7 +13,7 @@ typedef struct
     uint32_t sender;        // chiave pubblica del mittente 
     uint32_t receiver;      // chiave pubblica del destinatario
     uint32_t amount;        // importo della transazione
-    trans *next;            // puntatore alla transazione successiva
+    struct trans *next;            // puntatore alla transazione successiva
 } trans;
 
 // Funzioni utili per la gestione delle transazioni:
