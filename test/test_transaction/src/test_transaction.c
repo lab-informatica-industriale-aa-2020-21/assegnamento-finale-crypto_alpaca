@@ -1,5 +1,6 @@
-#include "unity.h"
+#include <limits.h>
 
+#include "unity.h"
 #include "transaction.h"
 
 void setUp(void) {}
@@ -13,6 +14,17 @@ void test_new_trans_shouldAssignParametersToNewTransaction(void) {
 	TEST_ASSERT_EQUAL_INT32(10848, test_trans->receiver);
 	TEST_ASSERT_EQUAL_INT32(249, test_trans->amount);
 	TEST_ASSERT_EQUAL_INT(test_count+1, count);
+}
+
+void test_new_trans_bound_shouldAssignParametersToNewTransaction(void) {
+	int test_count = INT_MAX - 1;
+
+	trans *test_trans = new_trans(UINT_MAX, UINT_MAX, UINT_MAX, &test_count);
+
+	TEST_ASSERT_EQUAL_INT32(UINT_MAX, test_trans->sender);
+	TEST_ASSERT_EQUAL_INT32(UINT_MAX, test_trans->receiver);
+	TEST_ASSERT_EQUAL_INT32(UINT_MAX, test_trans->amount);
+	TEST_ASSERT_EQUAL_INT(INT_MAX, count);
 }
 
 int main(void) {
