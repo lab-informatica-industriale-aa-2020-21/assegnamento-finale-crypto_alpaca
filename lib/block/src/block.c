@@ -40,8 +40,7 @@ void mine(block *const block_to_mine, uint32_t *const count_index){
         // block_to_mine -> hash = funzione calcolo hash();
     }
 
-    time_t info_time;           // definizione della struttura per salvare le info su ora e data di creazione del blocco
-    block_to_mine -> creation_time = time(&info_time);      // info gg/mm/yy (data) - h:min:sec (ora) sulla creazione del nuovo blocco
+    block_to_mine -> creation_time = time(NULL);      // info mm/gg/yy (data) - h:min:sec (ora) sulla creazione del nuovo blocco
     // !!ATTENZIONE!! -> quando andremo a stampare l'indice creation_time del blocco sarà necessario usare la funzione 'ctime()' per convertire il contenuto della struttura time in stringa  
     *count_index ++;                                        // conteggio del numero di blocchi minati
     block_to_mine -> index = count_index;                  // inserisco il numero corrispondente al blocco 
