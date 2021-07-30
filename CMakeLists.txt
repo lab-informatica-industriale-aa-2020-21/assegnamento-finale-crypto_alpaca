@@ -17,6 +17,10 @@ endif()
 set(TARGET_GROUP test CACHE STRING "Group to build")
 
 add_subdirectory(lib/hash)
+add_subdirectory(lib/transaction)
+add_subdirectory(lib/block)
+add_subdirectory(lib/chain)
+add_subdirectory(lib/conflict)
 
 if(TARGET_GROUP STREQUAL production)
         add_subdirectory(app)
