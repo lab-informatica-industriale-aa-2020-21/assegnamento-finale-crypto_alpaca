@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <math.h>
-
+#include "hash.h"
 
 #define word_len 32
 #define dim_hash 8                      //L'hash avrà sempre dimensione pari a 256bit -> 8word
@@ -89,20 +89,9 @@
                     0xbef9a3f7,\
                     0xc67178f2
 
-unsigned int rotate (unsigned int num, int n_bit);
-unsigned int sigma_0 (unsigned int x);
-unsigned int sigma_1 (unsigned int x);
-unsigned int usigma_0 (unsigned int x);
-unsigned int usigma_1 (unsigned int x);
-unsigned int maggiority (unsigned int x, unsigned int y,  unsigned int z);
-unsigned int choice ( unsigned int x, unsigned int y,  unsigned int z);
-unsigned int bin_to_decimal (bool *x, int len_x);
-void decimal_to_bin (unsigned int x, bool *vett, int len_vett);
-void uint32_to_uint8 (unsigned int input, u_int8_t *n);
-char* int_32_to_char(unsigned int input, unsigned int *dim_eff, bool found_non_zero);
-unsigned int* create_block(unsigned int list_trans_len, int *n_block, unsigned int nonce, char *nonce_char, unsigned int dim_nonce);
-void loading_data (unsigned int* block_data, int n_block, const unsigned int* prev_hash, unsigned int nonce, unsigned int dim_nonce, char *nonce_char, unsigned int* list_trans, unsigned int list_trans_len);
-
+/*  Per Binotto: le funzioni che avevi dichiarato sono state spostate nel file hash.h. 
+    La libreria 'hash.h è stata inclusa sopra.
+*/
 
 int main (int argc, char ** argv){
     unsigned int input = 8432319;
@@ -122,7 +111,7 @@ return 0;
 }
 
 
-/*Funzioni elementari per hash
+/*  Funzioni elementari per hash:
 **  >> shift vs destra
 **  ^  operatore di XOR
 */
@@ -258,7 +247,14 @@ unsigned int* create_block(unsigned int list_trans_len, int *n_block, unsigned i
             *n_block = (dim_tot/dim_block_hash);
     }    
          
-    block_data = malloc(sizeof(unsigned int) * (*n_block) * dim_block_hash);        //fare controllo malloc
+    block_data = malloc(sizeof(unsigned int) * (*n_block) * dim_block_hash);        
+        
+    // Controllo funzionamento di malloc()
+    if(block_data == NULL){
+        printf("Error: malloc() failure");
+        exit(EXIT_FAILURE);
+    }
+
     if(block_data == NULL){}
         //Segnalare errore.
         
@@ -315,12 +311,24 @@ char* int_32_to_char(unsigned int input, unsigned int *dim_eff, bool found_non_z
     //Sempre in BIG ENDIAN
     int i=10;                               //Offset per utilizzare l'ordine dei byte di tipo BIG ENDIAN
     int j=0;                                //Indice per il vettore digit_eff
-    unsigned int dim = 10;                      //Dimensione per memorizzare il max numero di cifre che un uint_32 può essere max (10).
+    unsigned int dim = 10;                  //Dimensione per memorizzare il max numero di cifre che un uint_32 può essere max (10).
     char *digit = NULL;
     char *digit_eff = NULL;
 
     digit = malloc(sizeof(char) * dim);
+    // Controllo funzionamento di malloc()
+    if(digit == NULL){
+        printf("Error: malloc() failure");
+        exit(EXIT_FAILURE);
+    }
+
     digit_eff = malloc(sizeof(char) * (dim));           //Variabile che conterrà le cifre effettive.
+    // Controllo funzionamento di malloc()
+    if(digit_eff == NULL){
+        printf("Error: malloc() failure");
+        exit(EXIT_FAILURE);
+    }
+
     *dim_eff = dim;                                     //Dimensione effettiva per mem tutte le cifre (tolgo gli zeri superflui).
 
     //Ricavo le cifre e le converto in char.
@@ -333,9 +341,15 @@ char* int_32_to_char(unsigned int input, unsigned int *dim_eff, bool found_non_z
     for (int i = 0; i < dim; i++){
         if(digit[i] == 0 && found_non_zero == 0){
             *dim_eff = *dim_eff - 1;
-            free(digit_eff);
-            digit_eff = malloc(sizeof(char) * (*dim_eff));
-        }else{
+            free(digit_eff);                                    // deallocazione della memoria
+            digit_eff = malloc(sizeof(char) * (*dim_eff));      // allocazione della memoria
+            // Controllo funzionamento di malloc()
+            if(digit_eff == NULL){
+                printf("Error: malloc() failure");
+                exit(EXIT_FAILURE);
+            }
+        }
+        else{
             found_non_zero = 1;
             digit_eff[j] = digit[i];            //Non posso usare lo stesso indice (violo le posizioni).
             j++; 
@@ -346,6 +360,6 @@ char* int_32_to_char(unsigned int input, unsigned int *dim_eff, bool found_non_z
         digit_eff[0] = 0 + '0';
     }
     
-    free(digit); 
+    free(digit);     // deallocazione della memoria 
 return digit_eff;  
 }
