@@ -6,7 +6,6 @@
 #ifndef blocco_h
 #define blocco_h
 
-#include<stdio.h>
 #include<stdbool.h>
 #include<time.h>
 #include "transaction.h"
@@ -25,12 +24,12 @@ typedef struct
 } block;
 
 // Funzione per la creazione di uno nuovo blocco di transazioni della blockchain:
-block *new_block(const block *last, const trans *head);
+block *new_block(const block *head_block, const trans *head_trans);
 
 // Mina il nuovo blocco creato, ovvero aggiunge il blocco alla blockchain:
 void mine(block *const block_to_mine, uint *const count_index);
 
 // Funzione per l'aggiunta del nuovo blocco nella blockchain: 
-void add_block(block *last, trans *head);
+void add_block(block *head_block, trans *head_trans);
 
 #endif

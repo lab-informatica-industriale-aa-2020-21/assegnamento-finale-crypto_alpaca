@@ -8,10 +8,10 @@
 
 // Dichiarazioni delle variabili:
 uint32_t count_index = 0;
-block *last = NULL;
+block *head_block = NULL;
 
 // Funzione per la creazione di uno nuovo blocco di transazioni della blockchain:
-block *new_block(const block *last, const trans *first_trans){
+block *new_block(const block *head_block, const trans *first_trans){
 
     block *tmp_block;
     tmp_block = malloc(sizeof(block));
@@ -22,14 +22,14 @@ block *new_block(const block *last, const trans *first_trans){
         exit(EXIT_FAILURE);
     }
 
-    tmp_block -> prev_hash = last -> hash;      // assegnazione dell'hash del blocco precedente al prev_hash del blocco attuale
-    last -> hash = tmp_block -> prev_hash;      // si accede all'hash del blocco precedente e lo si salva in quello nuovo              
+    tmp_block -> prev_hash = head_block -> hash;      // assegnazione dell'hash del blocco precedente al prev_hash del blocco attuale
+    head_block -> hash = tmp_block -> prev_hash;      // si accede all'hash del blocco precedente e lo si salva in quello nuovo              
     tmp_block -> nonce = 0;     //valore temporaneo di nonce
     tmp_block -> first_trans = first_trans;
     tmp_block -> num_trans = get_count_trans();
     tmp_block -> index = 0;     //valore temporaneo di index
-    // hash = (richiamo funzione di calcolo dell'hash)    //assegnazione hash
-
+    // hash = (richiamo funzione di calcolo dell'hash)    //assegnazione hash temporaneo
+    
     return tmp_block;
 }
 
