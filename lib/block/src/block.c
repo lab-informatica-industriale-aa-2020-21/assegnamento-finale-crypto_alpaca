@@ -4,7 +4,7 @@
 */
 
 #include "block.h"
-
+#include<stdlib.h>
 
 // Dichiarazioni delle variabili:
 uint32_t count_index = 0;
@@ -42,6 +42,6 @@ void mine(block *const block_to_mine, uint32_t *const count_index){
 
     block_to_mine -> creation_time = time(NULL);      // info mm/gg/yy (data) - h:min:sec (ora) sulla creazione del nuovo blocco
     // !!ATTENZIONE!! -> quando andremo a stampare l'indice creation_time del blocco sarà necessario usare la funzione 'ctime()' per convertire il contenuto della struttura time in stringa  
-    *count_index ++;                                        // conteggio del numero di blocchi minati
+    count_index ++;                                        // conteggio del numero di blocchi minati
     block_to_mine -> index = count_index;                  // inserisco il numero corrispondente al blocco 
 }
