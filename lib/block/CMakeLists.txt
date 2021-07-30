@@ -11,4 +11,8 @@ target_include_directories(block
         PUBLIC include
         )
 
+target_link_libraries(block
+        PUBLIC LII::transaction
+        )
+
 add_library(LII::block ALIAS block)
