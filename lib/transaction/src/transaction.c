@@ -3,9 +3,12 @@
  all'aggiunta della transazione
 ----------------------------------------------------------------------- */ 
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+
 #include "transaction.h"
-#include<stdlib.h>
-#include<stdint.h>
+
 
 // Dichiarazione variabili: 
 int count = 0;
