@@ -29,7 +29,4 @@ block *new_block(const block *head_block, const trans *head_trans);
 // Mina il nuovo blocco creato, ovvero aggiunge il blocco alla blockchain:
 void mine(block *const block_to_mine, uint *const count_index);
 
-// Funzione per l'aggiunta del nuovo blocco nella blockchain: 
-void add_block(block *head_block, trans *head_trans);
-
 #endif
