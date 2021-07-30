@@ -4,8 +4,8 @@
 #ifndef transaction_h
 #define transaction_h
 
-#include<stdio.h>
 #include<stdbool.h>
+#include<stdint.h>
 
 // Definizione della struttura della transazione: 
 typedef struct 

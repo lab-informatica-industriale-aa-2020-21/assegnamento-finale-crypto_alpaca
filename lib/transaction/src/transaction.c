@@ -4,6 +4,8 @@
 ----------------------------------------------------------------------- */ 
 
 #include "transaction.h"
+#include<stdlib.h>
+#include<stdint.h>
 
 // Dichiarazione variabili: 
 int count = 0;
@@ -12,7 +14,7 @@ trans *head_trans = NULL;
 
 // Funzione per la creazione di una nuova transazione: 
 
-trans *new_trans(const int32_t public_key_sender, const int32_t public_key_receiver, const int32_t amount_transaction, int *const count ){
+trans *new_trans(const int32_t public_key_sender, const int32_t public_key_receiver, const int32_t amount_transaction, int *count ){
     trans *tmp_transaction;                     // definizione di una variabile con struttura 'trans'
     tmp_transaction = malloc(sizeof(trans));    // allocazione di memoria per una transazione
 
