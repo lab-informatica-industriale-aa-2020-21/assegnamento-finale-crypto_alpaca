@@ -50,11 +50,11 @@ void add_trans(const uint32_t sender,const uint32_t receiver, const uint32_t amo
 }
 
 // Funzione che ritorna il numero delle transazioni che sono state create:
-uint get_count_trans(){
+uint32_t get_count_trans(){
     return count; 
 }
 
 // Funzione che ritorna l'indirizzo della prima transazione della lista:
-uint *get_first_trans(){
+uint32_t *get_first_trans(){
     return first_trans; 
 }

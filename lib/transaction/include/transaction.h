@@ -25,8 +25,8 @@ trans *new_trans(const int32_t public_key_sender, const int32_t public_key_recei
 void add_trans(const uint32_t sender,const uint32_t receiver, const uint32_t amount, trans *head_trans, int *const count);
 
 // Conteggio numero di transazioni aggiunte 
-uint get_count_trans();
+uint32_t get_count_trans();
 
 // Indirizzo primo elemento della lista
-uint *get_first_trans();
+uint32_t *get_first_trans();
 #endif 
