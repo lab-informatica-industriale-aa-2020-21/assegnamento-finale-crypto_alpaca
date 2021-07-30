@@ -11,4 +11,8 @@ target_include_directories(chain
         PUBLIC include
         )
 
+target_link_libraries(block
+        PUBLIC LII::block
+        )
+
 add_library(LII::chain ALIAS chain)
