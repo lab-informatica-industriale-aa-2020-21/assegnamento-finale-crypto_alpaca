@@ -4,7 +4,9 @@
 */
 
 #include "block.h"
-#include<stdlib.h>
+#include <stdlib.h>
+#include <stdio.h>
+
 
 // Dichiarazioni delle variabili:
 uint32_t count_index = 0;
