@@ -11,7 +11,7 @@ target_include_directories(chain
         PUBLIC include
         )
 
-target_link_libraries(block
+target_link_libraries(chain
         PUBLIC LII::block
         )
 
