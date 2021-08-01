@@ -12,6 +12,7 @@
 #define val_max_32bit 2147483648
 #define dim_prev_hash 256               //Dimesione hash sempre pari a 256, per definizione.
 #define bit_per_char 8                  //Numero di bit per char.
+#define n_char_per_uint32 10
 
 
 
@@ -111,9 +112,14 @@ return 0;
 }
 
 
-/*  Funzioni elementari per hash:
+/*Funzioni elementari per hash
 **  >> shift vs destra
 **  ^  operatore di XOR
+*/
+
+/*sigma_0()
+**Funzione che preleva in input una word a 32bit e restituisce il risultato dell'operazione indicata.
+**(Rotazione di 7) XOR (Rotazione di 18) XOR (shift di 3 a dx)
 */
 unsigned int sigma_0 (unsigned int x)
 {
@@ -122,6 +128,10 @@ unsigned int sigma_0 (unsigned int x)
 return num;
 }
 
+/*sigma_1()
+**Funzione che preleva in input una word a 32bit e restituisce il risultato dell'operazione indicata.
+**(Rotazione di 17) XOR (Rotazione di 19) XOR (shift di 10 a dx)
+*/
 unsigned int sigma_1 (unsigned int x)
 {
     unsigned int num=0;
@@ -129,6 +139,10 @@ unsigned int sigma_1 (unsigned int x)
 return num;
 }
 
+/*usigma_0() 
+**Funzione che preleva in input una word a 32bit e restituisce il risultato dell'operazione indicata.
+**(Rotazione di 2) XOR (Rotazione di 13) XOR (Rotazione di 22)
+*/
 unsigned int usigma_0 (unsigned int x)
 {
     unsigned int num=0;
@@ -136,6 +150,10 @@ unsigned int usigma_0 (unsigned int x)
 return num;
 }
 
+/*usigma_1()
+**Funzione che preleva in input una word a 32bit e restituisce il risultato dell'operazione indicata.
+**(Rotazione di 6) XOR (Rotazione di 11) XOR (Rotazione di 25)
+*/
 unsigned int usigma_1 (unsigned int x)
 {
     unsigned int num=0;
@@ -143,6 +161,9 @@ unsigned int usigma_1 (unsigned int x)
 return num;
 }
 
+/*rotate()
+**Funzione che preleva in input una word a 32bit ed effettua la rotazione della stessa
+*/
 unsigned int rotate (unsigned int x, int n_bit)
 {
     unsigned int num=0;
@@ -150,7 +171,11 @@ unsigned int rotate (unsigned int x, int n_bit)
 return num;
 }
 
-//Il formato è BIG ENDIAN. v[0] = MSB; v[max] = LSB;
+/*decimal_to_bin() : conversione decimale -> binario.
+**Funzione che realizza la conversione da decimale a binaria. Viene utilizzata la convenzione BIG ENDIAN.
+**
+**Il formato BIG ENDIAN equivale a porre in v[0] = MSB; v[max] = LSB;
+*/
 void decimal_to_bin (unsigned int x, bool *vett, int len_vett)
 { 
     for (int i = len_vett - 1; i >= 0 && x > 0 ; i--){
@@ -159,6 +184,9 @@ void decimal_to_bin (unsigned int x, bool *vett, int len_vett)
     }
 }
 
+/*bin_to_decimal() : conversione binario -> decimale
+**Funzione che realizza la conversione da bianario a decimale.
+*/
 unsigned int bin_to_decimal (bool *x, int len_x)
 {
     unsigned int vett = 0;
@@ -168,6 +196,12 @@ unsigned int bin_to_decimal (bool *x, int len_x)
 return vett;
 }
 
+/*choice() : scelta()
+**x, y, z := word a 32 bit passati alla funzione,
+**num := word a 32 bit ritornata dalla funzione,
+**
+**In base al valore assunto da x[i], num[i] sarà uguale a y[i] oppure z[i].
+*/
 unsigned int choice (unsigned int x, unsigned int y, unsigned int z)
 {
     bool x_bit[word_len] = {0};
@@ -191,6 +225,12 @@ unsigned int choice (unsigned int x, unsigned int y, unsigned int z)
 return bin_to_decimal(num, word_len);
 }
 
+/*maggiority()
+**x, y, z := word a 32 bit passati alla funzione,
+**num := word a 32 bit ritornata dalla funzione,
+**
+**num[i] sarà pari al valore che è presente in maggioranza sulla colonna i-esima.
+*/
 unsigned int maggiority (unsigned int x, unsigned int y, unsigned int z)
 {
     bool x_bit[word_len] = {0};
@@ -217,22 +257,21 @@ return bin_to_decimal(num, word_len);
 /*Creazione del messaggio a partire dai dati ricevuti dal blocco.
 **list_trans_len := indica la dimensione in BIT dei dati che andranno a comporre il blocco
 **dim_prev_hash := lunghezza in bit del prev_hash. Come da definizione ha dimensione fissa pari a 256bit.
-**dim_nonce := ha dimensione che può variare. Per questo, questa viene calcolata. 
+**dim_nonce := dimensione fissata a 10 caratteri (num max di cifre per numero uint32) char ovvero 80bit.
 **
 **Restituisce il block_data che dorvà essere processato dall'hash e il numero di blocchi da 512bit che sono presenti in esso.
 */
-unsigned int* create_block(unsigned int list_trans_len, int *n_block, unsigned int nonce, char *nonce_char, unsigned int dim_nonce)
+unsigned int* create_block(unsigned int list_trans_len, int *n_block, unsigned int dim_nonce)
 {
     u_int64_t dim_dati = 0;             //Dimensione in bit
     u_int64_t dim_tot = 0;
     unsigned int *block_data = NULL;
 
-    nonce_char = int_32_to_char(nonce, &dim_nonce, 0);
-    dim_dati = list_trans_len + dim_prev_hash + (dim_nonce * bit_per_char);    
+    dim_dati = list_trans_len + dim_prev_hash + dim_nonce;    
 
     //Calcolo dim totale del blocco da generare.
     if(dim_dati == 0)
-        dim_tot = dim_dati + pci_hash - 1;      //-1: indica il bit che separa dati dal padding.
+        dim_tot = dim_dati + pci_hash - 1;      //Se non ho dati non dovrò nemmeno aggiungere il bit che separa i dati dal padding, perciò il -1.
     else   
         dim_tot = dim_dati + pci_hash;
 
@@ -253,11 +292,7 @@ unsigned int* create_block(unsigned int list_trans_len, int *n_block, unsigned i
     if(block_data == NULL){
         printf("Error: malloc() failure");
         exit(EXIT_FAILURE);
-    }
-
-    if(block_data == NULL){}
-        //Segnalare errore.
-        
+    } 
 return block_data;
 }
 
@@ -265,32 +300,30 @@ void loading_data (unsigned int* block_data, int n_block, const unsigned int* pr
 {
     u_int64_t dim_dati = 0;     //Dimensione blocco (dati) in bit.
     int list_tran_index = 0;
-    char *prev_hash_part = NULL;
+    char *prev_hash_part = NULL;                    //Conterrà il vettore di char che corrisponde al uint convertito in char cifra per cifra.
+    char *prev_hash_tot = NULL;
+    unsigned int prev_hash_char_dim = 10;           //Varrà sempre 10 poichè un uint32 ha 10 cifre.Non di interesse poichè so che per ogni word da 32bit del hash devo avere una dim fissa.
 
+    prev_hash_tot = (char *) malloc(sizeof(char)*80);        //80 poichè hash è costituito da 8 word a 32bit (uint32) che convertite in char saranno 8*10, dove 10 indica le cifre char necessarie a rappr. un unsigned int
+    if(prev_hash_tot == NULL){
+        printf("Error: malloc() failure while generating prev_hash_tot.");
+        exit(EXIT_FAILURE);
+    } 
     dim_dati = (dim_nonce + dim_prev_hash + list_trans_len) * word_len;
 
-
-    for (int i = 0; i < dim_block_hash * n_block; i++){
-        if (i < dim_prev_hash){
-            block_data[i] = prev_hash[i];                       //Memorizzazione del previous_hash.
-        }
-        else if (i == dim_prev_hash && dim_nonce != 0){
-            block_data[i] = nonce;                              //Memorizzazione del nonce.
-        }
-        else if (i < dim_prev_hash + dim_nonce + list_trans_len){
-            block_data[i] = list_trans[list_tran_index];        //Memorizzazione delle transazioni
-            list_tran_index++;
-        }
-        else if ((i == dim_prev_hash + dim_nonce + list_trans_len) &&  dim_dati != 0){
-            block_data[i] = val_max_32bit;                      //Sarà il valor che mi permette di mettere un 1 per separare i dati dal padding. 
-        }
-        else {
-            block_data[i] = 0;                                  //Imposto le restanti celle a zero.
-        }    
+    //Conversione prev_hash in char. Che poi verrà memorizzato in un vettore di 80char prev_hash_tot.
+    for (int i = 0; i < 8; i++){                                               //Hash è costituito da 8 word da 32bit ciascuna.
+        prev_hash_part = int_32_to_char(prev_hash[i], n_char_per_uint32);
+        for (int j = 0; j < prev_hash_char_dim; j++){
+            prev_hash_tot[n_char_per_uint32*i+j] = prev_hash_part[j];          //E' un vettore contentente 80 celle char
+        }  
     }
-    //Le ultime due locazioni di 32 bit del blocco di hash dovranno contenera la dimensione dei dati in esso contenuti.
-    block_data[(n_block * dim_block_hash) - 2] = (dim_dati) >> word_len;
-    block_data[(n_block * dim_block_hash) - 1] = ((dim_dati) << word_len ) >> word_len ;
+    //Codice per memorizzare dentro il block_data tutto il prev_hash in formato char.
+    for(int j = 0; j < n_char_per_prev_hash; j++){                                      
+        for (int i = 0; i < sizeof(unsigned int) / sizeof(char); i++){     
+            block_data[j] += prev_hash_tot[4*j+i] << (3-i)*8;
+        }
+    }
 }
 
 
@@ -301,65 +334,24 @@ void uint32_to_uint8 (unsigned int input, u_int8_t *n){
     n[3] = (input >> 24);  
 }
 
-/*Funzione che permette di convertire un unsigned int in un vettore di char che ne descriva le singole cifre in codice ASCII.
-**Viene inoltre calcolata il numero effettivo di caratteri (celle) char realmente necessarie a descrivere il numero in esame.
-**found_non_zero :
-**      0 -> ELIMINO gli zeri non significativi ex. 000028963 => 28963 con dimensione pari a 5, ovvero memorizzabile in un vettore del tipo char[5]
-**      1 -> NON elimino gli zeri non significativi. Utile nella conversione del prev_hash poichè questo deve avere dimensione FISSA (ovvero non posso elimanare zeri).
+/*int_32_to_char ()
+**Funzione che permette di convertire un unsigned int in un vettore di char che ne descriva le singole cifre in codice ASCII.
 */
-char* int_32_to_char(unsigned int input, unsigned int *dim_eff, bool found_non_zero){
+char* int_32_to_char(unsigned int input, unsigned int dim_eff){
     //Sempre in BIG ENDIAN
     int i=10;                               //Offset per utilizzare l'ordine dei byte di tipo BIG ENDIAN
-    int j=0;                                //Indice per il vettore digit_eff
-    unsigned int dim = 10;                  //Dimensione per memorizzare il max numero di cifre che un uint_32 può essere max (10).
-    char *digit = NULL;
     char *digit_eff = NULL;
 
-    digit = malloc(sizeof(char) * dim);
-    // Controllo funzionamento di malloc()
-    if(digit == NULL){
-        printf("Error: malloc() failure");
-        exit(EXIT_FAILURE);
-    }
-
-    digit_eff = malloc(sizeof(char) * (dim));           //Variabile che conterrà le cifre effettive.
-    // Controllo funzionamento di malloc()
+    digit_eff = (char *) calloc(dim_eff, sizeof(char));         //Variabile che conterrà le cifre effettive.
     if(digit_eff == NULL){
-        printf("Error: malloc() failure");
+        printf("Error: calloc() failure");
         exit(EXIT_FAILURE);
     }
-
-    *dim_eff = dim;                                     //Dimensione effettiva per mem tutte le cifre (tolgo gli zeri superflui).
 
     //Ricavo le cifre e le converto in char.
     while (input){
-        digit[--i] = input % 10 + '0';
+        digit_eff[--i] = input % 10 + '0';
         input /= 10;   
     }
-    
-    //Scorro le cifre partendo dal MSB
-    for (int i = 0; i < dim; i++){
-        if(digit[i] == 0 && found_non_zero == 0){
-            *dim_eff = *dim_eff - 1;
-            free(digit_eff);                                    // deallocazione della memoria
-            digit_eff = malloc(sizeof(char) * (*dim_eff));      // allocazione della memoria
-            // Controllo funzionamento di malloc()
-            if(digit_eff == NULL){
-                printf("Error: malloc() failure");
-                exit(EXIT_FAILURE);
-            }
-        }
-        else{
-            found_non_zero = 1;
-            digit_eff[j] = digit[i];            //Non posso usare lo stesso indice (violo le posizioni).
-            j++; 
-        }   
-    }
-    if (found_non_zero == 0){        //Vuol dire che il valore di input è proprio 0.
-        *dim_eff = 1;
-        digit_eff[0] = 0 + '0';
-    }
-    
-    free(digit);     // deallocazione della memoria 
 return digit_eff;  
 }
