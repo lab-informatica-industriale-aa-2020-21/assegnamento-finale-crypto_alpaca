@@ -19,8 +19,27 @@ void int32_to_stringDec(const uint_32_t number, char *str_out){
     snprintf(str_out, DEC_NUMB_LENGTH + 1, "%08d", (int)number);
 }
 
-void print_line(const char *title, const char *arg, char str_out){
+void print_line(const char *title, const char *arg, char *str_out){
     snprintf(str_out, LINE_LENGTH + 1, "%-*s%*s", TITLE_LENGTH, title, ARG_LENGTH, arg);
+}
+
+void print_trans(const int_32_t num_trans, const trans *trans_to_print, char *str_out){
+    char line1 [TITLE_LENGTH + 1], line2 [TITLE_LENGTH + 1], line3 [TITLE_LENGTH + 1], line4 [TITLE_LENGTH + 1];
+    char tmp;
+    
+    int32_to_stringDEC(num_trans, tmp);
+    snprintf(line1, LINE_LENGTH + 1, "#%s"), tmp);
+
+    int32_to_stringHex(trans_to_print -> sender, tmp);
+    print_line(SEND, tmp, line2);
+
+    int32_to_stringDex(trans_to_print -> receiver, tmp);
+    print_line(RCV, tmp, line3);
+
+    int32_to_stringDec(trans_to_print -> amount, tmp);
+    snprintf (line4, LINE_LENGTH + 1, "%-*s%*s€", TITLE_LENGTH, AMT, ARG_LENGTH -1, tmp);
+
+    snprintf(str_out, TRANS_LENGTH +1, "%s\n%s\n%s\n%s\n", line1, line2, line3, line4);
 }
 
 void print_block_header(const block *block_to_print, char *str_out){
@@ -34,8 +53,8 @@ void print_block_header(const block *block_to_print, char *str_out){
     char line2 [LINE_LENGTH + 1];
     print_line(CRE, block_to_print -> creation_time, line2);
 
-    //line3, 4, 5, 6, 7, 8 -> hash
-    char line3 [LINE_LENGTH + 1], line4 [LINE_LENGTH + 1], line5 [LINE_LENGTH + 1], line6 [LINE_LENGTH + 1], line7 [LINE_LENGTH + 1], line8 [LINE_LENGTH + 1];
+    //line3, 4, 5, 6, 7, 8, 9, 10 -> hash
+    char line3 [LINE_LENGTH + 1], line4 [LINE_LENGTH + 1], line5 [LINE_LENGTH + 1], line6 [LINE_LENGTH + 1], line7 [LINE_LENGTH + 1], line8 [LINE_LENGTH + 1], line9 [LINE_LENGTH + 1], line10 [LINE_LENGTH + 1], line11 [LINE_LENGTH + 1];
 
         //3
     int32_to_stringHex(*block_to_print -> hash [0], tmp);
@@ -55,22 +74,32 @@ void print_block_header(const block *block_to_print, char *str_out){
         //8
     int32_to_stringHex(*block_to_print -> hash [5], tmp);
     print_line(" ", tmp, line8);
+        //9
+    int32_to_stringHex(*block_to_print -> hash [6], tmp);
+    print_line(" ", tmp, line9);
+        //10
+    int32_to_stringHex(*block_to_print -> hash [7], tmp);
+    print_line(" ", tmp, line10);
 
-    //line9 -> nonce
-    char line9 [LINE_LENGTH + 1]
+    //line11 -> nonce
+    char line11 [LINE_LENGTH + 1]
     int32_to_stringDEC(*block_to_print -> nonce, tmp);
-    print_line(NONCE, tmp, line9)
+    print_line(NONCE, tmp, line11)
 
-    snprintf(str_out, BLOCK_HEADER_LENGTH + 1, "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n"), line1, line2, line3, line4, line5, line6, line7, line8, line9)
+    snprintf(str_out, BLOCK_HEADER_LENGTH + 1, "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n"), line1, line2, line3, line4, line5, line6, line7, line8, line9, line10, line11)
 }
 
 void print_block_trans(const block *block_to_print, char *str_out){
-    int num_trans = *block_to_print -> num_trans;
+    int_32_t count_trans = 0;
+    char tmp [TRANS_LENGTH + 1];
 
-    trans *next = block_to_print -> first_trans;
+    trans *next_to_print = firs_trans;
 
     do {
         //stampa prima transazione
-        //aggiorna il puntatore next alla successiva transazione
-    } while (next == NULL);
+        print_trans(num_trans, next_to_print, tmp);
+        strcat(str_out, tmp);
+        //aggiorna il puntatore next_to_print alla successiva transazione
+        next_to_print = next_to_print -> next;
+    } while (next_to_print == NULL);
 }
