@@ -4,9 +4,9 @@
 */
 
 // Definizione delle librerie utili per il progetto 
-#include<stdio.h>
-#include<stdlib.h>
-#include<stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
 #include <stdint.h>
 #include "hash.h"
 #include "trans.h"
