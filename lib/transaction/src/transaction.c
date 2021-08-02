@@ -53,13 +53,3 @@ void add_trans(const uint32_t sender,const uint32_t receiver, const uint32_t amo
 
     old_head -> next = head_trans;                                        // assegnazione del puntatore 'next' della transazione precedente
 }
-
-// Funzione che ritorna il numero delle transazioni che sono state create:
-uint32_t get_count_trans(){
-    return count; 
-}
-
-// Funzione che ritorna l'indirizzo della prima transazione della lista:
-uint32_t *get_first_trans(){
-    return first_trans; 
-}
