@@ -1,9 +1,11 @@
 #include "file_IO.h"
 #include "trans.h"
 #include "block.h"
-#include<stdio.h>
-#include<string.h>
-#include<stdint.h>
+#include "chain.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdint.h>
 // index        ->  uint
 // creation     ->  data e ora
 // hash         ->  6 righe di int32 Hex
@@ -112,4 +114,16 @@ void print_block(const block *block_to_print, char *str_out){
     print_block_trans(block_to_print,trans);
 
     snprintf(str_out, BLOCK_HEADER_LENGTH + count_trans * TRANS_LENGTH + 3, "%s\n%s\n", block_header, trans);
+}
+
+void write_block(const block *block_to_print){
+    FILE *fp_chain;
+    fp_chain = fopen("blockchain.txt", "w");
+
+    char block [];
+    print_block(block_to_print, block);
+
+    fprintf(fp_chain, "%s", block);
+
+    fclose(fp_chain);
 }

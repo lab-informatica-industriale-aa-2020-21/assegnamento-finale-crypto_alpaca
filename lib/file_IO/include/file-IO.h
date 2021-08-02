@@ -4,7 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 #include "chain.h"
+#include "trans.h"
+#include "block.h"
 
 #define TITLE_LENGTH 15         //max caratteri per il titolo
 #define ARG_LENGTH 20           //max caratteri per l'argomento
