@@ -25,12 +25,11 @@ void print_line(const char *title, const char *arg, char *str_out){
     snprintf(str_out, LINE_LENGTH + 1, "%-*s%*s", TITLE_LENGTH, title, ARG_LENGTH, arg);
 }
 
-void print_trans(const uint32_t num_trans, const trans *trans_to_print, char *str_out){
-    char line1 [TITLE_LENGTH + 1], line2 [TITLE_LENGTH + 1], line3 [TITLE_LENGTH + 1], line4 [TITLE_LENGTH + 1];
+void print_trans(const uint32_t num, const trans *trans_to_print, char *str_out){
+    char line1 [LINE_LENGTH + 1], line2 [LINE_LENGTH + 1], line3 [LINE_LENGTH + 1], line4 [LINE_LENGTH + 1];
     char tmp [ARG_LENGTH];
     
-    int32_to_stringDec(num_trans, tmp);
-    snprintf(line1, LINE_LENGTH + 1, "#%s", tmp);
+    snprintf(line1, LINE_LENGTH + 1, "Transaction n. %d", num);
 
     int32_to_stringHex(trans_to_print -> sender, tmp);
     print_line(SEND, tmp, line2);
@@ -93,13 +92,16 @@ void print_block_header(const struct block *block_to_print, char *str_out){
 void print_block_trans(const struct block *block_to_print, char *str_out){
 
     char tmp [TRANS_LENGTH + 1];
+    int num = 0;
 
     struct trans *next_to_print = block_to_print -> first_trans;
 
     do {
         //stampa prima transazione
-        print_trans(num_trans, next_to_print, tmp);
+        print_trans(num, next_to_print, tmp);
         strcat(str_out, tmp);
+        strcat(str_out, "\n");
+        num++;
         //aggiorna il puntatore next_to_print alla successiva transazione
         next_to_print = next_to_print -> next;
     } while (next_to_print == NULL);
