@@ -39,7 +39,6 @@ void print_line(const char *title, const char *arg, char str_out);
 void print_block_header(const block *block_to_print, char *str_out);
 
 //  Stampa di tutte le transazioni appartenenti ad un blocco 
-void print_block_trans(const block *block_to_print, char *str_out)
-
+void print_block_trans(const block *block_to_print, char *str_out);
 
 #endif
