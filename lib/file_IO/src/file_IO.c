@@ -87,12 +87,15 @@ void print_block_header(const block *block_to_print, char *str_out){
 
 void print_block_trans(const block *block_to_print, char *str_out){
     int_32_t count_trans = 0;
-    char num_trans
+    char tmp [TRANS_LENGTH + 1];
 
-    trans *next = firs_trans;
+    trans *next_to_print = firs_trans;
 
     do {
         //stampa prima transazione
-        //aggiorna il puntatore next alla successiva transazione
-    } while (next == NULL);
+        print_trans(num_trans, next_to_print, tmp);
+        strcat(str_out, tmp);
+        //aggiorna il puntatore next_to_print alla successiva transazione
+        next_to_print = next_to_print -> next;
+    } while (next_to_print == NULL);
 }
