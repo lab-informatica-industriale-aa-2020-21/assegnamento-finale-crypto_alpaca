@@ -11,13 +11,13 @@
 
 
 // Dichiarazione variabili: 
-int count = 0;
+int count_trans = 0;
 trans *first_trans = NULL;
 trans *head_trans = NULL;
 
 // Funzione per la creazione di una nuova transazione: 
 
-trans *new_trans(const int32_t public_key_sender, const int32_t public_key_receiver, const int32_t amount_transaction, int *count ){
+trans *new_trans(const int32_t public_key_sender, const int32_t public_key_receiver, const int32_t amount_transaction, int *count_trans ){
     trans *tmp_transaction;                     // definizione di una variabile con struttura 'trans'
     tmp_transaction = malloc(sizeof(trans));    // allocazione di memoria per una transazione
 
@@ -34,21 +34,21 @@ trans *new_trans(const int32_t public_key_sender, const int32_t public_key_recei
     tmp_transaction -> next = NULL;                           // puntatore al successivo della lista 
 
     // incremento del contatore che tiene traccia del numero di transazioni che vengono create:
-    *count ++;
+    *count_trans ++;
 
     return tmp_transaction;
 }
 
 /* Creazione della lista di transazioni:
     questa funzione aggiunge le nuove transazioni alla lista delle transazioni  */
-void add_trans(const uint32_t sender,const uint32_t receiver, const uint32_t amount, trans *head, int *const count){
+void add_trans(const uint32_t sender,const uint32_t receiver, const uint32_t amount, trans *head, int *const count_trans){
     trans *old_head = head_trans;                                         // salvataggio della 'testa' della lista 
     if (head_trans == NULL){
-        first_trans = new_trans(sender, receiver, amount, &count);
+        first_trans = new_trans(sender, receiver, amount, &count_trans);
         head_trans = first_trans;
     }
     else{
-        head_trans = new_trans(sender, receiver, amount, &count);        // assegnazione della nuova 'testa' della lista
+        head_trans = new_trans(sender, receiver, amount, &count_trans);        // assegnazione della nuova 'testa' della lista
     }
 
     old_head -> next = head_trans;                                        // assegnazione del puntatore 'next' della transazione precedente
