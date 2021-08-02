@@ -99,3 +99,13 @@ void print_block_trans(const block *block_to_print, char *str_out){
         next_to_print = next_to_print -> next;
     } while (next_to_print == NULL);
 }
+
+void print_block(const block *block_to_print, char *str_out){
+    char block_header [BLOCK_HEADER_LENGTH + 1];
+    char trans [TRANS_LENGTH * count_trans +1];
+
+    print_block_header(block_to_print, block_header);
+    print_block_trans(block_to_print,trans);
+
+    snprintf(str_out, BLOCK_HEADER_LENGTH + count_trans * TRANS_LENGTH + 3, "%s\n%s\n", block_header, trans);
+}
