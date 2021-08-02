@@ -1,4 +1,6 @@
 #include "file_IO.h"
+#include<stdio.h>
+#include<string.h>
 
 // index        ->  uint
 // creation     ->  data e ora
