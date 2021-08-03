@@ -24,8 +24,7 @@ block *new_block(const block *head_block, const trans *first_trans){
         exit(EXIT_FAILURE);
     }
 
-    tmp_block -> prev_hash = head_block -> hash;      // assegnazione dell'hash del blocco precedente al prev_hash del blocco attuale
-    head_block -> hash = tmp_block -> prev_hash;      // si accede all'hash del blocco precedente e lo si salva in quello nuovo              
+    tmp_block -> prev_hash = head_block -> hash;      // assegnazione dell'hash del blocco precedente al prev_hash del blocco attuale      
     tmp_block -> nonce = 0;     //valore temporaneo di nonce
     tmp_block -> first_trans = first_trans;
     tmp_block -> num_trans = get_count_trans();
@@ -35,7 +34,7 @@ block *new_block(const block *head_block, const trans *first_trans){
     return tmp_block;
 }
 
-void mine(block *const block_to_mine, uint32_t *const count_index){
+void mine(block *const block_to_mine, const uint32_t *count_index){
 
     while (block_to_mine -> hash[0] > MAX_VALID_FIRST_HASH_ELEMENT){     //controllo se i primi 4 bit (del primo uint_32) sono diversi da 0
         block_to_mine -> nonce ++;              // incremento del valore di 'nonce' fino a trovare quello corretto, in base alle condizione di hash scelte
