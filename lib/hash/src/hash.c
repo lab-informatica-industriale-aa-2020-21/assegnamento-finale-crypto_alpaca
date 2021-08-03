@@ -3,14 +3,16 @@
 #include <string.h>
 #include <stdbool.h>
 #include <math.h>
-//#include "hash.h"
+#include "hash.h"
 
 #define word_len 32
+#define bit_per_char 8
 #define dim_hash 8                      //L'hash avrà sempre dimensione pari a 256bit -> 8word
 #define pci_hash 65                     //Dimensione info di ridondanza definite dall'algoritmo SHA-256
 #define dim_block_hash 16               //Dimensione blocco hash in W32
 #define val_max_32bit 2147483648
-#define dim_prev_hash 256               //Dimesione hash sempre pari a 256, per definizione.
+#define dim_prev_hash 640               //Dimesione hash sempre pari a 256, per definizione. Poichè la funz. hash accetta in input solo char a seguito della conversione risulta: 
+                                        //8(uint32) * n_char_per_uint32 * 8bit(dimensione di un char) = 640.
 
 #define n_char_per_uint32 10
 #define n_char_per_prev_hash 20         //N celle char per memorizzare il prev hash 10char per ogni unsigned int, sapendo che l'hash è costituito da 8 unsigned int 
@@ -99,17 +101,30 @@
     La libreria 'hash.h è stata inclusa sopra.
 */
 
+
 int main (int argc, char ** argv){
     unsigned int input = 8432319;
+    unsigned int prev_hash[8] = {1111111111, 2002222222, 3333333333, 1112222222, 1115555555, 1111666666, 1010777777 , 1112525252};
+    
+    unsigned int list_trans_len = 24*8;
+    char list_trans[24] = {'a', 'b', 'c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x'};
+    unsigned int *block_data = NULL;
+    int n_block = 0;
+
     u_int8_t x[4] = {0};
     bool b_x[32] = {0};
     char *digit = NULL;          
 
-    digit = int_32_to_char(input);
-    printf("dim: %u\n\n", n_char_per_uint32);
+    block_data = create_block(list_trans_len, &n_block);
+    loading_data(block_data, n_block, prev_hash, 180, list_trans, list_trans_len);
 
-    for (int i = 0; i < n_char_per_uint32; i++){
-        printf("%c\n", digit[i]);
+    for (int i = 0; i < n_block*dim_block_hash; i++){
+        printf("\n%d)\t%10u\t\t", i, block_data[i]);
+        decimal_to_bin(block_data[i], b_x, word_len);
+        for (int j = 0; j < word_len; j++){
+            printf("%d", b_x[j]);
+        }
+            
     }
     
 return 0;
@@ -182,6 +197,10 @@ return num;
 */
 void decimal_to_bin (unsigned int x, bool *vett, int len_vett)
 { 
+    for (int i = 0; i < len_vett; i++){
+        vett[i] = 0;
+    }
+    
     for (int i = len_vett - 1; i >= 0 && x > 0 ; i--){
         vett[i] = x % 2;
         x = x / 2;
@@ -286,9 +305,9 @@ unsigned int* create_block(unsigned int list_trans_len, int *n_block)
     }
     else{
         if (dim_tot % (dim_block_hash*word_len) != 0)
-            *n_block = (dim_tot/dim_block_hash)+1;
+            *n_block = (dim_tot/(dim_block_hash*word_len))+1;
         else
-            *n_block = (dim_tot/dim_block_hash);
+            *n_block = (dim_tot/(dim_block_hash*word_len));
     }    
          
     block_data = malloc(sizeof(unsigned int) * (*n_block) * dim_block_hash);        
@@ -317,7 +336,7 @@ void loading_data (unsigned int* block_data, int n_block, const unsigned int* pr
         exit(EXIT_FAILURE);
     } 
 
-    dim_dati = (dim_nonce + dim_prev_hash + list_trans_len) * word_len;
+    dim_dati = dim_nonce + dim_prev_hash + list_trans_len;
 
     //Conversione prev_hash in char. Che poi verrà memorizzato in un vettore di 80char prev_hash_tot.
     for (int i = 0; i < 8; i++){                                               //Hash è costituito da 8 word da 32bit ciascuna.
@@ -332,74 +351,31 @@ void loading_data (unsigned int* block_data, int n_block, const unsigned int* pr
             block_data[j] += prev_hash_tot[4*j+i] << (3-i)*8;
         }
     }
-
-    block_data = block_data + n_char_per_prev_hash;
     
-    if(list_trans_len % 4 == 0){
-        for(int j = 0; j < list_trans_len / (sizeof(unsigned int) / sizeof(char)); j++){      //j < list_trans_len/4 perchè 32bit/8bit = 4 celle char per ogni uint32                                 
-            for (int i = 0; i < sizeof(unsigned int) / sizeof(char); i++){     
-                block_data[j] += list_trans[4*j+i] << (3-i)*8;
-            }
-        }
-        nonce_char = int_32_to_char(nonce);
+    //block_data = block_data + n_char_per_prev_hash;
+    //block_data = block_data + 20;
+    
+    //Memorizzazione list_trans nel block_data. 
+    //NB: list_trans avrà un numero di celle char empre multiplo di 24. Quindi riuscirò sempre a riempire completamente 6*n word a 32bit.
+    //list_trans_len/bit_per_char := numero di celle in list_trans. Dividendo qst per 4 calcolo quante W32bit sono necessarie per la memorizz.
 
-        for (int j = 0; j < 3; j++){                                    //Hash è costituito da 8 word da 32bit ciascuna.
-            for (int i = 0; i < sizeof(unsigned int) / sizeof(char); i++){
-                if(j == 2){
-                    block_data[j] = (nonce_char[4*j+0] << 24) + (nonce_char[4*j+0] << 16) + (unsigned int)offset_mod_0;
-                }else{
-                     block_data[j] += nonce_char[4*j+i] << (3-i)*8;          //E' un vettore contentente 80 celle char
-                }
-            }  
-        }
-                
-    }
-    else if (list_trans_len % 4 == 1)
-    {
-        for(int j = 0; j < list_trans_len / (sizeof(unsigned int) / sizeof(char)) + 1; j++){      //j < list_trans_len/4 perchè 32bit/8bit = 4 celle char per ogni uint32                                 
-            for (int i = 0; i < sizeof(unsigned int) / sizeof(char); i++){     
-                if(j == list_trans_len / (sizeof(unsigned int) / sizeof(char))){
-                    block_data[j] = (list_trans[4*j+i] << 24) + (nonce_char[0] << 16) + (nonce_char[1] << 8) + nonce_char[2];
-                    block_data[j+1] = (nonce_char[3] << 24) + (nonce_char[4] << 16) + (nonce_char[5] << 8) + nonce_char[6];
-                    block_data[j+2] = (nonce_char[7] << 24) + (nonce_char[8] << 16) + (nonce_char[9] << 8) + offset_mod_1;
-                    break;
-                }else{
-                    block_data[j] += list_trans[4*j+i] << (3-i)*8;
-                }
-            }
+    unsigned int nword_per_list_trans = (list_trans_len/bit_per_char) / (sizeof(unsigned int) / sizeof(char));        //numero W32bit per memorizzare tutto list_trans.
+    for(int j = 0; j < nword_per_list_trans; j++){    
+        for (int i = 0; i < sizeof(unsigned int) / sizeof(char); i++){              //4 char per ogni uint32.  
+            block_data[j+n_char_per_prev_hash] += list_trans[4*j+i] << (3-i)*8;
         }
     }
-    else if (list_trans_len % 4 == 2)
-    {
-        for(int j = 0; j < list_trans_len / (sizeof(unsigned int) / sizeof(char)) + 1; j++){      //j < list_trans_len/4 perchè 32bit/8bit = 4 celle char per ogni uint32                                 
-            for (int i = 0; i < sizeof(unsigned int) / sizeof(char); i++){     
-                if(j == list_trans_len / (sizeof(unsigned int) / sizeof(char))){
-                    block_data[j] = (list_trans[4*j+0] << 24) + (list_trans[4*j+1] << 16) + (nonce_char[0] << 8) + nonce_char[1];
-                    block_data[j+1] = (nonce_char[2] << 24) + (nonce_char[3] << 16) + (nonce_char[4] << 8) + nonce_char[5];
-                    block_data[j+2] = (nonce_char[6] << 24) + (nonce_char[7] << 16) + (nonce_char[8] << 8) + nonce_char[9];
-                    block_data[j+3] = offset_mod_2;
-                    break;
-                }else{
-                    block_data[j] += list_trans[4*j+i] << (3-i)*8;
-                }
+
+    nonce_char = int_32_to_char(nonce);
+
+    for (int j = 0; j < 3; j++){                                    //Hash è costituito da 8 word da 32bit ciascuna.
+        for (int i = 0; i < sizeof(unsigned int) / sizeof(char); i++){
+            if(j == 2){
+                block_data[j+ n_char_per_prev_hash + nword_per_list_trans] = (nonce_char[4*j+0] << 24) + (nonce_char[4*j+0] << 16) + (unsigned int)offset_mod_0;
+            }else{
+                block_data[j+ n_char_per_prev_hash + nword_per_list_trans] += nonce_char[4*j+i] << (3-i)*8;    
             }
-        }
-    }
-    else if (list_trans_len % 4 == 3)
-    {
-        for(int j = 0; j < list_trans_len / (sizeof(unsigned int) / sizeof(char)) + 1; j++){      //j < list_trans_len/4 perchè 32bit/8bit = 4 celle char per ogni uint32                                 
-            for (int i = 0; i < sizeof(unsigned int) / sizeof(char); i++){     
-                if(j == list_trans_len / (sizeof(unsigned int) / sizeof(char))){
-                    block_data[j] = (list_trans[4*j+0] << 24) + (list_trans[4*j+1] << 16) + (list_trans[4*j+2] << 8) + nonce_char[0];
-                    block_data[j+1] = (nonce_char[1] << 24) + (nonce_char[2] << 16) + (nonce_char[3] << 8) + nonce_char[4];
-                    block_data[j+2] = (nonce_char[5] << 24) + (nonce_char[6] << 16) + (nonce_char[7] << 8) + nonce_char[8];
-                    block_data[j+3] = (nonce_char[9] << 24) + offset_mod_3;
-                    break;
-                }else{
-                    block_data[j] += list_trans[4*j+i] << (3-i)*8;
-                }
-            }
-        }
+        }  
     }
     
     //Le ultime due locazioni di 32 bit del blocco di hash dovranno contenera la dimensione dei dati in esso contenuti.
