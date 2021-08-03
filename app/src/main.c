@@ -9,7 +9,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include "hash.h"
-#include "trans.h"
+#include "transaction.h"
 #include "block.h"
 #include "chain.h"
 
