@@ -14,9 +14,9 @@
 
 int main()
 {
-    printf("Benvenuto! \n 
-            Questo programma simula l'algoritmo di gestione di una blockchain
-            Sei pronto a scoprirlo? Premi un tasto per continuare... ");
+    printf("Benvenuto! \n"
+           "Questo programma simula l'algoritmo di gestione di una blockchain"
+           "Sei pronto a scoprirlo? Premi un tasto per continuare... ");
     
     getchar(); // attesa di un input da tastiera per continuare l'esecuzione del programma
 
