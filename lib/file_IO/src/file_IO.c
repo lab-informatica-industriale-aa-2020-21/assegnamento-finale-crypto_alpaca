@@ -22,11 +22,14 @@ void int32_to_stringDec(const uint32_t number, char *str_out){
 }
 
 void print_line(const char *title, const char *arg, char *str_out){
-    snprintf(str_out, LINE_LENGTH + 1, "%-*s%*s", TITLE_LENGTH, title, ARG_LENGTH, arg);
+    snprintf(str_out, LINE_LENGTH + 1, "%-*s%*s",
+            TITLE_LENGTH, title, ARG_LENGTH, arg);
 }
 
 void print_trans(const uint32_t num, const trans *trans_to_print, char *str_out){
-    char line1 [LINE_LENGTH + 1], line2 [LINE_LENGTH + 1], line3 [LINE_LENGTH + 1], line4 [LINE_LENGTH + 1];
+    char line1 [LINE_LENGTH + 1], line2 [LINE_LENGTH + 1],
+            line3 [LINE_LENGTH + 1], line4 [LINE_LENGTH + 1];
+
     char tmp [ARG_LENGTH];
     
     snprintf(line1, LINE_LENGTH + 1, "Transaction n. %d", num);
@@ -40,7 +43,8 @@ void print_trans(const uint32_t num, const trans *trans_to_print, char *str_out)
     int32_to_stringDec(trans_to_print -> amount, tmp);
     print_line(AMT, tmp, line4);
 
-    snprintf(str_out, TRANS_LENGTH +1, "%s\n%s\n%s\n%s\n", line1, line2, line3, line4);
+    snprintf(str_out, TRANS_LENGTH +1, "%s\n%s\n%s\n%s\n",
+            line1, line2, line3, line4);
 }
 
 void print_block_header(const struct block *block_to_print, char *str_out){
@@ -55,7 +59,11 @@ void print_block_header(const struct block *block_to_print, char *str_out){
     print_line(CRE, block_to_print -> creation_time, line2);
 
     //line3, 4, 5, 6, 7, 8, 9, 10 -> hash
-    char line3 [LINE_LENGTH + 1], line4 [LINE_LENGTH + 1], line5 [LINE_LENGTH + 1], line6 [LINE_LENGTH + 1], line7 [LINE_LENGTH + 1], line8 [LINE_LENGTH + 1], line9 [LINE_LENGTH + 1], line10 [LINE_LENGTH + 1], line11 [LINE_LENGTH + 1];
+    char line3 [LINE_LENGTH + 1], line4 [LINE_LENGTH + 1],
+            line5 [LINE_LENGTH + 1], line6 [LINE_LENGTH + 1],
+            line7 [LINE_LENGTH + 1], line8 [LINE_LENGTH + 1],
+            line9 [LINE_LENGTH + 1], line10 [LINE_LENGTH + 1],
+            line11 [LINE_LENGTH + 1];
 
         //3
     int32_to_stringHex(block_to_print -> hash [0], tmp);
@@ -86,7 +94,10 @@ void print_block_header(const struct block *block_to_print, char *str_out){
     int32_to_stringDec(block_to_print -> nonce, tmp);
     print_line(NONCE, tmp, line11);
 
-    snprintf(str_out, BLOCK_HEADER_LENGTH + 1, "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n", line1, line2, line3, line4, line5, line6, line7, line8, line9, line10, line11);
+    snprintf(str_out, BLOCK_HEADER_LENGTH + 1,
+            "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n",
+            line1, line2, line3, line4, line5, line6, line7, line8, line9,
+            line10, line11);
 }
 
 void print_block_trans(const struct block *block_to_print, char *str_out){
@@ -118,7 +129,8 @@ void print_block(const struct block *block_to_print, char *str_out){
     print_block_header(block_to_print, block_header);
     print_block_trans(block_to_print,trans);
 
-    snprintf(str_out, BLOCK_HEADER_LENGTH + num_trans * TRANS_LENGTH + 3, "%s\n%s\n", block_header, trans);
+    snprintf(str_out, BLOCK_HEADER_LENGTH + num_trans * TRANS_LENGTH + 3,
+            "%s\n%s\n", block_header, trans);
 }
 
 void write_block(const struct block *block_to_print){
