@@ -25,6 +25,7 @@
 #define RCV "Receiver:"
 #define AMT "Amount:"
 #define NONCE "Nonce number:"
+#define BLOCKCHAIN_TXT "blockchain.txt"
 
 //  Definizioni delle funzioni utilizzate in 'file_IO.c'
 

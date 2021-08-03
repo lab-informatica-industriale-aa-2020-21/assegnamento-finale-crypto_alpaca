@@ -92,7 +92,7 @@ void print_block_header(const struct block *block_to_print, char *str_out){
 void print_block_trans(const struct block *block_to_print, char *str_out){
 
     char tmp [TRANS_LENGTH + 1];
-    int num = 0;
+    uint32_t num = 0;
 
     struct trans *next_to_print = block_to_print -> first_trans;
 
@@ -105,6 +105,10 @@ void print_block_trans(const struct block *block_to_print, char *str_out){
         //aggiorna il puntatore next_to_print alla successiva transazione
         next_to_print = next_to_print -> next;
     } while (next_to_print == NULL);
+
+    char num_printed_trans [DEC_NUMB_LENGTH + 2];
+    snprintf(num_printed_trans, DEC_NUMB_LENGTH + 2, "%d\n", num);
+    strcat(str_out, num_printed_trans)
 }
 
 void print_block(const struct block *block_to_print, char *str_out){
@@ -119,8 +123,12 @@ void print_block(const struct block *block_to_print, char *str_out){
 
 void write_block(const struct block *block_to_print){
     FILE *fp_chain;
-    fp_chain = fopen("blockchain.txt", "w");
+    fp_chain = fopen(BLOCKCHAIN_TXT, "w");
 
+    if (fp_chain == NULL){
+        prinf("Error: can't open %s\n", BLOCKCHAIN_TXT);
+        exit(EXIT_FAILURE);
+    }
     char block_str [BLOCK_HEADER_LENGTH + num_trans * TRANS_LENGTH + 3];
     print_block(block_to_print, block_str);
 
@@ -128,3 +136,4 @@ void write_block(const struct block *block_to_print){
 
     fclose(fp_chain);
 }
+
