@@ -298,11 +298,11 @@ void get_arg(const FILE fp, long position){
     fgets(line, LINE_LENGT + 1, fp);
 
     int i = 0;
-    while (line [i + sizeof(TITLE_LENGTH)/sizeof(char)] != " ");{
-        arg [i] = line [i + sizeof(TITLE_LENGTH)/sizeof(char)];
+    while (line [i + TITLE_LENGTH] != ' ' && line [i + TITLE_LENGTH] != '\n'){
+        arg [i] = line [i + TITLE_LENGTH];
         i++;
     }
-    arg [i] = "\0";
+    arg [i] = '\0';
 }
 
 
