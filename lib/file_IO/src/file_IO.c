@@ -105,7 +105,7 @@ args:       block_to_print  ->  puntatore al blocco da stampare
             str_out         ->  puntatore alla stringa su cui verrà salvato il risultato
 return:     void
 */
-void print_block_header(const struct block *block_to_print, char *str_out){
+void print_block_header(const block *block_to_print, char *str_out){
     char tmp [ARG_LENGTH + 1];  //per salvare le stringhe momentanee
 
     //line1 -> index
