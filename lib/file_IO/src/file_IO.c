@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+
 #include "file_IO.h"
-#include "trans.h"
+#include "transaction.h"
 #include "block.h"
-#include "chain.h"
 
 
 /******************************************************************************

@@ -30,7 +30,6 @@
 #define AMT "Amount:"
 #define NONCE "Nonce number:"
 #define TRNS "Transaction n."
-#define NTRNS "Count trans."
 #define BLOCKCHAIN_TXT "blockchain.txt"
 
 
