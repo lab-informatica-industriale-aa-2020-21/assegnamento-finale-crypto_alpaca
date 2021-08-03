@@ -2,6 +2,7 @@
 
 #include "block.h"
 #include "chain.h"
+#include "transaction.h"
 #include <stdint.h>
 
 /*  Funzione per la creazione di una nuova blockchain:
@@ -12,7 +13,7 @@
 void add_block(block *const head_block, const trans *head_trans){
     
     // Creazione del blocco:
-    new_block(head_block, first_trans);
+    block *block_to_mine =  new_block(head_block, first_trans);
     
     // Il blocco creato viene minato 
     mine(block_to_mine, count_index);
@@ -21,9 +22,9 @@ void add_block(block *const head_block, const trans *head_trans){
 
 /*  Creazione di una nuova blockchain (di una catena )
     Avendo più linee di 'catene' (blockchain) è necessaria una funzione che ne crei una nuova*/ 
-chain *new_chain(const chain *head_chain, const block )
+chain *new_chain(const chain *head_chain)
 {
-    *head_block = NULL;
+    head_block = NULL;
     // gestione della testa della head_chain (aggiungere)
 }
 
@@ -32,6 +33,6 @@ block *new_block(block *const head_block, const trans *head_trans)
 {
 
     // Richiamo della funzione per aggiungere un nuovo blocco alla catena:
-    add_block(block *head_block, trans *head_trans);
+    add_block(head_block, head_trans);
 }
 

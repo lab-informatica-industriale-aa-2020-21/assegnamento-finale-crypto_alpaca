@@ -1,11 +1,11 @@
 // Di seguito viene riportato l'header file per la gestione della transazione
 
 
-#ifndef transaction_h
-#define transaction_h
+#ifndef TRANSACTION_H
+#define TRANSACTION_H
 
-#include<stdbool.h>
-#include<stdint.h>
+#include <stdbool.h>
+#include <stdint.h>
 
 // Definizione della struttura della transazione: 
 typedef struct 
@@ -15,6 +15,10 @@ typedef struct
     uint32_t amount;        // importo della transazione
     struct trans *next;            // puntatore alla transazione successiva
 } trans;
+
+int count_trans;
+trans *first_trans;
+trans *head_trans;
 
 // Funzioni utili per la gestione delle transazioni:
 
