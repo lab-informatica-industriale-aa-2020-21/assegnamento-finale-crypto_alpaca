@@ -13,7 +13,7 @@ uint32_t count_index = 0;
 block *head_block = NULL;
 
 // Funzione per la creazione di uno nuovo blocco di transazioni della blockchain:
-block *new_block(const block *head_block, const trans *first_trans){
+block *new_block(block *const head_block, const trans *first_trans){
 
     block *tmp_block;
     tmp_block = malloc(sizeof(block));

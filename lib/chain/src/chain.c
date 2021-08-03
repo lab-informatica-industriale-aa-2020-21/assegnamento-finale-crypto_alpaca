@@ -12,7 +12,7 @@
 void add_block(block *head_block, trans *head_trans){
     
     // Creazione del blocco:
-    new_block(const block *head_block, const trans *first_trans);
+    new_block(block *const head_block, const trans *first_trans);
     
     // Il blocco creato viene minato 
     mine(block *const block_to_mine, uint *const count_index);
@@ -22,10 +22,14 @@ void add_block(block *head_block, trans *head_trans){
 /*  Creazione di una nuova blockchain (di una catena )
     Avendo più linee di 'catene' (blockchain) è necessaria una funzione che ne crei una nuova*/ 
 chain *new_chain(const chain *head_chain, const block )
-
-block *new_block(const block *head_block){
-
+{
     *head_block = NULL;
+    // gestione della testa della head_chain (aggiungere)
+}
+
+// Funzione per la creazione di un nuovo blocco della catena:
+block *new_block(block *const head_block, const trans *head_trans)
+{
 
     // Richiamo della funzione per aggiungere un nuovo blocco alla catena:
     add_block(block *head_block, trans *head_trans);
