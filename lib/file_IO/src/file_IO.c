@@ -339,4 +339,13 @@ void get_prev_hash(const FILE fp, uint32_t *hash){
 }
 
 
-
+void get_trans_str(const FILE fp, long line, char *str_out){
+    fseek(fp, (LINE_LENGTH +1) * line, SEEK_END);
+    uint32_t count_trans = get_arg_int(fp, -2);
+    
+    for (int i = 0; i < count_trans; i++){
+        for (int j = 0; j < NUM_TRANS_LINE, j++){
+            
+        }
+    }
+}
