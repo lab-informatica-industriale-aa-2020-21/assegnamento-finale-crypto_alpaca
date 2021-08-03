@@ -27,6 +27,6 @@ typedef struct
 block *new_block(const block *head_block, const trans *head_trans);
 
 // Mina il nuovo blocco creato, ovvero aggiunge il blocco alla blockchain:
-void mine(block *const block_to_mine, uint32_t *const count_index);
+void mine(block *const block_to_mine, const uint32_t *count_index);
 
 #endif
