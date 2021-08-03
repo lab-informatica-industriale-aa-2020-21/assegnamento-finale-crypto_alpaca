@@ -8,9 +8,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdint.h>
-#include "hash.h"
-#include "transaction.h"
-#include "block.h"
+
 #include "chain.h"
 
 
