@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <math.h>
-//#include "hash.h"
+#include "hash.h"
 
 #define word_len 32
 #define dim_hash 8                      //L'hash avrà sempre dimensione pari a 256bit -> 8word
