@@ -33,11 +33,13 @@
     .   (per tutte le transazioni)          |
     .                                       |
                                             |
-    -> <numero> transactions.               /
+    Count trans.   <numero DEC>             /
 
 
 ******************************************************************************/
 
+
+//[*] -> snprintf(char *stringa_output, int dim_max_stringa, "testo", ...);
 
 
 /*
@@ -168,19 +170,19 @@ line1   ->  numero transazione
 line2   ->  numero mittente in esadecimale
 line3   ->  numero destinatario in esadecimale
 line4   ->  importo in decimale
-args:       num         -> numero transazione
+args:       count       -> numero transazione
             trans       -> puntatore alla transazione da stampare
             str_out     -> puntatore alla stringa su cui verrà salvato il risultato
 return:     void
 */
-void print_trans(const uint32_t num, const trans *trans_to_print, char *str_out){
+void print_trans(const uint32_t count, const trans *trans_to_print, char *str_out){
     char tmp [ARG_LENGTH];  //per salvare le stringhe momentanee
     
     char line1 [LINE_LENGTH + 1], line2 [LINE_LENGTH + 1],
             line3 [LINE_LENGTH + 1], line4 [LINE_LENGTH + 1];
 
     //line1 ->  numero transazione
-    snprintf(line1, LINE_LENGTH + 1, "%-*s%d", TITLE_LENGTH,TRNS, num); //[*]
+    snprintf(line1, LINE_LENGTH + 1, "%-*s%d", TITLE_LENGTH,TRNS, count); //[*]
 
     //line2 ->  sender
     int32_to_stringHex(trans_to_print -> sender, tmp);
@@ -212,7 +214,7 @@ return:     void
 */
 void print_block_trans(const struct block *block_to_print, char *str_out){
     char tmp [TRANS_LENGTH + 1];    //per salvare le stringhe momentanee
-    uint32_t num = 0;   //per il conteggio delle transazioni
+    uint32_t count = 0;   //per il conteggio delle transazioni
 
     //puntatore alla transazione da stampare
     struct trans *next_to_print = block_to_print -> first_trans;
@@ -220,12 +222,12 @@ void print_block_trans(const struct block *block_to_print, char *str_out){
     //il ciclo stampa una transazione alla volta fino alla fine della lista
     do {
         //stampa la transazione in 'tmp'
-        print_trans(num, next_to_print, tmp);
+        print_trans(count, next_to_print, tmp);
 
         //aggiunge 'tmp' a 'str_out'
         strcat(str_out, tmp);
 
-        num++;  //incrementa il contatore
+        count++;  //incrementa il contatore
 
         //aggiorna il puntatore next_to_print alla successiva transazione
         next_to_print = next_to_print -> next;
@@ -233,9 +235,9 @@ void print_block_trans(const struct block *block_to_print, char *str_out){
     } while (next_to_print == NULL);
 
     //Per stampare alla fine il numero di transizioni inserite nel blocco
-    char num_printed_trans [DEC_NUMB_LENGTH + 2];
-    snprintf(num_printed_trans, DEC_NUMB_LENGTH + 2, "-> %d transactions.\n", num); //[*]
-    strcat(str_out, num_printed_trans)
+    char count_printed_trans [LINE_LENGT + 1];
+    snprintf(count_printed_trans, LINE_LENGT, "%-*s%*d", TITLE_LENGTH, title, ARG_LENGTH, count); //[*]
+    strcat(str_out, count_printed_trans);
 }
 
 
@@ -287,4 +289,20 @@ void write_block(const struct block *block_to_print){
     //chiusura file
     fclose(fp_chain);
 }
+
+
+void get_arg(const FILE fp, long position){
+    fseek(fp, position, SEEK_END);
+    char line [LINE_LENGT + 1];
+    char arg [ARG_LENGTH + 1];
+    fgets(line, LINE_LENGT + 1, fp);
+
+    int i = 0;
+    while (line [i + sizeof(TITLE_LENGTH)/sizeof(char)] != " ");{
+        arg [i] = line [i + sizeof(TITLE_LENGTH)/sizeof(char)];
+        i++;
+    }
+    arg [i] = "\0";
+}
+
 
