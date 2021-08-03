@@ -77,7 +77,7 @@ line:       Titolo:                   Argomento
             \_____________/\__________________/
              TITLE_LENGTH       ARG_LENGTH
             \_________________________________/
-                       LINE_LENGT
+                       LINE_LENGTH
 args:       title       -> puntatore alla stringa contenente il titolo
             arg         -> puntatore alla stringa contenente l'argomento
             str_out     -> puntatore alla stringa su cui verrà salvato il risultato
@@ -91,7 +91,7 @@ void print_line(const char *title, const char *arg, char *str_out){
 
 void add_empty_line(char *str_out){
     char tmp [LINE_LENGT + 1];  //per salvare le stringhe momentanee
-    snprintf(tmp, LINE_LENGT + 1, "%*s", LINE_LENGT, ' ');
+    snprintf(tmp, LINE_LENGT + 1, "%*s\n", LINE_LENGTH, ' ');
     strcat(str_out, tmp);
 }
 
@@ -289,6 +289,7 @@ void write_block(const struct block *block_to_print){
     //formattazione blocco
     char block_str [BLOCK_HEADER_LENGTH + num_trans * TRANS_LENGTH + 3];
     print_block(block_to_print, block_str);
+    add_empty_line(block_str);
 
     //scrittura blocco sul file di testo
     fprintf(fp_chain, "%s\n", block_str);
