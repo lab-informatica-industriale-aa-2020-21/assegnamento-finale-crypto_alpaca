@@ -34,7 +34,7 @@
     .                                       |
                                             |
     Count trans.   <numero DEC>             /
-
+    \n
 
 ******************************************************************************/
 
@@ -86,6 +86,13 @@ return:     void
 void print_line(const char *title, const char *arg, char *str_out){
     snprintf(str_out, LINE_LENGTH + 1, "%-*s%*s",
             TITLE_LENGTH, title, ARG_LENGTH, arg);  //[*]
+}
+
+
+void add_empty_line(char *str_out){
+    char tmp [LINE_LENGT + 1];  //per salvare le stringhe momentanee
+    snprintf(tmp, LINE_LENGT + 1, "%*s", LINE_LENGT, ' ');
+    strcat(str_out, tmp);
 }
 
 
@@ -284,17 +291,16 @@ void write_block(const struct block *block_to_print){
     print_block(block_to_print, block_str);
 
     //scrittura blocco sul file di testo
-    fprintf(fp_chain, "%s", block_str);
+    fprintf(fp_chain, "%s\n", block_str);
 
     //chiusura file
     fclose(fp_chain);
 }
 
 
-void get_arg(const FILE fp, long position){
-    fseek(fp, position, SEEK_END);
+void get_arg(const FILE fp, const long line, char *arg){
+    fseek(fp, (LINE_LENGT +1) * line, SEEK_END);
     char line [LINE_LENGT + 1];
-    char arg [ARG_LENGTH + 1];
     fgets(line, LINE_LENGT + 1, fp);
 
     int i = 0;
@@ -304,5 +310,15 @@ void get_arg(const FILE fp, long position){
     }
     arg [i] = '\0';
 }
+
+
+uint32_t get_arg_int(const FILE fp, long line){
+    char arg [ARG_LENGTH + 1];
+
+    get_arg(fp, line, arg);
+
+    return atoi(arg);
+}
+
 
 
