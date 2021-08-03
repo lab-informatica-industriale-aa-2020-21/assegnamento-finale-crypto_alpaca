@@ -300,9 +300,9 @@ void write_block(const struct block *block_to_print){
 
 
 void get_arg(const FILE fp, const long line, char *arg){
-    fseek(fp, (LINE_LENGT +1) * line, SEEK_END);
-    char line [LINE_LENGT + 1];
-    fgets(line, LINE_LENGT + 1, fp);
+    fseek(fp, (LINE_LENGTH +1) * line, SEEK_END);
+    char line [LINE_LENGTH + 1];
+    fgets(line, LINE_LENGTH + 1, fp);
 
     int i = 0;
     while (line [i + TITLE_LENGTH] != ' ' && line [i + TITLE_LENGTH] != '\n'){
@@ -320,6 +320,7 @@ uint32_t get_arg_int(const FILE fp, long line){
 
     return atoi(arg);
 }
+
 
 
 
