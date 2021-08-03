@@ -210,12 +210,12 @@ args:       block_to_print  ->  puntatore al blocco da stampare
             str_out         ->  puntatore alla stringa su cui verrà salvato il risultato
 return:     void
 */
-void print_block_trans(const struct block *block_to_print, char *str_out){
+void print_block_trans(const block *block_to_print, char *str_out){
     char tmp [TRANS_LENGTH + 1];    //per salvare le stringhe momentanee
     uint32_t num = 0;   //per il conteggio delle transazioni
 
     //puntatore alla transazione da stampare
-    struct trans *next_to_print = block_to_print -> first_trans;
+    trans *next_to_print = block_to_print -> first_trans;
 
     //il ciclo stampa una transazione alla volta fino alla fine della lista
     do {
@@ -235,7 +235,7 @@ void print_block_trans(const struct block *block_to_print, char *str_out){
     //Per stampare alla fine il numero di transizioni inserite nel blocco
     char num_printed_trans [DEC_NUMB_LENGTH + 2];
     snprintf(num_printed_trans, DEC_NUMB_LENGTH + 2, "-> %d transactions.\n", num); //[*]
-    strcat(str_out, num_printed_trans)
+    strcat(str_out, num_printed_trans);
 }
 
 
@@ -248,15 +248,15 @@ args:       block_to_print  ->  puntatore al blocco da stampare
             str_out         ->  puntatore alla stringa su cui verrà salvato il risultato 
 return:     void
 */
-void print_block(const struct block *block_to_print, char *str_out){
+void print_block(const block *block_to_print, char *str_out){
     //per stampare l'header del blocco e le transazioni
     char block_header [BLOCK_HEADER_LENGTH + 1];
-    char trans [TRANS_LENGTH * num_trans +1];
+    char trans [TRANS_LENGTH * count_trans +1];
     print_block_header(block_to_print, block_header);
     print_block_trans(block_to_print,trans);
 
     //unione di header e transazioni
-    snprintf(str_out, BLOCK_HEADER_LENGTH + num_trans * TRANS_LENGTH + 3,
+    snprintf(str_out, BLOCK_HEADER_LENGTH + count_trans * TRANS_LENGTH + 3,
             "%s\n%s\n", block_header, trans);   //[*]
 }
 
@@ -267,13 +267,13 @@ al suo interno la stringa generata da 'print_block'.
 args        block_to_print  ->  puntatore al blocco da stampare
 return      void
 */
-void write_block(const struct block *block_to_print){
+void write_block(const block *block_to_print){
     //apertura file
     FILE *fp_chain; //creazione puntatore al file
     fp_chain = fopen(BLOCKCHAIN_TXT, "w");  //apertura file
 
     if (fp_chain == NULL){  //controllo se l'apertura ha avuto esito positivo
-        prinf("Error: can't open %s\n", BLOCKCHAIN_TXT);
+        printf("Error: can't open %s\n", BLOCKCHAIN_TXT);
         exit(EXIT_FAILURE);
     }
 
