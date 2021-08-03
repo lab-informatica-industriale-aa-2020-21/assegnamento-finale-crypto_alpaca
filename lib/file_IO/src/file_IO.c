@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 #include "file_IO.h"
-#include "trans.h"
+#include "transaction.h"
 #include "block.h"
 
 
