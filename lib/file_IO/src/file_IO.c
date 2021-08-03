@@ -279,7 +279,7 @@ return      void
 void write_block(const struct block *block_to_print){
     //apertura file
     FILE *fp_chain; //creazione puntatore al file
-    fp_chain = fopen(BLOCKCHAIN_TXT, "w");  //apertura file
+    fp_chain = fopen(BLOCKCHAIN_TXT, "w");  //apertura file in scrittura
 
     if (fp_chain == NULL){  //controllo se l'apertura ha avuto esito positivo
         prinf("Error: can't open %s\n", BLOCKCHAIN_TXT);
@@ -321,6 +321,22 @@ uint32_t get_arg_int(const FILE fp, long line){
     return atoi(arg);
 }
 
+
+void get_prev_hash(const FILE fp, uint32_t *hash){
+    //apertura file
+    FILE *fp_chain; //creazione puntatore al file
+    fp_chain = fopen(BLOCKCHAIN_TXT, "r");  //apertura file in lettura
+
+    if (fp_chain == NULL){  //controllo se l'apertura ha avuto esito positivo
+        prinf("Error: can't open %s\n", BLOCKCHAIN_TXT);
+        exit(EXIT_FAILURE);
+    }
+
+    uint32_t count_trans = get_arg_int(fp, -2);
+
+    for (int i = 0; i < 8, i++)                                     //---------------> inserire costante 8 da <hash.h>
+        hash [i] = get_arg_int(fp, -2 - NUM_TRANS_LINE * count_trans - 8 + i);          //---------------> inserire costante 8 da <hash.h>
+}
 
 
 
