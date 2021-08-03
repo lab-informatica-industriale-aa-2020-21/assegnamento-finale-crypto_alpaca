@@ -23,6 +23,9 @@ typedef struct
     uint32_t index;                     // indice numerico del blocco
 } block;
 
+uint32_t count_index;
+block *head_block;
+
 // Funzione per la creazione di uno nuovo blocco di transazioni della blockchain:
 block *new_block(block *const head_block, const trans *head_trans);
 

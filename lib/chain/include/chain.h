@@ -20,9 +20,11 @@ typedef struct chain
     Viene creato un nuovo blocco richiamando la funzione 'new_block';
     Successivamente il blocco viene minato attraverso l'esecuzione della funzione 'mine';
 */
-void add_block(block *head_block, trans *head_trans);
+void add_block(block *const head_block, const trans *head_trans);
 
 // Funzione per creare una nuova catena della blockchain:
 block *new_block(block *const head_block, const trans *head_trans);
+
+chain *new_chain(const chain *head_chain);
 
 #endif

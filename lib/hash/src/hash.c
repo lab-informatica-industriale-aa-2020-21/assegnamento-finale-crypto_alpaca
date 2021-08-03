@@ -99,7 +99,7 @@
     La libreria 'hash.h è stata inclusa sopra.
 */
 
-int main (int argc, char ** argv){
+/*int main (int argc, char ** argv){
     unsigned int input = 8432319;
     u_int8_t x[4] = {0};
     bool b_x[32] = {0};
@@ -113,7 +113,7 @@ int main (int argc, char ** argv){
     }
     
 return 0;
-}
+}*/
 
 
 /*Funzioni elementari per hash
