@@ -278,7 +278,7 @@ void write_block(const struct block *block_to_print){
     }
 
     //formattazione blocco
-    char block_str [BLOCK_HEADER_LENGTH + num_trans * TRANS_LENGTH + 3];
+    char block_str [BLOCK_HEADER_LENGTH + count_trans * TRANS_LENGTH + 3];
     print_block(block_to_print, block_str);
 
     //scrittura blocco sul file di testo
