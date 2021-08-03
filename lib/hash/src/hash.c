@@ -101,34 +101,21 @@
     La libreria 'hash.h è stata inclusa sopra.
 */
 
-
 int main (int argc, char ** argv){
-    unsigned int input = 8432319;
     unsigned int prev_hash[8] = {1111111111, 2002222222, 3333333333, 1112222222, 1115555555, 1111666666, 1010777777 , 1112525252};
     
     unsigned int list_trans_len = 24*8;
     char list_trans[24] = {'a', 'b', 'c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x'};
-    unsigned int *block_data = NULL;
-    int n_block = 0;
+    unsigned int *hash = NULL;        
 
-    u_int8_t x[4] = {0};
-    bool b_x[32] = {0};
-    char *digit = NULL;          
+    hash = hash_function(prev_hash, 180, list_trans, list_trans_len);
 
-    block_data = create_block(list_trans_len, &n_block);
-    loading_data(block_data, n_block, prev_hash, 180, list_trans, list_trans_len);
-
-    for (int i = 0; i < n_block*dim_block_hash; i++){
-        printf("\n%d)\t%10u\t\t", i, block_data[i]);
-        decimal_to_bin(block_data[i], b_x, word_len);
-        for (int j = 0; j < word_len; j++){
-            printf("%d", b_x[j]);
-        }
-            
-    }
+    for (int i = 0; i < 8; i++)
+        printf("%u\n", hash[i]);
+    
     
 return 0;
-}*/
+}
 
 
 /*Funzioni elementari per hash
@@ -326,9 +313,9 @@ void loading_data (unsigned int* block_data, int n_block, const unsigned int* pr
     char *nonce_char = 0;
     unsigned int dim_nonce = n_char_per_uint32*8;       //n_char_per_uint32 * 8 = 80bit in totale.
     
-    char *prev_hash_part = NULL;                    //Conterrà il vettore di char che corrisponde al uint convertito in char cifra per cifra.
+    char *prev_hash_part = NULL;                        //Conterrà il vettore di char che corrisponde al uint convertito in char cifra per cifra.
     char *prev_hash_tot = NULL;
-    unsigned int prev_hash_char_dim = 10;           //Varrà sempre 10 poichè un uint32 ha 10 cifre.Non di interesse poichè so che per ogni word da 32bit del hash devo avere una dim fissa.
+    unsigned int prev_hash_char_dim = 10;               //Varrà sempre 10 poichè un uint32 ha 10 cifre.Non di interesse poichè so che per ogni word da 32bit del hash devo avere una dim fissa.
 
     prev_hash_tot = (char *) malloc(sizeof(char)*80);        //80 poichè hash è costituito da 8 word a 32bit (uint32) che convertite in char saranno 8*10, dove 10 indica le cifre char necessarie a rappr. un unsigned int
     if(prev_hash_tot == NULL){
@@ -352,13 +339,9 @@ void loading_data (unsigned int* block_data, int n_block, const unsigned int* pr
         }
     }
     
-    //block_data = block_data + n_char_per_prev_hash;
-    //block_data = block_data + 20;
-    
     //Memorizzazione list_trans nel block_data. 
     //NB: list_trans avrà un numero di celle char empre multiplo di 24. Quindi riuscirò sempre a riempire completamente 6*n word a 32bit.
     //list_trans_len/bit_per_char := numero di celle in list_trans. Dividendo qst per 4 calcolo quante W32bit sono necessarie per la memorizz.
-
     unsigned int nword_per_list_trans = (list_trans_len/bit_per_char) / (sizeof(unsigned int) / sizeof(char));        //numero W32bit per memorizzare tutto list_trans.
     for(int j = 0; j < nword_per_list_trans; j++){    
         for (int i = 0; i < sizeof(unsigned int) / sizeof(char); i++){              //4 char per ogni uint32.  
@@ -385,13 +368,6 @@ void loading_data (unsigned int* block_data, int n_block, const unsigned int* pr
 }
 
 
-void uint32_to_uint8 (unsigned int input, u_int8_t *n){
-    n[0] = input; 
-    n[1] = (input >> 8); 
-    n[2] = (input >> 16); 
-    n[3] = (input >> 24);  
-}
-
 /*int_32_to_char ()
 **Funzione che permette di convertire un unsigned int in un vettore di char che ne descriva le singole cifre in codice ASCII.
 */
@@ -412,4 +388,86 @@ char* int_32_to_char(unsigned int input){
         input /= 10;   
     }
 return digit_eff;  
+}
+
+
+unsigned int* hash_function (const unsigned int* prev_hash, unsigned int nonce, char* list_trans, unsigned int list_trans_len)
+{
+    int n_block = 0;                                //Mi serve per capire quanti blocchi da 512 ci sono
+
+    unsigned int *block_data = NULL;
+    //unsigned int h_i[8] = {0};                    
+    unsigned int *h_i = NULL;                       //E' l'hash dell'i-esimo blocco. Composto da 8 word a 32bit come da definizione.
+    unsigned int h_0[dim_hash] = {h_iniziali};      //State register h0 := valori iniziali dettati da delle costanti.
+    unsigned int words[64] = {0};                   //conterrà le 64 word su cui l'hash dovrà operare. Le prime 16 sono prelevate dal block_data.
+    
+    unsigned int temp1, temp2;
+    unsigned int k_constants[64] = {ki_iniziali};
+    int offset = 16;                                //offset che mi permette di recuperare dal block_data word a 32bit in pacchetti di 16.
+
+    block_data = create_block(list_trans_len, &n_block);
+    loading_data(block_data, n_block, prev_hash, nonce, list_trans, list_trans_len);
+
+    h_i = malloc(sizeof(unsigned int)*8);
+    if(h_i == NULL){
+        printf("Error: malloc() failure while generating h_i.");
+        exit(EXIT_FAILURE);
+    } 
+
+    for (int j = 0; j < n_block; j++){ 
+        //Devo farlo sempre?
+        copy_vector(h_0, dim_hash, h_i, dim_hash);
+
+        for (int k = 0; k < dim_block_hash; k++){
+            words[k] = block_data[k+j*offset];      //Ogni volta che ho compresso un'intero blocco devo procedere con il prossimo e per prima cosa prelevo le 16word di partenza
+        }
+        for (int i = 0; i < 64; i++){               //Opero sulle 64 word. Le prime 16 note, le restanti calcolate come segue.    
+            if (i >= dim_block_hash){               
+                words[i] = sigma_1(i-2) + words[i-7] + sigma_0(i-15) + words[i-16];
+            }
+
+            temp1 = usigma_1(h_i[4]) + choice(h_i[4], h_i[5], h_i[6]) + h_i[7] + k_constants[i] + words[i];
+            temp2 = usigma_0(h_i[0]) + maggiority(h_i[0], h_i[1], h_i[2]);
+
+            shift_state_reg(h_i, 8);        //Sposto in basso in coeff. a->b, b->c etc.
+
+            h_i[0] = temp1 + temp2;
+            h_i[3] += temp1;    
+        }
+
+        sum_vector(h_0, dim_hash, h_i, dim_hash);       //Calcolo gli state register del blocco attuale definiti come h(i) = h(0) + h(i)    () := pedici
+        copy_vector(h_i, dim_hash, h_0, dim_hash);      //Aggiorno gli status register di partenza in caso vi siano ulteriori blocchi (n_block > 0)
+    }
+    
+return h_i;
+}
+
+//
+void shift_state_reg(unsigned int *vett, int len){
+    for (int i = 1; i < len; i++)
+        vett[i] = vett[i-1];
+}
+
+//Copia vett2[i] = vett1[i]
+bool copy_vector(const unsigned int *vett1, int len1, unsigned int *vett2, int len2){
+    if(len1 != len2){
+        printf("Error: what to copy? Lengths are different");
+        exit(EXIT_FAILURE);
+    }
+    else   
+        for (int i = 0; i < len2; i++)
+            vett2[i] = vett1[i];
+return 0;
+}
+
+//Somma tra due vettori vett2[i] = vett2[i] + vett1[i]
+bool sum_vector(const unsigned int *vett1, int len1, unsigned int *vett2, int len2){
+    if(len1 != len2){
+        printf("Error: what to copy? Lengths are different");
+        exit(EXIT_FAILURE);
+    }
+    else   
+        for (int i = 0; i < len2; i++)
+            vett2[i] = vett2[i] + vett1[i];
+return 0;
 }
