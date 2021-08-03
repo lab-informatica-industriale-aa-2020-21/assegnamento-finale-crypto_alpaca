@@ -14,8 +14,8 @@
 
 typedef struct
 {
-    uint32_t *prev_hash;            // puntatore a 'hash' del blocco precedente
-    uint32_t hash[6];               // 'hash' del blocco corrente  
+    uint32_t *prev_hash;                    // puntatore a 'hash' del blocco precedente
+    uint32_t hash[6];                       // 'hash' del blocco corrente  
     uint32_t nonce;                 
     struct trans *first_trans;             // puntatore alla prima transazione della lista
     int32_t num_trans;                  // numero di transazioni nel blocco
@@ -23,10 +23,13 @@ typedef struct
     uint32_t index;                     // indice numerico del blocco
 } block;
 
+uint32_t count_index;
+block *head_block;
+
 // Funzione per la creazione di uno nuovo blocco di transazioni della blockchain:
-block *new_block(const block *head_block, const trans *head_trans);
+block *new_block(block *const head_block, const trans *head_trans);
 
 // Mina il nuovo blocco creato, ovvero aggiunge il blocco alla blockchain:
-void mine(block *const block_to_mine, uint32_t *const count_index);
+void mine(block *const block_to_mine, const uint32_t *count_index);
 
 #endif

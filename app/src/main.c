@@ -9,12 +9,18 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include "hash.h"
-#include "trans.h"
+#include "transaction.h"
 #include "block.h"
 #include "chain.h"
 
 
 int main()
 {
+    printf("Benvenuto! \n 
+            Questo programma simula l'algoritmo di gestione di una blockchain
+            Sei pronto a scoprirlo? Premi un tasto per continuare... ");
+    
+    getchar(); // attesa di un input da tastiera per continuare l'esecuzione del programma
 
+    
 }
