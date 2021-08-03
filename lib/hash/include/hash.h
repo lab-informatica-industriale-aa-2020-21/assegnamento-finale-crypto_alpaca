@@ -1,7 +1,9 @@
 // File header per la funzione di hash:
-
 #ifndef HASH_H
 #define HASH_H
+
+#include <stdbool.h>
+#include <stdint.h>
 
 unsigned int rotate (unsigned int num, int n_bit);
 unsigned int sigma_0 (unsigned int x);
@@ -21,6 +23,6 @@ unsigned int* create_block(unsigned int list_trans_len, int *n_block);
 void loading_data (unsigned int* block_data, int n_block, const unsigned int* prev_hash, unsigned int nonce, char* list_trans, unsigned int list_trans_len);
 
 // Funzione per convertire dal formato uint32_t al formato uint8_t
-void uint32_to_uint8 (unsigned int input, u_int8_t *n);
+void uint32_to_uint8 (unsigned int input, uint8_t *n);
 
 #endif
