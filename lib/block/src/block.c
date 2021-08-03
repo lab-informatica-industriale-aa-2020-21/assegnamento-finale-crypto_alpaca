@@ -51,7 +51,7 @@ void mine(block *const block_to_mine, const uint32_t *count_index){
     block_to_mine -> index = count_index;                  // inserisco il numero corrispondente al blocco 
 }
 
-const char *get_str_creation_time(size_t creation_time) {
+const char *get_str_creation_time(time_t creation_time) {
     struct tm *timeinfo;
     char timeinfo_str[TIMEINFO_STR_LEN + 1];
 
