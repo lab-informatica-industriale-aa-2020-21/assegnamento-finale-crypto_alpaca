@@ -3,11 +3,12 @@
 
 // Struttura del blocco di transazioni:
 
-#ifndef blocco_h
-#define blocco_h
+#ifndef BLOCCO_H
+#define BLOCCO_H
 
-#include<stdbool.h>
-#include<time.h>
+#include <stdbool.h>
+#include <time.h>
+
 #include "transaction.h"
 
 #define MAX_VALID_FIRST_HASH_ELEMENT 0x0FFFFFFF
@@ -16,7 +17,7 @@ typedef struct
 {
     uint32_t *prev_hash;                    // puntatore a 'hash' del blocco precedente
     uint32_t hash[6];                       // 'hash' del blocco corrente  
-    uint32_t nonce;                 
+    uint32_t nonce;
     struct trans *first_trans;             // puntatore alla prima transazione della lista
     int32_t num_trans;                  // numero di transazioni nel blocco
     time_t creation_time;           // tempo per la creazione del blocco 
@@ -32,4 +33,5 @@ block *new_block(block *const head_block, const trans *head_trans);
 // Mina il nuovo blocco creato, ovvero aggiunge il blocco alla blockchain:
 void mine(block *const block_to_mine, const uint32_t *count_index);
 
+const char *get_str_creation_time(time_t creation_time);
 #endif
