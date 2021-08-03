@@ -34,7 +34,7 @@
     .                                       |
                                             |
     Count trans.   <numero DEC>             /
-
+    \n
 
 ******************************************************************************/
 
@@ -77,7 +77,7 @@ line:       Titolo:                   Argomento
             \_____________/\__________________/
              TITLE_LENGTH       ARG_LENGTH
             \_________________________________/
-                       LINE_LENGT
+                       LINE_LENGTH
 args:       title       -> puntatore alla stringa contenente il titolo
             arg         -> puntatore alla stringa contenente l'argomento
             str_out     -> puntatore alla stringa su cui verrà salvato il risultato
@@ -86,6 +86,13 @@ return:     void
 void print_line(const char *title, const char *arg, char *str_out){
     snprintf(str_out, LINE_LENGTH + 1, "%-*s%*s",
             TITLE_LENGTH, title, ARG_LENGTH, arg);  //[*]
+}
+
+
+void add_empty_line(char *str_out){
+    char tmp [LINE_LENGT + 1];  //per salvare le stringhe momentanee
+    snprintf(tmp, LINE_LENGT + 1, "%*s\n", LINE_LENGTH, ' ');
+    strcat(str_out, tmp);
 }
 
 
@@ -107,7 +114,7 @@ args:       block_to_print  ->  puntatore al blocco da stampare
             str_out         ->  puntatore alla stringa su cui verrà salvato il risultato
 return:     void
 */
-void print_block_header(const struct block *block_to_print, char *str_out){
+void print_block_header(const block *block_to_print, char *str_out){
     char tmp [ARG_LENGTH + 1];  //per salvare le stringhe momentanee
 
     //line1 -> index
@@ -212,12 +219,12 @@ args:       block_to_print  ->  puntatore al blocco da stampare
             str_out         ->  puntatore alla stringa su cui verrà salvato il risultato
 return:     void
 */
-void print_block_trans(const struct block *block_to_print, char *str_out){
+void print_block_trans(const block *block_to_print, char *str_out){
     char tmp [TRANS_LENGTH + 1];    //per salvare le stringhe momentanee
     uint32_t count = 0;   //per il conteggio delle transazioni
 
     //puntatore alla transazione da stampare
-    struct trans *next_to_print = block_to_print -> first_trans;
+    trans *next_to_print = block_to_print -> first_trans;
 
     //il ciclo stampa una transazione alla volta fino alla fine della lista
     do {
@@ -235,9 +242,15 @@ void print_block_trans(const struct block *block_to_print, char *str_out){
     } while (next_to_print == NULL);
 
     //Per stampare alla fine il numero di transizioni inserite nel blocco
+<<<<<<< HEAD
+    char num_printed_trans [DEC_NUMB_LENGTH + 2];
+    snprintf(num_printed_trans, DEC_NUMB_LENGTH + 2, "-> %d transactions.\n", num); //[*]
+    strcat(str_out, num_printed_trans);
+=======
     char count_printed_trans [LINE_LENGT + 1];
     snprintf(count_printed_trans, LINE_LENGT, "%-*s%*d", TITLE_LENGTH, title, ARG_LENGTH, count); //[*]
     strcat(str_out, count_printed_trans);
+>>>>>>> 4c4526ab171f1387d17a3ff8172e9835fa036599
 }
 
 
@@ -250,15 +263,15 @@ args:       block_to_print  ->  puntatore al blocco da stampare
             str_out         ->  puntatore alla stringa su cui verrà salvato il risultato 
 return:     void
 */
-void print_block(const struct block *block_to_print, char *str_out){
+void print_block(const block *block_to_print, char *str_out){
     //per stampare l'header del blocco e le transazioni
     char block_header [BLOCK_HEADER_LENGTH + 1];
-    char trans [TRANS_LENGTH * num_trans +1];
+    char trans [TRANS_LENGTH * count_trans +1];
     print_block_header(block_to_print, block_header);
     print_block_trans(block_to_print,trans);
 
     //unione di header e transazioni
-    snprintf(str_out, BLOCK_HEADER_LENGTH + num_trans * TRANS_LENGTH + 3,
+    snprintf(str_out, BLOCK_HEADER_LENGTH + count_trans * TRANS_LENGTH + 3,
             "%s\n%s\n", block_header, trans);   //[*]
 }
 
@@ -269,40 +282,76 @@ al suo interno la stringa generata da 'print_block'.
 args        block_to_print  ->  puntatore al blocco da stampare
 return      void
 */
-void write_block(const struct block *block_to_print){
+void write_block(const block *block_to_print){
     //apertura file
     FILE *fp_chain; //creazione puntatore al file
-    fp_chain = fopen(BLOCKCHAIN_TXT, "w");  //apertura file
+    fp_chain = fopen(BLOCKCHAIN_TXT, "w");  //apertura file in scrittura
 
     if (fp_chain == NULL){  //controllo se l'apertura ha avuto esito positivo
-        prinf("Error: can't open %s\n", BLOCKCHAIN_TXT);
+        printf("Error: can't open %s\n", BLOCKCHAIN_TXT);
         exit(EXIT_FAILURE);
     }
 
     //formattazione blocco
-    char block_str [BLOCK_HEADER_LENGTH + num_trans * TRANS_LENGTH + 3];
+    char block_str [BLOCK_HEADER_LENGTH + count_trans * TRANS_LENGTH + 3];
     print_block(block_to_print, block_str);
+    add_empty_line(block_str);
 
     //scrittura blocco sul file di testo
-    fprintf(fp_chain, "%s", block_str);
+    fprintf(fp_chain, "%s\n", block_str);
 
     //chiusura file
     fclose(fp_chain);
 }
 
 
-void get_arg(const FILE fp, long position){
-    fseek(fp, position, SEEK_END);
-    char line [LINE_LENGT + 1];
-    char arg [ARG_LENGTH + 1];
-    fgets(line, LINE_LENGT + 1, fp);
+void get_arg(const FILE fp, const long line, char *arg){
+    fseek(fp, (LINE_LENGTH +1) * line, SEEK_END);
+    char line [LINE_LENGTH + 1];
+    fgets(line, LINE_LENGTH + 1, fp);
 
     int i = 0;
-    while (line [i + sizeof(TITLE_LENGTH)/sizeof(char)] != " ");{
-        arg [i] = line [i + sizeof(TITLE_LENGTH)/sizeof(char)];
+    while (line [i + TITLE_LENGTH] != ' ' && line [i + TITLE_LENGTH] != '\n'){
+        arg [i] = line [i + TITLE_LENGTH];
         i++;
     }
-    arg [i] = "\0";
+    arg [i] = '\0';
 }
 
 
+uint32_t get_arg_int(const FILE fp, long line){
+    char arg [ARG_LENGTH + 1];
+
+    get_arg(fp, line, arg);
+
+    return atoi(arg);
+}
+
+
+void get_prev_hash(const FILE fp, uint32_t *hash){
+    //apertura file
+    FILE *fp_chain; //creazione puntatore al file
+    fp_chain = fopen(BLOCKCHAIN_TXT, "r");  //apertura file in lettura
+
+    if (fp_chain == NULL){  //controllo se l'apertura ha avuto esito positivo
+        prinf("Error: can't open %s\n", BLOCKCHAIN_TXT);
+        exit(EXIT_FAILURE);
+    }
+
+    uint32_t count_trans = get_arg_int(fp, -2);
+
+    for (int i = 0; i < 8, i++)                                     //---------------> inserire costante 8 da <hash.h>
+        hash [i] = get_arg_int(fp, -2 - NUM_TRANS_LINE * count_trans - 8 + i);          //---------------> inserire costante 8 da <hash.h>
+}
+
+
+void get_trans_str(const FILE fp, long line, char *str_out){
+    fseek(fp, (LINE_LENGTH +1) * line, SEEK_END);
+    uint32_t count_trans = get_arg_int(fp, -2);
+    
+    for (int i = 0; i < count_trans; i++){
+        for (int j = 0; j < NUM_TRANS_LINE, j++){
+            
+        }
+    }
+}

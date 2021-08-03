@@ -3,10 +3,14 @@
     - operazione di 'mining' dei blocchi; 
 */
 
-#include "block.h"
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
 
+#include "block.h"
+
+#define TIMEINFO_STR_LEN 24
 
 // Dichiarazioni delle variabili:
 uint32_t count_index = 0;
@@ -45,4 +49,15 @@ void mine(block *const block_to_mine, const uint32_t *count_index){
     // !!ATTENZIONE!! -> quando andremo a stampare l'indice creation_time del blocco sarà necessario usare la funzione 'ctime()' per convertire il contenuto della struttura time in stringa  
     count_index ++;                                        // conteggio del numero di blocchi minati
     block_to_mine -> index = count_index;                  // inserisco il numero corrispondente al blocco 
+}
+
+const char *get_str_creation_time(time_t creation_time) {
+    struct tm *timeinfo;
+    char timeinfo_str[TIMEINFO_STR_LEN + 1];
+
+    timeinfo = localtime(&creation_time);
+    char *tmp = asctime(timeinfo);
+    strncpy(timeinfo_str, tmp, TIMEINFO_STR_LEN);
+
+    return timeinfo_str;
 }
