@@ -266,7 +266,7 @@ void print_block(const block *block_to_print, char *str_out){
     print_block_trans(block_to_print,trans);
 
     //unione di header e transazioni
-    snprintf(str_out, BLOCK_HEADER_LENGTH + count_trans * TRANS_LENGTH + 3,
+    snprintf(str_out, BLOCK_HEADER_LENGTH + block_to_print -> first_trans -> count_trans * TRANS_LENGTH + 3,
             "%s\n%s\n", block_header, trans);   //[*]
 }
 
