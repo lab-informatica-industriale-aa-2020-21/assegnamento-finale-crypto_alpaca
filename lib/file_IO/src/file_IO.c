@@ -91,7 +91,7 @@ void print_line(const char *title, const char *arg, char *str_out){
 
 void add_empty_line(char *str_out){
     char tmp [LINE_LENGTH + 1];  //per salvare le stringhe momentanee
-    snprintf(tmp, LINE_LENGTH + 1, "%*s\n", LINE_LENGTH, ' ');
+    snprintf(tmp, LINE_LENGTH + 2, "%*c\n", LINE_LENGTH, ' ');
     strcat(str_out, tmp);
 }
 
@@ -335,7 +335,7 @@ void get_prev_hash(uint32_t *hash){
 
     uint32_t count_trans = get_arg_int(fp_chain, -2);
 
-    for (int i = 0; i < 8; i++)                                     //---------------> inserire costante 8 da <hash.h>
+    for (uint32_t i = 0; i < 8; i++)                                     //---------------> inserire costante 8 da <hash.h>
         hash [i] = get_arg_int(fp_chain, -2 - NUM_TRANS_LINE * count_trans - 8 + i);          //---------------> inserire costante 8 da <hash.h>
 }
 
@@ -346,7 +346,7 @@ void get_trans_str(char *str_out){
     fp_chain = fopen(BLOCKCHAIN_TXT, "r");  //apertura file in lettura
 
     if (fp_chain == NULL){  //controllo se l'apertura ha avuto esito positivo
-        prinf("Error: can't open %s\n", BLOCKCHAIN_TXT);
+        printf("Error: can't open %s\n", BLOCKCHAIN_TXT);
         exit(EXIT_FAILURE);
     }
 
@@ -354,8 +354,8 @@ void get_trans_str(char *str_out){
     uint32_t count_trans = get_arg_int(fp_chain, -2);
     char arg [ARG_LENGTH + 1];
 
-    for (int i = 0; i < count_trans; i++){
-        for (int j = 0; j < NUM_TRANS_LINE; j++){
+    for (uint32_t i = 0; i < count_trans; i++){
+        for (uint32_t j = 0; j < NUM_TRANS_LINE; j++){
             get_arg(fp_chain, j + 4 * i - 4 * count_trans - 1, arg);
             strcat(str_out, arg);
         }
