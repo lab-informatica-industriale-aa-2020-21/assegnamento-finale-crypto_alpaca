@@ -16,7 +16,7 @@ void add_block(block *const head_block, const trans *head_trans){
     block *block_to_mine =  new_block(head_block, head_block -> first_trans);
     
     // Il blocco creato viene minato 
-    mine(block_to_mine, &count_index);
+    mine(block_to_mine);
 
 }
 
