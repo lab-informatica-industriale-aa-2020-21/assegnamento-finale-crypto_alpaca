@@ -300,7 +300,7 @@ void write_block(const block *block_to_print){
 }
 
 
-void get_arg(const FILE *fp, const long line, char *arg){
+void get_arg(FILE *fp, const long line, char *arg){
     fseek(fp, (LINE_LENGTH +1) * line, SEEK_END);
     char line_str [LINE_LENGTH + 1];
     fgets(line_str, LINE_LENGTH + 1, fp);
@@ -314,7 +314,7 @@ void get_arg(const FILE *fp, const long line, char *arg){
 }
 
 
-uint32_t get_arg_int(const FILE *fp, long line){
+uint32_t get_arg_int(FILE *fp, long line){
     char arg [ARG_LENGTH + 1];
 
     get_arg(fp, line, arg);
