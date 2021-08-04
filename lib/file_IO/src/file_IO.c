@@ -191,7 +191,7 @@ void print_trans(const trans *trans_to_print, char *str_out){
             line3 [LINE_LENGTH + 1], line4 [LINE_LENGTH + 1];
 
     //line1 ->  numero transazione
-    snprintf(line1, LINE_LENGTH + 1, "%-*s%d", TITLE_LENGTH,TRNS, count); //[*]
+    snprintf(line1, LINE_LENGTH + 1, "%-*s%d", TITLE_LENGTH,TRNS, trans_to_print -> count_trans); //[*]
 
     //line2 ->  sender
     uint32_to_stringHex(trans_to_print -> sender, tmp);
