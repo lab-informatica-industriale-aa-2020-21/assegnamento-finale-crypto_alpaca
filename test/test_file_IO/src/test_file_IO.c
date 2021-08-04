@@ -12,7 +12,7 @@ void test_uint32_to_stringDec_ShouldConvertIntIntoFixedLenString(void) {
         char string_num[DEC_NUMB_LENGTH + 1];
         uint32_to_stringDec(68241, string_num);
 
-        TEST_ASSERT_EQUAL_STRING_LEN("00068241", string_num, DEC_NUMB_LENGTH);
+        TEST_ASSERT_EQUAL_STRING_LEN("0000068241", string_num, DEC_NUMB_LENGTH);
 }
 
 void test_print_line_ShouldFormatFixedLenStringFromTitleAndArgument(void) {
@@ -33,7 +33,7 @@ void test_add_empty_line_ShouldAddEmptyLineToString(void) {
 
 }
 
-void print_block_header_ShouldFormatFixedLenStringWithBlockInfo(void) {
+void test_print_block_header_ShouldFormatFixedLenStringWithBlockInfo(void) {
 	char test_string[BLOCK_HEADER_LENGTH + 1];
 	time_t creation_time = time(NULL);
 
@@ -49,7 +49,7 @@ void print_block_header_ShouldFormatFixedLenStringWithBlockInfo(void) {
 	};
 	print_block_header(&test_block, test_string);
 
-	TEST_ASSERT_EQUAL_STRING_LEN("Index:                     00000025\n"
+	TEST_ASSERT_EQUAL_STRING_LEN("Index:                   0000000025\n"
 								 "Creation time:           data e ora\n"
 								 "Hash number:               000000d5\n"
 								 "                           00004b20\n"
@@ -63,7 +63,7 @@ void print_block_header_ShouldFormatFixedLenStringWithBlockInfo(void) {
 								 test_string, BLOCK_HEADER_LENGTH + 1);
 }
 
-void print_trans_ShouldFormatFixedLenStringWithSingleTransInfo(void) {
+void test_print_trans_ShouldFormatFixedLenStringWithSingleTransInfo(void) {
 	char test_string[TRANS_LENGTH + 1];
 	trans test_trans = {
 		23913,
@@ -90,7 +90,7 @@ int main(void) {
 	RUN_TEST(test_uint32_to_stringDec_ShouldConvertIntIntoFixedLenString);
 	RUN_TEST(test_print_line_ShouldFormatFixedLenStringFromTitleAndArgument);
 	RUN_TEST(test_add_empty_line_ShouldAddEmptyLineToString);
-	RUN_TEST(print_block_header_ShouldFormatFixedLenStringWithBlockInfo);
-	RUN_TEST(print_trans_ShouldFormatFixedLenStringWithSingleTransInfo);
+	RUN_TEST(test_print_block_header_ShouldFormatFixedLenStringWithBlockInfo);
+	RUN_TEST(test_print_trans_ShouldFormatFixedLenStringWithSingleTransInfo);
 	return UNITY_END();
 }
