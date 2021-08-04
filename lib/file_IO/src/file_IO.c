@@ -243,7 +243,7 @@ void print_trans(const trans *trans_to_print, char *str_out){
 *
 */
 void print_block_trans(const block *block_to_print, char *str_out){
-    char tmp [TRANS_LENGTH + 1];    //per salvare le stringhe momentanee
+    char tmp [TRANS_LENGTH + 2];    //per salvare le stringhe momentanee
 
     //puntatore alla transazione da stampare
     trans *next_to_print = block_to_print -> first_trans;
