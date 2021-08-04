@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/block_app_test.dir/src/test_block.c.o -o block_app_test  ../../lib/block/libblock.a ../../external/Unity/libUnity.a ../../lib/transaction/libtransaction.a ../../lib/hash/libhash.a -lm 

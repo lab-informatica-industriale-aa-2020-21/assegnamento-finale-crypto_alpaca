@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../lib/hash/include/hash.h
+stdbool.h
+-
+stdint.h
+-
+
+/home/alberto/lab_informatica/assegnamento-finale-crypto_alpaca/lib/hash/src/hash.c
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+stdbool.h
+-
+math.h
+-
+hash.h
+/home/alberto/lab_informatica/assegnamento-finale-crypto_alpaca/lib/hash/src/hash.h
+
