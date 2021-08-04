@@ -24,7 +24,7 @@ void add_block(block *const head_block, const trans *head_trans){
     Avendo più linee di 'catene' (blockchain) è necessaria una funzione che ne crei una nuova*/ 
 chain *new_chain(const chain *head_chain)
 {
-    head_block = NULL;
+    head_chain -> head_block = NULL;
     // gestione della testa della head_chain (aggiungere)
 }
 
