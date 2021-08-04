@@ -64,7 +64,7 @@ args:       number      -> numero da convertire
 return:     void
 */
 void uint32_to_stringDec(const uint32_t number, char *str_out){
-    snprintf(str_out, DEC_NUMB_LENGTH + 1, "%08d", (int)number);    //[*]
+    snprintf(str_out, DEC_NUMB_LENGTH + 1, "%010d", (int)number);    //[*]
 }
 
 
