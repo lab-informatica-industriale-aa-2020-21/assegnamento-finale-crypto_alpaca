@@ -17,7 +17,7 @@ typedef struct block
 {
     uint32_t count_index;
     uint32_t *prev_hash;                    	// puntatore a 'hash' del blocco precedente
-    uint32_t hash[6];                       	// 'hash' del blocco corrente
+    uint32_t hash[8];                       	// 'hash' del blocco corrente
     uint32_t nonce;
     struct trans *first_trans;             // puntatore alla prima transazione della lista
     int32_t num_trans;                  // numero di transazioni nel blocco
