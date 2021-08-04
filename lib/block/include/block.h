@@ -13,7 +13,7 @@
 
 #define MAX_VALID_FIRST_HASH_ELEMENT 0x0FFFFFFF
 
-typedef struct
+typedef struct block
 {
     uint32_t *prev_hash;                    // puntatore a 'hash' del blocco precedente
     uint32_t hash[6];                       // 'hash' del blocco corrente  

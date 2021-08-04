@@ -8,7 +8,7 @@
 #include <stdint.h>
 
 // Definizione della struttura della transazione: 
-typedef struct 
+typedef struct trans
 {
     uint32_t sender;        // chiave pubblica del mittente 
     uint32_t receiver;      // chiave pubblica del destinatario
