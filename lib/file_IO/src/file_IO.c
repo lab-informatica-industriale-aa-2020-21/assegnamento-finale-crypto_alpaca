@@ -223,7 +223,6 @@ return:     void
 */
 void print_block_trans(const block *block_to_print, char *str_out){
     char tmp [TRANS_LENGTH + 1];    //per salvare le stringhe momentanee
-    uint32_t count = 0;   //per il conteggio delle transazioni
 
     //puntatore alla transazione da stampare
     trans *next_to_print = block_to_print -> first_trans;
@@ -231,12 +230,10 @@ void print_block_trans(const block *block_to_print, char *str_out){
     //il ciclo stampa una transazione alla volta fino alla fine della lista
     do {
         //stampa la transazione in 'tmp'
-        print_trans(count, next_to_print, tmp);
+        print_trans(next_to_print, tmp);
 
         //aggiunge 'tmp' a 'str_out'
         strcat(str_out, tmp);
-
-        count++;  //incrementa il contatore
 
         //aggiorna il puntatore next_to_print alla successiva transazione
         next_to_print = next_to_print -> next;
