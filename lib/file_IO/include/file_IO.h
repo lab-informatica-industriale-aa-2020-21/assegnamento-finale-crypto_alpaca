@@ -59,7 +59,7 @@
     .   (per tutte le transazioni)          |
     .                                       |
                                             |
-    -> <numero> transactions.               /
+    N. di trans.   <numero DEC>             /
 
 
 ******************************************************************************/
