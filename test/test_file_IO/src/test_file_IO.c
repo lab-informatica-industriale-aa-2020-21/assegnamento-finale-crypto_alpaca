@@ -78,7 +78,7 @@ void test_print_trans_ShouldFormatFixedLenStringWithSingleTransInfo(void) {
 	TEST_ASSERT_EQUAL_STRING_LEN("Transaction n.           0000000001\n"
 								 "Sender:                    00005d69\n"
 								 "Receiver:                  008b7100\n"
-								 "Amount                   0000001340\n",
+								 "Amount:                  0000001340\n",
 								 test_string, TRANS_LENGTH + 1);
 
 
