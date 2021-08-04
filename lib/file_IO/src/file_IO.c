@@ -91,7 +91,7 @@ void print_line(const char *title, const char *arg, char *str_out){
 
 void add_empty_line(char *str_out){
     char tmp [LINE_LENGTH + 1];  //per salvare le stringhe momentanee
-    snprintf(tmp, LINE_LENGT + 1, "%*s\n", LINE_LENGTH, ' ');
+    snprintf(tmp, LINE_LENGTH + 1, "%*s\n", LINE_LENGTH, ' ');
     strcat(str_out, tmp);
 }
 
@@ -243,8 +243,8 @@ void print_block_trans(const block *block_to_print, char *str_out){
     } while (next_to_print == NULL);
 
     //Per stampare alla fine il numero di transizioni inserite nel blocco
-    char count_printed_trans [LINE_LENGT + 1];
-    snprintf(count_printed_trans, LINE_LENGT, "%-*s%*d", TITLE_LENGTH, title, ARG_LENGTH, count); //[*]
+    char count_printed_trans [LINE_LENGTH + 1];
+    snprintf(count_printed_trans, LINE_LENGTH, "%-*s%*d", TITLE_LENGTH, NTRNS, ARG_LENGTH, count); //[*]
     strcat(str_out, count_printed_trans);
 }
 
@@ -302,12 +302,12 @@ void write_block(const block *block_to_print){
 
 void get_arg(const FILE *fp, const long line, char *arg){
     fseek(fp, (LINE_LENGTH +1) * line, SEEK_END);
-    char line [LINE_LENGTH + 1];
-    fgets(line, LINE_LENGTH + 1, fp);
+    char line_str [LINE_LENGTH + 1];
+    fgets(line_str, LINE_LENGTH + 1, fp);
 
     int i = 0;
-    while (line [i + TITLE_LENGTH] != ' ' && line [i + TITLE_LENGTH] != '\n'){
-        arg [i] = line [i + TITLE_LENGTH];
+    while (line_str [i + TITLE_LENGTH] != ' ' && line_str [i + TITLE_LENGTH] != '\n'){
+        arg [i] = line_str [i + TITLE_LENGTH];
         i++;
     }
     arg [i] = '\0';
@@ -329,7 +329,7 @@ void get_prev_hash(uint32_t *hash){
     fp_chain = fopen(BLOCKCHAIN_TXT, "r");  //apertura file in lettura
 
     if (fp_chain == NULL){  //controllo se l'apertura ha avuto esito positivo
-        prinf("Error: can't open %s\n", BLOCKCHAIN_TXT);
+        printf("Error: can't open %s\n", BLOCKCHAIN_TXT);
         exit(EXIT_FAILURE);
     }
 
@@ -351,7 +351,7 @@ void get_trans_str(char *str_out){
     }
 
     fseek(fp_chain, 0L, SEEK_END);
-    uint32_t count_trans = get_arg_int(fp, -2);
+    uint32_t count_trans = get_arg_int(fp_chain, -2);
     char arg [ARG_LENGTH + 1];
 
     for (int i = 0; i < count_trans; i++){
