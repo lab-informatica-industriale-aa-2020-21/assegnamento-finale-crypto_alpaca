@@ -28,13 +28,12 @@ block *new_block(block *const head_block, const trans *first){
         exit(EXIT_FAILURE);
     }
 
-    tmp_block -> prev_hash = head_block -> hash;      // assegnazione dell'hash del blocco precedente al prev_hash del blocco attuale      
+    tmp_block -> prev_hash = head_block -> hash;      // assegnazione dell'hash del blocco precedente al prev_hash del blocco attuale
     tmp_block -> nonce = 0;     //valore temporaneo di nonce
     tmp_block -> first_trans = first -> first_trans;
-    tmp_block -> num_trans = get_count_trans();
     tmp_block -> count_index = head_block -> count_index + 1;     //valore temporaneo di index
     // hash = (richiamo funzione di calcolo dell'hash)    //assegnazione hash temporaneo
-    
+
     return tmp_block;
 }
 
