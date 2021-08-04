@@ -119,7 +119,7 @@ void print_block_header(const block *block_to_print, char *str_out){
 
     //line1 -> index
     char line1 [LINE_LENGTH + 1];
-    int32_to_stringDec(block_to_print -> index, tmp);
+    int32_to_stringDec(block_to_print -> count_index, tmp);
     print_line(IND, tmp, line1);
 
     //line2 -> creation
@@ -261,7 +261,7 @@ return:     void
 void print_block(const block *block_to_print, char *str_out){
     //per stampare l'header del blocco e le transazioni
     char block_header [BLOCK_HEADER_LENGTH + 1];
-    char trans [TRANS_LENGTH * count_trans +1];
+    char trans [TRANS_LENGTH * block_to_print -> first_trans -> count_trans +1];
     print_block_header(block_to_print, block_header);
     print_block_trans(block_to_print,trans);
 
@@ -288,7 +288,7 @@ void write_block(const block *block_to_print){
     }
 
     //formattazione blocco
-    char block_str [BLOCK_HEADER_LENGTH + count_trans * TRANS_LENGTH + 3];
+    char block_str [BLOCK_HEADER_LENGTH + block_to_print -> first_trans -> count_trans * TRANS_LENGTH + 3];
     print_block(block_to_print, block_str);
     add_empty_line(block_str);
 
