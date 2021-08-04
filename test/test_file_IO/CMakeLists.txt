@@ -5,7 +5,7 @@ project( test_lib_file_IO
         DESCRIPTION "Testing file_IO module."
         )
 
-add_executable( file_IO_app_test src/file_IO.c )
+add_executable( file_IO_app_test src/test_file_IO.c )
 
 target_link_libraries( file_IO_app_test
         PRIVATE
