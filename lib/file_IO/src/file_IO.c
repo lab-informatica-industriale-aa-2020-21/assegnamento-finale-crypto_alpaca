@@ -226,6 +226,7 @@ void print_block_trans(const block *block_to_print, char *str_out){
 
     //puntatore alla transazione da stampare
     trans *next_to_print = block_to_print -> first_trans;
+    int n_cycle = 0;
 
     //il ciclo stampa una transazione alla volta fino alla fine della lista
     do {
@@ -238,11 +239,13 @@ void print_block_trans(const block *block_to_print, char *str_out){
         //aggiorna il puntatore next_to_print alla successiva transazione
         next_to_print = next_to_print -> next;
 
+        n_cycle ++;
+
     } while (next_to_print == NULL);
 
     //Per stampare alla fine il numero di transizioni inserite nel blocco
     char count_printed_trans [LINE_LENGTH + 1];
-    snprintf(count_printed_trans, LINE_LENGTH + 1, "%-*s%*d", TITLE_LENGTH, NTRNS, ARG_LENGTH, count); //[*]
+    snprintf(count_printed_trans, LINE_LENGTH + 1, "%-*s%*d", TITLE_LENGTH, NTRNS, ARG_LENGTH, n_cycle); //[*]
     strcat(str_out, count_printed_trans);
 }
 
