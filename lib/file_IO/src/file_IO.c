@@ -261,12 +261,12 @@ return:     void
 void print_block(const block *block_to_print, char *str_out){
     //per stampare l'header del blocco e le transazioni
     char block_header [BLOCK_HEADER_LENGTH + 1];
-    char trans [TRANS_LENGTH * count_trans +1];
+    char trans [TRANS_LENGTH * count_transaction +1];
     print_block_header(block_to_print, block_header);
     print_block_trans(block_to_print,trans);
 
     //unione di header e transazioni
-    snprintf(str_out, BLOCK_HEADER_LENGTH + count_trans * TRANS_LENGTH + 3,
+    snprintf(str_out, BLOCK_HEADER_LENGTH + count_transaction * TRANS_LENGTH + 3,
             "%s\n%s\n", block_header, trans);   //[*]
 }
 
@@ -288,7 +288,7 @@ void write_block(const block *block_to_print){
     }
 
     //formattazione blocco
-    char block_str [BLOCK_HEADER_LENGTH + count_trans * TRANS_LENGTH + 3];
+    char block_str [BLOCK_HEADER_LENGTH + count_transaction * TRANS_LENGTH + 3];
     print_block(block_to_print, block_str);
     add_empty_line(block_str);
 
@@ -333,10 +333,10 @@ void get_prev_hash(uint32_t *hash){
         exit(EXIT_FAILURE);
     }
 
-    uint32_t count_trans = get_arg_int(fp_chain, -2);
+    uint32_t count_transaction = get_arg_int(fp_chain, -2);
 
     for (uint32_t i = 0; i < 8; i++)                                     //---------------> inserire costante 8 da <hash.h>
-        hash [i] = get_arg_int(fp_chain, -2 - NUM_TRANS_LINE * count_trans - 8 + i);          //---------------> inserire costante 8 da <hash.h>
+        hash [i] = get_arg_int(fp_chain, -2 - NUM_TRANS_LINE * count_transaction - 8 + i);          //---------------> inserire costante 8 da <hash.h>
 }
 
 
@@ -351,12 +351,12 @@ void get_trans_str(char *str_out){
     }
 
     fseek(fp_chain, 0L, SEEK_END);
-    uint32_t count_trans = get_arg_int(fp_chain, -2);
+    uint32_t count_transaction = get_arg_int(fp_chain, -2);
     char arg [ARG_LENGTH + 1];
 
-    for (uint32_t i = 0; i < count_trans; i++){
+    for (uint32_t i = 0; i < count_transaction; i++){
         for (uint32_t j = 0; j < NUM_TRANS_LINE; j++){
-            get_arg(fp_chain, j + 4 * i - 4 * count_trans - 1, arg);
+            get_arg(fp_chain, j + 4 * i - 4 * count_transaction - 1, arg);
             strcat(str_out, arg);
         }
     }
