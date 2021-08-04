@@ -199,7 +199,7 @@ void print_trans(const trans *trans_to_print, char *str_out){
     print_line(SEND, tmp, line2);
 
     //line3 -> receiver
-    uint32_to_stringDec(trans_to_print -> receiver, tmp);
+    uint32_to_stringHex(trans_to_print -> receiver, tmp);
     print_line(RCV, tmp, line3);
 
     //line4 -> amount
