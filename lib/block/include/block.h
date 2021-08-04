@@ -30,7 +30,7 @@ block *head_block;
 block *new_block(block *const head_block, const trans *head_trans);
 
 // Mina il nuovo blocco creato, ovvero aggiunge il blocco alla blockchain:
-void mine(block *const block_to_mine, const uint32_t *count_index);
+void mine(block *const block_to_mine);
 
 bool get_str_creation_time(time_t creation_time, char *string);
 #endif
