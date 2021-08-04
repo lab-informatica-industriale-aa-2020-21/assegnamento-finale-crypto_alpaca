@@ -51,6 +51,17 @@ void mine(block *const block_to_mine, const uint32_t *count_index){
     block_to_mine -> index = count_index;                  // inserisco il numero corrispondente al blocco 
 }
 
+
+/*Funzione: get_str_creation_time
+ *-------------------------------
+ *converte la struttura del tempo di creazione di un blocco in una stringa leggibile
+ *
+ *creation_time: struttura di tipo time_t contenente le info del tempo di creazione
+ *string: puntatore alla stringa di caratteri in cui trascrivere i dati temporali
+ *
+ *return: true se la stringa viene scritta correttamente, altrimenti false
+ */
+
 bool get_str_creation_time(time_t creation_time, char *string) {
     struct tm *timeinfo;
 
