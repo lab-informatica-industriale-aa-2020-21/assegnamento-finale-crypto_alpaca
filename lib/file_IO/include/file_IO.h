@@ -106,6 +106,9 @@ return:     void
 void print_line(const char *title, const char *arg, char *str_out);
 
 
+void add_empty_line(char *str_out);
+
+
 /*
 'print_block_header' formatta una stringa 11 righe contenenti i dati di un blocco.
 (vedere anche formattazione completa all'inizio)
@@ -173,5 +176,17 @@ args        block_to_print  ->  puntatore al blocco da stampare
 return      void
 */
 void write_block(const block *block_to_print);
+
+
+void get_arg(FILE *fp, const long line, char *arg);
+
+
+uint32_t get_arg_int(FILE *fp, long line);
+
+
+void get_prev_hash(uint32_t *hash);
+
+
+void get_trans_str(char *str_out);
 
 #endif
