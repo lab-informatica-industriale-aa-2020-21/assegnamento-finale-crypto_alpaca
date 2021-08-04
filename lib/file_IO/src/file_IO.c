@@ -184,7 +184,7 @@ args:       count       -> numero transazione
             str_out     -> puntatore alla stringa su cui verrà salvato il risultato
 return:     void
 */
-void print_trans(const uint32_t count, const trans *trans_to_print, char *str_out){
+void print_trans(const trans *trans_to_print, char *str_out){
     char tmp [ARG_LENGTH];  //per salvare le stringhe momentanee
     
     char line1 [LINE_LENGTH + 1], line2 [LINE_LENGTH + 1],

@@ -141,7 +141,7 @@ args:       num         -> numero transazione
             str_out     -> puntatore alla stringa su cui verrà salvato il risultato
 return:     void
 */
-void print_trans(const uint32_t num, const trans *trans_to_print, char *str_out);
+void print_trans(const trans *trans_to_print, char *str_out);
 
 
 /*
