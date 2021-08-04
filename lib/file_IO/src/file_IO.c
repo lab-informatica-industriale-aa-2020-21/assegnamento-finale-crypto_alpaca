@@ -124,8 +124,9 @@ void print_block_header(const block *block_to_print, char *str_out){
 
     //line2 -> creation
     char line2 [LINE_LENGTH + 1];
-    get_str_creation_time(block_to_print -> creation_time, tmp);
-    print_line(CRE, tmp, line2);
+    //get_str_creation_time(block_to_print -> creation_time, tmp);
+    //print_line(CRE, tmp, line2);
+    print_line(CRE, "data e ora", line2);
 
     //line3, 4, 5, 6, 7, 8, 9, 10 -> hash
     char line3 [LINE_LENGTH + 1], line4 [LINE_LENGTH + 1],
