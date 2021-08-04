@@ -306,7 +306,7 @@ void write_block(const block *block_to_print){
 }
 
 
-void get_arg(const FILE fp, const long line, char *arg){
+void get_arg(const FILE *fp, const long line, char *arg){
     fseek(fp, (LINE_LENGTH +1) * line, SEEK_END);
     char line [LINE_LENGTH + 1];
     fgets(line, LINE_LENGTH + 1, fp);
@@ -320,7 +320,7 @@ void get_arg(const FILE fp, const long line, char *arg){
 }
 
 
-uint32_t get_arg_int(const FILE fp, long line){
+uint32_t get_arg_int(const FILE *fp, long line){
     char arg [ARG_LENGTH + 1];
 
     get_arg(fp, line, arg);
@@ -329,7 +329,7 @@ uint32_t get_arg_int(const FILE fp, long line){
 }
 
 
-void get_prev_hash(const FILE fp, uint32_t *hash){
+void get_prev_hash(uint32_t *hash){
     //apertura file
     FILE *fp_chain; //creazione puntatore al file
     fp_chain = fopen(BLOCKCHAIN_TXT, "r");  //apertura file in lettura
@@ -345,8 +345,8 @@ void get_prev_hash(const FILE fp, uint32_t *hash){
         hash [i] = get_arg_int(fp, -2 - NUM_TRANS_LINE * count_trans - 8 + i);          //---------------> inserire costante 8 da <hash.h>
 }
 
-
-void get_trans_str(const FILE fp, long line, char *str_out){
+/*
+void get_trans_str(char *str_out){
     fseek(fp, (LINE_LENGTH +1) * line, SEEK_END);
     uint32_t count_trans = get_arg_int(fp, -2);
     
@@ -356,3 +356,4 @@ void get_trans_str(const FILE fp, long line, char *str_out){
         }
     }
 }
+*/
