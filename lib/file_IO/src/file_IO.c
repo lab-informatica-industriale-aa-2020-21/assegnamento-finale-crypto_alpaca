@@ -22,7 +22,7 @@
                     hash [5]                |
                     hash [6]                |
                     hash [7] HEX>           |
-    Nonce number:  <nonce DEC>              /
+    Nonce number:  <nonce HEX>              /
     Transaction n. <numero trans.>          \
     Sender:        <num. mittente HEX>      |
     Receiver:      <num. dest. HEX>         |
@@ -161,7 +161,7 @@ void print_block_header(const block *block_to_print, char *str_out){
     print_line(" ", tmp, line10);
 
     //line11 -> nonce
-    uint32_to_stringDec(block_to_print -> nonce, tmp);
+    uint32_to_stringHex(block_to_print -> nonce, tmp);
     print_line(NONCE, tmp, line11);
 
     //stringa finale

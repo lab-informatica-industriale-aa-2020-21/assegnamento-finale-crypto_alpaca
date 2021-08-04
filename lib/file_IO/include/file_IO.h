@@ -48,7 +48,7 @@
                     hash [5]                |
                     hash [6]                |
                     hash [7] HEX>           |
-    Nonce number:  <nonce DEC>              /
+    Nonce number:  <nonce HEX>              /
     Transaction n. <numero trans.>          \
     Sender:        <num. mittente HEX>      |
     Receiver:      <num. dest. HEX>         |
