@@ -1,2 +1,0 @@
-/usr/bin/ar qc libtransaction.a  CMakeFiles/transaction.dir/src/transaction.c.o
-/usr/bin/ranlib libtransaction.a

@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/application.dir/src/main.c.o  -o application  ../lib/chain/libchain.a ../lib/block/libblock.a ../lib/transaction/libtransaction.a ../lib/hash/libhash.a -lm 

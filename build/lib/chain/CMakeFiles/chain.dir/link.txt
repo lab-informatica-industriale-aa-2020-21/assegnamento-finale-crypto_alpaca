@@ -1,2 +1,0 @@
-/usr/bin/ar qc libchain.a  CMakeFiles/chain.dir/src/chain.c.o
-/usr/bin/ranlib libchain.a
