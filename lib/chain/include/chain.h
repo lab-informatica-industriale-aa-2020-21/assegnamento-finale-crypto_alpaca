@@ -25,6 +25,6 @@ void add_block(block *const head_block, const trans *head_trans);
 // Funzione per creare una nuova catena della blockchain:
 block *new_block(block *const head_block, const trans *head_trans);
 
-chain *new_chain(const chain *head_chain);
+void *new_chain( chain *head_chain);
 
 #endif

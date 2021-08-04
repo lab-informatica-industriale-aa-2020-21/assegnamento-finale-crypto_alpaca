@@ -22,7 +22,7 @@ void add_block(block *const head_block, const trans *head_trans){
 
 /*  Creazione di una nuova blockchain (di una catena )
     Avendo più linee di 'catene' (blockchain) è necessaria una funzione che ne crei una nuova*/ 
-chain *new_chain(chain *head_chain)
+void *new_chain(chain *head_chain)
 {
     head_chain -> head_block = NULL;
     // gestione della testa della head_chain (aggiungere)
