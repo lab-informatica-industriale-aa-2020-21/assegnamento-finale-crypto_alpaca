@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../lib/block/include/block.h
+stdbool.h
+-
+time.h
+-
+transaction.h
+../lib/block/include/transaction.h
+
+../lib/chain/include/chain.h
+stdio.h
+-
+stdlib.h
+-
+block.h
+../lib/chain/include/block.h
+transaction.h
+../lib/chain/include/transaction.h
+
+../lib/transaction/include/transaction.h
+stdbool.h
+-
+stdint.h
+-
+
+/home/filippotoffano/lab-informatica-industriale20-21/assegnamento-finale-crypto_alpaca/app/src/main.c
+stdio.h
+-
+stdlib.h
+-
+stdbool.h
+-
+stdint.h
+-
+chain.h
+/home/filippotoffano/lab-informatica-industriale20-21/assegnamento-finale-crypto_alpaca/app/src/chain.h
+
