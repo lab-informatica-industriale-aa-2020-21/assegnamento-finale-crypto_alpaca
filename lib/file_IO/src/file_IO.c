@@ -90,7 +90,7 @@ void print_line(const char *title, const char *arg, char *str_out){
 
 
 void add_empty_line(char *str_out){
-    char tmp [LINE_LENGT + 1];  //per salvare le stringhe momentanee
+    char tmp [LINE_LENGTH + 1];  //per salvare le stringhe momentanee
     snprintf(tmp, LINE_LENGT + 1, "%*s\n", LINE_LENGTH, ' ');
     strcat(str_out, tmp);
 }
@@ -243,15 +243,9 @@ void print_block_trans(const block *block_to_print, char *str_out){
     } while (next_to_print == NULL);
 
     //Per stampare alla fine il numero di transizioni inserite nel blocco
-<<<<<<< HEAD
-    char num_printed_trans [DEC_NUMB_LENGTH + 2];
-    snprintf(num_printed_trans, DEC_NUMB_LENGTH + 2, "-> %d transactions.\n", num); //[*]
-    strcat(str_out, num_printed_trans);
-=======
     char count_printed_trans [LINE_LENGT + 1];
     snprintf(count_printed_trans, LINE_LENGT, "%-*s%*d", TITLE_LENGTH, title, ARG_LENGTH, count); //[*]
     strcat(str_out, count_printed_trans);
->>>>>>> 4c4526ab171f1387d17a3ff8172e9835fa036599
 }
 
 
