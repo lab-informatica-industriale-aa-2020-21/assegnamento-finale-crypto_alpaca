@@ -32,7 +32,7 @@ block *new_block(block *const head_block, const trans *first){
     tmp_block -> nonce = 0;     //valore temporaneo di nonce
     tmp_block -> first_trans = first -> first_trans;
     tmp_block -> num_trans = get_count_trans();
-    tmp_block -> count -> index = 0;     //valore temporaneo di index
+    tmp_block -> count_index = head_block -> count_index + 1;     //valore temporaneo di index
     // hash = (richiamo funzione di calcolo dell'hash)    //assegnazione hash temporaneo
     
     return tmp_block;
@@ -47,8 +47,6 @@ void mine(block *const block_to_mine){
 
     block_to_mine -> creation_time = time(NULL);      // info mm/gg/yy (data) - h:min:sec (ora) sulla creazione del nuovo blocco
     // !!ATTENZIONE!! -> quando andremo a stampare l'indice creation_time del blocco sarà necessario usare la funzione 'ctime()' per convertire il contenuto della struttura time in stringa  
-
-    block_to_mine -> count_index ++;
 }
 
 
