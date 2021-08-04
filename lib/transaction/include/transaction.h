@@ -15,9 +15,8 @@ typedef struct trans
     uint32_t amount;        // importo della transazione
     struct trans *first_trans;
     struct trans *next;            // puntatore alla transazione successiva
+    uint32_t count_trans;
 } trans;
-
-int count_trans;
 
 
 // Funzioni utili per la gestione delle transazioni:
