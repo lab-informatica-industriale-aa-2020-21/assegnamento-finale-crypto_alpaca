@@ -10,7 +10,7 @@
 
 #include "block.h"
 
-#define TIMEINFO_STR_LEN 19
+#define TIMEINFO_STR_LEN 20
 
 // Dichiarazioni delle variabili:
 uint32_t count_index = 0;
