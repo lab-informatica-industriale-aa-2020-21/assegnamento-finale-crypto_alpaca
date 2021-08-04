@@ -289,10 +289,10 @@ void print_block(const block *block_to_print, char *str_out){
     char block_header [BLOCK_HEADER_LENGTH + 1];
     char trans [TRANS_LENGTH * block_to_print -> first_trans -> count_trans + LINE_LENGTH + 1];
     print_block_header(block_to_print, block_header);
-    print_block_trans(block_to_print,trans);
+    print_block_trans(block_to_print, trans);
 
     //unione di header e transazioni
-    snprintf(str_out, BLOCK_HEADER_LENGTH + block_to_print -> first_trans -> count_trans * TRANS_LENGTH + LINE_LENGTH + 1,
+    snprintf(str_out, BLOCK_HEADER_LENGTH + block_to_print -> num_trans * TRANS_LENGTH + LINE_LENGTH + 1,
             "%s\n%s\n", block_header, trans);   //[*]
 }
 
