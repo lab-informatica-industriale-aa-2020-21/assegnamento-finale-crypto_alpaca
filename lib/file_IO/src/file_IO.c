@@ -261,12 +261,12 @@ return:     void
 void print_block(const block *block_to_print, char *str_out){
     //per stampare l'header del blocco e le transazioni
     char block_header [BLOCK_HEADER_LENGTH + 1];
-    char trans [TRANS_LENGTH * count_transaction +1];
+    char trans [TRANS_LENGTH * count_trans +1];
     print_block_header(block_to_print, block_header);
     print_block_trans(block_to_print,trans);
 
     //unione di header e transazioni
-    snprintf(str_out, BLOCK_HEADER_LENGTH + count_transaction * TRANS_LENGTH + 3,
+    snprintf(str_out, BLOCK_HEADER_LENGTH + count_trans * TRANS_LENGTH + 3,
             "%s\n%s\n", block_header, trans);   //[*]
 }
 
@@ -288,7 +288,7 @@ void write_block(const block *block_to_print){
     }
 
     //formattazione blocco
-    char block_str [BLOCK_HEADER_LENGTH + count_transaction * TRANS_LENGTH + 3];
+    char block_str [BLOCK_HEADER_LENGTH + count_trans * TRANS_LENGTH + 3];
     print_block(block_to_print, block_str);
     add_empty_line(block_str);
 
