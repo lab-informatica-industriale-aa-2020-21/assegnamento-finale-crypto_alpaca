@@ -22,9 +22,7 @@ typedef struct block
     struct trans *first_trans;             // puntatore alla prima transazione della lista
     int32_t num_trans;                  // numero di transazioni nel blocco
     time_t creation_time;           // tempo per la creazione del blocco
-    block *head_block;
-    struct trans *first_trans;             	// puntatore alla prima transazione della lista
-    time_t creation_time;           		// tempo per la creazione del blocco
+    struct block *head_block;
 } block;
 
 // Funzione per la creazione di uno nuovo blocco di transazioni della blockchain:
