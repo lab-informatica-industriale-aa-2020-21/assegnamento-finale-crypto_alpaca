@@ -1,22 +1,31 @@
-/* File.c per le funzioni: 
-    - creazione di un nuovo blocco di transazioni; 
-    - operazione di 'mining' dei blocchi; 
-*/
+/* -------------------------------------------------------------------------
+*    File.c per le funzioni: 
+*    - creazione di un nuovo blocco di transazioni; 
+*    - operazione di 'mining' dei blocchi; 
+   --------------------------------------------------------------------------*/ 
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <stdbool.h>
-
 #include "block.h"
+#include "hash.h"
 
-#define TIMEINFO_STR_LEN 20
+#define TIMEINFO_STR_LEN 20 // definizione della lunghezza della stringa per le info temporali di creazione del blocco 
 
 // Dichiarazioni delle variabili:
 uint32_t count_index = 0;
 block *head_block = NULL;
 
-// Funzione per la creazione di uno nuovo blocco di transazioni della blockchain:
+/*Funzione: new_block
+* ---------------------------------------------------------------------------------
+* Crea un nuovo blocco di transazioni che successivamente verrà minato;
+* ---------------------------------------------------------------------------------
+* *head_block: puntatore al blocco di testa (ultimo blocco aggiunto)
+* *first: puntatore al primo blocco della chain
+*
+* return: ritorna il nuovo blocco con i relativi campi (hash, hash precedente, nonce ecc..) inseriti 
+*/
 block *new_block(block *const head_block, const trans *first){
 
     block *tmp_block;
@@ -37,15 +46,23 @@ block *new_block(block *const head_block, const trans *first){
     return tmp_block;
 }
 
+/*Funzione: mine
+* ---------------------------------------------------------------------------------
+* Funzione per il 'mining' di un blocco;
+* ---------------------------------------------------------------------------------
+* 
+* *block_to_mine: puntatore al blocco su cui è necessario eseguire l'operazione di 
+*                 mining per poi essere aggiunto alla chain
+*
+*/
 void mine(block *const block_to_mine){
 
     while (block_to_mine -> hash[0] > MAX_VALID_FIRST_HASH_ELEMENT){     //controllo se i primi 4 bit (del primo uint_32) sono diversi da 0
-        block_to_mine -> nonce ++;              // incremento del valore di 'nonce' fino a trovare quello corretto, in base alle condizione di hash scelte
+        block_to_mine -> nonce ++;          // incremento del valore di 'nonce' fino a trovare quello corretto, in base alle condizione di hash scelte
         // block_to_mine -> hash = funzione calcolo hash(char *prevhash, int trans_din_bit, char *trans, char *nonce); tutto nello heap
     }
 
     block_to_mine -> creation_time = time(NULL);      // info mm/gg/yy (data) - h:min:sec (ora) sulla creazione del nuovo blocco
-    // !!ATTENZIONE!! -> quando andremo a stampare l'indice creation_time del blocco sarà necessario usare la funzione 'ctime()' per convertire il contenuto della struttura time in stringa  
 }
 
 
