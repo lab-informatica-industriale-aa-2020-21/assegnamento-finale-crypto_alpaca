@@ -6,11 +6,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <string.h>
+#include <stdbool.h>
 
 #include "block.h"
 
-#define TIMEINFO_STR_LEN 24
+#define TIMEINFO_STR_LEN 19
 
 // Dichiarazioni delle variabili:
 uint32_t count_index = 0;
@@ -51,13 +51,12 @@ void mine(block *const block_to_mine, const uint32_t *count_index){
     block_to_mine -> index = count_index;                  // inserisco il numero corrispondente al blocco 
 }
 
-const char *get_str_creation_time(time_t creation_time) {
+bool get_str_creation_time(time_t creation_time, char *string) {
     struct tm *timeinfo;
-    char timeinfo_str[TIMEINFO_STR_LEN + 1];
 
     timeinfo = localtime(&creation_time);
-    char *tmp = asctime(timeinfo);
-    strncpy(timeinfo_str, tmp, TIMEINFO_STR_LEN);
-
-    return timeinfo_str;
+    if(strftime(string, TIMEINFO_STR_LEN, "%F %T", timeinfo) == 0)
+	return false;
+    else
+	return true;
 }
