@@ -33,7 +33,7 @@
     .   (per tutte le transazioni)          |
     .                                       |
                                             |
-    Count trans.   <numero DEC>             /
+    N. di trans.   <numero DEC>             /
     \n
 
 ******************************************************************************/
@@ -242,7 +242,7 @@ void print_block_trans(const block *block_to_print, char *str_out){
 
         n_cycle ++;
 
-    } while (next_to_print == NULL);
+    } while (next_to_print != NULL);
 
     //Per stampare alla fine il numero di transizioni inserite nel blocco
     char count_printed_trans [LINE_LENGTH + 1];
