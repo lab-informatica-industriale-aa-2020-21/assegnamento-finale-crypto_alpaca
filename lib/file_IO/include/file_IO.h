@@ -67,25 +67,25 @@
 //funzioni:
 
 /*
-'int32_to_stringHex' converte un tipo intero in una stringa di lunghezza
+'uint32_to_stringHex' converte un tipo intero in una stringa di lunghezza
 'HEX_NUMB_LENGTH' in rappresentazione esadecimale, verranno aggiunti degli '0'
 negli eventuali spazi vuoti
 args:       number      -> numero da convertire
             str_out     -> puntatore alla stringa su cui verrà salvato il risultato
 return:     void
 */
-void int32_to_stringHex(const uint32_t number, char *str_out);
+void uint32_to_stringHex(const uint32_t number, char *str_out);
 
 
 /*
-'int32_to_stringDec' converte un tipo intero in una stringa di lunghezza
+'uint32_to_stringDec' converte un tipo intero in una stringa di lunghezza
 'DEC_NUMB_LENGTH' in rappresentazione decimale, verranno aggiunti degli '0'
 negli eventuali spazi vuoti
 args:       number      -> numero da convertire
             str_out     -> puntatore alla stringa su cui verrà salvato il risultato
 return:     void
 */
-void int32_to_stringDec(const uint32_t number, char *str_out);
+void uint32_to_stringDec(const uint32_t number, char *str_out);
 
 
 /*

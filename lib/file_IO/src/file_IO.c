@@ -43,27 +43,27 @@
 
 
 /*
-'int32_to_stringHex' converte un tipo intero in una stringa di lunghezza
+'uint32_to_stringHex' converte un tipo intero in una stringa di lunghezza
 'HEX_NUMB_LENGTH' in rappresentazione esadecimale, verranno aggiunti degli '0'
 negli eventuali spazi vuoti
 args:       number      -> numero da convertire
             str_out     -> puntatore alla stringa su cui verrà salvato il risultato
 return:     void
 */
-void int32_to_stringHex(const uint32_t number, char *str_out){
+void uint32_to_stringHex(const uint32_t number, char *str_out){
     snprintf(str_out, HEX_NUMB_LENGTH + 1, "%08x", (int)number);    //[*]
 }
 
 
 /*
-'int32_to_stringDec' converte un tipo intero in una stringa di lunghezza
+'uint32_to_stringDec' converte un tipo intero in una stringa di lunghezza
 'DEC_NUMB_LENGTH' in rappresentazione decimale, verranno aggiunti degli '0'
 negli eventuali spazi vuoti
 args:       number      -> numero da convertire
             str_out     -> puntatore alla stringa su cui verrà salvato il risultato
 return:     void
 */
-void int32_to_stringDec(const uint32_t number, char *str_out){
+void uint32_to_stringDec(const uint32_t number, char *str_out){
     snprintf(str_out, DEC_NUMB_LENGTH + 1, "%08d", (int)number);    //[*]
 }
 
@@ -119,7 +119,7 @@ void print_block_header(const block *block_to_print, char *str_out){
 
     //line1 -> index
     char line1 [LINE_LENGTH + 1];
-    int32_to_stringDec(block_to_print -> count_index, tmp);
+    uint32_to_stringDec(block_to_print -> count_index, tmp);
     print_line(IND, tmp, line1);
 
     //line2 -> creation
@@ -135,32 +135,32 @@ void print_block_header(const block *block_to_print, char *str_out){
             line11 [LINE_LENGTH + 1];
 
         //3
-    int32_to_stringHex(block_to_print -> hash [0], tmp);
+    uint32_to_stringHex(block_to_print -> hash [0], tmp);
     print_line(HASH, tmp, line3);
         //4
-    int32_to_stringHex(block_to_print -> hash [1], tmp);
+    uint32_to_stringHex(block_to_print -> hash [1], tmp);
     print_line(" ", tmp, line4);
         //5
-    int32_to_stringHex(block_to_print -> hash [2], tmp);
+    uint32_to_stringHex(block_to_print -> hash [2], tmp);
     print_line(" ", tmp, line5);
         //6
-    int32_to_stringHex(block_to_print -> hash [3], tmp);
+    uint32_to_stringHex(block_to_print -> hash [3], tmp);
     print_line(" ", tmp, line6);
         //7
-    int32_to_stringHex(block_to_print -> hash [4], tmp);
+    uint32_to_stringHex(block_to_print -> hash [4], tmp);
     print_line(" ", tmp, line7);
         //8
-    int32_to_stringHex(block_to_print -> hash [5], tmp);
+    uint32_to_stringHex(block_to_print -> hash [5], tmp);
     print_line(" ", tmp, line8);
         //9
-    int32_to_stringHex(block_to_print -> hash [6], tmp);
+    uint32_to_stringHex(block_to_print -> hash [6], tmp);
     print_line(" ", tmp, line9);
         //10
-    int32_to_stringHex(block_to_print -> hash [7], tmp);
+    uint32_to_stringHex(block_to_print -> hash [7], tmp);
     print_line(" ", tmp, line10);
 
     //line11 -> nonce
-    int32_to_stringDec(block_to_print -> nonce, tmp);
+    uint32_to_stringDec(block_to_print -> nonce, tmp);
     print_line(NONCE, tmp, line11);
 
     //stringa finale
@@ -193,15 +193,15 @@ void print_trans(const uint32_t count, const trans *trans_to_print, char *str_ou
     snprintf(line1, LINE_LENGTH + 1, "%-*s%d", TITLE_LENGTH,TRNS, count); //[*]
 
     //line2 ->  sender
-    int32_to_stringHex(trans_to_print -> sender, tmp);
+    uint32_to_stringHex(trans_to_print -> sender, tmp);
     print_line(SEND, tmp, line2);
 
     //line3 -> receiver
-    int32_to_stringDec(trans_to_print -> receiver, tmp);
+    uint32_to_stringDec(trans_to_print -> receiver, tmp);
     print_line(RCV, tmp, line3);
 
     //line4 -> amount
-    int32_to_stringDec(trans_to_print -> amount, tmp);
+    uint32_to_stringDec(trans_to_print -> amount, tmp);
     print_line(AMT, tmp, line4);
 
     //stringa finale
