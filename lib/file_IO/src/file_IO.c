@@ -178,7 +178,7 @@ void print_block_header(const block *block_to_print, char *str_out){
 
     //stringa finale
     snprintf(str_out, BLOCK_HEADER_LENGTH + 1,
-            "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n",
+            "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s",
             line1, line2, line3, line4, line5, line6, line7, line8, line9,
             line10, line11);    //[*]
 }
@@ -289,13 +289,13 @@ void print_block_trans(const block *block_to_print, char *str_out){
 */
 void print_block(const block *block_to_print, char *str_out){
     //per stampare l'header del blocco e le transazioni
-    char block_header [BLOCK_HEADER_LENGTH + 10];
-    char trans [TRANS_LENGTH * block_to_print -> num_trans + LINE_LENGTH + 10];
+    char block_header [BLOCK_HEADER_LENGTH + 1];
+    char trans [TRANS_LENGTH * block_to_print -> num_trans + LINE_LENGTH + 1];
     print_block_header(block_to_print, block_header);
     print_block_trans(block_to_print, trans);
 
     //unione di header e transazioni
-    snprintf(str_out, BLOCK_HEADER_LENGTH + block_to_print -> num_trans * TRANS_LENGTH + LINE_LENGTH + 1 + 10,
+    snprintf(str_out, BLOCK_HEADER_LENGTH + block_to_print -> num_trans * TRANS_LENGTH + LINE_LENGTH + 1 + 1,
             "%s\n%s\n", block_header, trans);   //[*]
 }
 
