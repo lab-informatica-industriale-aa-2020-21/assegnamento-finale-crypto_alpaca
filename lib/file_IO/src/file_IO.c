@@ -348,9 +348,19 @@ void get_arg(FILE *fp, const long line, char *arg){
 }
 
 
-uint32_t get_arg_int(FILE *fp, long line){
+uint32_t get_arg_uint32Dec(FILE *fp, long line){
     char arg [ARG_LENGTH + 1];
+    get_arg(fp, line, arg);
 
+    uint32_t tmp = 0;
+    sscanf(arg, "%d", &tmp);
+
+    return tmp;
+}
+
+
+uint32_t get_arg_uint32Hex(FILE *fp, long line){
+    char arg [ARG_LENGTH + 1];
     get_arg(fp, line, arg);
 
     uint32_t tmp = 0;
@@ -370,10 +380,10 @@ void get_prev_hash(uint32_t *hash, const char *file_path){
         exit(EXIT_FAILURE);
     }
 
-    uint32_t count_transaction = get_arg_int(fp_chain, -2);
+    uint32_t count_transaction = get_arg_uint32Hex(fp_chain, -2);
 
     for (uint32_t i = 0; i < 8; i++)                                     //---------------> inserire costante 8 da <hash.h>
-        hash [i] = get_arg_int(fp_chain, -2 - NUM_TRANS_LINE * count_transaction - 8 + i);          //---------------> inserire costante 8 da <hash.h>
+        hash [i] = get_arg_uint32Hex(fp_chain, -2 - NUM_TRANS_LINE * count_transaction - 8 + i);          //---------------> inserire costante 8 da <hash.h>
 }
 
 
@@ -388,7 +398,7 @@ void get_trans_str(char *str_out, const char *file_path){
     }
 
     fseek(fp_chain, 0L, SEEK_END);
-    uint32_t count_transaction = get_arg_int(fp_chain, -2);
+    uint32_t count_transaction = get_arg_uint32Hex(fp_chain, -2);
     char arg [ARG_LENGTH + 1];
 
     for (uint32_t i = 0; i < count_transaction; i++){

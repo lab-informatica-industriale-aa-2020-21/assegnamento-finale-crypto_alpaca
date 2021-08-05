@@ -182,7 +182,10 @@ void write_block(const block *block_to_print, const char *file_path);
 void get_arg(FILE *fp, const long line, char *arg);
 
 
-uint32_t get_arg_int(FILE *fp, long line);
+uint32_t get_arg_uint32Dec(FILE *fp, long line);
+
+
+uint32_t get_arg_uint32Hex(FILE *fp, long line);
 
 
 void get_prev_hash(uint32_t *hash, const char *file_path);
