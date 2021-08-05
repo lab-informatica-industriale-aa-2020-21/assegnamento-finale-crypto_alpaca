@@ -335,7 +335,7 @@ void write_block(const block *block_to_print, const char *file_path){
 
 void get_arg(FILE *fp, const long line, char *arg){
     fseek(fp, (LINE_LENGTH +1) * line, SEEK_END);
-    char line_str [LINE_LENGTH + 1];
+    char line_str [LINE_LENGTH + 2];
     fgets(line_str, LINE_LENGTH, fp);
 
     int steps = 0;
@@ -345,7 +345,7 @@ void get_arg(FILE *fp, const long line, char *arg){
         i--;
     }
 
-    strcpy(arg, line_str [steps - 5]);
+    strcpy(arg, line_str [steps]);
     ;
 }
 
