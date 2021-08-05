@@ -28,7 +28,7 @@ void test_add_empty_line_ShouldAddEmptyLineToString(void) {
 	char test_string[11 + LINE_LENGTH + 1] = "test string";
 	add_empty_line(test_string);
 
-	TEST_ASSERT_EQUAL_STRING_LEN("test string                                   \n",
+	TEST_ASSERT_EQUAL_STRING_LEN("test string                                   ",
 								test_string, 11 + LINE_LENGTH + 1);
 
 }
@@ -59,7 +59,7 @@ void test_print_block_header_ShouldFormatFixedLenStringWithBlockHeaderInfo(void)
 								 "                           00000001\n"
 								 "                           00000005\n"
 								 "                           0000302c\n"
-								 "Nonce number:              0000997b\n",
+								 "Nonce number:              0000997b",
 								 test_string, BLOCK_HEADER_LENGTH + 1);
 }
 
@@ -85,7 +85,7 @@ void test_print_trans_ShouldFormatFixedLenStringWithSingleTransInfo(void) {
 }
 
 void test_print_block_trans_ShouldFormatFixedLenStringWithAllBlockTransInfo(void) {
-	char test_string[TRANS_LENGTH * 3 + LINE_LENGTH + 1 + 1];
+	char test_string[TRANS_LENGTH * 3 + LINE_LENGTH + 1];
 	//char test_string[274] = "\0";
 	
 	time_t creation_time = time(NULL);
@@ -149,12 +149,12 @@ void test_print_block_trans_ShouldFormatFixedLenStringWithAllBlockTransInfo(void
 								 "Sender:                    00003021\n"
 								 "Receiver:                  0000266a\n"
 								 "Amount:                  0000000010\n"
-								 "N. di trans.                      3\n",
-								 test_string, TRANS_LENGTH * 3 + LINE_LENGTH + 1 + 1);
+								 "N. di trans.                      3",
+								 test_string, TRANS_LENGTH * 3 + LINE_LENGTH + 1);
 }
 
 void test_print_block_ShouldFormatFixedLenStringWithBlockInfo(void) {
-	char test_string[BLOCK_HEADER_LENGTH + TRANS_LENGTH * 3 + LINE_LENGTH + 10];
+	char test_string[BLOCK_HEADER_LENGTH + TRANS_LENGTH * 3 + LINE_LENGTH + 1 + 1];
 	
 	time_t creation_time = time(NULL);
 
@@ -229,7 +229,95 @@ void test_print_block_ShouldFormatFixedLenStringWithBlockInfo(void) {
 								 "Receiver:                  0000266a\n"
 								 "Amount:                  0000000010\n"
 								 "N. di trans.                      3\n",
-								 test_string, BLOCK_HEADER_LENGTH + TRANS_LENGTH * 3 + LINE_LENGTH + 1);
+								 test_string, BLOCK_HEADER_LENGTH + TRANS_LENGTH * 3 + LINE_LENGTH + 1 + 1);
+}
+
+void test_write_block_ShouldWriteBlockInfoOnTxtFile(void) {
+	time_t creation_time = time(NULL);
+
+	block test_block = {
+		25,												//count_index
+		NULL,											//prev_hash
+		{213, 19232, 0, 191302, 1752, 1, 5, 12332},		//hash
+		39291,											//nonce
+		NULL,											//*first_trans
+		3,												//num_trans
+		creation_time,
+		NULL											//head_block
+	};
+
+	trans test_trans1 = {
+		23913,
+		9138432,
+		1340,
+		NULL,
+		NULL,
+		1
+	};
+
+	trans test_trans2 = {
+		192323,
+		1039,
+		10923,
+		NULL,
+		NULL,
+		2
+	};
+
+	trans test_trans3 = {
+		12321,
+		9834,
+		10,
+		NULL,
+		NULL,
+		3
+	};
+
+	test_block.first_trans = &test_trans1;
+	test_trans1.next = &test_trans2;
+	test_trans1.first_trans = &test_trans1;
+	test_trans2.next = &test_trans3;
+	test_trans2.first_trans = &test_trans1;
+	test_trans3.first_trans = &test_trans1;
+
+	write_block(&test_block, TEST_BLOCKCHAIN_TXT);
+
+	//Da testare lettura file test_blockchain.txt
+}
+
+void test_get_arg_ShouldFillStringOfGivenBlockchainFileLine(void) {
+	FILE *fp;
+	fp = fopen(TEST_BLOCKCHAIN_TXT, "r");
+	char test_string[ARG_LENGTH + 1];
+
+	get_arg(fp, -5, test_string);
+
+	TEST_ASSERT_EQUAL_STRING_LEN("00003021", test_string, 8 + 1);
+
+}
+
+void test_get_arg_uint32Dec_ShouldReturnUint32FromGivenBlockchainFileLine(void) {
+	FILE *fp;
+	fp = fopen(TEST_BLOCKCHAIN_TXT, "r");
+	uint32_t test_int = get_arg_uint32Dec(fp, -3);
+
+	TEST_ASSERT_EQUAL_UINT32 (10, test_int);
+}
+
+void test_get_arg_uint32Hex_ShouldReturnUint32FromGivenBlockchainFileLine(void) {
+	FILE *fp;
+	fp = fopen(TEST_BLOCKCHAIN_TXT, "r");
+	uint32_t test_int = get_arg_uint32Hex(fp, -4);
+
+	TEST_ASSERT_EQUAL_UINT32 (9834, test_int);
+}
+
+void test_get_prev_hash_ShouldReadAndFillHashArray(void) {
+	uint32_t test_prev_hash[8];
+	uint32_t exp_prev_hash[8] = {213, 19232, 0, 191302, 1752, 1, 5, 12332};
+	get_prev_hash(test_prev_hash, TEST_BLOCKCHAIN_TXT);
+
+	TEST_ASSERT_EQUAL_UINT32_ARRAY (exp_prev_hash, test_prev_hash, 8);
 }
 
 int main(void) {
@@ -243,6 +331,11 @@ int main(void) {
 	RUN_TEST(test_print_trans_ShouldFormatFixedLenStringWithSingleTransInfo);
 	RUN_TEST(test_print_block_trans_ShouldFormatFixedLenStringWithAllBlockTransInfo);
 	RUN_TEST(test_print_block_ShouldFormatFixedLenStringWithBlockInfo);
+	RUN_TEST(test_write_block_ShouldWriteBlockInfoOnTxtFile);
+	RUN_TEST(test_get_arg_ShouldFillStringOfGivenBlockchainFileLine);
+	RUN_TEST(test_get_arg_uint32Dec_ShouldReturnUint32FromGivenBlockchainFileLine);
+	RUN_TEST(test_get_arg_uint32Hex_ShouldReturnUint32FromGivenBlockchainFileLine);
+	RUN_TEST(test_get_prev_hash_ShouldReadAndFillHashArray);
 
 	return UNITY_END();
 }
