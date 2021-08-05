@@ -341,7 +341,7 @@ void get_arg(FILE *fp, const long line, char *arg){
 
     int steps = 0;
     
-    while (line_str [LINE_LENGTH - 1 - i] != ' ')
+    while (line_str [LINE_LENGTH - 1 - steps] != ' ')
         steps++;
     
     strcpy(arg, line_str + LINE_LENGTH - steps);
