@@ -31,7 +31,7 @@
 #define NONCE "Nonce number:"
 #define TRNS "Transaction n."
 #define NTRNS "N. di trans."
-#define BLOCKCHAIN_TXT "blockchain.txt"
+#define BLOCKCHAIN_TXT "assegnamento-finale-crypto_alpaca/inout/blockchain.txt"
 
 
 /******************************************************************************
