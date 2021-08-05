@@ -15,14 +15,15 @@
 
 typedef struct block
 {
-    uint32_t count_index;
-    uint32_t *prev_hash;                    	// puntatore a 'hash' del blocco precedente
-    uint32_t hash[8];                       	// 'hash' del blocco corrente
+    uint32_t count_block;
+    uint32_t *prev_hash;                    // puntatore a 'hash' del blocco precedente
+    uint32_t hash[8];                       // 'hash' del blocco corrente
     uint32_t nonce;
-    struct trans *first_trans;             // puntatore alla prima transazione della lista
-    int32_t num_trans;                  // numero di transazioni nel blocco
-    time_t creation_time;           // tempo per la creazione del blocco
-    struct block *head_block;
+    trans *first_trans;              // puntatore alla prima transazione della lista per lettura 
+    trans *head_trans;               // puntatore alla transazione più recente della lista per scrittura
+    int32_t num_trans;                      // numero di transazioni nel blocco
+    time_t creation_time;                   // tempo per la creazione del blocco
+    struct block *next_block;
 } block;
 
 // Funzione per la creazione di uno nuovo blocco di transazioni della blockchain:

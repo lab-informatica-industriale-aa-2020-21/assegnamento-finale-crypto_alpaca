@@ -4,6 +4,39 @@
 #include "chain.h"
 #include "transaction.h"
 #include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+/* Funzione: new_chain
+*---------------------------------------------------------------------------------------------------------------
+* Creazione di una nuova blockchain.
+* Con questa funzione è possibile creare più linee di chain
+*---------------------------------------------------------------------------------------------------------------
+*
+* *head_chain: puntatore alla testa della chain (ultima catena creata)
+* 
+*/
+chain *new_chain(chain *const head_chain)
+{
+    chain *tmp_chain = malloc(sizeof(chain));
+    if(tmp_chain == NULL){
+        printf("Error: malloc() failure");
+        exit(EXIT_FAILURE);
+    }
+    tmp_chain -> next_chain = NULL;       
+    if(head_chain == NULL){
+        tmp_chain -> count_chain = 0;
+    }
+    else{
+        tmp_chain -> count_chain = head_chain -> count_chain + 1;
+        head_chain -> next_chain = *tmp_chain;
+    }
+
+    tmp_chain -> first_block = NULL;            
+    tmp_chain -> head_block = NULL;              
+    tmp_chain -> num_block = 0;  
+}
+
 
 /*Funzione: add_block
 * ------------------------------------------------------------------------------------------------------
@@ -26,19 +59,7 @@ void add_block(block *const head_block, const trans *head_trans){
 
 }
 
-/* Funzione: new_chain
-*---------------------------------------------------------------------------------------------------------------
-* Creazione di una nuova blockchain.
-* Con questa funzione è possibile creare più linee di chain
-*---------------------------------------------------------------------------------------------------------------
-*
-* *new_chain: puntatore alla testa della chain (ultima catena creata)
-* 
-*/
-void *new_chain(chain *head_chain)
-{
-    head_chain -> head_block = NULL;        // spostamento della testa della catena
-    // gestione della testa della head_chain (aggiungere)
-}
+
+
 
 

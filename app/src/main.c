@@ -10,7 +10,7 @@
 #include <stdint.h>
 
 #include "chain.h"
-#include "trans.h"
+#include "transaction.h"
 #include "block.h"
 
 
@@ -19,7 +19,7 @@ int main()
     // Dichiarazioni variabili:
     short work_type;
     trans transaction;
-    uint32_t num_of_transaction;
+    uint32_t num_of_transaction = 0;
     char input_choice;
 
     // Introduzione al programma implementato e messaggio di benvenuto 
@@ -30,7 +30,7 @@ int main()
     getchar(); // attesa di un input da tastiera per continuare l'esecuzione del programma
 
     do{
-        printf("\n\nE' pissibile creare le transazioni oppure fare in modo che il programma le crei in automatico.\n"
+        printf("\n\nE' possibile creare le transazioni oppure fare in modo che il programma le crei in automatico.\n"
            "Inserisci:\n"
            "0 -> transazione manuale\n"
            "1 -> transazione automatica");
@@ -44,41 +44,57 @@ int main()
     while(work_type != 0 || work_type != 1);
 
     if(work_type){
+        manual_trans();
+    }
+    else{
         do{
-            automatic_trans(num_of_transaction);
+            num_of_transaction ++; // conteggio del numero di transazioni inserite
+            manual_trans(num_of_transaction);
             printf("\nVuoi aggiungere un'altra transazone? (Y/N)")
             scanf("%s", input_choice);
         }
         while(input_choice == 'y');
+    }
 
-    }
-    else{
-        //transaction = manual_trans(transaction);
-    }
+    printf("L'inserimento delle transazioni è terminato!\n"
+           "Ora il programma precede ad inserirle in un blocco a svolgere"
+           "l'operazione di mining di quest'ultimo .");
+    
+    /* Funzione: add_block
+    * ----------------------------------------------------------------------------
+    * Crea il blocco di transazioni, lo mina e successivamente lo aggiunge
+    * alla blockchain.
+    * ----------------------------------------------------------------------------
+    * 
+    * head_block -> puntatore all'ultimo blocco inserito 
+    * head_trans -> puntatore alla testa della lista di transazioni (punta 
+    * all'ultima transazione inserita)
+    * 
+    */
+    add_block(block *const head_block, const trans *head_trans);
 
 }
-
 
 
 // Funzione creazione transazioni manuale 
 void manual_trans(num_of_transaction)
 {
     uint32_t sender, receiver, amount;
-
+    
     printf("Inserisci i dati richiesti: \n");
-    printf("\nPublic Key Sender (formato DEC): ");
+    printf("\nSender (formato DEC_INT): ");
     scanf("%d", sender);
-    printf("\nPublic Key Receiver (formato DEC): ");
+    printf("\nReceiver (formato DEC_INT): ");
     scanf("%d", receiver);
-    printf("\nInserisci l'importo della transazione (formato DEC):");
+    printf("\nImporto della transazione (formato DEC_INT): ");
     scanf("%d", amount);
-    new_trans(sender, receiver, amount, num);
+    add_trans(sender, receiver, amount);
 }
 
-/*
+
 // Funzione inserimento transazioni automatico
-trans automatic_trans()
+void automatic_trans()
 {
 
 }
-*/
+
