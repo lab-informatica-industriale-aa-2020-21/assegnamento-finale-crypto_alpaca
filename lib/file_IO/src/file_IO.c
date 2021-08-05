@@ -380,10 +380,10 @@ void get_prev_hash(uint32_t *hash, const char *file_path){
         exit(EXIT_FAILURE);
     }
 
-    uint32_t count_transaction = get_arg_uint32Hex(fp_chain, -2);
+    uint32_t count_transaction = get_arg_uint32Dec(fp_chain, -2);
 
     for (uint32_t i = 0; i < 8; i++)                                     //---------------> inserire costante 8 da <hash.h>
-        hash [i] = get_arg_uint32Hex(fp_chain, -2 - NUM_TRANS_LINE * count_transaction - 8 + i);          //---------------> inserire costante 8 da <hash.h>
+        hash [i] = get_arg_uint32Hex(fp_chain, -2 - NUM_TRANS_LINE * count_transaction - 1 - 8 + i);          //---------------> inserire costante 8 da <hash.h>
 }
 
 
