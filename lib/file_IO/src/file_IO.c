@@ -353,7 +353,7 @@ uint32_t get_arg_uint32Dec(FILE *fp, long line){
     get_arg(fp, line, arg);
 
     uint32_t tmp = 0;
-    sscanf(arg, "%d", &tmp);
+    sscanf(arg, "%010d", &tmp);
 
     return tmp;
 }
@@ -364,7 +364,7 @@ uint32_t get_arg_uint32Hex(FILE *fp, long line){
     get_arg(fp, line, arg);
 
     uint32_t tmp = 0;
-    sscanf(arg, "%x", &tmp);
+    sscanf(arg, "%08x", &tmp);
 
     return tmp;
 }
