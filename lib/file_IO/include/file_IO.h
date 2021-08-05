@@ -175,7 +175,7 @@ al suo interno la stringa generata da 'print_block'.
 args        block_to_print  ->  puntatore al blocco da stampare
 return      void
 */
-void write_block(const block *block_to_print);
+void write_block(const block *block_to_print, const char *file_path);
 
 
 void get_arg(FILE *fp, const long line, char *arg);
@@ -184,9 +184,9 @@ void get_arg(FILE *fp, const long line, char *arg);
 uint32_t get_arg_int(FILE *fp, long line);
 
 
-void get_prev_hash(uint32_t *hash);
+void get_prev_hash(uint32_t *hash, const char *file_path);
 
 
-void get_trans_str(char *str_out);
+void get_trans_str(char *str_out, const char *file_path);
 
 #endif

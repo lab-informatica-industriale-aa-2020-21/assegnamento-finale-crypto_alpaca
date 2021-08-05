@@ -310,13 +310,13 @@ void print_block(const block *block_to_print, char *str_out){
 * return      void
 *
 */
-void write_block(const block *block_to_print){
+void write_block(const block *block_to_print, const char *file_path){
     //apertura file
     FILE *fp_chain; //creazione puntatore al file
-    fp_chain = fopen(BLOCKCHAIN_TXT, "w");  //apertura file in scrittura
+    fp_chain = fopen(file_path, "w");  //apertura file in scrittura
 
     if (fp_chain == NULL){  //controllo se l'apertura ha avuto esito positivo
-        printf("Error: can't open %s\n", BLOCKCHAIN_TXT);
+        printf("Error: can't open %s\n", file_path);
         exit(EXIT_FAILURE);
     }
 
@@ -356,13 +356,13 @@ uint32_t get_arg_int(FILE *fp, long line){
 }
 
 
-void get_prev_hash(uint32_t *hash){
+void get_prev_hash(uint32_t *hash, const char *file_path){
     //apertura file
     FILE *fp_chain; //creazione puntatore al file
-    fp_chain = fopen(BLOCKCHAIN_TXT, "r");  //apertura file in lettura
+    fp_chain = fopen(file_path, "r");  //apertura file in lettura
 
     if (fp_chain == NULL){  //controllo se l'apertura ha avuto esito positivo
-        printf("Error: can't open %s\n", BLOCKCHAIN_TXT);
+        printf("Error: can't open %s\n", file_path);
         exit(EXIT_FAILURE);
     }
 
@@ -373,13 +373,13 @@ void get_prev_hash(uint32_t *hash){
 }
 
 
-void get_trans_str(char *str_out){
+void get_trans_str(char *str_out, const char *file_path){
     //apertura file
     FILE *fp_chain; //creazione puntatore al file
-    fp_chain = fopen(BLOCKCHAIN_TXT, "r");  //apertura file in lettura
+    fp_chain = fopen(file_path, "r");  //apertura file in lettura
 
     if (fp_chain == NULL){  //controllo se l'apertura ha avuto esito positivo
-        printf("Error: can't open %s\n", BLOCKCHAIN_TXT);
+        printf("Error: can't open %s\n", file_path);
         exit(EXIT_FAILURE);
     }
 
