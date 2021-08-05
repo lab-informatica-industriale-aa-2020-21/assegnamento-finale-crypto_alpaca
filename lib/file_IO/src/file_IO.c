@@ -256,7 +256,7 @@ void print_block_trans(const block *block_to_print, char *str_out){
 
         //aggiunge 'tmp' a 'str_out'
         if (n_cycle == 0)
-            strcy(str_out, tmp);
+            strcpy(str_out, tmp);
         else
             strcat(str_out, tmp);
 
