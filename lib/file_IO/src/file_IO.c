@@ -100,7 +100,7 @@ void print_line(const char *title, const char *arg, char *str_out){
 
 void add_empty_line(char *str_out){
     char tmp [LINE_LENGTH + 1];  //per salvare le stringhe momentanee
-    snprintf(tmp, LINE_LENGTH + 2, "%*c\n", LINE_LENGTH, ' ');
+    snprintf(tmp, LINE_LENGTH + 1, "%*c", LINE_LENGTH, ' ');
     strcat(str_out, tmp);
 }
 
