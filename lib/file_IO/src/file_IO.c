@@ -336,14 +336,17 @@ void write_block(const block *block_to_print, const char *file_path){
 void get_arg(FILE *fp, const long line, char *arg){
     fseek(fp, (LINE_LENGTH +1) * line, SEEK_END);
     char line_str [LINE_LENGTH + 1];
-    fgets(line_str, LINE_LENGTH + 1, fp);
+    fgets(line_str, LINE_LENGTH, fp);
 
+    int steps = 0;
     int i = 0;
-    while (line_str [i + TITLE_LENGTH] != ' ' && line_str [i + TITLE_LENGTH] != '\n'){
-        arg [i] = line_str [i + TITLE_LENGTH];
-        i++;
+    while (line_str [LINE_LENGTH - i] != ' '){
+        steps++;
+        i--;
     }
-    arg [i] = '\0';
+
+    strcpy(arg, line_str [steps]);
+    ;
 }
 
 
