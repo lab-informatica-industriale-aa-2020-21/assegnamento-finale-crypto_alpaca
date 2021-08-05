@@ -32,7 +32,7 @@
 #define TRNS "Transaction n."
 #define NTRNS "N. di trans."
 #define BLOCKCHAIN_TXT "../inout/blockchain.txt"
-#define BLOCKCHAIN_TXT "../inout/test_blockchain.txt"
+#define TEST_BLOCKCHAIN_TXT "../inout/test_blockchain.txt"
 
 
 /******************************************************************************
