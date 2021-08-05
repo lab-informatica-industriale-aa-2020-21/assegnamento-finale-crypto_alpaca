@@ -341,13 +341,13 @@ void get_arg(FILE *fp, const long line, char *arg){
 
     int steps = 0;
     int i = 0;
-    /*
+    
     while (line_str [LINE_LENGTH - i] != ' '){
         steps++;
         i--;
     }
-    */
-    //strcpy(arg, line_str [steps]);
+    
+    strcpy(arg, line_str [25]);
     ;
 }
 
