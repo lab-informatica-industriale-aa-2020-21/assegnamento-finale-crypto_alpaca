@@ -321,7 +321,7 @@ void write_block(const block *block_to_print){
     }
 
     //formattazione blocco
-    char block_str [BLOCK_HEADER_LENGTH + block_to_print -> num_tran * TRANS_LENGTH + LINE_LENGTH + 1 + 1];
+    char block_str [BLOCK_HEADER_LENGTH + block_to_print -> num_trans * TRANS_LENGTH + LINE_LENGTH + 1 + 1];
     print_block(block_to_print, block_str);
     add_empty_line(block_str);
 
