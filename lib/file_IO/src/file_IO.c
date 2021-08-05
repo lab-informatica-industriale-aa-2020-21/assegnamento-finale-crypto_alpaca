@@ -268,8 +268,8 @@ void print_block_trans(const block *block_to_print, char *str_out){
     } while (next_to_print != NULL);
 
     //Per stampare alla fine il numero di transizioni inserite nel blocco
-    char count_printed_trans [LINE_LENGTH + 2];
-    snprintf(count_printed_trans, LINE_LENGTH + 2, "%-*s%*d\n", TITLE_LENGTH, NTRNS, ARG_LENGTH, n_cycle); //[*]
+    char count_printed_trans [LINE_LENGTH + 1];
+    snprintf(count_printed_trans, LINE_LENGTH + 1, "%-*s%*d", TITLE_LENGTH, NTRNS, ARG_LENGTH, n_cycle); //[*]
     strcat(str_out, count_printed_trans);
 }
 
