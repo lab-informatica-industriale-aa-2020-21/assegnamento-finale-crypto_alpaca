@@ -356,7 +356,7 @@ uint32_t get_arg_int(FILE *fp, long line){
     int tmp = 0;
     sscanf(arg, "%x", tmp);
 
-    return atoi(tmp);
+    return tmp;
 }
 
 
