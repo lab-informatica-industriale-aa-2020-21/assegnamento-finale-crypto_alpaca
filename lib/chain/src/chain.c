@@ -23,7 +23,8 @@ chain *new_chain(chain *const head_chain)
         printf("Error: malloc() failure");
         exit(EXIT_FAILURE);
     }
-    tmp_chain -> next_chain = NULL;       
+    tmp_chain -> next_chain = NULL; 
+          
     if(head_chain == NULL){
         tmp_chain -> count_chain = 0;
     }

@@ -21,22 +21,30 @@
  * 
  * return: ritorna una transazione con i relativi campi inseriti;
 */
-trans *new_trans(const int32_t public_key_sender, const int32_t public_key_receiver, const int32_t amount_transaction, block *const raw_block){
-    trans *tmp_transaction;                     // definizione di una variabile con struttura 'trans'
-    tmp_transaction = malloc(sizeof(trans));    // allocazione di memoria per una transazione
+//trans *new_trans(const int32_t public_key_sender, const int32_t public_key_receiver, const int32_t amount_transaction, block *const raw_block){
+trans *new_trans(chain *const head_trans){  
+    trans *tmp_trans = malloc(sizeof(trans));    // allocazione di memoria per una transazione
 
     // Controllo funzioanmento corretto di malloc():
-    if(tmp_transaction == NULL){
+    if(tmp_trans == NULL){
         printf("Error: malloc() failed");
         exit(EXIT_FAILURE);
     } 
-
+    if(tmp_trans == NULL){
+        tmp_trans -> count_trans = 0;
+    }
+    else{
+        tmp_trans -> count_trans = head_trans -> count_trans +1;
+        head_trans -> next_trans = *tmp_trans;
+    }
+    /*
     // Inserimento dati della transazione:
     tmp_transaction -> sender = public_key_sender;            // inserimento della chiave pubblica del mittente 
     tmp_transaction -> receiver = public_key_receiver;        // inserimenro della chiave pubblica del ricevente 
     tmp_transaction -> amount = amount_transaction;           // inserimento dell'importo da trasferire nella transazione
     tmp_transaction -> next = NULL;                           // puntatore al successivo della lista 
     // incremento del contatore che tiene traccia del numero di transazioni che vengono create:
+    */
 
     return tmp_transaction;
 }
