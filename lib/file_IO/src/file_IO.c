@@ -347,7 +347,7 @@ void get_arg(FILE *fp, const long line, char *arg){
         i--;
     }
     
-    strcpy(arg, line_str [25]);
+    strcpy(arg, line_str [LINE_LENGTH - steps]);
     ;
 }
 
