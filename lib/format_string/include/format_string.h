@@ -1,5 +1,5 @@
-#ifndef file_IO_h
-#define file_IO_h
+#ifndef format_string_h
+#define format_string_h
 
 #include <stdio.h>
 #include <stdlib.h>
