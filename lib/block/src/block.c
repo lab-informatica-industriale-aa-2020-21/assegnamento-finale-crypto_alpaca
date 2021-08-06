@@ -8,8 +8,10 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdbool.h>
+
 #include "block.h"
 #include "hash.h"
+#include "format_string.h"
 
 
 /*Funzione: new_block
@@ -65,7 +67,7 @@ void mine(chain *const chain){
 
     while ((chain -> head_block) -> hash[0] > MAX_VALID_FIRST_HASH_ELEMENT){     //controllo se i primi 4 bit (del primo uint_32) sono diversi da 0
         (chain -> head_block) -> nonce ++;          // incremento del valore di 'nonce' fino a trovare quello corretto, in base alle condizione di hash scelte
-        //hash = funzione calcolo hash((chain -> head_block) -> prev_hash, (chain -> head_block) -> num_trans, trans_str, (chain -> head_block) -> nonce);
+        //hash = funzione calcolo hash((chain -> head_block) -> prev_hash, ((chain -> head_block) -> num_trans) * BIT_PER_TRANS, trans_str, (chain -> head_block) -> nonce);
     }
 
     (chain -> head_block) -> creation_time = time(NULL);      // info mm/gg/yy (data) - h:min:sec (ora) sulla creazione del nuovo blocco
