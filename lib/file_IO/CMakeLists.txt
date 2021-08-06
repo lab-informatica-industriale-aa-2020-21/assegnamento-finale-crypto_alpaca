@@ -14,6 +14,8 @@ target_include_directories(file_IO
 target_link_libraries(file_IO
 	PUBLIC LII::transaction
         PUBLIC LII::block
+	PUBLIC LII::chain
+	PUBLIC LII::format_string
         )
 
 add_library(LII::file_IO ALIAS file_IO)
