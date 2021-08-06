@@ -13,8 +13,8 @@
 typedef struct chain
 { 
     struct chain *next_chain;       // puntatore alla chain successiva
-    block *first_block;             // primo blocco di una chain
-    block *head_block;              // blocco più recente di una chain
+    struct block *first_block;             // primo blocco di una chain
+    struct block *head_block;              // blocco più recente di una chain
     uint32_t num_block;             // numero di blocchi inseriti in una chain 
     uint32_t count_chain;           // conteggio del numero di chain 
 }chain;
