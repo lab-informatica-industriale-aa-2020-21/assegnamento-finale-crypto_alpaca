@@ -12,7 +12,9 @@ target_include_directories(transaction
         )
 
 target_link_libraries(transaction
-
+	PUBLIC LII::transaction
+	PUBLIC LII::block
+	PUBLIC LII::chain
 	)
 
 add_library(LII::transaction ALIAS transaction)
