@@ -8,13 +8,9 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdbool.h>
-<<<<<<< HEAD
 
-=======
 #include <stdint.h>
-
 #include "chain.h"
->>>>>>> 028bcbb42372e25887d948f9e8f6382335d95edf
 #include "block.h"
 #include "hash.h"
 #include "format_string.h"
