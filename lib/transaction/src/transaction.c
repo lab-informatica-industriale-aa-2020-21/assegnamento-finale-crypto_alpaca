@@ -44,7 +44,7 @@ trans *new_trans(const int32_t public_key_sender, const int32_t public_key_recei
     tmp_trans -> sender = public_key_sender;            // inserimento della chiave pubblica del mittente 
     tmp_trans -> receiver = public_key_receiver;        // inserimenro della chiave pubblica del ricevente 
     tmp_trans -> amount = amount_transaction;           // inserimento dell'importo da trasferire nella transazione
-    tmp_trans -> next = NULL;                           // puntatore al successivo della lista 
+    tmp_trans -> next_trans = NULL;                           // puntatore al successivo della lista 
     // incremento del contatore che tiene traccia del numero di transazioni che vengono create:
     
 
