@@ -3,7 +3,6 @@
 #include <string.h>
 #include <stdint.h>
 
-#include "file_IO.h"
 #include "transaction.h"
 #include "block.h"
 #include "chain.h"
