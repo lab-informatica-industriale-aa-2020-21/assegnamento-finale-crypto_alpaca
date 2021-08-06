@@ -5,7 +5,7 @@ project(format_string_lib
         DESCRIPTION "Data format with strings"
         )
 
-add_library(format_string STATIC src/format_string.c.c)
+add_library(format_string STATIC src/format_string.c)
 
 target_include_directories(format_string
         PUBLIC include
