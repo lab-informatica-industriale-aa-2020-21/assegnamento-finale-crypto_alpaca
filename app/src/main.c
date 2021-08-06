@@ -27,7 +27,7 @@ int main()
     // Introduzione al programma implementato e messaggio di benvenuto 
     printf("Benvenuto! \n"
            "Questo programma simula l'algoritmo di gestione di una blockchain"
-           "Sei pronto a scoprirlo? Premi un tasto per continuare... ");
+           "Sei pronto a scoprirlo? Premi un tasto per continuare...  :)");
         
     getchar(); // attesa di un input da tastiera per continuare l'esecuzione del programma
 
@@ -37,7 +37,7 @@ int main()
            "0 -> transazione manuale\n"
            "1 -> transazione automatica");
 
-        scanf("%d", work_type);
+        scanf("%d", &work_type);
         if(work_type != 0 || work_type != 1){
             printf("\n\nIl valore inserito non è valido!\n"
                     " Inserisci '0' o '1'");
@@ -72,11 +72,11 @@ void manual_trans(void)
     
     printf("Inserisci i dati richiesti: \n");
     printf("\nSender (formato DEC_INT): ");
-    scanf("%u", sender);
+    scanf("%u", &sender);
     printf("\nReceiver (formato DEC_INT): ");
-    scanf("%u", receiver);
+    scanf("%u", &receiver);
     printf("\nImporto della transazione (formato DEC_INT): ");
-    scanf("%u", amount);
+    scanf("%u", &amount);
   //  add_trans(sender, receiver, amount);
 }
 
