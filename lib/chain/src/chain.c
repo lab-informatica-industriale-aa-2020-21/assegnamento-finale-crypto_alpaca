@@ -39,28 +39,6 @@ chain *new_chain(chain *const head_chain)
     tmp_chain -> num_block = 0;  
 }
 
-
-/*Funzione: add_block
-* ------------------------------------------------------------------------------------------------------
-* Viene passata il puntatore alla lista delle transazioni che devono essere inserire nel blocco;
-* Viene creato un nuovo blocco richiamando la funzione 'new_block';
-* Successivamente il blocco viene minato attraverso l'esecuzione della funzione 'mine';
-* ------------------------------------------------------------------------------------------------------
-*  
-* *head_block: puntatore al blocco di testa (ultimo blocco aggiunto)
-* *head_trans: puntatore alla transazione di testa (ultima transazione creata)
-*
-*/
-void add_block(block *const head_block, const trans *head_trans){
-    
-    // Creazione del blocco:
-    block *block_to_mine =  new_block(head_block);
-    
-    // Il blocco creato viene minato (operazione di mining) 
-    mine(block_to_mine);
-
-}
-
 /* Funzione: free_chain
 * ------------------------------------------------------------------------------------------
 * Funzione per deallocare la memoria allocata con malloc() per:

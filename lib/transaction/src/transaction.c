@@ -50,28 +50,3 @@ trans *new_trans(const int32_t public_key_sender, const int32_t public_key_recei
 
     return tmp_trans;
 }
-
-/* Funzione: add_trans
-*--------------------------------------------------------------------------------------------
-* Aggiunge la transazione appena creata alla lista di transazioni 
-*--------------------------------------------------------------------------------------------
-* sender: variabile uint32_t contente l'identificativo del mittente della transazione;
-* receiver: variabile uint32_t contente l'identificativo del destinatario della transazione;
-* amount: variabile uint32_t contente l'importo della transazione;
-* *head: puntatore alla testa delle transazioni;
-* *count_trans: puntatore al conteggio del numero di transazioni 
-*/
-void add_trans(const uint32_t sender,const uint32_t receiver, const uint32_t amount, trans *head_trans){
-    trans *old_head = head_trans;                                         // salvataggio della 'testa' della lista 
-    if (head_trans == NULL){
-        trans *first_trans = new_trans(sender, receiver, amount, head_trans);
-        head_trans = first_trans;
-    }
-    else{
-        
-        head_trans = new_trans(sender, receiver, amount, head_trans);        // assegnazione della nuova 'testa' della lista
-    }
-
-    old_head -> next_trans = head_trans;                                        // assegnazione del puntatore 'next' della transazione precedente
-    head_trans -> count_trans = old_head -> count_trans + 1;
-}
