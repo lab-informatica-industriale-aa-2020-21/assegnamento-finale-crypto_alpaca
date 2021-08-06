@@ -223,13 +223,13 @@ return block_data;
 
 void loading_data (unsigned int* block_data, int n_block, const unsigned int* prev_hash, unsigned int nonce, char* list_trans, unsigned int list_trans_len)
 {
-    u_int64_t dim_dati = 0;     //Dimensione blocco (dati) in bit.
+    uint64_t dim_dati = 0;     //Dimensione blocco (dati) in bit.
     char *nonce_char = 0;
     unsigned int dim_nonce = N_CHAR_PER_UINT32*8;       //N_CHAR_PER_UINT32 * 8 = 80bit in totale.
     
     char *prev_hash_part = NULL;                        //Conterrà il vettore di char che corrisponde al uint convertito in char cifra per cifra.
     char *prev_hash_tot = NULL;
-    unsigned int prev_hash_char_dim = 10;               //Varrà sempre 10 poichè un uint32 ha 10 cifre.Non di interesse poichè so che per ogni word da 32bit del hash devo avere una dim fissa.
+    int prev_hash_char_dim = 10;               //Varrà sempre 10 poichè un uint32 ha 10 cifre.Non di interesse poichè so che per ogni word da 32bit del hash devo avere una dim fissa.
 
     prev_hash_tot = (char *) malloc(sizeof(char)*80);        //80 poichè hash è costituito da 8 word a 32bit (uint32) che convertite in char saranno 8*10, dove 10 indica le cifre char necessarie a rappr. un unsigned int
     if(prev_hash_tot == NULL){
