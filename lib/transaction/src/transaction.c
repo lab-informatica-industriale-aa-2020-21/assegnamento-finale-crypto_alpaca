@@ -37,7 +37,7 @@ trans *new_trans(const int32_t public_key_sender, const int32_t public_key_recei
     // transazioni successive alla prima 
     else{
         tmp_trans -> count_trans = head_trans -> count_trans +1;
-        head_trans -> next_trans = *tmp_trans;
+        head_trans -> next_trans = tmp_trans;
     }
     
     // Inserimento dati della transazione:
