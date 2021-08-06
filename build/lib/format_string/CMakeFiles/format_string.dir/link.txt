@@ -1,0 +1,2 @@
+/usr/bin/ar qc libformat_string.a  CMakeFiles/format_string.dir/src/format_string.c.o
+/usr/bin/ranlib libformat_string.a

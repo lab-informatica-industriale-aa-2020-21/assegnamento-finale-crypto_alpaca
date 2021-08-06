@@ -25,17 +25,17 @@
 *
 * return: ritorna il nuovo blocco con i relativi campi (hash, hash precedente, nonce ecc..) inseriti 
 */
-block *new_block(block *const head_block){
+block *new_block(const block *const head_block){
 
-    block *tmp_block = malloc(sizeof(block));
+    const block *tmp_block = malloc(sizeof(struct block));
 
     // Controllo funzionamento della malloc()
-    if(tmp_block == NULL){
+    if (tmp_block == NULL){
         printf("Error: malloc() failure");
         exit(EXIT_FAILURE);
     }
 
-    if( head_block == NULL){
+    if (head_block == NULL){
         tmp_block -> count_block = 0;
         tmp_block -> prev_hash = NULL;
     }
@@ -63,7 +63,7 @@ block *new_block(block *const head_block){
 *                 mining per poi essere aggiunto alla chain
 *
 */
-void mine(chain *const chain){
+void mine(struct chain *const chain){
     char trans_str [DATA_TRANS * HEX_NUMB_LENGTH * (chain -> head_block) -> num_trans + 1];
     format_data_for_hash(chain -> head_block, trans_str);
 
