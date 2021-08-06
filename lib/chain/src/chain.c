@@ -3,6 +3,7 @@
 #include "block.h"
 #include "chain.h"
 #include "transaction.h"
+
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -60,7 +61,39 @@ void add_block(block *const head_block, const trans *head_trans){
 
 }
 
+/* Funzione: free_chain
+* ------------------------------------------------------------------------------------------
+* Funzione per deallocare la memoria allocata con malloc() per:
+* - transazioni (trans)
+* - blocchi (block)
+* - catene (chain)
+* ------------------------------------------------------------------------------------------
+*
+* *chain: puntatore alla catena (chain) di cui si vuole deallocare la memoria 
+*
+*/
+void free_chain(chain *chain){
+    // Definizioni delle variabili
+    trans *tmp_pointer_trans;   // puntatore temporaneo per salvare il puntatore alla transazione successiva
+    block *tmp_pointer_block;   // puntatore temporaneo per salvare il puntatore al blocco successivo
 
+    // Blocco successivo di cui deallocare la memoria
+    block *next_free_block = chain -> first_block;
+
+    // Ciclo di deallocamento della memoria
+    do{
+        trans *next_free_trans = (chain -> next_free_block) -> first_trans;
+        do{
+            tmp_pointer_trans = next_free_trans -> next_trans;  // salvataggio del puntatore alla successiva transazione
+            free(next_free_trans);                              // deallocazione delle memoria
+            next_free_trans = tmp_pointer_trans;                // passaggio alla successiva transazione
+        }while(next_free_trans != NULL);                        // continuo fin tanto che non ho scorso tutta la lista di transazioni
+               
+        tmp_pointer_block = next_free_block -> next_block;      // salvataggio del puntatore al successivo blocco 
+        free(next_free_block);                                  // deallocazione della memoria occupata dal blocco
+        next_free_block = tmp_pointer_block;                    // passaggio al successivo blocco
+    }while(next_free_block != NULL );                           // continuo fin tanto che non ho scorso tutta la lista di blocchi
+}
 
 
 

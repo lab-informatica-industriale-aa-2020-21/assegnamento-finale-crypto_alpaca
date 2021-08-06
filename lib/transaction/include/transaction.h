@@ -8,6 +8,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+
 // Definizione della struttura della transazione: 
 typedef struct trans
 {

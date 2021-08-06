@@ -21,11 +21,19 @@ typedef struct chain
 
 chain *new_chain(chain *const head_chain);
 
-/*  Funzione per l'aggiunta dei blocchi alla blockchain':
+/*-------------------------------------------------------------------------------------------------
+  Funzione per l'aggiunta dei blocchi alla blockchain':
     Viene passata il puntatore alla lista delle transazioni che devono essere inserire nel blocco;
     Viene creato un nuovo blocco richiamando la funzione 'new_block';
     Successivamente il blocco viene minato attraverso l'esecuzione della funzione 'mine';
-*/
+-------------------------------------------------------------------------------------------------*/
 void add_block(block *const head_block, const trans *head_trans);
+
+/*-------------------------------------------------------------------------------------------------  
+*   Funzione per deallocazione della memoria di una chain.
+*   Una volta completata la sua costruzione, viene salvata all'interno di un file.txt
+*   e successivamente viene liberata la memoria utilizzata.
+---------------------------------------------------------------------------------------------------*/
+void free_chain(chain *chain);
 
 #endif
