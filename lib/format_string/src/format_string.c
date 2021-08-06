@@ -287,6 +287,8 @@ void print_block_trans(const block *block_to_print, char *str_out){
 * return:     void
 *
 */
+
+
 void print_block(const block *block_to_print, char *str_out){
     //per stampare l'header del blocco e le transazioni
     char block_header [BLOCK_HEADER_LENGTH + 1];
@@ -297,4 +299,22 @@ void print_block(const block *block_to_print, char *str_out){
     //unione di header e transazioni
     snprintf(str_out, BLOCK_HEADER_LENGTH + block_to_print -> num_trans * TRANS_LENGTH + LINE_LENGTH + 1 + 1,
             "%s\n%s\n", block_header, trans);   //[*]
+}
+
+
+void format_data_for_hash(const block *block_source, char *trans, uint32_t *nonce){
+    trans *next_to_print = block_source -> first_trans;
+
+    do{
+        if (next_to_print == block_source -> first_trans)
+            strcpy(trans, uint32_to_stringHex(next_to_print -> sender));
+        else
+            strcat(trans, uint32_to_stringHex(next_to_print -> sender));
+        strcat(trans, uint32_to_stringHex(next_to_print -> receiver));
+        strcat(trans, uint32_to_stringHex(next_to_print -> amount));
+
+        next_to_print = next_to_print -> next_trans
+    } while(next_to_print != NULL);
+
+    *nonce = block_to_print -> nonce;
 }
