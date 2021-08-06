@@ -28,7 +28,7 @@ typedef struct trans
 // Funzioni utili per la gestione delle transazioni:
 
 // Creazione di una nuova transazione
-struct trans *new_trans(const int32_t sender, const int32_t receiver, const int32_t amount, struct trans *const head_trans);
+struct trans *new_trans(const int32_t sender, const int32_t receiver, const int32_t amount, trans *const head_trans);
 
 void input_trans(uint32_t sender, uint32_t receiver, uint32_t amount, struct chain *const in_chain);
 
