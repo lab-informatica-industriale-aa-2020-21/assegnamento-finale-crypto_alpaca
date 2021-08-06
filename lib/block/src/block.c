@@ -8,8 +8,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdbool.h>
-
 #include <stdint.h>
+
 #include "chain.h"
 #include "block.h"
 #include "hash.h"
