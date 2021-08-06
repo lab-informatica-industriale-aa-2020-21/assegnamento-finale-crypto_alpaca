@@ -191,6 +191,4 @@ uint32_t get_arg_uint32Hex(FILE *fp, long line);
 void get_prev_hash(uint32_t *hash, const char *file_path);
 
 
-void get_trans_str(char *str_out, const char *file_path);
-
 #endif
