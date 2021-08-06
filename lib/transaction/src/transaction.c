@@ -21,9 +21,8 @@
  * 
  * return: ritorna una transazione con i relativi campi inseriti;
 */
-//trans *new_trans(const int32_t public_key_sender, const int32_t public_key_receiver, const int32_t amount_transaction, block *const raw_block){
-trans *new_trans(chain *const head_trans){  
-
+trans *new_trans(const int32_t public_key_sender, const int32_t public_key_receiver, const int32_t amount_transaction, block *const head_trans)
+{  
     trans *tmp_trans = malloc(sizeof(trans));    // allocazione di memoria per una transazione
 
     // Controllo funzioanmento corretto di malloc():
@@ -31,9 +30,12 @@ trans *new_trans(chain *const head_trans){
         printf("Error: malloc() failed");
         exit(EXIT_FAILURE);
     } 
+
+    // Controllo prima transazione inserita
     if(tmp_trans == NULL){
         tmp_trans -> count_trans = 0;
     }
+    // transazioni successive alla prima 
     else{
         tmp_trans -> count_trans = head_trans -> count_trans +1;
         head_trans -> next_trans = *tmp_trans;
