@@ -59,14 +59,14 @@ block *new_block(block *const head_block){
 *                 mining per poi essere aggiunto alla chain
 *
 */
-void mine(block *const block_to_mine){
+void mine(chain *const chain){
 
-    while (block_to_mine -> hash[0] > MAX_VALID_FIRST_HASH_ELEMENT){     //controllo se i primi 4 bit (del primo uint_32) sono diversi da 0
-        block_to_mine -> nonce ++;          // incremento del valore di 'nonce' fino a trovare quello corretto, in base alle condizione di hash scelte
+    while ((chain -> head_block) -> hash[0] > MAX_VALID_FIRST_HASH_ELEMENT){     //controllo se i primi 4 bit (del primo uint_32) sono diversi da 0
+        (chain -> head_block) -> nonce ++;          // incremento del valore di 'nonce' fino a trovare quello corretto, in base alle condizione di hash scelte
         // block_to_mine -> hash = funzione calcolo hash(char *prevhash, int trans_din_bit, char *trans, char *nonce); tutto nello heap
     }
 
-    block_to_mine -> creation_time = time(NULL);      // info mm/gg/yy (data) - h:min:sec (ora) sulla creazione del nuovo blocco
+    (chain -> head_block) -> creation_time = time(NULL);      // info mm/gg/yy (data) - h:min:sec (ora) sulla creazione del nuovo blocco
 }
 
 
