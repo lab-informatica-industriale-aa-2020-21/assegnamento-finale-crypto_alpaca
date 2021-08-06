@@ -31,7 +31,7 @@ chain *new_chain(chain *const head_chain)
     }
     else{
         tmp_chain -> count_chain = head_chain -> count_chain + 1;
-        head_chain -> next_chain = *tmp_chain;
+        head_chain -> next_chain = tmp_chain;
     }
 
     tmp_chain -> first_block = NULL;            
@@ -54,7 +54,7 @@ chain *new_chain(chain *const head_chain)
 void add_block(block *const head_block, const trans *head_trans){
     
     // Creazione del blocco:
-    block *block_to_mine =  new_block(head_block, head_block -> first_trans);
+    block *block_to_mine =  new_block(head_block);
     
     // Il blocco creato viene minato (operazione di mining) 
     mine(block_to_mine);
@@ -82,7 +82,7 @@ void free_chain(chain *chain){
 
     // Ciclo di deallocamento della memoria
     do{
-        trans *next_free_trans = (chain -> next_free_block) -> first_trans;
+        trans *next_free_trans = (chain -> first_block) -> first_trans;
         do{
             tmp_pointer_trans = next_free_trans -> next_trans;  // salvataggio del puntatore alla successiva transazione
             free(next_free_trans);                              // deallocazione delle memoria
