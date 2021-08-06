@@ -25,7 +25,7 @@
 *
 * return: ritorna il nuovo blocco con i relativi campi (hash, hash precedente, nonce ecc..) inseriti 
 */
-struct block *new_block(const struct block *head_block){
+struct block *new_block(struct block *const head_block){
 
     struct block *tmp_block = malloc(sizeof(struct block));
 
@@ -63,12 +63,12 @@ struct block *new_block(const struct block *head_block){
 *                 mining per poi essere aggiunto alla chain
 *
 */
-void mine(struct chain *const chain){
-    char trans_str [DATA_TRANS * HEX_NUMB_LENGTH * (chain -> head_block) -> num_trans + 1];
-    format_data_for_hash(chain -> head_block, trans_str);
+void mine(struct chain *const chain_to_mine){
+    char trans_str [DATA_TRANS * HEX_NUMB_LENGTH * (chain_to_mine -> head_block) -> num_trans + 1];
+    format_data_for_hash(chain_to_mine -> head_block, trans_str);
 
-    while ((chain -> head_block) -> hash[0] > MAX_VALID_FIRST_HASH_ELEMENT){     //controllo se i primi 4 bit (del primo uint_32) sono diversi da 0
-        (chain -> head_block) -> nonce ++;          // incremento del valore di 'nonce' fino a trovare quello corretto, in base alle condizione di hash scelte
+    while ((chain_to_mine -> head_block) -> hash[0] > MAX_VALID_FIRST_HASH_ELEMENT){     //controllo se i primi 4 bit (del primo uint_32) sono diversi da 0
+        (chain_to_mine -> head_block) -> nonce ++;          // incremento del valore di 'nonce' fino a trovare quello corretto, in base alle condizione di hash scelte
         //hash = funzione calcolo hash((chain -> head_block) -> prev_hash, ((chain -> head_block) -> num_trans) * BIT_PER_TRANS, trans_str, (chain -> head_block) -> nonce);
     }
 

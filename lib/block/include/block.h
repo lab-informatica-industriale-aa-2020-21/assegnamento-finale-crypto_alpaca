@@ -38,7 +38,7 @@ struct block
 struct block *new_block(struct block *const head_block);
 
 // Mina il nuovo blocco creato, ovvero aggiunge il blocco alla blockchain:
-void mine(struct chain *const chain);
+void mine(struct chain *const chain_to_mine);
 
 bool get_str_creation_time(time_t creation_time, char *string);
 #endif
