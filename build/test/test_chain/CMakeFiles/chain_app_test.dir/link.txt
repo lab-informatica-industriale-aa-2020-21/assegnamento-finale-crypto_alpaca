@@ -1,1 +1,0 @@
-/usr/bin/cc CMakeFiles/chain_app_test.dir/src/test_chain.c.o -o chain_app_test  ../../lib/chain/libchain.a ../../external/Unity/libUnity.a ../../lib/block/libblock.a ../../lib/transaction/libtransaction.a ../../lib/hash/libhash.a -lm 

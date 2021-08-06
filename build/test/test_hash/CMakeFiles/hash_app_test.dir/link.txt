@@ -1,1 +1,0 @@
-/usr/bin/cc CMakeFiles/hash_app_test.dir/src/test_hash.c.o -o hash_app_test  ../../lib/hash/libhash.a ../../external/Unity/libUnity.a -lm 
