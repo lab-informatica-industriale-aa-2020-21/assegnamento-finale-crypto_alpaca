@@ -20,7 +20,7 @@
  * 
  * return: ritorna una transazione con i relativi campi inseriti;
 */
-trans *new_trans(const int32_t public_key_sender, const int32_t public_key_receiver, const int32_t amount_transaction, block *const head_trans)
+trans *new_trans(const int32_t public_key_sender, const int32_t public_key_receiver, const int32_t amount_transaction, trans *const head_trans)
 {  
     trans *tmp_trans = malloc(sizeof(trans));    // allocazione di memoria per una transazione
 
