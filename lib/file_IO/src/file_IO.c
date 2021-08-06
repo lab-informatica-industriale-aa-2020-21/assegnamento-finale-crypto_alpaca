@@ -6,6 +6,7 @@
 #include "file_IO.h"
 #include "transaction.h"
 #include "block.h"
+#include "chain.h"
 
 
 /******************************************************************************
@@ -131,7 +132,7 @@ void print_block_header(const block *block_to_print, char *str_out){
 
     //line1 -> index
     char line1 [LINE_LENGTH + 1];
-    uint32_to_stringDec(block_to_print -> count_index, tmp);
+    uint32_to_stringDec(block_to_print -> count_block, tmp);
     print_line(IND, tmp, line1);
 
     //line2 -> creation
@@ -261,7 +262,7 @@ void print_block_trans(const block *block_to_print, char *str_out){
             strcat(str_out, tmp);
 
         //aggiorna il puntatore next_to_print alla successiva transazione
-        next_to_print = next_to_print -> next;
+        next_to_print = next_to_print -> next_trans;
 
         n_cycle ++;
 
@@ -310,7 +311,21 @@ void print_block(const block *block_to_print, char *str_out){
 * return      void
 *
 */
-void write_block(const block *block_to_print, const char *file_path){
+void write_block(const block *block_to_print, FILE fp, const char *file_path){
+    //formattazione blocco
+    char block_str [BLOCK_HEADER_LENGTH + block_to_print -> num_trans * TRANS_LENGTH + 2 * (LINE_LENGTH + 1) + 1];
+    print_block(block_to_print, block_str);
+    add_empty_line(block_str);
+
+    //scrittura blocco sul file di testo
+    fprintf(fp, "%s\n", block_str);
+
+    //chiusura file
+    fclose(fp);
+}
+
+
+void save_chain(const chain *chain_to_print, const char *file_path){
     //apertura file
     FILE *fp_chain; //creazione puntatore al file
     fp_chain = fopen(file_path, "w");  //apertura file in scrittura
@@ -320,20 +335,12 @@ void write_block(const block *block_to_print, const char *file_path){
         exit(EXIT_FAILURE);
     }
 
-    //formattazione blocco
-    char block_str [BLOCK_HEADER_LENGTH + block_to_print -> num_trans * TRANS_LENGTH + 2 * (LINE_LENGTH + 1) + 1];
-    print_block(block_to_print, block_str);
-    add_empty_line(block_str);
-
-    //scrittura blocco sul file di testo
-    fprintf(fp_chain, "%s\n", block_str);
-
-    //chiusura file
-    fclose(fp_chain);
+    block next_to_print = chain_to_print -> first_block;
+    do{
+        write_block(next_to_print, fp_chain, file_path);
+        next_to_print = next_to_print -> next_block;
+    } while(next_to_print != NULL);
 }
-
-
-
 
 
 void get_arg(FILE *fp, const long line, char *arg){

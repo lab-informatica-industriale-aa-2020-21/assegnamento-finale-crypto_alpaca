@@ -9,6 +9,7 @@
 #include "file_IO.h"
 #include "transaction.h"
 #include "block.h"
+#include "chain.h"
 
 //costanti di lunghezza delle stringhe
 #define TITLE_LENGTH 15         //max caratteri per il titolo
@@ -177,6 +178,9 @@ args        block_to_print  ->  puntatore al blocco da stampare
 return      void
 */
 void write_block(const block *block_to_print, const char *file_path);
+
+
+void save_chain(const chain *chain_to_print, const char *file_path);
 
 
 void get_arg(FILE *fp, const long line, char *arg);
