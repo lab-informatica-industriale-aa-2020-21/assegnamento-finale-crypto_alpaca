@@ -12,7 +12,6 @@ target_include_directories(transaction
         )
 
 target_link_libraries(transaction
-	PUBLIC LII::hash
 	)
 
 add_library(LII::transaction ALIAS transaction)
