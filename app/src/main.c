@@ -12,6 +12,7 @@
 #include "chain.h"
 #include "transaction.h"
 #include "block.h"
+#include "file_IO.h"
 
 
 int main()
