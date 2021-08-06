@@ -13,10 +13,13 @@
 #include <stdlib.h>
 
 #include "transaction.h"
+#include "format_string.h"
 #include "chain.h"
 
 #define MAX_VALID_FIRST_HASH_ELEMENT 0x0FFFFFFF
 #define TIMEINFO_STR_LEN 20 // definizione della lunghezza della stringa per le info temporali di creazione del blocco
+#define DATA_TRANS 3        // dati per ogni transazione -> sender, receiver, amount
+#define BIT_PER_TRANS (DATA_TRANS * HEX_NUMB_LENGTH)
 
 typedef struct
 {
