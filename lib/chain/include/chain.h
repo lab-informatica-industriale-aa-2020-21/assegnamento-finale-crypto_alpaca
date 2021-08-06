@@ -3,28 +3,37 @@
 #ifndef chain_h
 #define chain_h
 
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
 
 #include "block.h"
 #include "transaction.h"
 
 typedef struct chain
 { 
-    block *head_block;
-    struct chain *index_chain;
+    struct chain *next_chain;       // puntatore alla chain successiva
+    block *first_block;             // primo blocco di una chain
+    block *head_block;              // blocco più recente di una chain
+    uint32_t num_block;             // numero di blocchi inseriti in una chain 
+    uint32_t count_chain;           // conteggio del numero di chain 
 }chain;
 
-/*  Funzione per l'aggiunta dei blocchi alla blockchain':
+chain *new_chain(chain *const head_chain);
+
+/*-------------------------------------------------------------------------------------------------
+  Funzione per l'aggiunta dei blocchi alla blockchain':
     Viene passata il puntatore alla lista delle transazioni che devono essere inserire nel blocco;
     Viene creato un nuovo blocco richiamando la funzione 'new_block';
     Successivamente il blocco viene minato attraverso l'esecuzione della funzione 'mine';
-*/
+-------------------------------------------------------------------------------------------------*/
 void add_block(block *const head_block, const trans *head_trans);
 
-// Funzione per creare una nuova catena della blockchain:
-block *new_block(block *const head_block, const trans *head_trans);
-
-void *new_chain( chain *head_chain);
+/*-------------------------------------------------------------------------------------------------  
+*   Funzione per deallocazione della memoria di una chain.
+*   Una volta completata la sua costruzione, viene salvata all'interno di un file.txt
+*   e successivamente viene liberata la memoria utilizzata.
+---------------------------------------------------------------------------------------------------*/
+void free_chain(chain *chain);
 
 #endif

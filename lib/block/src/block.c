@@ -11,11 +11,6 @@
 #include "block.h"
 #include "hash.h"
 
-#define TIMEINFO_STR_LEN 20 // definizione della lunghezza della stringa per le info temporali di creazione del blocco 
-
-// Dichiarazioni delle variabili:
-uint32_t count_index = 0;
-block *head_block = NULL;
 
 /*Funzione: new_block
 * ---------------------------------------------------------------------------------
@@ -26,10 +21,9 @@ block *head_block = NULL;
 *
 * return: ritorna il nuovo blocco con i relativi campi (hash, hash precedente, nonce ecc..) inseriti 
 */
-block *new_block(block *const head_block, const trans *first){
+block *new_block(block *const head_block){
 
-    block *tmp_block;
-    tmp_block = malloc(sizeof(block));
+    block *tmp_block = malloc(sizeof(block));
 
     // Controllo funzionamento della malloc()
     if(tmp_block == NULL){
@@ -37,11 +31,21 @@ block *new_block(block *const head_block, const trans *first){
         exit(EXIT_FAILURE);
     }
 
-    tmp_block -> prev_hash = head_block -> hash;      // assegnazione dell'hash del blocco precedente al prev_hash del blocco attuale
-    tmp_block -> nonce = 0;     //valore temporaneo di nonce
-    tmp_block -> first_trans = first -> first_trans;
-    tmp_block -> count_index = head_block -> count_index + 1;     //valore temporaneo di index
-    // hash = (richiamo funzione di calcolo dell'hash)    //assegnazione hash temporaneo
+    if( head_block == NULL){
+        tmp_block -> count_block = 0;
+        tmp_block -> prev_hash = NULL;
+    }
+    else{
+        tmp_block -> count_block = head_block -> count_block +1;
+        tmp_block -> prev_hash = head_block -> hash;
+    }
+    
+    tmp_block -> hash = {0xFFFFFFFF};
+    tmp_block -> nonce = 0;
+    tmp_block -> first_trans = NULL;
+    tmp_block -> head_trans = NULL;
+    tmp_block -> num_trans = 0;
+    tmp_block -> next_block = NULL;
 
     return tmp_block;
 }
