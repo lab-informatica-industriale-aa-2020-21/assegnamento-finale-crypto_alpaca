@@ -229,7 +229,7 @@ void loading_data (unsigned int* block_data, int n_block, const unsigned int* pr
     
     char *prev_hash_part = NULL;                        //Conterrà il vettore di char che corrisponde al uint convertito in char cifra per cifra.
     char *prev_hash_tot = NULL;
-    int prev_hash_char_dim = 10;               //Varrà sempre 10 poichè un uint32 ha 10 cifre.Non di interesse poichè so che per ogni word da 32bit del hash devo avere una dim fissa.
+    unsigned int prev_hash_char_dim = 10;               //Varrà sempre 10 poichè un uint32 ha 10 cifre.Non di interesse poichè so che per ogni word da 32bit del hash devo avere una dim fissa.
 
     prev_hash_tot = (char *) malloc(sizeof(char)*80);        //80 poichè hash è costituito da 8 word a 32bit (uint32) che convertite in char saranno 8*10, dove 10 indica le cifre char necessarie a rappr. un unsigned int
     if(prev_hash_tot == NULL){
@@ -242,13 +242,13 @@ void loading_data (unsigned int* block_data, int n_block, const unsigned int* pr
     //Conversione prev_hash in char. Che poi verrà memorizzato in un vettore di 80char prev_hash_tot.
     for (int i = 0; i < 8; i++){                                               //Hash è costituito da 8 word da 32bit ciascuna.
         prev_hash_part = int_32_to_char(prev_hash[i]);
-        for (int j = 0; j < prev_hash_char_dim; j++){
+        for (int j = 0; j < (int)prev_hash_char_dim; j++){
             prev_hash_tot[N_CHAR_PER_UINT32*i+j] = prev_hash_part[j];          //E' un vettore contentente 80 celle char
         }  
     }
     //Codice per memorizzare dentro il block_data tutto il prev_hash in formato char.
     for(int j = 0; j < N_CHAR_PER_PREV_HASH; j++){                                      
-        for (int i = 0; i < sizeof(unsigned int) / sizeof(char); i++){     
+        for (int i = 0; i < (int)sizeof(unsigned int) / sizeof(char); i++){     
             block_data[j] += prev_hash_tot[4*j+i] << (3-i)*8;
         }
     }
@@ -257,7 +257,7 @@ void loading_data (unsigned int* block_data, int n_block, const unsigned int* pr
     //NB: list_trans avrà un numero di celle char empre multiplo di 24. Quindi riuscirò sempre a riempire completamente 6*n word a 32bit.
     //list_trans_len/BIT_PER_CHAR := numero di celle in list_trans. Dividendo qst per 4 calcolo quante W32bit sono necessarie per la memorizz.
     unsigned int nword_per_list_trans = (list_trans_len/BIT_PER_CHAR) / (sizeof(unsigned int) / sizeof(char));        //numero W32bit per memorizzare tutto list_trans.
-    for(int j = 0; j < nword_per_list_trans; j++){    
+    for(int j = 0; j < (int)nword_per_list_trans; j++){    
         for (int i = 0; i < sizeof(unsigned int) / sizeof(char); i++){              //4 char per ogni uint32.  
             block_data[j+N_CHAR_PER_PREV_HASH] += list_trans[4*j+i] << (3-i)*8;
         }
@@ -266,7 +266,7 @@ void loading_data (unsigned int* block_data, int n_block, const unsigned int* pr
     nonce_char = int_32_to_char(nonce);
 
     for (int j = 0; j < 3; j++){                                    //Hash è costituito da 8 word da 32bit ciascuna.
-        for (int i = 0; i < sizeof(unsigned int) / sizeof(char); i++){
+        for (int i = 0; i < (int)sizeof(unsigned int) / sizeof(char); i++){
             if(j == 2){
                 block_data[j+ N_CHAR_PER_PREV_HASH + nword_per_list_trans] = (nonce_char[4*j+0] << 24) + (nonce_char[4*j+0] << 16) + (unsigned int)OFFSET_MOD_0;
             }else{
