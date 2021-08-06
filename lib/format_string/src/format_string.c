@@ -303,12 +303,12 @@ void print_block(const block *block_to_print, char *str_out){
 
 
 void format_data_for_hash(const block *block_source, char *trans){
-    trans *next_to_print1 = block_source -> first_trans;
+    trans *next_to_print = block_source -> first_trans;
     char tmp [HEX_NUMB_LENGTH + 1];
 
     do{
         uint32_to_stringHex(next_to_print -> sender, tmp);
-        if (next_to_print1 == block_source -> first_trans)
+        if (next_to_print == block_source -> first_trans)
             strcpy(trans, tmp);
         else
             strcat(trans, tmp);
@@ -320,5 +320,5 @@ void format_data_for_hash(const block *block_source, char *trans){
         strcat(trans, tmp);
 
         next_to_print = next_to_print -> next_trans;
-    } while(next_to_print1 != NULL);
+    } while(next_to_print != NULL);
 }
