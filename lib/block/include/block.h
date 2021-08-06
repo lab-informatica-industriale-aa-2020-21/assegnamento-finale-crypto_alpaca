@@ -22,7 +22,7 @@
 #define DATA_TRANS 3        // dati per ogni transazione -> sender, receiver, amount
 #define BIT_PER_TRANS (DATA_TRANS * HEX_NUMB_LENGTH)
 
-typedef struct block
+typedef struct
 {
     struct block *next_block;        // puntatore al blocco successivo
     struct trans *first_trans;              // puntatore alla prima transazione della lista per lettura 

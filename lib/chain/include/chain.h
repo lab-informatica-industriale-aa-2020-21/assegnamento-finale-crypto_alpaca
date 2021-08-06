@@ -10,7 +10,7 @@
 #include "block.h"
 #include "transaction.h"
 
-typedef struct chain
+typedef struct
 { 
     struct chain *next_chain;       // puntatore alla chain successiva
     struct block *first_block;             // primo blocco di una chain
