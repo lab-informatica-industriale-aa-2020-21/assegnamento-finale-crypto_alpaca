@@ -248,7 +248,7 @@ void loading_data (unsigned int* block_data, int n_block, const unsigned int* pr
     }
     //Codice per memorizzare dentro il block_data tutto il prev_hash in formato char.
     for(int j = 0; j < N_CHAR_PER_PREV_HASH; j++){                                      
-        for (int i = 0; i < (int)sizeof(unsigned int) / sizeof(char); i++){     
+        for (int i = 0; i < (int)(sizeof(unsigned int) / sizeof(char)); i++){     
             block_data[j] += prev_hash_tot[4*j+i] << (3-i)*8;
         }
     }
@@ -258,7 +258,7 @@ void loading_data (unsigned int* block_data, int n_block, const unsigned int* pr
     //list_trans_len/BIT_PER_CHAR := numero di celle in list_trans. Dividendo qst per 4 calcolo quante W32bit sono necessarie per la memorizz.
     unsigned int nword_per_list_trans = (list_trans_len/BIT_PER_CHAR) / (sizeof(unsigned int) / sizeof(char));        //numero W32bit per memorizzare tutto list_trans.
     for(int j = 0; j < (int)nword_per_list_trans; j++){    
-        for (int i = 0; i < sizeof(unsigned int) / sizeof(char); i++){              //4 char per ogni uint32.  
+        for (int i = 0; i < (int)(sizeof(unsigned int) / sizeof(char)); i++){              //4 char per ogni uint32.  
             block_data[j+N_CHAR_PER_PREV_HASH] += list_trans[4*j+i] << (3-i)*8;
         }
     }
@@ -266,7 +266,7 @@ void loading_data (unsigned int* block_data, int n_block, const unsigned int* pr
     nonce_char = int_32_to_char(nonce);
 
     for (int j = 0; j < 3; j++){                                    //Hash è costituito da 8 word da 32bit ciascuna.
-        for (int i = 0; i < (int)sizeof(unsigned int) / sizeof(char); i++){
+        for (int i = 0; i < (int)(sizeof(unsigned int) / sizeof(char)); i++){
             if(j == 2){
                 block_data[j+ N_CHAR_PER_PREV_HASH + nword_per_list_trans] = (nonce_char[4*j+0] << 24) + (nonce_char[4*j+0] << 16) + (unsigned int)OFFSET_MOD_0;
             }else{
