@@ -333,6 +333,9 @@ void write_block(const block *block_to_print, const char *file_path){
 }
 
 
+
+
+
 void get_arg(FILE *fp, const long line, char *arg){
     fseek(fp, (LINE_LENGTH + 1) * line, SEEK_END);
 
@@ -353,7 +356,7 @@ uint32_t get_arg_uint32Dec(FILE *fp, long line){
     get_arg(fp, line, arg);
 
     uint32_t tmp = 0;
-    sscanf(arg, "%010d", &tmp);
+    sscanf(arg, "%010u", &tmp);
 
     return tmp;
 }
@@ -382,29 +385,6 @@ void get_prev_hash(uint32_t *hash, const char *file_path){
 
     uint32_t count_transaction = get_arg_uint32Dec(fp_chain, -2);
 
-    for (int i = 0; i < 8; i++)                                     //---------------> inserire costante 8 da <hash.h>
-        hash [i] = get_arg_uint32Hex(fp_chain, (long)(-2 - NUM_TRANS_LINE * count_transaction - 1 - 8 + i));          //---------------> inserire costante 8 da <hash.h>
-}
-
-
-void get_trans_str(char *str_out, const char *file_path){
-    //apertura file
-    FILE *fp_chain; //creazione puntatore al file
-    fp_chain = fopen(file_path, "r");  //apertura file in lettura
-
-    if (fp_chain == NULL){  //controllo se l'apertura ha avuto esito positivo
-        printf("Error: can't open %s\n", file_path);
-        exit(EXIT_FAILURE);
-    }
-
-    fseek(fp_chain, 0L, SEEK_END);
-    uint32_t count_transaction = get_arg_uint32Hex(fp_chain, -2);
-    char arg [ARG_LENGTH + 1];
-
-    for (uint32_t i = 0; i < count_transaction; i++){
-        for (uint32_t j = 0; j < NUM_TRANS_LINE; j++){
-            get_arg(fp_chain, j + 4 * i - 4 * count_transaction - 1, arg);
-            strcat(str_out, arg);
-        }
-    }
+    for (int i = 0; i < 8; i++)                                                                                             //---------------> inserire costante 8 da <hash.h>
+        hash [i] = get_arg_uint32Hex(fp_chain, (long)(-2 - NUM_TRANS_LINE * (int)count_transaction - 1 - 8 + i));          //---------------> inserire costante 8 da <hash.h>
 }
