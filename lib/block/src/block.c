@@ -25,7 +25,7 @@
 *
 * return: ritorna il nuovo blocco con i relativi campi (hash, hash precedente, nonce ecc..) inseriti 
 */
-struct block *new_block(const struct block *headblock){
+struct block *new_block(const struct block *head_block){
 
     struct block *tmp_block = malloc(sizeof(struct block));
 
