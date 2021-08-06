@@ -17,7 +17,7 @@
 // Definizione della struttura della transazione: 
 typedef struct
 {
-    trans *next_trans;       // puntatore alla transazione successiva
+    struct trans *next_trans;       // puntatore alla transazione successiva
     uint32_t sender;                // chiave pubblica del mittente 
     uint32_t receiver;              // chiave pubblica del destinatario
     uint32_t amount;                // importo della transazione
