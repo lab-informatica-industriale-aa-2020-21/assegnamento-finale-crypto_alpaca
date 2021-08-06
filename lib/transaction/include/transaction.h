@@ -27,5 +27,6 @@ typedef struct trans
 // Creazione di una nuova transazione
 trans *new_trans(const int32_t public_key_sender, const int32_t public_key_receiver, const int32_t amount_transaction, trans *const head_trans);
 
+void input_trans(uint32_t sender, uint32_t receiver, uint32_t amount, chain in_chain);
 
-#endif 
+#endif
