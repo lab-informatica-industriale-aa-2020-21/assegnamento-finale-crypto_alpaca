@@ -11,5 +11,6 @@ target_link_libraries(application
 #	PRIVATE LII::transaction
 #	PRIVATE LII::block
 	PRIVATE LII::chain
-#	PRIVATE LII::file_IO
+	PRIVATE LII::file_IO
+#	PRIVATE LII::format_string
 )
