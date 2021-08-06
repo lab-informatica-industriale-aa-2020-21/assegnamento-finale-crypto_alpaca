@@ -12,6 +12,7 @@ target_include_directories(chain
         )
 
 target_link_libraries(chain
+	PUBLIC LII::transaction
         PUBLIC LII::block
         )
 
