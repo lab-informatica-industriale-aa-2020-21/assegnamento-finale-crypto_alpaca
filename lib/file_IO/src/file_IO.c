@@ -10,7 +10,7 @@
 #include "format_string.h"
 
 
-void write_block(const block *block_to_print, FILE fp, const char *file_path){
+void write_block(const block *block_to_print, FILE *fp, const char *file_path){
     //formattazione blocco
     char block_str [BLOCK_HEADER_LENGTH + block_to_print -> num_trans * TRANS_LENGTH + 2 * (LINE_LENGTH + 1) + 1];
     print_block(block_to_print, block_str);

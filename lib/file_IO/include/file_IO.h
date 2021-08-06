@@ -9,6 +9,7 @@
 #include "file_IO.h"
 #include "transaction.h"
 #include "block.h"
+#include "chain.h"
 #include "format_string.h"
 
 
