@@ -313,6 +313,6 @@ void format_data_for_hash(const block *block_source, char *trans){
         strcat(trans, uint32_to_stringHex(next_to_print -> receiver));
         strcat(trans, uint32_to_stringHex(next_to_print -> amount));
 
-        next_to_print = next_to_print -> next_trans
+        next_to_print = next_to_print -> next_trans;
     } while(next_to_print != NULL);
 }
