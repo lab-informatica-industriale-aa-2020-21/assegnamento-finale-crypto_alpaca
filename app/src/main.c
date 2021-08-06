@@ -21,7 +21,6 @@ int main()
 {
     // Dichiarazioni variabili:
     bool work_type;
-    trans transaction;
     char input_choice;
 
     // Introduzione al programma implementato e messaggio di benvenuto 
@@ -37,7 +36,7 @@ int main()
            "0 -> transazione manuale\n"
            "1 -> transazione automatica");
 
-        scanf("%d", &work_type);
+        scanf("%B", &work_type);
         if(work_type != 0 || work_type != 1){
             printf("\n\nIl valore inserito non è valido!\n"
                     " Inserisci '0' o '1'");
