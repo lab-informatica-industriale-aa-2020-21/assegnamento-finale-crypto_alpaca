@@ -7,6 +7,10 @@ void setUp(void) {}
 void tearDown(void) {}
 
 
+void test_rotate_shouldRotateGiven32bitUintWord(void) {
+	TEST_ASSERT_EQUAL_UINT32(497166976, rotate(3884117));
+}
+
 //Operations: y_test = rot_r(x,7) XOR rot_r(x,18) XOR shift_r(x,3)
 void test_sigma_0_shouldCalculateSigma0OperationSeriesTox(void) {
 	TEST_ASSERT_EQUAL_UINT32(2064801292, sigma_0(3884117));
@@ -30,6 +34,8 @@ void test_usigma_1_shouldCalculateUsigma1OperationSeriesTox(void) {
 int main(void) {
 
 	UNITY_BEGIN();
+
+	RUN_TEST(test_rotate_shouldRotateGiven32bitUintWord);
 
 	RUN_TEST(test_sigma_0_shouldCalculateSigma0OperationSeriesTox);
 	RUN_TEST(test_usigma_0_shouldCalculateUsigma0OperationSeriesTox);
