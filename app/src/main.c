@@ -14,13 +14,14 @@
 #include "block.h"
 #include "file_IO.h"
 
+void manual_trans(void);
+void automatic_trans(void);
 
 int main()
 {
     // Dichiarazioni variabili:
-    short work_type;
+    bool work_type;
     trans transaction;
-    uint32_t num_of_transaction = 0;
     char input_choice;
 
     // Introduzione al programma implementato e messaggio di benvenuto 
@@ -52,7 +53,7 @@ int main()
             num_of_transaction ++; // conteggio del numero di transazioni inserite
             manual_trans(num_of_transaction);
             printf("\nVuoi aggiungere un'altra transazone? (Y/N)");
-            scanf("%s", input_choice);
+            scanf("%c", input_choice);
         }
         while(input_choice == 'y');
     }
@@ -66,17 +67,17 @@ int main()
 
 
 // Funzione creazione transazioni manuale 
-void manual_trans(num_of_transaction)
+void manual_trans(void)
 {
     uint32_t sender, receiver, amount;
     
     printf("Inserisci i dati richiesti: \n");
     printf("\nSender (formato DEC_INT): ");
-    scanf("%d", sender);
+    scanf("%u", sender);
     printf("\nReceiver (formato DEC_INT): ");
-    scanf("%d", receiver);
+    scanf("%u", receiver);
     printf("\nImporto della transazione (formato DEC_INT): ");
-    scanf("%d", amount);
+    scanf("%u", amount);
   //  add_trans(sender, receiver, amount);
 }
 
