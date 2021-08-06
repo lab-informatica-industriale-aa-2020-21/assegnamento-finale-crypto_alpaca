@@ -8,6 +8,7 @@
 #include <stdint.h>
 
 #include "block.h"
+#include "transaction.h"
 
 typedef struct chain
 { 
