@@ -6,7 +6,6 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include "transaction.h"
-#include "block.h"
 
 /* Funzione: new_trans
  *---------------------------------------------------------------------------------------------
