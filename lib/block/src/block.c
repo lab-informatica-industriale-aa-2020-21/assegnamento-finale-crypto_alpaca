@@ -11,11 +11,6 @@
 #include "block.h"
 #include "hash.h"
 
-#define TIMEINFO_STR_LEN 20 // definizione della lunghezza della stringa per le info temporali di creazione del blocco 
-
-// Dichiarazioni delle variabili:
-uint32_t count_index = 0;
-block *head_block = NULL;
 
 /*Funzione: new_block
 * ---------------------------------------------------------------------------------
