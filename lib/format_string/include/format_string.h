@@ -167,11 +167,4 @@ return:     void
 void print_block(const block *block_to_print, char *str_out);
 
 
-/*
-'write_block' apre il file 'blockchain.txt' (se non esiste lo crea) e scrive
-al suo interno la stringa generata da 'print_block'.
-args        block_to_print  ->  puntatore al blocco da stampare
-return      void
-*/
-
 #endif
