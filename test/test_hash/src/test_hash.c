@@ -14,12 +14,12 @@ void test_sigma_0_shouldCalculateSigma0OperationSeriesTox(void) {
 
 //Operations: y_test = rot_r(x,2) XOR rot_r(x,13) XOR rot_r(x,22)
 void test_usigma_0_shouldCalculateUsigma0OperationSeriesTox(void) {
-	TEST_ASSERT_EQUAL_UINT32(3245867019, usigma_0(3884117));
+	TEST_ASSERT_EQUAL_UINT32(2411168975, usigma_0(3884117));
 }
 
 //Operations: y_test = rot_r(x,17) XOR rot_r(x,19) XOR shift_r(x,10)
 void test_sigma_1_shouldCalculateSigma1OperationSeriesTox(void) {
-	TEST_ASSERT_EQUAL_UINT32(1204224, sigma_1(47));
+	TEST_ASSERT_EQUAL_UINT32(3399495371, sigma_1(3884117));
 }
 
 int main(void) {
