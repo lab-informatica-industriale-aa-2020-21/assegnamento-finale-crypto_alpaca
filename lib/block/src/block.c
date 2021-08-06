@@ -40,7 +40,7 @@ block *new_block(block *const head_block){
         tmp_block -> prev_hash = head_block -> hash;
     }
     
-    tmp_block -> hash = 0xFFFFFFFF;
+    &(tmp_block -> hash) = 0xFFFFFFFF;
     tmp_block -> nonce = 0;
     tmp_block -> first_trans = NULL;
     tmp_block -> head_trans = NULL;
