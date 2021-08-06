@@ -50,12 +50,11 @@ int main()
     }
     else{
         do{
-            num_of_transaction ++; // conteggio del numero di transazioni inserite
-            manual_trans(num_of_transaction);
+            manual_trans();
             printf("\nVuoi aggiungere un'altra transazone? (Y/N)");
-            scanf("%c", input_choice);
+            scanf("%c", &input_choice);
         }
-        while(input_choice == 'y');
+        while(input_choice == 'y' || input_choice == 'Y');
     }
 
     printf("L'inserimento delle transazioni è terminato!\n"
