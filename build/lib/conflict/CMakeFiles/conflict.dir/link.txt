@@ -1,2 +1,0 @@
-/usr/bin/ar qc libconflict.a  CMakeFiles/conflict.dir/src/conflict.c.o
-/usr/bin/ranlib libconflict.a
