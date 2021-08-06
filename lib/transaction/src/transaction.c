@@ -57,11 +57,11 @@ trans *new_trans(const int32_t sender, const int32_t receiver, const int32_t amo
 void input_trans(uint32_t sender, uint32_t receiver, uint32_t amount, chain *in_chain){
     if (in_chain -> first_block == NULL){
         in_chain -> first_block = new_block(NULL);
-        in_chain -> head_block = chain -> first_block;
+        in_chain -> head_block = in_chain -> first_block;
     }
 
     if ((in_chain -> head_block) -> hash [0] <= MAX_VALID_FIRST_HASH_ELEMENT)
-        in_chain -> head_block = new_chain(head_block);
+        in_chain -> head_block = new_chain(in_chain -> head_block);
 
-    (in_chain -> head_block) -> head_trans = new_trans(sender, receiver, amount, (in_chain -> head_block) -> head_trans));
+    (in_chain -> head_block) -> head_trans = new_trans(sender, receiver, amount, (in_chain -> head_block) -> head_trans);
 }
