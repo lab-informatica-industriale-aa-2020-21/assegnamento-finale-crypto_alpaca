@@ -54,7 +54,7 @@ struct trans *new_trans(const int32_t sender, const int32_t receiver, const int3
     return tmp_trans;
 }
 
-void input_trans(uint32_t sender, uint32_t receiver, uint32_t amount, struct chain *in_chain){
+void input_trans(uint32_t sender, uint32_t receiver, uint32_t amount, struct chain *const in_chain){
     if (in_chain -> first_block == NULL){
         in_chain -> first_block = new_block(NULL);
         in_chain -> head_block = in_chain -> first_block;
