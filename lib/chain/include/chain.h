@@ -9,9 +9,9 @@
 
 #include "block.h"
 
-typedef struct chain
+typedef struct
 { 
-    struct chain *next_chain;       // puntatore alla chain successiva
+    chain *next_chain;       // puntatore alla chain successiva
     struct block *first_block;             // primo blocco di una chain
     struct block *head_block;              // blocco più recente di una chain
     uint32_t num_block;             // numero di blocchi inseriti in una chain 
