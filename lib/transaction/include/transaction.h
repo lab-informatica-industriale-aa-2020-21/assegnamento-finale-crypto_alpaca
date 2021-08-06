@@ -15,20 +15,20 @@
 
 
 // Definizione della struttura della transazione: 
-struct
+struct trans
 {
     struct trans *next_trans;       // puntatore alla transazione successiva
     uint32_t sender;                // chiave pubblica del mittente 
     uint32_t receiver;              // chiave pubblica del destinatario
     uint32_t amount;                // importo della transazione
     uint32_t count_trans;           // conteggio del numero di transazioni
-} trans;
+};
 
 
 // Funzioni utili per la gestione delle transazioni:
 
 // Creazione di una nuova transazione
-trans *new_trans(const int32_t public_key_sender, const int32_t public_key_receiver, const int32_t amount_transaction, struct trans *const head_trans);
+struct trans *new_trans(const int32_t public_key_sender, const int32_t public_key_receiver, const int32_t amount_transaction, struct trans *const head_trans);
 
 void input_trans(uint32_t sender, uint32_t receiver, uint32_t amount, struct chain *in_chain);
 

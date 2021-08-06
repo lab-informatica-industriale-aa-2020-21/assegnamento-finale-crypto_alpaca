@@ -9,16 +9,16 @@
 
 #include "block.h"
 
-struct
+struct chain
 { 
     struct chain *next_chain;       // puntatore alla chain successiva
     struct block *first_block;             // primo blocco di una chain
     struct block *head_block;              // blocco più recente di una chain
     uint32_t num_block;             // numero di blocchi inseriti in una chain 
     uint32_t count_chain;           // conteggio del numero di chain 
-}chain;
+};
 
-chain *new_chain(struct chain *const head_chain);
+struct chain *new_chain(struct chain *const head_chain);
 
 
 /*-------------------------------------------------------------------------------------------------  
