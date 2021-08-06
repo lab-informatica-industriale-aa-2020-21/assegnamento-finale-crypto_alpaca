@@ -125,7 +125,7 @@ args:       block_to_print  ->  puntatore al blocco da stampare
             str_out         ->  puntatore alla stringa su cui verrà salvato il risultato
 return:     void
 */
-void print_block_header(const block *block_to_print, char *str_out);
+void print_block_header(const struct block *block_to_print, char *str_out);
 
 /*
 'print_trans' formatta una stringa di 4 righe contenenti i dati di una transazione.
@@ -139,7 +139,7 @@ args:       num         -> numero transazione
             str_out     -> puntatore alla stringa su cui verrà salvato il risultato
 return:     void
 */
-void print_trans(const trans *trans_to_print, char *str_out);
+void print_trans(const struct trans *trans_to_print, char *str_out);
 
 
 /*
@@ -152,7 +152,7 @@ args:       block_to_print  ->  puntatore al blocco da stampare
             str_out         ->  puntatore alla stringa su cui verrà salvato il risultato
 return:     void
 */
-void print_block_trans(const block *block_to_print, char *str_out);
+void print_block_trans(const struct block *block_to_print, char *str_out);
 
 
 /*
@@ -164,9 +164,9 @@ args:       block_to_print  ->  puntatore al blocco da stampare
             str_out         ->  puntatore alla stringa su cui verrà salvato il risultato 
 return:     void
 */
-void print_block(const block *block_to_print, char *str_out);
+void print_block(const struct block *block_to_print, char *str_out);
 
 
-void format_data_for_hash(const block *block_source, char *trans);
+void format_data_for_hash(const struct block *block_source, char *trans);
 
 #endif
