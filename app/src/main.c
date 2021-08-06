@@ -51,7 +51,7 @@ int main()
         do{
             num_of_transaction ++; // conteggio del numero di transazioni inserite
             manual_trans(num_of_transaction);
-            printf("\nVuoi aggiungere un'altra transazone? (Y/N)")
+            printf("\nVuoi aggiungere un'altra transazone? (Y/N)");
             scanf("%s", input_choice);
         }
         while(input_choice == 'y');
