@@ -12,8 +12,10 @@ target_include_directories(block
         )
 
 target_link_libraries(block
+	PUBLIC LII::chain
         PUBLIC LII::transaction
 	PUBLIC LII::hash
+	PUBLIC LII::format_string
         )
 
 add_library(LII::block ALIAS block)
