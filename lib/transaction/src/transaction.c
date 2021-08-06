@@ -24,9 +24,9 @@
  * 
  * return: ritorna una transazione con i relativi campi inseriti;
 */
-trans *new_trans(const int32_t sender, const int32_t receiver, const int32_t amount, trans *const head_trans)
+trans *new_trans(const int32_t sender, const int32_t receiver, const int32_t amount, struct trans *const head_trans)
 {  
-    trans *tmp_trans = malloc(sizeof(trans));    // allocazione di memoria per una transazione
+    struct trans *tmp_trans = malloc(sizeof(trans));    // allocazione di memoria per una transazione
 
     // Controllo funzioanmento corretto di malloc():
     if(tmp_trans == NULL){
@@ -55,7 +55,7 @@ trans *new_trans(const int32_t sender, const int32_t receiver, const int32_t amo
     return tmp_trans;
 }
 
-void input_trans(uint32_t sender, uint32_t receiver, uint32_t amount, chain *in_chain){
+void input_trans(uint32_t sender, uint32_t receiver, uint32_t amount, struct chain *in_chain){
     if (in_chain -> first_block == NULL){
         in_chain -> first_block = new_block(NULL);
         in_chain -> head_block = in_chain -> first_block;
