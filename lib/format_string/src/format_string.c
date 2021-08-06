@@ -303,7 +303,7 @@ void print_block(const block *block_to_print, char *str_out){
 
 
 void format_data_for_hash(const block *block_source, char *trans){
-    struct trans *next_to_print = block_source -> first_trans;
+    trans *next_to_print = block_source -> first_trans;
     char tmp [HEX_NUMB_LENGTH + 1];
 
     do{
