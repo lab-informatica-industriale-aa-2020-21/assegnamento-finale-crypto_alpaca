@@ -126,7 +126,7 @@ void add_empty_line(char *str_out){
 *              str_out         ->  puntatore alla stringa su cui verrà salvato il risultato
 * return:      void
 */
-void print_block_header(const struct block *block_to_print, char *str_out){
+void print_block_header(const block *block_to_print, char *str_out){
     char tmp [ARG_LENGTH + 1];  //per salvare le stringhe momentanee
 
     //line1 -> index
@@ -200,7 +200,7 @@ void print_block_header(const struct block *block_to_print, char *str_out){
 * return:       void
 *
 */
-void print_trans(const struct trans *trans_to_print, char *str_out){
+void print_trans(const trans *trans_to_print, char *str_out){
     char tmp [ARG_LENGTH];  //per salvare le stringhe momentanee
     
     char line1 [LINE_LENGTH + 1], line2 [LINE_LENGTH + 1],
@@ -242,11 +242,11 @@ void print_trans(const struct trans *trans_to_print, char *str_out){
 * return:       void
 *
 */
-void print_block_trans(const struct block *block_to_print, char *str_out){
+void print_block_trans(const block *block_to_print, char *str_out){
     char tmp [TRANS_LENGTH + 1];    //per salvare le stringhe momentanee
 
     //puntatore alla transazione da stampare
-    struct trans *next_to_print = block_to_print -> first_trans;
+    trans *next_to_print = block_to_print -> first_trans;
     int n_cycle = 0;
 
     //il ciclo stampa una transazione alla volta fino alla fine della lista
@@ -289,7 +289,7 @@ void print_block_trans(const struct block *block_to_print, char *str_out){
 */
 
 
-void print_block(const struct block *block_to_print, char *str_out){
+void print_block(const block *block_to_print, char *str_out){
     //per stampare l'header del blocco e le transazioni
     char block_header [BLOCK_HEADER_LENGTH + 1];
     char trans [TRANS_LENGTH * block_to_print -> num_trans + LINE_LENGTH + 1];
@@ -302,7 +302,7 @@ void print_block(const struct block *block_to_print, char *str_out){
 }
 
 
-void format_data_for_hash(const struct block *block_source, char *trans){
+void format_data_for_hash(const block *block_source, char *trans){
     struct trans *next_to_print = block_source -> first_trans;
     char tmp [HEX_NUMB_LENGTH + 1];
 

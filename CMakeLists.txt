@@ -14,7 +14,7 @@ else()
         add_compile_options(-Wall -Wextra -pedantic)
 endif()
 
-set(TARGET_GROUP test CACHE STRING "Group to build")
+set(TARGET_GROUP production CACHE STRING "Group to build")
 
 add_subdirectory(lib/hash)
 #add_subdirectory(lib/transaction)

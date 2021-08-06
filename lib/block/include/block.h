@@ -22,7 +22,7 @@
 #define DATA_TRANS 3        // dati per ogni transazione -> sender, receiver, amount
 #define BIT_PER_TRANS (DATA_TRANS * HEX_NUMB_LENGTH)
 
-struct block
+typedef struct block
 {
     struct block *next_block;        // puntatore al blocco successivo
     struct trans *first_trans;              // puntatore alla prima transazione della lista per lettura 
@@ -33,7 +33,7 @@ struct block
     uint32_t nonce;                  // numero di nonce dell blocco
     uint32_t num_trans;               // numero di transazioni nel blocco
     time_t creation_time;            // tempo per la creazione del blocco
-};
+} block;
 
 // Funzione per la creazione di uno nuovo blocco di transazioni della blockchain:
 struct block *new_block(struct block *const head_block);
