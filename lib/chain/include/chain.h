@@ -9,7 +9,7 @@
 
 #include "block.h"
 
-typedef struct
+struct
 { 
     struct chain *next_chain;       // puntatore alla chain successiva
     struct block *first_block;             // primo blocco di una chain
@@ -18,7 +18,7 @@ typedef struct
     uint32_t count_chain;           // conteggio del numero di chain 
 }chain;
 
-chain *new_chain(chain *const head_chain);
+chain *new_chain(struct chain *const head_chain);
 
 
 /*-------------------------------------------------------------------------------------------------  
@@ -26,6 +26,6 @@ chain *new_chain(chain *const head_chain);
 *   Una volta completata la sua costruzione, viene salvata all'interno di un file.txt
 *   e successivamente viene liberata la memoria utilizzata.
 ---------------------------------------------------------------------------------------------------*/
-void free_chain(chain *chain);
+void free_chain(struct chain *chain);
 
 #endif
