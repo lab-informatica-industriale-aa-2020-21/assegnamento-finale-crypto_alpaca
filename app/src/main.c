@@ -61,18 +61,6 @@ int main()
            "Ora il programma precede ad inserirle in un blocco a svolgere"
            "l'operazione di mining di quest'ultimo .");
     
-    /* Funzione: add_block
-    * ----------------------------------------------------------------------------
-    * Crea il blocco di transazioni, lo mina e successivamente lo aggiunge
-    * alla blockchain.
-    * ----------------------------------------------------------------------------
-    * 
-    * head_block -> puntatore all'ultimo blocco inserito 
-    * head_trans -> puntatore alla testa della lista di transazioni (punta 
-    * all'ultima transazione inserita)
-    * 
-    */
-    add_block(block *const head_block, const trans *head_trans);
 
 }
 
