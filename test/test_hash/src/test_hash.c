@@ -22,12 +22,19 @@ void test_sigma_1_shouldCalculateSigma1OperationSeriesTox(void) {
 	TEST_ASSERT_EQUAL_UINT32(3399495371, sigma_1(3884117));
 }
 
+//Operations: y_test = rot_r(x,6) XOR rot_r(x,11) XOR rot_r(x,25)
+void test_usigma_1_shouldCalculateUsigma1OperationSeriesTox(void) {
+	TEST_ASSERT_EQUAL_UINT32(3271737593, usigma_1(3884117));
+}
+
 int main(void) {
 
 	UNITY_BEGIN();
+
 	RUN_TEST(test_sigma_0_shouldCalculateSigma0OperationSeriesTox);
 	RUN_TEST(test_usigma_0_shouldCalculateUsigma0OperationSeriesTox);
 	RUN_TEST(test_sigma_1_shouldCalculateSigma1OperationSeriesTox);
+	RUN_TEST(test_usigma_1_shouldCalculateUsigma1OperationSeriesTox);
 
 	return(UNITY_END());
 }
