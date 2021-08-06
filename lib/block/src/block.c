@@ -17,20 +17,6 @@
 #include "transaction.h"
 
 
-typedef struct block
-{
-    struct block *next_block;        // puntatore al blocco successivo
-    struct trans *first_trans;              // puntatore alla prima transazione della lista per lettura 
-    struct trans *head_trans;               // puntatore alla transazione più recente della lista per scrittura
-    uint32_t count_block;            // conteggio del numero di blocchi di una chain
-    uint32_t *prev_hash;             // puntatore a 'hash' del blocco precedente
-    uint32_t hash[8];                // 'hash' del blocco corrente
-    uint32_t nonce;                  // numero di nonce dell blocco
-    uint32_t num_trans;               // numero di transazioni nel blocco
-    time_t creation_time;            // tempo per la creazione del blocco
-} block;
-
-
 /*Funzione: new_block
 * ---------------------------------------------------------------------------------
 * Crea un nuovo blocco di transazioni che successivamente verrà minato;
@@ -40,9 +26,9 @@ typedef struct block
 *
 * return: ritorna il nuovo blocco con i relativi campi (hash, hash precedente, nonce ecc..) inseriti 
 */
-struct block *new_block(struct block *const head_block){
+struct block *new_block(block *const head_block){
 
-    struct block *tmp_block = malloc(sizeof(struct block));
+    struct block *tmp_block = malloc(sizeof(block));
 
     // Controllo funzionamento della malloc()
     if (tmp_block == NULL){
