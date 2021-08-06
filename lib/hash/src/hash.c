@@ -114,9 +114,9 @@ unsigned int bin_to_decimal (bool *x, int len_x)
     for (int i = len_x - 1; i >= 0 && x[i] == true; i--){
         vett = vett + x[i] * pow(2, 31-i);
     }
-//    for (int i = len_x - 1; i >= 0 && x > 0 ; i--){
-//        vett = vett + x[i] * pow(2, 31-i);
-//    }
+    //    for (int i = len_x - 1; i >= 0 && x > 0 ; i--){
+    //        vett = vett + x[i] * pow(2, 31-i);
+    //    }
 return vett;
 }
 
