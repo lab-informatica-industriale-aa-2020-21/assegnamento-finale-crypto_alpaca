@@ -63,7 +63,7 @@ struct block *new_block(struct block *const head_block){
 *                 mining per poi essere aggiunto alla chain
 *
 */
-void mine(struct chain *chain_to_mine){
+void mine(struct chain *const chain_to_mine){
     char trans_str [DATA_TRANS * HEX_NUMB_LENGTH * (chain_to_mine -> head_block) -> num_trans + 1];
     format_data_for_hash(chain_to_mine -> head_block, trans_str);
 
@@ -72,7 +72,7 @@ void mine(struct chain *chain_to_mine){
         //hash = funzione calcolo hash((chain -> head_block) -> prev_hash, ((chain -> head_block) -> num_trans) * BIT_PER_TRANS, trans_str, (chain -> head_block) -> nonce);
     }
 
-    (chain -> head_block) -> creation_time = time(NULL);      // info mm/gg/yy (data) - h:min:sec (ora) sulla creazione del nuovo blocco
+    (chain_to_mine -> head_block) -> creation_time = time(NULL);      // info mm/gg/yy (data) - h:min:sec (ora) sulla creazione del nuovo blocco
 }
 
 
