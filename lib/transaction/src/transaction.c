@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+
 #include "transaction.h"
 #include "block.h"
 #include "chain.h"
