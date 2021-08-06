@@ -304,14 +304,20 @@ void print_block(const block *block_to_print, char *str_out){
 
 void format_data_for_hash(const block *block_source, char *trans){
     trans *next_to_print = block_source -> first_trans;
+    char tmp [HEX_NUMB_LENGTH + 1];
 
     do{
+        uint32_to_stringHex(next_to_print -> sender, tmp);
         if (next_to_print == block_source -> first_trans)
-            strcpy(trans, uint32_to_stringHex(next_to_print -> sender));
+            strcpy(trans, tmp);
         else
-            strcat(trans, uint32_to_stringHex(next_to_print -> sender));
-        strcat(trans, uint32_to_stringHex(next_to_print -> receiver));
-        strcat(trans, uint32_to_stringHex(next_to_print -> amount));
+            strcat(trans, tmp);
+
+        uint32_to_stringHex(next_to_print -> receiver, tmp);
+        strcat(trans, tmp);
+
+        uint32_to_stringHex(next_to_print -> amount, tmp);
+        strcat(trans, tmp);
 
         next_to_print = next_to_print -> next_trans;
     } while(next_to_print != NULL);
