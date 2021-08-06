@@ -64,12 +64,12 @@ trans *new_trans(const int32_t public_key_sender, const int32_t public_key_recei
 void add_trans(const uint32_t sender,const uint32_t receiver, const uint32_t amount, trans *head_trans){
     trans *old_head = head_trans;                                         // salvataggio della 'testa' della lista 
     if (head_trans == NULL){
-        trans *first_trans = new_trans(sender, receiver, amount, &head_trans);
+        trans *first_trans = new_trans(sender, receiver, amount, head_trans);
         head_trans = first_trans;
     }
     else{
         
-        head_trans = new_trans(sender, receiver, amount, &head_trans);        // assegnazione della nuova 'testa' della lista
+        head_trans = new_trans(sender, receiver, amount, head_trans);        // assegnazione della nuova 'testa' della lista
     }
 
     old_head -> next_trans = head_trans;                                        // assegnazione del puntatore 'next' della transazione precedente
