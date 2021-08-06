@@ -60,10 +60,12 @@ block *new_block(block *const head_block){
 *
 */
 void mine(chain *const chain){
+    char trans_str [DATA_TRANS * HEX_NUMB_LENGTH * (chain -> head_block) -> num_trans + 1];
+    format_data_for_hash(chain -> head_block, trans_str);
 
     while ((chain -> head_block) -> hash[0] > MAX_VALID_FIRST_HASH_ELEMENT){     //controllo se i primi 4 bit (del primo uint_32) sono diversi da 0
         (chain -> head_block) -> nonce ++;          // incremento del valore di 'nonce' fino a trovare quello corretto, in base alle condizione di hash scelte
-        // block_to_mine -> hash = funzione calcolo hash(char *prevhash, int trans_din_bit, char *trans, char *nonce); tutto nello heap
+        //hash = funzione calcolo hash((chain -> head_block) -> prev_hash, (chain -> head_block) -> num_trans, trans_str, (chain -> head_block) -> nonce);
     }
 
     (chain -> head_block) -> creation_time = time(NULL);      // info mm/gg/yy (data) - h:min:sec (ora) sulla creazione del nuovo blocco

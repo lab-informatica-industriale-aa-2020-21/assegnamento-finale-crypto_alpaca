@@ -302,7 +302,7 @@ void print_block(const block *block_to_print, char *str_out){
 }
 
 
-void format_data_for_hash(const block *block_source, char *trans, uint32_t *nonce){
+void format_data_for_hash(const block *block_source, char *trans){
     trans *next_to_print = block_source -> first_trans;
 
     do{
@@ -315,6 +315,4 @@ void format_data_for_hash(const block *block_source, char *trans, uint32_t *nonc
 
         next_to_print = next_to_print -> next_trans
     } while(next_to_print != NULL);
-
-    *nonce = block_to_print -> nonce;
 }
