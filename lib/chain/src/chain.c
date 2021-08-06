@@ -17,9 +17,9 @@
 * *head_chain: puntatore alla testa della chain (ultima catena creata)
 * 
 */
-chain *new_chain(struct chain *const head_chain)
+struct chain *new_chain(struct chain *const head_chain)
 {
-    struct chain *tmp_chain = malloc(sizeof(chain));
+    struct chain *tmp_chain = malloc(sizeof(struct chain));
     if(tmp_chain == NULL){
         printf("Error: malloc() failure");
         exit(EXIT_FAILURE);
