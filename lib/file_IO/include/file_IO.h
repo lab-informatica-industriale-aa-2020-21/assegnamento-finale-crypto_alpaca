@@ -16,7 +16,7 @@
 #define TEST_BLOCKCHAIN_TXT "../inout/test_blockchain.txt"
 
 
-void write_block(const block *block_to_print, FILE *fp, const char *file_path);
+void write_block(const block *block_to_print, FILE *fp);
 
 
 void get_arg(FILE *fp, const long line, char *arg);

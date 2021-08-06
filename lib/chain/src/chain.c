@@ -36,7 +36,9 @@ chain *new_chain(chain *const head_chain)
 
     tmp_chain -> first_block = NULL;            
     tmp_chain -> head_block = NULL;              
-    tmp_chain -> num_block = 0;  
+    tmp_chain -> num_block = 0;
+
+    return tmp_chain;
 }
 
 /* Funzione: free_chain
