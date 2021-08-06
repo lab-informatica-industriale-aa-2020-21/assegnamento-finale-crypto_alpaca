@@ -1,2 +1,0 @@
-/usr/bin/ar qc libfile_IO.a  CMakeFiles/file_IO.dir/src/file_IO.c.o
-/usr/bin/ranlib libfile_IO.a
