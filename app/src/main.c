@@ -89,7 +89,7 @@ void manual_trans(num_of_transaction)
     scanf("%d", receiver);
     printf("\nImporto della transazione (formato DEC_INT): ");
     scanf("%d", amount);
-    add_trans(sender, receiver, amount);
+  //  add_trans(sender, receiver, amount);
 }
 
 
