@@ -7,6 +7,8 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+#include "block.h"
+#include "chain.h"
 
 
 // Definizione della struttura della transazione: 
