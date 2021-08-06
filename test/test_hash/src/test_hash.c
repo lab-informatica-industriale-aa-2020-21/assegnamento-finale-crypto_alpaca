@@ -33,16 +33,19 @@ void test_usigma_1_shouldCalculateUsigma1OperationSeriesTox(void) {
 }
 
 void test_decimal_to_bin_shouldConvertUint32ToBinary(void) {
-	uint32_t exp_bin[4] = {true, true, true, false};
-	uint32_t test_bin[4];
-	decimal_to_bin(14, test_bin, 4);
+	bool exp_bin[32] = {1,1,1,0,0,1,1,1,1,0,0,0,0,0,1,0,
+						1,1,1,0,1,1,1,0,0,0,0,0,1,0,1,0};
+	bool test_bin[32];
+	decimal_to_bin(3884117514, test_bin, 32);
 
-	TEST_ASSERT_MESSAGE (exp_bin[0] == test_bin[0], "Element 0 doesn't match");
-	TEST_ASSERT_MESSAGE (exp_bin[1] == test_bin[1], "Element 1 doesn't match");
-	TEST_ASSERT_MESSAGE (exp_bin[2] == test_bin[2], "Element 2 doesn't match");
-	TEST_ASSERT_MESSAGE (exp_bin[3] == test_bin[3], "Element 3 doesn't match");
+	TEST_ASSERT_EQUAL_MEMORY (exp_bin, test_bin, 32);
 }
 
+void test_bin_to_decimal_shouldConvertBinaryToUint32(void) {
+	bool test_x[32] = {1,1,1,0,0,1,1,1,1,0,0,0,0,0,1,0,
+						1,1,1,0,1,1,1,0,0,0,0,0,1,0,1,0};
+	TEST_ASSERT_EQUAL_UINT32(3884117514, bin_to_decimal(test_x, 32));
+}
 
 
 
@@ -57,6 +60,7 @@ int main(void) {
 	RUN_TEST(test_sigma_1_shouldCalculateSigma1OperationSeriesTox);
 	RUN_TEST(test_usigma_1_shouldCalculateUsigma1OperationSeriesTox);
 	RUN_TEST(test_decimal_to_bin_shouldConvertUint32ToBinary);
+	RUN_TEST(test_bin_to_decimal_shouldConvertBinaryToUint32);
 
 	return(UNITY_END());
 }
