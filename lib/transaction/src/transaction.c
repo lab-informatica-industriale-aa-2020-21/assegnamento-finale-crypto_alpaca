@@ -24,9 +24,8 @@
  * 
  * return: ritorna una transazione con i relativi campi inseriti;
 */
-trans *new_trans(const int32_t sender, const int32_t receiver, const int32_t amount, struct trans *const head_trans)
-{  
-    struct trans *tmp_trans = malloc(sizeof(trans));    // allocazione di memoria per una transazione
+struct trans *new_trans(const int32_t sender, const int32_t receiver, const int32_t amount, struct trans *const head_trans){  
+    struct trans *tmp_trans = malloc(sizeof(struct trans));    // allocazione di memoria per una transazione
 
     // Controllo funzioanmento corretto di malloc():
     if(tmp_trans == NULL){
