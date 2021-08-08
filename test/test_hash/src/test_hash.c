@@ -56,6 +56,11 @@ void test_majority_shouldReturnsMajorityBitwiseXYZ(void) {
 	TEST_ASSERT_EQUAL(1842722981, maggiority(3515164733, 1834274982, 1843249093));
 }
 
+void int32_to_char_shouldReturnsStringRepresentingBitsOfUint32(void) {
+	char exp_array[33] = "01110100001000101010111101111001";
+	TEST_ASSERT_EQUAL_MEMORY(exp_array, int_32_to_char(1948430201), 32);
+}
+
 int main(void) {
 
 	UNITY_BEGIN();
@@ -69,6 +74,7 @@ int main(void) {
 
 	RUN_TEST(test_decimal_to_bin_shouldConvertUint32ToBinary);
 	RUN_TEST(test_bin_to_decimal_shouldConvertBinaryToUint32);
+	RUN_TEST(int32_to_char_shouldReturnsStringRepresentingBitsOfUint32);
 
 	RUN_TEST(test_choice_shouldAssignYorXtoZdependingOnX);
 	RUN_TEST(test_majority_shouldReturnsMajorityBitwiseXYZ);
