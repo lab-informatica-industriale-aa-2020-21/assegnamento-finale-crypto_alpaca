@@ -52,7 +52,7 @@ void test_choice_shouldAssignYorXtoZdependingOnX(void) {
 							choice(3884117514, 93658048, 2398402234));
 }
 
-void test_maggiority_shouldReturnsMajorityBitwiseXYZ(void) {
+void test_majority_shouldReturnsMajorityBitwiseXYZ(void) {
 	TEST_ASSERT_EQUAL(1842722981, maggiority(3515164733, 1834274982, 1843249093));
 }
 
@@ -71,7 +71,7 @@ int main(void) {
 	RUN_TEST(test_bin_to_decimal_shouldConvertBinaryToUint32);
 
 	RUN_TEST(test_choice_shouldAssignYorXtoZdependingOnX);
-	RUN_TEST(test_maggiority_shouldReturnsMajorityBitwiseXYZ);
+	RUN_TEST(test_majority_shouldReturnsMajorityBitwiseXYZ);
 
 	return(UNITY_END());
 }
