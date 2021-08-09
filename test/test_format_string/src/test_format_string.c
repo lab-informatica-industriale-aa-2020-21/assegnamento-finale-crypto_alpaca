@@ -226,6 +226,65 @@ void test_print_block_ShouldFormatFixedLenStringWithBlockInfo(void) {
 								 test_string, BLOCK_HEADER_LENGTH + TRANS_LENGTH * 3 + LINE_LENGTH + 1 + 1);
 }
 
+void test_format_data_for_hash_shouldFormatStringWithAllTransInfo(void) {
+	time_t creation_time = time(NULL);
+	char test_trans_str[HEX_NUMB_LENGTH * 3 * 3 + 1];
+
+	block test_block = {
+        NULL,                                           //next_block
+		NULL,											//*first_trans
+		NULL,											//head_trans
+		25,												//count_block
+		NULL,											//prev_hash
+		{213, 19232, 0, 191302, 1752, 1, 5, 12332},		//hash
+		39291,											//nonce
+		3,												//num_trans
+		creation_time,
+	};
+
+	trans test_trans1 = {
+		NULL,
+		23913,
+		9138432,
+		1340,
+		1
+	};
+
+	trans test_trans2 = {
+		NULL,
+		192323,
+		1039,
+		10923,
+		2
+	};
+
+	trans test_trans3 = {
+		NULL,
+		12321,
+		9834,
+		10,
+		3
+	};
+
+	test_block.head_trans = &test_trans3;
+	test_block.first_trans = &test_trans1;
+	test_trans1.next_trans = &test_trans2;
+	test_trans2.next_trans = &test_trans3;
+
+	format_data_for_hash(&test_block, test_trans_str);
+
+	TEST_ASSERT_EQUAL_STRING_LEN("00005d69"
+								 "008b7100"
+								 "0000053c"
+								 "0002ef43"
+								 "0000040f"
+								 "00002aab"
+								 "00003021"
+								 "0000266a"
+								 "0000000a",
+								 test_trans_str, HEX_NUMB_LENGTH * 3 * 3 + 1);
+}
+
 
 int main(void) {
     UNITY_BEGIN();
@@ -238,6 +297,7 @@ int main(void) {
 	RUN_TEST(test_print_trans_ShouldFormatFixedLenStringWithSingleTransInfo);
 	RUN_TEST(test_print_block_trans_ShouldFormatFixedLenStringWithAllBlockTransInfo);
 	RUN_TEST(test_print_block_ShouldFormatFixedLenStringWithBlockInfo);
+	RUN_TEST(test_format_data_for_hash_shouldFormatStringWithAllTransInfo);
 
     return UNITY_END();
 }
