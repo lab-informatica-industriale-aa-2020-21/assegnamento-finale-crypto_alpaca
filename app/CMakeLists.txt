@@ -8,9 +8,7 @@ add_executable(application src/main.c)
 
 target_link_libraries(application
     PRIVATE LII::hash
-	PRIVATE LII::transaction
-	PRIVATE LII::block
-	PRIVATE LII::chain
+	PRIVATE LII::blockchain
 	PRIVATE LII::file_IO
 	PRIVATE LII::format_string
 )

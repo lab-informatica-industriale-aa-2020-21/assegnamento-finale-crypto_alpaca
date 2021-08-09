@@ -10,10 +10,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "transaction.h"
-#include "block.h"
-#include "chain.h"
-//#include "file_IO.h"
+#include "blockchain.h"
 
 void manual_trans(void);
 void automatic_trans(void);
