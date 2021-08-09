@@ -10,16 +10,17 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "chain.h"
+//#include "chain.h"
 #include "transaction.h"
-#include "block.h"
-#include "file_IO.h"
+//#include "block.h"
+//#include "file_IO.h"
 
 void manual_trans(void);
 void automatic_trans(void);
 
 int main()
 {
+    /*
     // Dichiarazioni variabili:
     int work_type = false;
     char input_choice;
@@ -62,10 +63,10 @@ int main()
            "Ora il programma precede ad inserirle in un blocco a svolgere"
            "l'operazione di mining di quest'ultimo .");
     
-
+*/
 }
 
-
+/*
 // Funzione creazione transazioni manuale 
 void manual_trans(void)
 {
@@ -88,3 +89,4 @@ void automatic_trans()
 
 }
 
+*/
