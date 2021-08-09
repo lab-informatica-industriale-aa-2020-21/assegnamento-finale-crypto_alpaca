@@ -185,8 +185,8 @@ return bin_to_decimal(num, WORD_LEN);
 */
 unsigned int* create_block(unsigned int list_trans_len, int *n_block)
 {
-    u_int64_t dim_dati = 0;             //Dimensione in bit
-    u_int64_t dim_tot = 0;
+    uint64_t dim_dati = 0;             //Dimensione in bit
+    uint64_t dim_tot = 0;
     unsigned int *block_data = NULL;
     unsigned int dim_nonce = N_CHAR_PER_UINT32*8;       //N_CHAR_PER_UINT32 * 8 = 80bit in totale.  
 
