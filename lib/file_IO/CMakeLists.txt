@@ -12,9 +12,7 @@ target_include_directories(file_IO
         )
 
 target_link_libraries(file_IO
-	PUBLIC LII::transaction
-        PUBLIC LII::block
-	PUBLIC LII::chain
+	PUBLIC LII::blockchain
 	PUBLIC LII::format_string
         )
 

@@ -3,10 +3,8 @@
 #include <string.h>
 #include <stdint.h>
 
+#include "blockchain.h"
 #include "file_IO.h"
-#include "transaction.h"
-#include "block.h"
-#include "chain.h"
 #include "format_string.h"
 
 

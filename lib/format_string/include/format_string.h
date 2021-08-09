@@ -6,8 +6,7 @@
 #include <string.h>
 #include <stdint.h>
 
-#include "transaction.h"
-#include "block.h"
+#include "blockchain.h"
 
 //costanti di lunghezza delle stringhe
 #define TITLE_LENGTH 15         //max caratteri per il titolo

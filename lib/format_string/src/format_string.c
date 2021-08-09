@@ -3,9 +3,8 @@
 #include <string.h>
 #include <stdint.h>
 
+#include "blockchain.h"
 #include "format_string.h"
-#include "transaction.h"
-#include "block.h"
 
 
 /******************************************************************************
