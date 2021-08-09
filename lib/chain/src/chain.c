@@ -16,7 +16,7 @@
 *
 * *head_chain: puntatore alla testa della chain (ultima catena creata)
 * 
-*/
+*
 chain *new_chain(chain *const head_chain)
 {
     chain *tmp_chain = malloc(sizeof(chain));
@@ -51,7 +51,7 @@ chain *new_chain(chain *const head_chain)
 *
 * *chain: puntatore alla catena (chain) di cui si vuole deallocare la memoria 
 *
-*/
+*
 void free_chain(chain *chain){
     // Definizioni delle variabili
     trans *tmp_pointer_trans;   // puntatore temporaneo per salvare il puntatore alla transazione successiva

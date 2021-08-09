@@ -13,9 +13,9 @@
 #include <stdlib.h>
 
 #include "transaction.h"
-#include "format_string.h"
 #include "chain.h"
-#include "hash.h"
+//#include "hash.h"
+//#include "format_string.h"
 
 #define MAX_VALID_FIRST_HASH_ELEMENT 0x0FFFFFFF
 #define TIMEINFO_STR_LEN 20 // definizione della lunghezza della stringa per le info temporali di creazione del blocco
@@ -37,10 +37,10 @@ struct Block
 typedef struct Block block;
 
 // Funzione per la creazione di uno nuovo blocco di transazioni della blockchain:
-struct block *new_block(block *const head_block);
+//struct block *new_block(block *const head_block);
 
 // Mina il nuovo blocco creato, ovvero aggiunge il blocco alla blockchain:
-void mine(chain *const chain_to_mine);
+//void mine(chain *const chain_to_mine);
 
-bool get_str_creation_time(time_t creation_time, char *string);
+//bool get_str_creation_time(time_t creation_time, char *string);
 #endif

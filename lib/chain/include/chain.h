@@ -20,7 +20,7 @@ struct Chain
 };
 typedef struct Chain chain;
 
-chain *new_chain(chain *const head_chain);
+//chain *new_chain(chain *const head_chain);
 
 
 /*-------------------------------------------------------------------------------------------------  
@@ -28,6 +28,6 @@ chain *new_chain(chain *const head_chain);
 *   Una volta completata la sua costruzione, viene salvata all'interno di un file.txt
 *   e successivamente viene liberata la memoria utilizzata.
 ---------------------------------------------------------------------------------------------------*/
-void free_chain(chain *chain);
+//void free_chain(chain *chain);
 
 #endif
