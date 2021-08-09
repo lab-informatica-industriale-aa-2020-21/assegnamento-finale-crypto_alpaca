@@ -8,7 +8,7 @@
 #include <stdint.h>
 
 #include "block.h"
-#include "transaction.h"
+//#include "transaction.h"
 
 struct Chain
 { 
@@ -20,7 +20,7 @@ struct Chain
 };
 typedef struct Chain chain;
 
-//chain *new_chain(chain *const head_chain);
+chain *new_chain(chain *const head_chain);
 
 
 /*-------------------------------------------------------------------------------------------------  
@@ -28,6 +28,6 @@ typedef struct Chain chain;
 *   Una volta completata la sua costruzione, viene salvata all'interno di un file.txt
 *   e successivamente viene liberata la memoria utilizzata.
 ---------------------------------------------------------------------------------------------------*/
-//void free_chain(chain *chain);
+void free_chain(chain *chain);
 
 #endif

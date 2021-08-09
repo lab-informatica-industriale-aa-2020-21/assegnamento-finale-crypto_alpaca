@@ -16,13 +16,13 @@ endif()
 
 set(TARGET_GROUP production CACHE STRING "Group to build")
 
-#add_subdirectory(lib/hash)
+add_subdirectory(lib/hash)
 add_subdirectory(lib/transaction)
 add_subdirectory(lib/block)
 add_subdirectory(lib/chain)
-#add_subdirectory(lib/conflict)
-#add_subdirectory(lib/file_IO)
-#add_subdirectory(lib/format_string)
+add_subdirectory(lib/conflict)
+add_subdirectory(lib/file_IO)
+add_subdirectory(lib/format_string)
 
 if(TARGET_GROUP STREQUAL production)
         add_subdirectory(app)

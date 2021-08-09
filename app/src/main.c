@@ -62,7 +62,6 @@ int main()
            "Ora il programma precede ad inserirle in un blocco a svolgere"
            "l'operazione di mining di quest'ultimo .");
     
-*/
 }
 
 

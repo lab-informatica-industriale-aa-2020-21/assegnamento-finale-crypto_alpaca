@@ -6,17 +6,20 @@
 #include <string.h>
 #include <stdint.h>
 
-#include "transaction.h"
+//#include "transaction.h"
 #include "block.h"
-#include "chain.h"
-#include "format_string.h"
+//#include "chain.h"
+//#include "format_string.h"
 
 
 #define BLOCKCHAIN_TXT "../inout/blockchain.txt"
 #define TEST_BLOCKCHAIN_TXT "../inout/test_blockchain.txt"
 
 
-void write_block(const struct block *block_to_print, FILE *fp);
+void write_block(const block *block_to_print, FILE *fp);
+
+
+void save_chain(const chain *chain_to_print, const char *file_path);
 
 
 void get_arg(FILE *fp, const long line, char *arg);

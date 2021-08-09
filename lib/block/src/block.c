@@ -64,7 +64,7 @@ block *new_block(block *const head_block){
 * *block_to_mine: puntatore al blocco su cui è necessario eseguire l'operazione di 
 *                 mining per poi essere aggiunto alla chain
 */
-void mine(struct chain *const chain_to_mine){
+void mine(chain *const chain_to_mine){
     char trans_str [DATA_TRANS * HEX_NUMB_LENGTH * (chain_to_mine -> head_block) -> num_trans + 1];
     format_data_for_hash(chain_to_mine -> head_block, trans_str);
 

@@ -10,7 +10,7 @@
 #include "format_string.h"
 
 
-void write_block(const struct block *block_to_print, FILE *fp){
+void write_block(const block *block_to_print, FILE *fp){
     //formattazione blocco
     char block_str [BLOCK_HEADER_LENGTH + block_to_print -> num_trans * TRANS_LENGTH + 2 * (LINE_LENGTH + 1) + 1];
     print_block(block_to_print, block_str);
@@ -24,7 +24,7 @@ void write_block(const struct block *block_to_print, FILE *fp){
 }
 
 
-void save_chain(const struct chain *chain_to_print, const char *file_path){
+void save_chain(const chain *chain_to_print, const char *file_path){
     //apertura file
     FILE *fp_chain; //creazione puntatore al file
     fp_chain = fopen(file_path, "w");  //apertura file in scrittura
@@ -34,7 +34,7 @@ void save_chain(const struct chain *chain_to_print, const char *file_path){
         exit(EXIT_FAILURE);
     }
 
-    struct block *next_to_print = chain_to_print -> first_block;
+    block *next_to_print = chain_to_print -> first_block;
     do{
         write_block(next_to_print, fp_chain);
         next_to_print = next_to_print -> next_block;
