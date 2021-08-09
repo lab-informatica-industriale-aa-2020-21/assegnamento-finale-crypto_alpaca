@@ -1,7 +1,7 @@
 // Header file per gestione della creazione di una blockchain
 
-#ifndef chain_h
-#define chain_h
+#ifndef CHAIN_H
+#define CHAIN_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,8 +13,8 @@
 struct Chain
 { 
     struct Chain *next_chain;       // puntatore alla chain successiva
-    block *first_block;             // primo blocco di una chain
-    block *head_block;              // blocco più recente di una chain
+    struct Block *first_block;             // primo blocco di una chain
+    struct Block *head_block;              // blocco più recente di una chain
     uint32_t num_block;             // numero di blocchi inseriti in una chain 
     uint32_t count_chain;           // conteggio del numero di chain 
 };

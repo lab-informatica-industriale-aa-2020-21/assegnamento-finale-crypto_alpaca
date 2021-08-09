@@ -1,5 +1,5 @@
-#ifndef format_string_h
-#define format_string_h
+#ifndef FORMAT_STRING_H
+#define FORMAT_STRING_H
 
 #include <stdio.h>
 #include <stdlib.h>

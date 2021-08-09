@@ -3,8 +3,8 @@
 
 // Struttura del blocco di transazioni:
 
-#ifndef BLOCCO_H
-#define BLOCCO_H
+#ifndef BLOCK_H
+#define BLOCK_H
 
 #include <stdio.h>
 #include <stdbool.h>
@@ -25,8 +25,8 @@
 struct Block
 {
     struct Block *next_block;        // puntatore al blocco successivo
-    trans *first_trans;              // puntatore alla prima transazione della lista per lettura 
-    trans *head_trans;               // puntatore alla transazione più recente della lista per scrittura
+    struct Trans *first_trans;              // puntatore alla prima transazione della lista per lettura 
+    struct Trans *head_trans;               // puntatore alla transazione più recente della lista per scrittura
     uint32_t count_block;            // conteggio del numero di blocchi di una chain
     uint32_t *prev_hash;             // puntatore a 'hash' del blocco precedente
     uint32_t hash[8];                // 'hash' del blocco corrente
