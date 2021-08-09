@@ -56,6 +56,80 @@ void test_write_block_ShouldWriteBlockInfoOnTxtFile(void) {
 	//Da testare lettura file test_blockchain.txt
 }
 
+void test_save_chain_sholdWriteBlockchainInfoOnTxtFile(void) {
+	time_t creation_time = time(NULL);
+
+	chain test_chain = {
+		NULL,
+		NULL,
+		NULL,
+		2,
+		1
+	};
+
+	block test_block1 = {
+        NULL,                                           //next_block
+		NULL,											//*first_trans
+		NULL,											//head_trans
+		25,												//count_block
+		NULL,											//prev_hash
+		{6783, 57, 678345457, 0, 235645, 475, 53, 7},	//hash
+		65893569,										//nonce
+		3,												//num_trans
+		creation_time,
+	};
+
+	block test_block2 = {
+        NULL,                                           //next_block
+		NULL,											//*first_trans
+		NULL,											//head_trans
+		26,												//count_block
+		NULL,											//prev_hash
+		{213, 19232, 0, 191302, 1752, 1, 5, 12332},		//hash
+		39291,											//nonce
+		3,												//num_trans
+		creation_time,
+	};
+
+
+	trans test_trans1 = {
+		NULL,
+		23913,
+		9138432,
+		1340,
+		1
+	};
+
+	trans test_trans2 = {
+		NULL,
+		192323,
+		1039,
+		10923,
+		2
+	};
+
+	trans test_trans3 = {
+		NULL,
+		12321,
+		9834,
+		10,
+		3
+	};
+
+	test_chain.first_block = &test_block1;
+	test_chain.head_block = &test_block2;
+	test_block1.next_block = &test_block2;
+	test_block1.head_trans = &test_trans3;
+	test_block1.first_trans = &test_trans1;
+	test_block2.head_trans = &test_trans3;
+	test_block2.first_trans = &test_trans1;
+	test_trans1.next_trans = &test_trans2;
+	test_trans2.next_trans = &test_trans3;
+
+	save_chain(&test_chain, TEST_BLOCKCHAIN_TXT);
+
+}
+
 void test_get_arg_ShouldFillStringOfGivenBlockchainFileLine(void) {
 	FILE *fp;
 	fp = fopen(TEST_BLOCKCHAIN_TXT, "r");
@@ -98,10 +172,11 @@ int main(void) {
 	UNITY_BEGIN();
 
 	RUN_TEST(test_write_block_ShouldWriteBlockInfoOnTxtFile);
+	RUN_TEST(test_save_chain_sholdWriteBlockchainInfoOnTxtFile);
 	RUN_TEST(test_get_arg_ShouldFillStringOfGivenBlockchainFileLine);
 	RUN_TEST(test_get_arg_uint32Dec_ShouldReturnUint32FromGivenBlockchainFileLine);
 	RUN_TEST(test_get_arg_uint32Hex_ShouldReturnUint32FromGivenBlockchainFileLine);
 	RUN_TEST(test_get_prev_hash_ShouldReadAndFillHashArray);
-
+	
 	return UNITY_END();
 }
