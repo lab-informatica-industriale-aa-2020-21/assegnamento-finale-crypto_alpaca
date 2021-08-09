@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdint.h>
 
-#include "blockchain"
+#include "blockchain.h"
 #include "format_string.h"
 
 

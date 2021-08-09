@@ -49,7 +49,7 @@ typedef struct Chain chain;
 
 //definizione funzioni
 
-trans *new_trans(const int32_t sender, const int32_t receiver, const int32_t amount, trans *const head_trans);
+trans *new_trans(const uint32_t sender, const uint32_t receiver, const uint32_t amount, trans *const head_trans);
 
 chain *new_chain(chain *const head_chain);
 

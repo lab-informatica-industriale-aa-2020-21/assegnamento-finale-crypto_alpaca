@@ -5,7 +5,7 @@ project( blockchain_lib
         DESCRIPTION "Chains, Blocks and Transactions management."
         )
 
-add_library(file_IO STATIC src/blockchain.c)
+add_library(blockchain STATIC src/blockchain.c)
 
 target_include_directories(blockchain
         PUBLIC include

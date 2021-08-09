@@ -6,7 +6,7 @@
 #include <string.h>
 #include <stdint.h>
 
-#include "blockchain"
+#include "blockchain.h"
 
 #define BLOCKCHAIN_TXT "../inout/blockchain.txt"
 #define TEST_BLOCKCHAIN_TXT "../inout/test_blockchain.txt"
