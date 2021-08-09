@@ -13,8 +13,8 @@
 #include "transaction.h"
 #include "block.h"
 #include "chain.h"
-//#include "hash.h"
-//#include "format_string.h"
+#include "hash.h"
+#include "format_string.h"
 
 
 /*Funzione: new_block
@@ -25,7 +25,7 @@
 * *first: puntatore al primo blocco della chain
 *
 * return: ritorna il nuovo blocco con i relativi campi (hash, hash precedente, nonce ecc..) inseriti 
-
+*/
 block *new_block(block *const head_block){
 
     block *tmp_block = malloc(sizeof(block));
@@ -63,8 +63,7 @@ block *new_block(block *const head_block){
 * 
 * *block_to_mine: puntatore al blocco su cui è necessario eseguire l'operazione di 
 *                 mining per poi essere aggiunto alla chain
-*
-
+*/
 void mine(struct chain *const chain_to_mine){
     char trans_str [DATA_TRANS * HEX_NUMB_LENGTH * (chain_to_mine -> head_block) -> num_trans + 1];
     format_data_for_hash(chain_to_mine -> head_block, trans_str);
@@ -86,8 +85,7 @@ void mine(struct chain *const chain_to_mine){
  *string: puntatore alla stringa di caratteri in cui trascrivere i dati temporali
  *
  *return: true se la stringa viene scritta correttamente, altrimenti false
- 
-
+ */
 bool get_str_creation_time(time_t creation_time, char *string) {
     struct tm *timeinfo;
 
@@ -97,5 +95,3 @@ bool get_str_creation_time(time_t creation_time, char *string) {
     else
 	return true;
 }
-
-*/

@@ -20,7 +20,6 @@ void automatic_trans(void);
 
 int main()
 {
-    /*
     // Dichiarazioni variabili:
     int work_type = false;
     char input_choice;
@@ -66,7 +65,7 @@ int main()
 */
 }
 
-/*
+
 // Funzione creazione transazioni manuale 
 void manual_trans(void)
 {
@@ -88,5 +87,3 @@ void automatic_trans()
 {
 
 }
-
-*/

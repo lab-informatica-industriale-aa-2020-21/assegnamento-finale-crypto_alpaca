@@ -1,13 +1,13 @@
 // File.c per la creazione di una nuova blockchain:
 
-#include "block.h"
-#include "chain.h"
-#include "transaction.h"
 
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "block.h"
+#include "chain.h"
+#include "transaction.h"
 /* Funzione: new_chain
 *---------------------------------------------------------------------------------------------------------------
 * Creazione di una nuova blockchain.
@@ -16,7 +16,7 @@
 *
 * *head_chain: puntatore alla testa della chain (ultima catena creata)
 * 
-*
+*/
 chain *new_chain(chain *const head_chain)
 {
     chain *tmp_chain = malloc(sizeof(chain));
@@ -41,6 +41,7 @@ chain *new_chain(chain *const head_chain)
     return tmp_chain;
 }
 
+
 /* Funzione: free_chain
 * ------------------------------------------------------------------------------------------
 * Funzione per deallocare la memoria allocata con malloc() per:
@@ -51,7 +52,7 @@ chain *new_chain(chain *const head_chain)
 *
 * *chain: puntatore alla catena (chain) di cui si vuole deallocare la memoria 
 *
-*
+*/
 void free_chain(chain *chain){
     // Definizioni delle variabili
     trans *tmp_pointer_trans;   // puntatore temporaneo per salvare il puntatore alla transazione successiva
