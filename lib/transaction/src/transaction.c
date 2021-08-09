@@ -8,8 +8,8 @@
 #include <stdbool.h>
 
 #include "transaction.h"
-//#include "block.h"
-//#include "chain.h"
+#include "block.h"
+#include "chain.h"
 
 /* Funzione: new_trans
  *---------------------------------------------------------------------------------------------
@@ -55,7 +55,7 @@ trans *new_trans(const int32_t sender, const int32_t receiver, const int32_t amo
 }
 
 
-/*
+
 void input_trans(uint32_t sender, uint32_t receiver, uint32_t amount, chain *const in_chain){
     if (in_chain -> first_block == NULL){
         in_chain -> first_block = new_block(NULL);
@@ -67,4 +67,3 @@ void input_trans(uint32_t sender, uint32_t receiver, uint32_t amount, chain *con
 
     (in_chain -> head_block) -> head_trans = new_trans(sender, receiver, amount, (in_chain -> head_block) -> head_trans);
 }
-*/

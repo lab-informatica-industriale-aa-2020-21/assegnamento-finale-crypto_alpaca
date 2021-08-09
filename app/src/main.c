@@ -10,9 +10,9 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-//#include "chain.h"
 #include "transaction.h"
-//#include "block.h"
+#include "block.h"
+#include "chain.h"
 //#include "file_IO.h"
 
 void manual_trans(void);
