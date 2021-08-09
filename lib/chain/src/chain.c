@@ -17,9 +17,9 @@
 * *head_chain: puntatore alla testa della chain (ultima catena creata)
 * 
 */
-chain *new_chain(struct chain *const head_chain)
+chain *new_chain(chain *const head_chain)
 {
-    chain *tmp_chain = malloc(sizeof(struct chain));
+    chain *tmp_chain = malloc(sizeof(chain));
     if(tmp_chain == NULL){
         printf("Error: malloc() failure");
         exit(EXIT_FAILURE);
@@ -52,17 +52,17 @@ chain *new_chain(struct chain *const head_chain)
 * *chain: puntatore alla catena (chain) di cui si vuole deallocare la memoria 
 *
 */
-void free_chain(struct chain *chain){
+void free_chain(chain *chain){
     // Definizioni delle variabili
-    struct trans *tmp_pointer_trans;   // puntatore temporaneo per salvare il puntatore alla transazione successiva
-    struct block *tmp_pointer_block;   // puntatore temporaneo per salvare il puntatore al blocco successivo
+    trans *tmp_pointer_trans;   // puntatore temporaneo per salvare il puntatore alla transazione successiva
+    block *tmp_pointer_block;   // puntatore temporaneo per salvare il puntatore al blocco successivo
 
     // Blocco successivo di cui deallocare la memoria
-    struct block *next_free_block = chain -> first_block;
+    block *next_free_block = chain -> first_block;
 
     // Ciclo di deallocamento della memoria
     do{
-        struct trans *next_free_trans = (chain -> first_block) -> first_trans;
+        trans *next_free_trans = (chain -> first_block) -> first_trans;
         do{
             tmp_pointer_trans = next_free_trans -> next_trans;  // salvataggio del puntatore alla successiva transazione
             free(next_free_trans);                              // deallocazione delle memoria

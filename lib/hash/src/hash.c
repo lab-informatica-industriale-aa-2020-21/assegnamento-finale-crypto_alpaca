@@ -149,7 +149,7 @@ unsigned int choice (unsigned int x, unsigned int y, unsigned int z)
 return bin_to_decimal(num, WORD_LEN);
 }
 
-/*maggiority()
+/*majority()
 **x, y, z := word a 32 bit passati alla funzione,
 **num := word a 32 bit ritornata dalla funzione,
 **

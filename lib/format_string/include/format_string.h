@@ -167,6 +167,6 @@ return:     void
 void print_block(const block *block_to_print, char *str_out);
 
 
-void format_data_for_hash(const block *block_source, char *trans);
+void format_data_for_hash(const block *block_source, char *trans_str);
 
 #endif
