@@ -16,9 +16,6 @@ void write_block(const block *block_to_print, FILE *fp){
 
     //scrittura blocco sul file di testo
     fprintf(fp, "%s\n", block_str);
-
-    //chiusura file
-    fclose(fp);
 }
 
 
