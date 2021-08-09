@@ -67,3 +67,4 @@ void input_trans(uint32_t sender, uint32_t receiver, uint32_t amount, chain *con
 
     (in_chain -> head_block) -> head_trans = new_trans(sender, receiver, amount, (in_chain -> head_block) -> head_trans);
 }
+*/
