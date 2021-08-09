@@ -111,9 +111,13 @@ void decimal_to_bin (unsigned int x, bool *vett, int len_vett)
 unsigned int bin_to_decimal (bool *x, int len_x)
 {
     unsigned int vett = 0;
+<<<<<<< HEAD
     //for (int i = len_x - 1; i >= 0 && x[i] == true; i--){
     //    vett = vett + x[i] * pow(2, 31-i);
     //}
+=======
+    
+>>>>>>> 2df2e2febe46409d7cbc9167ac200dadbab65340
         for (int i = len_x - 1; i >= 0; i--){
             vett = vett + x[i] * pow(2, 31-i);
         }
@@ -359,7 +363,7 @@ return h_i;
 //
 void shift_state_reg(unsigned int *vett, int len){
     for (int i = 1; i < len; i++)
-        vett[i] = vett[i-1];
+        vett[len-i] = vett[len-i-1];
 }
 
 //Copia vett2[i] = vett1[i]
@@ -377,7 +381,7 @@ return 0;
 //Somma tra due vettori vett2[i] = vett2[i] + vett1[i]
 bool sum_vector(const unsigned int *vett1, int len1, unsigned int *vett2, int len2){
     if(len1 != len2){
-        printf("Error: what to copy? Lengths are different");
+        printf("Error: what to sum? Lengths are different");
         exit(EXIT_FAILURE);
     }
     else   
