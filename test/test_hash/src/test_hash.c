@@ -1,6 +1,7 @@
-#include "unity.h"
 #include <stdbool.h>
+#include <limits.h>
 
+#include "unity.h"
 #include "hash.h"
 
 void setUp(void) {}
@@ -10,6 +11,13 @@ void tearDown(void) {}
 
 void test_rotate_shouldRotateGiven32bitUintWord(void) {
 	TEST_ASSERT_EQUAL_UINT32(497166976, rotate(3884117, 25));
+}
+
+void boundary_test_rotate_shouldRotateGiven32bitUintWord(void) {
+	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, rotate(UINT32_MAX, 100));
+	TEST_ASSERT_EQUAL_UINT32(2863311530, rotate(2863311530, 150));
+	TEST_ASSERT_EQUAL_UINT32(1431655765, rotate(2863311530, 191));
+	TEST_ASSERT_EQUAL_UINT32(0, rotate(0, 120));
 }
 
 //Operations: y_test = rot_r(x,7) XOR rot_r(x,18) XOR shift_r(x,3)
@@ -91,6 +99,7 @@ int main(void) {
 
 	UNITY_BEGIN();
 
+	//Standard test
 	RUN_TEST(test_rotate_shouldRotateGiven32bitUintWord);
 
 	RUN_TEST(test_sigma_0_shouldCalculateSigma0OperationSeriesTox);
@@ -108,6 +117,9 @@ int main(void) {
 	RUN_TEST(test_copy_vector_shouldCopyVett1IntoVett2);
 	RUN_TEST(test_sum_vector_shouldSaveIntoVett2TheSumOfVett1AndVett2);
 	RUN_TEST(test_shift_state_reg_shouldRightShiftVettOf1Position);
+
+	//Boundary test
+	RUN_TEST(boundary_test_rotate_shouldRotateGiven32bitUintWord);
 
 	return(UNITY_END());
 }
