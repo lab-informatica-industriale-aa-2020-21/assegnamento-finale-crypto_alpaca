@@ -74,7 +74,7 @@ int main()
     else{
         // AUTOMATIC MODE
         printf("\nSi è scelta la modalità di inserimento manuale");
-        printf("\n Quante transazioni si volgiono generare?");
+        printf("\n Quante transazioni si volgiono generare?"); // Richiesta numero di transazioni che si vogliono generare
         scanf("%d", & num_trans_to_generate);
 
         // Controllo che il numero di transazioni che si vuole creare sia valido 
@@ -115,8 +115,8 @@ void manual_trans(chain *head_chain)
 
 /*------------------------------------------------------------------------
 * Funzione inserimento transazioni automatico
-* Vengono inseriti manualemente gli identificativi del mittente (sender),
-* destinatario (receiver) e dell'importo della transazioni.
+* Vengono inseriti in maniera casuale gli identificativi del mittente 
+* (sender), destinatario (receiver) e dell'importo della transazioni.
 * Successivamente questi dati vengono passati alla funzione che si occupa
 * della creazione della transazione
 *-------------------------------------------------------------------------*/
@@ -131,24 +131,27 @@ void automatic_trans(chain *head_chain, uint32_t trans_to_generate)
     * Eseguendo 4*rand()*rand() il numero max raggiungibile è 4.294.705.156,
     * ovvero 4 * 32767 * 32767 (max numero raggiungibile in c)
     * L'importo può variare tra 1€ e 3276700€ (32767*100)
+    * 
+    * rand(): funzione che genera numeri random contenuta nella libreria 
+    * standard <stdlib.h>
     *---------------------------------------------------------------------*/
 
     for(int i = 0; i < trans_to_generate; i++){
         sender = 4 * rand() * rand(); // assegnazione identificativo casuale al mittente (sender)
-    // Controllo di sicurezza che il numero non sia maggiore del max valore consentito da uint32_t
-    if(sender > 4294967296){ 
-        sender = 4 * rand() * rand(); // riassegnazione dell'identificativo
-    }
+        // Controllo di sicurezza che il numero non sia maggiore del max valore consentito da uint32_t
+        if(sender > 4294967296){ 
+            sender = 4 * rand() * rand(); // riassegnazione dell'identificativo
+        }
 
-    receiver = 4 * rand() * rand(); // assegnazione identificativo casuale al destinatario (receiver)
-    // Controllo di sicurezza che il numero non sia maggiore del max valore consentito da uint32_t
-    if(receiver > 4294967296){ 
-        sender = 4 * rand() * rand(); // riassegnazione dell'identificativo
-    }
+        receiver = 4 * rand() * rand(); // assegnazione identificativo casuale al destinatario (receiver)
+        // Controllo di sicurezza che il numero non sia maggiore del max valore consentito da uint32_t
+        if(receiver > 4294967296){ 
+            sender = 4 * rand() * rand(); // riassegnazione dell'identificativo
+        }
 
-    amount = 1 + rand() * 100; // assegnazione di importo (amount) causale
+        amount = 1 + rand() * 100; // assegnazione di importo (amount) causale
 
 
-    input_trans(sender, receiver, amount, head_chain); // richiamo funzione per la creazione della transazione
-    }
+        input_trans(sender, receiver, amount, head_chain); // richiamo funzione per la creazione della transazione
+        }
 }
