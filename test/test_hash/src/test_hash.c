@@ -142,15 +142,13 @@ void test_int32_to_char_shouldReturnsStringRepresentingDigitsOfUint32(void) {
 void boundary_test_int32_to_char_shouldReturnsStringRepresentingDigitsOfUint32(void) {
 	char exp_array1[11] = "4294967295";
 	char exp_array2[2] = "0";
-	char exp_array3[8] = "0000001";
+	char exp_array3[2] = "1";
 	char exp_array4[10] = "999999999";
 
 	TEST_ASSERT_EQUAL_MEMORY(exp_array1, int_32_to_char(4294967295), 10);
 	TEST_ASSERT_EQUAL_MEMORY(exp_array2, int_32_to_char(0), 1);
-	TEST_ASSERT_EQUAL_MEMORY(exp_array3, int_32_to_char(1), 7);
-	TEST_ASSERT_EQUAL_MEMORY(exp_array4, int_32_to_char(999999999), 7);
-
-
+	TEST_ASSERT_EQUAL_MEMORY(exp_array3, int_32_to_char(1), 1);
+	TEST_ASSERT_EQUAL_MEMORY(exp_array4, int_32_to_char(999999999), 9);
 }
 
 void test_copy_vector_shouldCopyVett1IntoVett2(void) {
@@ -212,9 +210,11 @@ int main(void) {
 
 	RUN_TEST(boundary_test_decimal_to_bin_shouldConvertUint32ToBinary);
 	RUN_TEST(boundary_test_bin_to_decimal_shouldConvertBinaryToUint32);
+	RUN_TEST(boundary_test_int32_to_char_shouldReturnsStringRepresentingDigitsOfUint32);
 
 	RUN_TEST(boundary_test_choice_shouldAssignYorXtoZdependingOnX);
 	RUN_TEST(boundary_test_majority_shouldReturnsMajorityBitwiseXYZ);
+
 
 	return(UNITY_END());
 }
