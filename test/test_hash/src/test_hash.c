@@ -68,6 +68,25 @@ void test_decimal_to_bin_shouldConvertUint32ToBinary(void) {
 	TEST_ASSERT_EQUAL_MEMORY (exp_bin, test_bin, 32);
 }
 
+void boundary_test_decimal_to_bin_shouldConvertUint32ToBinary(void) {
+	bool exp_bin1[32] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+						 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+	bool exp_bin2[32] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+						 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	bool exp_bin3[1] = {1};
+	bool exp_bin4[1] = {0};
+	bool test_bin[32];
+
+	decimal_to_bin(UINT32_MAX, test_bin, 32);
+	TEST_ASSERT_EQUAL_MEMORY (exp_bin1, test_bin, 32);
+	decimal_to_bin(0, test_bin, 32);
+	TEST_ASSERT_EQUAL_MEMORY(exp_bin2, test_bin, 32);
+	decimal_to_bin(1, test_bin, 1);
+	TEST_ASSERT_EQUAL_MEMORY(exp_bin3, test_bin, 1);
+	decimal_to_bin(0, test_bin, 1);
+	TEST_ASSERT_EQUAL_MEMORY(exp_bin4, test_bin, 1);
+}
+
 void test_bin_to_decimal_shouldConvertBinaryToUint32(void) {
 	bool test_x[32] = {1,1,1,0,0,1,1,1,1,0,0,0,0,0,1,0,
 					   1,1,1,0,1,1,1,0,0,0,0,0,1,0,1,0};
@@ -144,6 +163,8 @@ int main(void) {
 	RUN_TEST(boundary_test_usigma_0_shouldCalculateUsigma0OperationSeriesTox);
 	RUN_TEST(boundary_test_sigma_1_shouldCalculateSigma1OperationSeriesTox);
 	RUN_TEST(boundary_test_usigma_1_shouldCalculateUsigma1OperationSeriesTox);
+
+	RUN_TEST(boundary_test_decimal_to_bin_shouldConvertUint32ToBinary);
 
 	return(UNITY_END());
 }
