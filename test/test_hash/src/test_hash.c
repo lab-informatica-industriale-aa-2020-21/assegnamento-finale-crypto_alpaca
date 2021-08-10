@@ -54,6 +54,11 @@ void test_usigma_1_shouldCalculateUsigma1OperationSeriesTox(void) {
 	TEST_ASSERT_EQUAL_UINT32(3271737593, usigma_1(3884117));
 }
 
+void boundary_test_usigma_1_shouldCalculateUsigma1OperationSeriesTox(void) {
+	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, usigma_1(UINT32_MAX));
+	TEST_ASSERT_EQUAL_UINT32(0, usigma_1(0));
+}
+
 void test_decimal_to_bin_shouldConvertUint32ToBinary(void) {
 	bool exp_bin[32] = {1,1,1,0,0,1,1,1,1,0,0,0,0,0,1,0,
 						1,1,1,0,1,1,1,0,0,0,0,0,1,0,1,0};
@@ -134,9 +139,11 @@ int main(void) {
 
 	//Boundary test
 	RUN_TEST(boundary_test_rotate_shouldRotateGiven32bitUintWord);
+
 	RUN_TEST(boundary_test_sigma_0_shouldCalculateSigma0OperationSeriesTox);
 	RUN_TEST(boundary_test_usigma_0_shouldCalculateUsigma0OperationSeriesTox);
 	RUN_TEST(boundary_test_sigma_1_shouldCalculateSigma1OperationSeriesTox);
+	RUN_TEST(boundary_test_usigma_1_shouldCalculateUsigma1OperationSeriesTox);
 
 	return(UNITY_END());
 }
