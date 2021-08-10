@@ -5,7 +5,6 @@
 #include "hash.h"
 
 void setUp(void) {}
-
 void tearDown(void) {}
 
 
@@ -25,9 +24,19 @@ void test_sigma_0_shouldCalculateSigma0OperationSeriesTox(void) {
 	TEST_ASSERT_EQUAL_UINT32(2064801292, sigma_0(3884117));
 }
 
+void boundary_test_sigma_0_shouldCalculateSigma0OperationSeriesTox(void) {
+	TEST_ASSERT_EQUAL_UINT32(536870911, sigma_0(UINT32_MAX));
+	TEST_ASSERT_EQUAL_UINT32(0, sigma_0(0));
+}
+
 //Operations: y_test = rot_r(x,2) XOR rot_r(x,13) XOR rot_r(x,22)
 void test_usigma_0_shouldCalculateUsigma0OperationSeriesTox(void) {
 	TEST_ASSERT_EQUAL_UINT32(2411168975, usigma_0(3884117));
+}
+
+void boundary_test_usigma_0_shouldCalculateUsigma0OperationSeriesTox(void) {
+	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, usigma_0(UINT32_MAX));
+	TEST_ASSERT_EQUAL_UINT32(0, usigma_0(0));
 }
 
 //Operations: y_test = rot_r(x,17) XOR rot_r(x,19) XOR shift_r(x,10)
@@ -120,6 +129,7 @@ int main(void) {
 
 	//Boundary test
 	RUN_TEST(boundary_test_rotate_shouldRotateGiven32bitUintWord);
+	RUN_TEST(boundary_test_sigma_0_shouldCalculateSigma0OperationSeriesTox);
 
 	return(UNITY_END());
 }
