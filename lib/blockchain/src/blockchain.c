@@ -9,19 +9,20 @@
 
 
 /*  Funzione: new_trans
--------------------------------------------------------------------------------
-Crea una nuova struttura 'trans' vuota; se nel blocco è già presente una lista
-di transazioni, verrà aggiunto un nuovo elemento ad essa, in caso contrario
-verrà creata una nuova lista.
--------------------------------------------------------------------------------
-
-args:   sender              -> chiave pubblica mittente (uint32)
-        receiver            -> chiave pubblica ricevente (uint32)
-        amount              -> importao transazione (uint32)
-        *head_trans         -> puntatore all' elemento più recente della lista
-                               di transazioni (=NULL se non esiste nessuna
-                               lista)
-return: *new_trans          -> puntatore alla nuova transazione creata
+* -------------------------------------------------------------------------------
+* Crea una nuova struttura 'trans' vuota; se nel blocco è già presente una lista
+* di transazioni, verrà aggiunto un nuovo elemento ad essa, in caso contrario
+* verrà creata una nuova lista.
+* -------------------------------------------------------------------------------
+*
+* args:   sender              -> chiave pubblica mittente (uint32)
+*         receiver            -> chiave pubblica ricevente (uint32)
+*         amount              -> importao transazione (uint32)
+*         *head_trans         -> puntatore all' elemento più recente della lista
+*                                di transazioni (=NULL se non esiste nessuna
+*                                lista)
+* return: *new_trans          -> puntatore alla nuova transazione creata
+*
 */
 trans *new_trans(const uint32_t sender, const uint32_t receiver, const uint32_t amount, trans *const head_trans){  
     // Allocazione di memoria per una transazione
@@ -55,15 +56,16 @@ trans *new_trans(const uint32_t sender, const uint32_t receiver, const uint32_t 
 
 
 /*  Funzione: new_block
--------------------------------------------------------------------------------
-Crea una nuova struttura 'block' vuota; se nella catena è già presente una
-lista di blocchi, verrà aggiunto un nuovo elemento ad essa, in caso contrario
-verrà creata una nuova lista. Il blocco creato non è 'minato'.
--------------------------------------------------------------------------------
- 
-args:   *head_block         -> puntatore all' elemento più recente della lista
-                               di blocchi (=NULL se non esiste nessuna lista)
-return: *new_block          -> puntatore al nuovo blocco creato
+*-------------------------------------------------------------------------------
+* Crea una nuova struttura 'block' vuota; se nella catena è già presente una
+* lista di blocchi, verrà aggiunto un nuovo elemento ad essa, in caso contrario
+* verrà creata una nuova lista. Il blocco creato non è 'minato'.
+* -------------------------------------------------------------------------------
+* 
+* args:   *head_block         -> puntatore all' elemento più recente della lista
+*                                di blocchi (=NULL se non esiste nessuna lista)
+* return: *new_block          -> puntatore al nuovo blocco creato
+*
 */
 block *new_block(block *const head_block){
     // Allocazione di memoria per una transazione:
@@ -100,15 +102,16 @@ block *new_block(block *const head_block){
 
 
 /*  Funzione: new_chain
--------------------------------------------------------------------------------
-Crea una nuova struttura 'chain' vuota; se è già presente una lista di catene,
-verrà aggiunto un nuovo elemento ad essa, in caso contrario verrà creata una
-nuova lista.
--------------------------------------------------------------------------------
- 
-args:   *head_chain         -> puntatore all' elemento più recente della lista
-                               di catene (=NULL se non esiste nessuna lista)
-return: *new_chian          -> puntatore alla nuova catena creata
+*-------------------------------------------------------------------------------
+* Crea una nuova struttura 'chain' vuota; se è già presente una lista di catene,
+* verrà aggiunto un nuovo elemento ad essa, in caso contrario verrà creata una
+* nuova lista.
+*-------------------------------------------------------------------------------
+* 
+* args:   *head_chain         -> puntatore all' elemento più recente della lista
+*                               di catene (=NULL se non esiste nessuna lista)
+* return: *new_chian          -> puntatore alla nuova catena creata
+*
 */
 chain *new_chain(chain *const head_chain)
 {
@@ -143,16 +146,17 @@ chain *new_chain(chain *const head_chain)
 
 
 /*  Funzione: get _str_creation_time
--------------------------------------------------------------------------------
-Converta la struttura del tempo di creazione di un blocco in una stringa
-leggibile.
--------------------------------------------------------------------------------
- 
-args:   creation time       -> struttura di tipo 'time_t' contenente le info
-                               del tempo di creazione
-        *string             -> puntatore alla stringa in cui trascrivere i dati
-return: bool                -> TRUE se la stringa è scritta correttamente,
-                               FALSE in caso contrario
+*-------------------------------------------------------------------------------
+* Converta la struttura del tempo di creazione di un blocco in una stringa
+* leggibile.
+*-------------------------------------------------------------------------------
+* 
+* args:   creation time       -> struttura di tipo 'time_t' contenente le info
+*                                del tempo di creazione
+*         *string             -> puntatore alla stringa in cui trascrivere i dati
+* return: bool                -> TRUE se la stringa è scritta correttamente,
+*                                FALSE in caso contrario
+*
 */
 bool get_str_creation_time(time_t creation_time, char *string) {
     struct tm *timeinfo;
@@ -166,18 +170,19 @@ bool get_str_creation_time(time_t creation_time, char *string) {
 
 
 /*  Funzione: input_trans
--------------------------------------------------------------------------------
-Funzione per l'inserimento di una nuova transazione in una catena. La funzione
-è in grado di gestire autonomamente la scelta/creazione di un blocco e di una
-lista di transazioni in cui inserire i nuovi dati.
--------------------------------------------------------------------------------
- 
-args:   sender              -> chiave pubblica mittente (uint32)
-        receiver            -> chiave pubblica ricevente (uint32)
-        amount              -> importao transazione (uint32)
-        *in_chain           -> puntatore alla chain in cui si vuole inserire la
-                               transazione
-return: void
+*-------------------------------------------------------------------------------
+* Funzione per l'inserimento di una nuova transazione in una catena. La funzione
+* è in grado di gestire autonomamente la scelta/creazione di un blocco e di una
+* lista di transazioni in cui inserire i nuovi dati.
+*-------------------------------------------------------------------------------
+*  
+* args:   sender              -> chiave pubblica mittente (uint32)
+*         receiver            -> chiave pubblica ricevente (uint32)
+*         amount              -> importao transazione (uint32)
+*         *in_chain           -> puntatore alla chain in cui si vuole inserire la
+*                                transazione
+* return: void
+*
 */
 void input_trans(uint32_t sender, uint32_t receiver, uint32_t amount, chain *in_chain){
     // Controllo se la chain è priva di una lista di blocchi:
@@ -197,14 +202,15 @@ void input_trans(uint32_t sender, uint32_t receiver, uint32_t amount, chain *in_
 
 
 /*  Funzione: mine
--------------------------------------------------------------------------------
-Funzione per il 'mining' di un blocco: individua il blocco da 'minare' in una
-catena e ricava il valore di nonce tale da avere un hash corretto.
--------------------------------------------------------------------------------
- 
-args:   *chain_to_mine      -> puntatore alla chain in cui è presente il blocco
-                               che necessità una operazione di mining.
-return: void
+*-------------------------------------------------------------------------------
+* Funzione per il 'mining' di un blocco: individua il blocco da 'minare' in una
+* catena e ricava il valore di nonce tale da avere un hash corretto.
+*-------------------------------------------------------------------------------
+* 
+* args:   *chain_to_mine      -> puntatore alla chain in cui è presente il blocco
+*                                che necessità una operazione di mining.
+* return: void
+*
 */
 void mine(chain *const chain_to_mine){
     // Formattazione della lista di transazioni in una stringa continua:
@@ -226,15 +232,16 @@ void mine(chain *const chain_to_mine){
 
 
 /*  Funzione: free_chain
--------------------------------------------------------------------------------
-Funzione per deallocare la memoria precedentemente allocata per varie liste:
-- transazioni   (struct Trans)
-- blocchi       (struct Block)
-- catene        (struct Chain)
--------------------------------------------------------------------------------
- 
-args:   *chain_to_free      -> puntatore alla catena da deallocare
-return: void
+*-------------------------------------------------------------------------------
+* Funzione per deallocare la memoria precedentemente allocata per varie liste:
+* - transazioni   (struct Trans)
+* - blocchi       (struct Block)
+* - catene        (struct Chain)
+*-------------------------------------------------------------------------------
+* 
+* args:   *chain_to_free      -> puntatore alla catena da deallocare
+* return: void
+*
 */
 void free_chain(chain *chain_to_free){
     // Definizioni delle variabili:
