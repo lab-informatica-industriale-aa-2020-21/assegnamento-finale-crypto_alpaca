@@ -113,8 +113,25 @@ void test_choice_shouldAssignYorXtoZdependingOnX(void) {
 							choice(3884117514, 93658048, 2398402234));
 }
 
+void boundary_test_choice_shouldAssignYorXtoZdependingOnX(void) {
+	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, choice(UINT32_MAX, UINT32_MAX, 0));
+	TEST_ASSERT_EQUAL_UINT32(0, choice(UINT32_MAX, 0, UINT32_MAX));
+}
+
 void test_majority_shouldReturnsMajorityBitwiseXYZ(void) {
 	TEST_ASSERT_EQUAL(1842722981, maggiority(3515164733, 1834274982, 1843249093));
+}
+
+void boundary_test_majority_shouldReturnsMajorityBitwiseXYZ(void) {
+	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, maggiority(UINT32_MAX, UINT32_MAX, 0));
+	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, maggiority(UINT32_MAX, 0, UINT32_MAX));
+	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, maggiority(0, UINT32_MAX, UINT32_MAX));
+	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, maggiority(UINT32_MAX, UINT32_MAX, UINT32_MAX));
+
+	TEST_ASSERT_EQUAL_UINT32(0, maggiority(UINT32_MAX, 0, 0));
+	TEST_ASSERT_EQUAL_UINT32(0, maggiority(0, 0, UINT32_MAX));
+	TEST_ASSERT_EQUAL_UINT32(0, maggiority(0, UINT32_MAX, 0));
+	TEST_ASSERT_EQUAL_UINT32(0, maggiority(0, 0, 0));
 }
 
 void test_int32_to_char_shouldReturnsStringRepresentingDigitsOfUint32(void) {
@@ -181,6 +198,8 @@ int main(void) {
 
 	RUN_TEST(boundary_test_decimal_to_bin_shouldConvertUint32ToBinary);
 	RUN_TEST(boundary_test_bin_to_decimal_shouldConvertBinaryToUint32);
+
+	RUN_TEST(boundary_test_choice_shouldAssignYorXtoZdependingOnX);
 
 	return(UNITY_END());
 }
