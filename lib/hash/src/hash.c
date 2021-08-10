@@ -111,8 +111,8 @@ void decimal_to_bin (unsigned int x, bool *vett, int len_vett)
 unsigned int bin_to_decimal (bool *x, int len_x)
 {
     unsigned int vett = 0;
-        for (int i = len_x - 1; i >= 0; i--){
-            vett = vett + x[i] * pow(2, 31-i);
+        for (int i = 0; i < len_x; i++){
+            vett = vett + x[len_x-i-1] * pow(2, i);
         }
 return vett;
 }
