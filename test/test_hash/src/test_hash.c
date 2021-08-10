@@ -44,6 +44,11 @@ void test_sigma_1_shouldCalculateSigma1OperationSeriesTox(void) {
 	TEST_ASSERT_EQUAL_UINT32(3399495371, sigma_1(3884117));
 }
 
+void boundary_test_sigma_1_shouldCalculateSigma1OperationSeriesTox(void) {
+	TEST_ASSERT_EQUAL_UINT32(4194303, sigma_1(UINT32_MAX));
+	TEST_ASSERT_EQUAL_UINT32(0, sigma_1(0));
+}
+
 //Operations: y_test = rot_r(x,6) XOR rot_r(x,11) XOR rot_r(x,25)
 void test_usigma_1_shouldCalculateUsigma1OperationSeriesTox(void) {
 	TEST_ASSERT_EQUAL_UINT32(3271737593, usigma_1(3884117));
@@ -130,6 +135,8 @@ int main(void) {
 	//Boundary test
 	RUN_TEST(boundary_test_rotate_shouldRotateGiven32bitUintWord);
 	RUN_TEST(boundary_test_sigma_0_shouldCalculateSigma0OperationSeriesTox);
+	RUN_TEST(boundary_test_usigma_0_shouldCalculateUsigma0OperationSeriesTox);
+	RUN_TEST(boundary_test_sigma_1_shouldCalculateSigma1OperationSeriesTox);
 
 	return(UNITY_END());
 }
