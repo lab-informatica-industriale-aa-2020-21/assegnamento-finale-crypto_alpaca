@@ -187,7 +187,7 @@ unsigned int* create_block(unsigned int list_trans_len, int *n_block)
     uint64_t dim_dati = 0;             //Dimensione in bit
     uint64_t dim_tot = 0;
     unsigned int *block_data = NULL;
-    unsigned int dim_nonce = N_CHAR_PER_UINT32*8;       //N_CHAR_PER_UINT32 * 8 = 80bit in totale.  
+    unsigned int dim_nonce = N_CHAR_PER_UINT32*8;       //N_CHAR_PER_UINT32 * 8bit = 80bit in totale. Ovvero dimensione per memorizzare il nonce convertito in char
 
     dim_dati = list_trans_len + DIM_PREV_HASH + dim_nonce;        
 
@@ -198,25 +198,40 @@ unsigned int* create_block(unsigned int list_trans_len, int *n_block)
         dim_tot = dim_dati + PCI_HASH;
 
     
-    if(dim_tot <= DIM_BLOCK_HASH*WORD_LEN){
+    if(dim_tot <= DIM_BLOCK_HASH*WORD_LEN){     //Se la dimensione totale dei dati+pci è minore di 512 sarà sufficiente un blocco.
         *n_block = 1;
     }
     else{
         if (dim_tot % (DIM_BLOCK_HASH*WORD_LEN) != 0)
-            *n_block = (dim_tot/(DIM_BLOCK_HASH*WORD_LEN))+1;
+            *n_block = (dim_tot/(DIM_BLOCK_HASH*WORD_LEN))+1;       //Se la divisione produce un resto => troncamento. Perciò saranno necesari n+1 blocchi da 512bit.
         else
             *n_block = (dim_tot/(DIM_BLOCK_HASH*WORD_LEN));
     }    
          
-    block_data = malloc(sizeof(unsigned int) * (*n_block) * DIM_BLOCK_HASH);        
+    block_data = (unsigned int *) calloc((*n_block) * DIM_BLOCK_HASH, sizeof(unsigned int));    //Creo il blocco inizializzato a zero.
         
     // Controllo funzionamento di malloc()
     if(block_data == NULL){
-        printf("Error: malloc() failure");
+        printf("Error: calloc() failure");
         exit(EXIT_FAILURE);
     } 
 return block_data;
 }
+
+/*Caricamento dati nel blocco appena creato.
+**
+**Il caricamento viene suddiviso in 3 parti: caricamento prev_hash, caricamento list_trans e infine il nonce.
+**
+**1) Ogni componente del prev_hash verrà convertita in un'array di char[10] e salvato in prev_hash_part. Questo poi sarà salvato in prev_hash_tot che sarà un vett di 80celle char.
+**2) Per caricare tutte le transazioni devo prima calcolare quante w32bit serviranno per memorizzarla. E' noto che la dimensione della lista sarà multipla di 24*8bit.
+**   O meglio ogni transazione sarà rappresentabile attraverso 24 celle char. Questo semplifica il lavoro perchè n*24*8bit è sempre multiplo di 32bit (6w32 per ogni trans).
+**3) Per memorizzare il nonce eseguo la sua conversione in char utilizzando 10 celle (uint_32 ha massimo 10 cifre). Eseguo il salvataggio di ciascuna cella in block_data.
+**   Siccome sono 10 char saranno necessarie 2.5word a 32bit. Nell'ultima word vado ad aggiungere OFFSET_MOD_0 che corrisponde ad aggiungere un 1 (in binario) alla fine dei dati.
+**
+**Al termine di ciò andrò a salvare sulle ultime due celle di block data la dimensione dei dati contenuti nel blocco.
+**Il padding è già presente dato che il block_data è generato attraverso una calloc().
+**
+*/
 
 void loading_data (unsigned int* block_data, int n_block, const unsigned int* prev_hash, unsigned int nonce, char* list_trans, unsigned int list_trans_len)
 {
@@ -228,7 +243,7 @@ void loading_data (unsigned int* block_data, int n_block, const unsigned int* pr
     char *prev_hash_tot = NULL;
     unsigned int prev_hash_char_dim = 10;               //Varrà sempre 10 poichè un uint32 ha 10 cifre.Non di interesse poichè so che per ogni word da 32bit del hash devo avere una dim fissa.
 
-    prev_hash_tot = (char *) malloc(sizeof(char)*80);        //80 poichè hash è costituito da 8 word a 32bit (uint32) che convertite in char saranno 8*10, dove 10 indica le cifre char necessarie a rappr. un unsigned int
+    prev_hash_tot = (char *) malloc(sizeof(char)*80);   //80 poichè hash è costituito da 8 word a 32bit (uint32) che convertite in char saranno 8*10, dove 10 indica le cifre char necessarie a rappr. un unsigned int
     if(prev_hash_tot == NULL){
         printf("Error: malloc() failure while generating prev_hash_tot.");
         exit(EXIT_FAILURE);
