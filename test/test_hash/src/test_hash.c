@@ -200,6 +200,7 @@ int main(void) {
 	RUN_TEST(boundary_test_bin_to_decimal_shouldConvertBinaryToUint32);
 
 	RUN_TEST(boundary_test_choice_shouldAssignYorXtoZdependingOnX);
+	RUN_TEST(boundary_test_majority_shouldReturnsMajorityBitwiseXYZ);
 
 	return(UNITY_END());
 }
