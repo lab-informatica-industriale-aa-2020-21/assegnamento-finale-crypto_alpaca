@@ -93,6 +93,21 @@ void test_bin_to_decimal_shouldConvertBinaryToUint32(void) {
 	TEST_ASSERT_EQUAL_UINT32(3884117514, bin_to_decimal(test_x, 32));
 }
 
+void boundary_test_bin_to_decimal_shouldConvertBinaryToUint32(void) {
+	bool test_x1[32] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+				    	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+	bool test_x2[32] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+						0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	bool test_x3[1] = {1};
+	bool test_x4[1] = {0};
+
+
+	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, bin_to_decimal(test_x1, 32));
+	TEST_ASSERT_EQUAL_UINT32(0, bin_to_decimal(test_x2, 32));
+	TEST_ASSERT_EQUAL_UINT32(1, bin_to_decimal(test_x3, 1));
+	TEST_ASSERT_EQUAL_UINT32(0, bin_to_decimal(test_x4, 1));
+}
+
 void test_choice_shouldAssignYorXtoZdependingOnX(void) {
 	TEST_ASSERT_EQUAL_UINT32(234101424,
 							choice(3884117514, 93658048, 2398402234));
@@ -165,6 +180,7 @@ int main(void) {
 	RUN_TEST(boundary_test_usigma_1_shouldCalculateUsigma1OperationSeriesTox);
 
 	RUN_TEST(boundary_test_decimal_to_bin_shouldConvertUint32ToBinary);
+	RUN_TEST(boundary_test_bin_to_decimal_shouldConvertBinaryToUint32);
 
 	return(UNITY_END());
 }
