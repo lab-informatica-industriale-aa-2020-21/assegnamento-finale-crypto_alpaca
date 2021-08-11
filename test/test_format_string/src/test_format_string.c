@@ -37,7 +37,7 @@ void test_add_empty_line_ShouldAddEmptyLineToString(void) {
 
 void test_print_block_header_ShouldFormatFixedLenStringWithBlockHeaderInfo(void) {
 	char test_string[BLOCK_HEADER_LENGTH + 1];
-	time_t creation_time = time(NULL);
+	time_t creation_time = (time_t)(0);
 
 	block test_block = {
         NULL,                                           //next_block
@@ -90,7 +90,7 @@ void test_print_block_trans_ShouldFormatFixedLenStringWithAllBlockTransInfo(void
 	char test_string[TRANS_LENGTH * 3 + LINE_LENGTH + 1];
 	//char test_string[274] = "\0";
 	
-	time_t creation_time = time(NULL);
+	time_t creation_time = (time_t)(0);
 
 	block test_block = {
         NULL,                                           //next_block
@@ -154,7 +154,7 @@ void test_print_block_trans_ShouldFormatFixedLenStringWithAllBlockTransInfo(void
 void test_print_block_ShouldFormatFixedLenStringWithBlockInfo(void) {
 	char test_string[BLOCK_HEADER_LENGTH + TRANS_LENGTH * 3 + LINE_LENGTH + 1 + 1];
 	
-	time_t creation_time = time(NULL);
+	time_t creation_time = (time_t)(0);
 
 	block test_block = {
         NULL,                                           //next_block
@@ -227,7 +227,7 @@ void test_print_block_ShouldFormatFixedLenStringWithBlockInfo(void) {
 }
 
 void test_format_data_for_hash_shouldFormatStringWithAllTransInfo(void) {
-	time_t creation_time = time(NULL);
+	time_t creation_time = (time_t)(0);
 	char test_trans_str[HEX_NUMB_LENGTH * 3 * 3 + 1];
 
 	block test_block = {
