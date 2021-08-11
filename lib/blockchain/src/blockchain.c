@@ -42,7 +42,7 @@ trans *new_trans(const uint32_t sender, const uint32_t receiver, const uint32_t 
 
     // Aggiunta di una transazione ad una lista esistente:
     else{
-        tmp_trans -> count_trans = head_trans -> count_trans +1;
+        tmp_trans -> count_trans = head_trans -> count_trans + 1;
         head_trans -> next_trans = tmp_trans;
     }
     
@@ -91,7 +91,7 @@ block *new_block(block *const head_block){
     }
     
     // Inserimento dati del blocco vuoto:
-    *tmp_block -> hash = 0xFFFFFFFF;    //inserimento primo elemento di hash (non minato)
+    *(tmp_block -> hash) = 0xFFFFFFFF;    //inserimento primo elemento di hash (non minato)
     tmp_block -> nonce = 0;             //inserimento nonce nullo
     tmp_block -> first_trans = NULL;    //inserimento nonce NULL
     tmp_block -> head_trans = NULL;     //inserimento head_trans NULL
@@ -198,7 +198,7 @@ void input_trans(uint32_t sender, uint32_t receiver, uint32_t amount, chain *in_
 
     // Creazione di una nuova tranzazione nel blocco 'head_block' della chain:
     (in_chain -> head_block) -> head_trans =
-        new_trans(sender, receiver, amount, (in_chain -> head_block) -> head_trans);
+            new_trans(sender, receiver, amount, (in_chain -> head_block) -> head_trans);
 }
 
 
