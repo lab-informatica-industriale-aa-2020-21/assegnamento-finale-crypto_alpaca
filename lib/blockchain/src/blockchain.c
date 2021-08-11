@@ -166,7 +166,7 @@ chain *new_chain(chain *const head_chain)
 bool get_str_creation_time(time_t creation_time, char *string) {
     struct tm *timeinfo;
 
-    timeinfo = localtime(&creation_time);
+    timeinfo = gmtime(&creation_time);
     if(strftime(string, TIMEINFO_STR_LEN, "%F %T", timeinfo) == 0)
 	return false;
     else
