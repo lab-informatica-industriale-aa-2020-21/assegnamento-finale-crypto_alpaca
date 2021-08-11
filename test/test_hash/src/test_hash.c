@@ -207,6 +207,18 @@ void test_shift_state_reg_shouldRightShiftVettOf1Position(void) {
 	TEST_ASSERT_EQUAL_UINT32_ARRAY(exp_vett, vett, 10);
 }
 
+void boundary_test_shift_state_reg_shouldRightShiftVettOf1Position(void) {
+	uint32_t vett[100000];
+	uint32_t exp_vett[100000];
+
+	for (uint32_t i = 0; i < 100000; i++) {
+		vett[i] = UINT32_MAX;
+		exp_vett[i] = UINT32_MAX;
+	}
+
+	TEST_ASSERT_EQUAL_UINT32_ARRAY(exp_vett, vett, 100000);
+}
+
 
 int main(void) {
 
@@ -248,6 +260,7 @@ int main(void) {
 
 	RUN_TEST(boundary_test_copy_vector_shouldCopyVett1IntoVett2);
 	RUN_TEST(boundary_test_sum_vector_shouldSaveIntoVett2TheSumOfVett1AndVett2);
+	RUN_TEST(boundary_test_shift_state_reg_shouldRightShiftVettOf1Position);
 
 	return(UNITY_END());
 }
