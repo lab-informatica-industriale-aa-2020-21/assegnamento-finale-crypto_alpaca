@@ -37,7 +37,7 @@ trans *new_trans(const uint32_t sender, const uint32_t receiver, const uint32_t 
 
     // Controllo se esiste una lista di transazioni:
     if(head_trans == NULL){
-        //tmp_trans -> count_trans = 0;
+        tmp_trans -> count_trans = 0;
     }
 
     // Aggiunta di una transazione ad una lista esistente:
