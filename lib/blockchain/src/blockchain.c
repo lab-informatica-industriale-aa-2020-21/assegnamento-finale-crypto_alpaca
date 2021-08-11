@@ -6,6 +6,7 @@
 
 #include "hash.h"
 #include "format_string.h"
+#include "file_IO.h"
 
 
 /*  Funzione: new_trans
@@ -217,6 +218,15 @@ void mine(chain *const chain_to_mine){
     char trans_str [DATA_TRANS * HEX_NUMB_LENGTH * (chain_to_mine -> head_block) -> num_trans + 1];
     format_data_for_hash(chain_to_mine -> head_block, trans_str);
 
+    // Ricerca del prev hash:
+    uint32_t previous_hash [DIM_HASH];
+
+    if ((chain_to_mine -> head_block) -> prev_hash == NULL)     //non esistono blocchi precedenti nella catena della sessione attuale
+        get_prev_hash(previous_hash, BLOCKCHAIN_TXT);           //lettura prev_hash dal file blockchain.txt
+    else
+        for (int i = 0; i < DIM_HASH; i++)                      //copia del vettore prev_hash in previous_hash
+            previous_hash [i] = (chain_to_mine -> head_block) -> prev_hash [i];
+
     // Ciclo di 'mine':
         //controllo se i primi 4 bit (del primo uint_32) dell'hash sono diversi da 0
     while ((chain_to_mine -> head_block) -> hash[0] > MAX_VALID_FIRST_HASH_ELEMENT){
@@ -224,7 +234,7 @@ void mine(chain *const chain_to_mine){
         // incremento del valore di 'nonce' fino a trovare quello corretto, in base alle condizione di hash scelte
         (chain_to_mine -> head_block) -> nonce ++;
 
-        //hash = funzione calcolo hash((chain -> head_block) -> prev_hash, ((chain -> head_block) -> num_trans) * BIT_PER_TRANS, trans_str, (chain -> head_block) -> nonce);
+        //hash = funzione calcolo hash(previous_hash, ((chain -> head_block) -> num_trans) * BIT_PER_TRANS, trans_str, (chain -> head_block) -> nonce);
     }
 
     (chain_to_mine -> head_block) -> creation_time = time(NULL);      // info mm/gg/yy (data) - h:min:sec (ora) sulla creazione del nuovo blocco

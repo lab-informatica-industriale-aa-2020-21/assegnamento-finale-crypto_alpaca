@@ -14,6 +14,7 @@ target_include_directories(blockchain
 target_link_libraries(blockchain
 	PUBLIC LII::hash
 	PUBLIC LII::format_string
+        PUBLIC LII::file_IO
         )
 
 add_library(LII::blockchain ALIAS blockchain)
