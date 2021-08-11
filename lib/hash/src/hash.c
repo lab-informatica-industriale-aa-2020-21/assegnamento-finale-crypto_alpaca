@@ -323,13 +323,14 @@ return digit_eff; */
 }
 
 
-unsigned int* hash_function (const unsigned int* prev_hash, unsigned int nonce, char* list_trans, unsigned int list_trans_len)
+void hash_function (const unsigned int* prev_hash, unsigned int nonce, char* list_trans,
+                    unsigned int list_trans_len, uint32_t *h_i)
 {
     int n_block = 0;                                //Mi serve per capire quanti blocchi da 512 ci sono
 
     unsigned int *block_data = NULL;
     //unsigned int h_i[8] = {0};                    
-    unsigned int *h_i = NULL;                       //E' l'hash dell'i-esimo blocco. Composto da 8 word a 32bit come da definizione.
+    //unsigned int *h_i = NULL;                       //E' l'hash dell'i-esimo blocco. Composto da 8 word a 32bit come da definizione.
     unsigned int h_0[DIM_HASH] = {H_INIZIALI};      //State register h0 := valori iniziali dettati da delle costanti.
     unsigned int words[64] = {0};                   //conterrà le 64 word su cui l'hash dovrà operare. Le prime 16 sono prelevate dal block_data.
     
@@ -340,12 +341,12 @@ unsigned int* hash_function (const unsigned int* prev_hash, unsigned int nonce, 
     block_data = create_block(list_trans_len, &n_block);
     loading_data(block_data, n_block, prev_hash, nonce, list_trans, list_trans_len);
 
-    h_i = malloc(sizeof(unsigned int)*8);
+    /*h_i = malloc(sizeof(unsigned int)*8);
     if(h_i == NULL){
         printf("Error: malloc() failure while generating h_i.");
         exit(EXIT_FAILURE);
     } 
-
+    */
     for (int j = 0; j < n_block; j++){ 
         //Devo farlo sempre?
         copy_vector(h_0, DIM_HASH, h_i, DIM_HASH);
@@ -370,8 +371,6 @@ unsigned int* hash_function (const unsigned int* prev_hash, unsigned int nonce, 
         sum_vector(h_0, DIM_HASH, h_i, DIM_HASH);       //Calcolo gli state register del blocco attuale definiti come h(i) = h(0) + h(i)    () := pedici
         copy_vector(h_i, DIM_HASH, h_0, DIM_HASH);      //Aggiorno gli status register di partenza in caso vi siano ulteriori blocchi (n_block > 0)
     }
-    
-return h_i;
 }
 
 //
