@@ -191,7 +191,8 @@ bool get_str_creation_time(time_t creation_time, char *string) {
 */
 void input_trans(uint32_t sender, uint32_t receiver, uint32_t amount, chain *in_chain){
     // Controllo se la chain è priva di una lista di blocchi:
-    if (in_chain -> head_block == NULL){
+    //if (in_chain -> head_block == NULL){
+    if (0){
         in_chain -> first_block = new_block(NULL);
         in_chain -> head_block = in_chain -> first_block;
 
