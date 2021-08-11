@@ -114,7 +114,7 @@ unsigned int bin_to_decimal (bool *x, int len_x);
 void decimal_to_bin (unsigned int x, bool *vett, int len_vett);
 char* int_32_to_char(unsigned int input);
 void shift_state_reg(unsigned int *vett, int len);
-bool copy_vector(const unsigned int *vett1, int len1, unsigned int *vett2, int len2);
+bool copy_vector(const unsigned int *vett1, uint len1, unsigned int *vett2, uint len2);
 bool sum_vector(const unsigned int *vett1, int len1, unsigned int *vett2, int len2);
 
 // Funzione per creaare il messaggio a partire dai dati ricevuti dal blocco
