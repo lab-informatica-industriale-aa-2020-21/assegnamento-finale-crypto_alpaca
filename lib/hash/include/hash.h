@@ -124,6 +124,7 @@ unsigned int* create_block(unsigned int list_trans_len, int *n_block);
 void loading_data (unsigned int* block_data, int n_block, const unsigned int* prev_hash, unsigned int nonce, char* list_trans, unsigned int list_trans_len);
 
 // Funzione Hash.
-unsigned int* hash_function (const unsigned int* prev_hash, unsigned int nonce, char* list_trans, unsigned int list_trans_len);
+void hash_function (const unsigned int* prev_hash, unsigned int nonce, char* list_trans,
+                    unsigned int list_trans_len, uint32_t *h_i);
 
 #endif
