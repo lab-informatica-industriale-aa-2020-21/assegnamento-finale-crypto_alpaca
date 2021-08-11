@@ -123,7 +123,7 @@ int main()
         if (end_choice != 'q' || end_choice != 'Q' || end_choice != 'c' || end_choice != 'C'){
             printf("\n\nInserisci un carattere valido tra quelli elencati");
         }
-   } while (end_choice != 'q' || end_choice != 'Q');
+   } while (end_choice != 'q' || end_choice != 'Q' || end_choice == 'c' || end_choice == 'C');
    
     
     if(end_choice == 'q' || end_choice == 'Q'){ // scelta di terminare
