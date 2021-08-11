@@ -158,6 +158,47 @@ void test_get_str_creation_time_shoulAssignBlockCreationTime(void) {
     TEST_ASSERT_EQUAL_STRING_LEN("1970-01-01 00:00:00", test_string, TIMEINFO_STR_LEN);
 }
 
+void test_input_trans_shouldAddTransactionToEmptyChain(void) {
+    chain *test_chain = new_chain(NULL);
+    uint32_t exp_hash[8] = {0xFFFFFFFF, 0, 0, 0, 0, 0, 0, 0};
+    time_t exp_time = (time_t)(0);
+
+    input_trans(23482, 23894, 120, test_chain);
+
+    //Test della catena
+    TEST_ASSERT_NULL(test_chain->next_chain);
+    TEST_ASSERT_EQUAL_PTR(test_chain->head_block, test_chain->first_block);
+    TEST_ASSERT_NOT_NULL(test_chain->head_block);
+    TEST_ASSERT_EQUAL_UINT32(0, test_chain->num_block);
+    TEST_ASSERT_EQUAL_UINT32(0, test_chain->count_chain);
+
+    //Test del blocco
+    TEST_ASSERT_NULL(test_chain->head_block->next_block);
+    TEST_ASSERT_NOT_NULL(test_chain->head_block->first_trans);
+    TEST_ASSERT_NOT_NULL(test_chain->head_block->head_trans);
+    TEST_ASSERT_EQUAL_UINT32(0, test_chain->head_block->count_block);
+    TEST_ASSERT_NULL(test_chain->head_block->prev_hash);
+    TEST_ASSERT_EQUAL_UINT32_ARRAY(exp_hash, test_chain->head_block->hash, 8);
+    TEST_ASSERT_EQUAL_UINT32(0, test_chain->head_block->nonce);
+    TEST_ASSERT_EQUAL_UINT32(0, test_chain->head_block->num_trans);
+    TEST_ASSERT_EQUAL_MEMORY(&exp_time, &test_chain->head_block->creation_time, sizeof(time_t));
+
+    //Test delle transazioni
+    TEST_ASSERT_NULL(test_chain->head_block->head_trans->next_trans);
+    TEST_ASSERT_EQUAL_UINT32(23482, test_chain->head_block->head_trans->sender);
+    TEST_ASSERT_EQUAL_UINT32(23894, test_chain->head_block->head_trans->receiver);
+    TEST_ASSERT_EQUAL_UINT32(120, test_chain->head_block->head_trans->amount);
+    TEST_ASSERT_EQUAL_UINT32(0, test_chain->head_block->head_trans->count_trans);
+}
+
+    test_input_trans_shouldAddTransactionToChainWithMinedBlocks(void) {
+        chain *test_chain = new_chain(NULL);
+        uint32_t exp_hash[8] = {0xFFFFFFFF, 0, 0, 0, 0, 0, 0, 0};
+        time_t exp_time = (time_t)(0);
+
+        
+    }
+
 int main(void) {
     UNITY_BEGIN();
 
@@ -166,7 +207,7 @@ int main(void) {
     RUN_TEST(test_new_block_shouldAddNewBlockToListOfBlocks);
     RUN_TEST(test_new_chain_shouldAddNewChainToListOfChains);
     RUN_TEST(test_get_str_creation_time_shoulAssignBlockCreationTime);
-
+    RUN_TEST(test_input_trans_shouldAddTransactionToEmptyChain);
 
     return UNITY_END();
 }
