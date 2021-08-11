@@ -86,7 +86,7 @@ block *new_block(block *const head_block){
 
     // Aggiunta di un blocco ad una lista esistente:
     else{
-        tmp_block -> count_block = head_block -> count_block +1;
+        tmp_block -> count_block = head_block -> count_block + 1;
         tmp_block -> prev_hash = head_block -> hash;
         head_block -> next_block = tmp_block;
     }
