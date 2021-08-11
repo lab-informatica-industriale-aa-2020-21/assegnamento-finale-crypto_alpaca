@@ -37,7 +37,7 @@ trans *new_trans(const uint32_t sender, const uint32_t receiver, const uint32_t 
 
     // Controllo se esiste una lista di transazioni:
     if(head_trans == NULL){
-        tmp_trans -> count_trans = 0;
+        tmp_trans -> count_trans = 1;
     }
 
     // Aggiunta di una transazione ad una lista esistente:
@@ -80,7 +80,7 @@ block *new_block(block *const head_block){
 
     // Controllo se esiste una lista di blocchi:
     if (head_block == NULL){
-        tmp_block -> count_block = 0;
+        tmp_block -> count_block = 1;
         tmp_block -> prev_hash = NULL;
     }
 
@@ -131,7 +131,7 @@ chain *new_chain(chain *const head_chain)
 
     // Controllo se esiste una lista di catene:
     if(head_chain == NULL){
-        tmp_chain -> count_chain = 0;
+        tmp_chain -> count_chain = 1;
     }
 
     // Aggiunta di una catena ad una lista esistente:
