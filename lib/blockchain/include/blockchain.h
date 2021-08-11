@@ -38,7 +38,7 @@ struct Block
 typedef struct Block block;
 
 struct Chain
-{ 
+{
     struct Chain *next_chain;       // puntatore alla chain successiva
     struct Block *first_block;      // primo blocco di una chain
     struct Block *head_block;       // blocco più recente di una chain

@@ -37,7 +37,7 @@ trans *new_trans(const uint32_t sender, const uint32_t receiver, const uint32_t 
 
     // Controllo se esiste una lista di transazioni:
     if(head_trans == NULL){
-        tmp_trans -> count_trans = 1;
+        tmp_trans -> count_trans = 0;
     }
 
     // Aggiunta di una transazione ad una lista esistente:
@@ -191,7 +191,7 @@ bool get_str_creation_time(time_t creation_time, char *string) {
 */
 void input_trans(uint32_t sender, uint32_t receiver, uint32_t amount, chain *in_chain){
     // Controllo se la chain è priva di una lista di blocchi:
-    if (in_chain -> first_block == NULL){
+    if (in_chain -> head_block == NULL){
         in_chain -> first_block = new_block(NULL);
         in_chain -> head_block = in_chain -> first_block;
 
@@ -202,7 +202,7 @@ void input_trans(uint32_t sender, uint32_t receiver, uint32_t amount, chain *in_
     }
 
     // Controllo se il blocco più recente della chain è già 'minato':
-    if ((in_chain -> head_block) -> hash [0] <= MAX_VALID_FIRST_HASH_ELEMENT){
+    else if ((in_chain -> head_block) -> hash [0] <= MAX_VALID_FIRST_HASH_ELEMENT){
         in_chain -> head_block = new_block(in_chain -> head_block);
 
         // Creazione di una nuova tranzazione nel blocco 'head_block' della chain:
