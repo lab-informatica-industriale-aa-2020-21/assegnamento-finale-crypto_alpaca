@@ -34,6 +34,8 @@ void save_chain(const chain *chain_to_print, const char *file_path){
         write_block(next_to_print, fp_chain);
         next_to_print = next_to_print -> next_block;
     } while(next_to_print != NULL);
+
+    fclose(fp_chain);
 }
 
 
