@@ -18,13 +18,18 @@ void automatic_trans(chain *head_chain, uint32_t trans_to_generate);
 
 int main()
 {
-    // Dichiarazioni variabili:
+    // Dichiarazioni e iniziallizazione delle variabili:
     uint32_t work_type = 0;
     uint32_t num_trans_to_generate = 0;
-    char input_choice, end_choice;
+    char input_choice, end_choice = 'a';
     chain *chain_1;
 
-    // Introduzione al programma implementato e messaggio di benvenuto 
+    /*------------------------------------------------------------------------------
+    *
+    * Introduzione al programma implementato e messaggio di benvenuto
+    * Interfacciamento con l'utente
+    *
+    *--------------------------------------------------------------------------------*/ 
     printf("Benvenuto! \n"
            "Questo programma simula l'algoritmo di gestione di una blockchain"
            "Sei pronto a scoprirlo? Premi un tasto per continuare...  :)");
@@ -39,26 +44,27 @@ int main()
 
         scanf("%d", &work_type); // lettura scelta di modalità di lavoro 
         
-        if(work_type != false || work_type != true){
+        if(work_type != 0 || work_type != 1){
             printf("\n\nIl valore inserito non è valido!\n"
                     " Inserisci '0' o '1'");
         }
     }
     while(work_type != 0 || work_type != 1);
 
+    insert_trans: // etichetta per tornare alla creazione delle transazioni
     if(work_type){
         // MANUAL MODE
         printf("\nSi è scelta la modalità di inserimento manuale");
         manual_trans(chain_1);
     
         do{
-            manual_trans(); // richiamo funzione per l'inserimento manuale delle transazioni
+            manual_trans(chain_1); // richiamo funzione per l'inserimento manuale delle transazioni
             printf("\nVuoi aggiungere un'altra transazone? (Y/y/N/n)");
             scanf("%c", &input_choice);
 
             // Controllo inserimento caratteri corretti 
             if(input_choice != 'Y' || input_choice != 'y' || input_choice != 'N' || input_choice != 'n'){
-                printf("L'inserimento non è valido. \n Inserisci uno tra i caratteri indicati");
+                printf("\nL'inserimento non è valido. \n Inserisci uno tra i caratteri indicati");
                 printf("\nVuoi aggiungere un'altra transazone? (Y/y/N/n)");
                 scanf("%c", &input_choice);
             }
@@ -95,6 +101,7 @@ int main()
     *  aggiunto alla blockchain;
     *-------------------------------------------------------------------------------
     */
+
    mine(chain_1);
 
    /*-------------------------------------------------------------------------------
@@ -104,23 +111,29 @@ int main()
    * free_chain(chain).
    * E' possibile trovare la stampa dei dati nel file BLOCKCHAIN_TXT   
    *--------------------------------------------------------------------------------*/
-    // Richiesta di terminare o continuare il programma 
-    printf("\nSi vuole terminare qui in programma?"
+    // Richiesta scelta se terminare o continuare il programma 
+   do
+   {
+        printf("\nSi vuole terminare qui in programma?"
             "Si inserisca:"
             "q -> USCITA/EXIT"
             "c -> Continue");
-    scanf("%c", &end_choice);
+        scanf("%c", &end_choice);
+        // Controllo inserimento carattere corretto per l'uscita o la comtinuazione del programma
+        if (end_choice != 'q' || end_choice != 'Q' || end_choice != 'c' || end_choice != 'C'){
+            printf("\n\nInserisci un carattere valido tra quelli elencati");
+        }
+   } while (end_choice != 'q' || end_choice != 'Q');
+   
     
-    if( end_choice == 'q' || end_choice == 'Q'){
-        printf("Il programma termina qui!");
+    if(end_choice == 'q' || end_choice == 'Q'){
         save_chain(chain_1, BLOCKCHAIN_TXT);
         free_chain(chain_1);
+        printf("\n\nIl programma termina qui!");
         exit(0); // chiusura dell'esecuzione del programma 
     }
     else{
-        save_chain(chain_1, BLOCKCHAIN_TXT);
-        free_chain(chain_1);
-        goto(),
+        goto insert_trans; 
     }
 }
 
@@ -183,7 +196,6 @@ void automatic_trans(chain *head_chain, uint32_t trans_to_generate)
         }
 
         amount = 1 + rand() * 100; // assegnazione di importo (amount) causale
-
 
         input_trans(sender, receiver, amount, head_chain); // richiamo funzione per la creazione della transazione
         }
