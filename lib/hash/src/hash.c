@@ -381,13 +381,13 @@ void shift_state_reg(unsigned int *vett, int len){
 }
 
 //Copia vett2[i] = vett1[i]
-bool copy_vector(const unsigned int *vett1, int len1, unsigned int *vett2, int len2){
+bool copy_vector(const unsigned int *vett1, uint32_t len1, unsigned int *vett2, uint32_t len2){
     if(len1 != len2){
         printf("Error: what to copy? Lengths are different");
         exit(EXIT_FAILURE);
     }
     else   
-        for (int i = 0; i < len2; i++)
+        for (uint32_t i = 0; i < len2; i++)
             vett2[i] = vett1[i];
 return 0;
 }
