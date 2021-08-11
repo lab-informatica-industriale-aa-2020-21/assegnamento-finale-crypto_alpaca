@@ -53,7 +53,7 @@
 *
 */
 void uint32_to_stringHex(const uint32_t number, char *str_out){
-    snprintf(str_out, HEX_NUMB_LENGTH + 1, "%0*x", HEX_NUM_LENGTH, number);    //[*]
+    snprintf(str_out, HEX_NUMB_LENGTH + 1, "%0*x", HEX_NUMB_LENGTH, number);    //[*]
 }
 
 
