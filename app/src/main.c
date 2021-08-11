@@ -133,7 +133,7 @@ int main()
         exit(0); // chiusura dell'esecuzione del programma 
     }
     else{
-        goto insert_trans;
+        goto insert_trans; 
     }
 }
 
