@@ -165,10 +165,10 @@ void test_copy_vector_shouldCopyVett1IntoVett2(void) {
 }
 
 void boundary_test_copy_vector_shouldCopyVett1IntoVett2(void) {
-	uint32_t vett1[100000];
+	uint32_t vett1[100000] = {0};
 	uint32_t vett2[100000] = {0};
 
-	for(int i = 0; i < 100000; i++)
+	for (int i = 0; i < 100000; i++)
 		vett1[i] = UINT32_MAX;
 	copy_vector(vett1, 100000, vett2, 100000);
 
@@ -184,12 +184,39 @@ void test_sum_vector_shouldSaveIntoVett2TheSumOfVett1AndVett2(void) {
 	TEST_ASSERT_EQUAL_UINT32_ARRAY(exp_vett, vett2, 10);
 }
 
+void boundary_test_sum_vector_shouldSaveIntoVett2TheSumOfVett1AndVett2(void) {
+	uint32_t vett1[100000];
+	uint32_t vett2[100000];
+	uint32_t exp_vett[100000];
+
+	for (uint32_t i = 0; i < 100000; i++) {
+		vett1[i] = 31 * i;
+		vett2[i] = 5 * i;
+		exp_vett[i] = 36 * i;
+	}
+	sum_vector(vett1, 100000, vett2, 100000);
+
+	TEST_ASSERT_EQUAL_UINT32_ARRAY(exp_vett, vett2, 100000);
+}
+
 void test_shift_state_reg_shouldRightShiftVettOf1Position(void) {
 	uint32_t vett[10] = {1,2,3,4,5,6,7,8,9,0};
 	uint32_t exp_vett[10] = {1,1,2,3,4,5,6,7,8,9};
 	shift_state_reg(vett, 10);
 
 	TEST_ASSERT_EQUAL_UINT32_ARRAY(exp_vett, vett, 10);
+}
+
+void boundary_test_shift_state_reg_shouldRightShiftVettOf1Position(void) {
+	uint32_t vett[100000];
+	uint32_t exp_vett[100000];
+
+	for (uint32_t i = 0; i < 100000; i++) {
+		vett[i] = UINT32_MAX;
+		exp_vett[i] = UINT32_MAX;
+	}
+
+	TEST_ASSERT_EQUAL_UINT32_ARRAY(exp_vett, vett, 100000);
 }
 
 
@@ -232,7 +259,8 @@ int main(void) {
 	RUN_TEST(boundary_test_majority_shouldReturnsMajorityBitwiseXYZ);
 
 	RUN_TEST(boundary_test_copy_vector_shouldCopyVett1IntoVett2);
-
+	RUN_TEST(boundary_test_sum_vector_shouldSaveIntoVett2TheSumOfVett1AndVett2);
+	RUN_TEST(boundary_test_shift_state_reg_shouldRightShiftVettOf1Position);
 
 	return(UNITY_END());
 }
