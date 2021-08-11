@@ -134,22 +134,27 @@ void boundary_test_majority_shouldReturnsMajorityBitwiseXYZ(void) {
 	TEST_ASSERT_EQUAL_UINT32(0, maggiority(0, 0, 0));
 }
 
+
+//Ricordarsi di togliere la funzione da hash.c
 void test_int32_to_char_shouldReturnsStringRepresentingDigitsOfUint32(void) {
 	char exp_array[11] = "1948430201";
-	TEST_ASSERT_EQUAL_MEMORY(exp_array, int_32_to_char(1948430201), 10);
+	TEST_ASSERT_EQUAL_MEMORY(exp_array, int_32_to_char(1948430201), 11);
+	TEST_ASSERT_EQUAL_STRING_LEN(exp_array, int_32_to_char(1948430201), 10);
 }
 
 void boundary_test_int32_to_char_shouldReturnsStringRepresentingDigitsOfUint32(void) {
 	char exp_array1[11] = "4294967295";
-	char exp_array2[2] = "0";
-	char exp_array3[2] = "1";
-	char exp_array4[10] = "999999999";
+	char exp_array2[11] = "0000000000";
+	char exp_array3[11] = "0000000001";
+	char exp_array4[11] = "0999999999";
 
 	TEST_ASSERT_EQUAL_MEMORY(exp_array1, int_32_to_char(4294967295), 10);
-	TEST_ASSERT_EQUAL_MEMORY(exp_array2, int_32_to_char(0), 1);
-	TEST_ASSERT_EQUAL_MEMORY(exp_array3, int_32_to_char(1), 1);
-	TEST_ASSERT_EQUAL_MEMORY(exp_array4, int_32_to_char(999999999), 9);
+	TEST_ASSERT_EQUAL_MEMORY(exp_array2, int_32_to_char(0), 10);
+	TEST_ASSERT_EQUAL_MEMORY(exp_array3, int_32_to_char(1), 10);
+	TEST_ASSERT_EQUAL_MEMORY(exp_array4, int_32_to_char(999999999), 10);
 }
+//
+
 
 void test_copy_vector_shouldCopyVett1IntoVett2(void) {
 	uint32_t vett1[10] = {1,2,3,4,5,6,7,8,9,0};
