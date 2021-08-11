@@ -98,7 +98,7 @@ block *new_block(block *const head_block){
     tmp_block -> nonce = 0;             //inserimento nonce nullo
     tmp_block -> first_trans = NULL;    //inserimento nonce NULL
     tmp_block -> head_trans = NULL;     //inserimento head_trans NULL
-    tmp_block -> num_trans = 0;         //inderimento num_trans nullo
+    tmp_block -> num_trans = 1;         //inderimento num_trans nullo
     tmp_block -> creation_time = (time_t)(0); //inserimento creation_time provvisoria
     tmp_block -> next_block = NULL;     //inserimento next_block NULL
 
@@ -143,7 +143,7 @@ chain *new_chain(chain *const head_chain)
     // Inserimento dati della lisa vuota:
     tmp_chain -> first_block = NULL;    //inserimento first_block NULL
     tmp_chain -> head_block = NULL;     //inserimento head_block NULL
-    tmp_chain -> num_block = 0;         //inserimento num_block nullo
+    tmp_chain -> num_block = 1;         //inserimento num_block nullo
     tmp_chain -> next_chain = NULL;     //inserimento next_chain NULL
 
     return tmp_chain;
