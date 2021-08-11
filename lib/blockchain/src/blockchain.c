@@ -80,14 +80,14 @@ block *new_block(block *const head_block){
 
     // Controllo se esiste una lista di blocchi:
     if (head_block == NULL){
-        tmp_block -> count_block = 0;
-        tmp_block -> prev_hash = NULL;
+        //tmp_block -> count_block = 0;
+        //tmp_block -> prev_hash = NULL;
     }
 
     // Aggiunta di un blocco ad una lista esistente:
     else{
-        tmp_block -> count_block = head_block -> count_block +1;
-        tmp_block -> prev_hash = head_block -> hash;
+        //tmp_block -> count_block = head_block -> count_block +1;
+        //tmp_block -> prev_hash = head_block -> hash;
     }
     
     // Inserimento dati del blocco vuoto:
