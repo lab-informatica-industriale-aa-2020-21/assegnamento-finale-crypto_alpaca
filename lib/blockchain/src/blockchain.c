@@ -99,7 +99,7 @@ block *new_block(block *const head_block){
     tmp_block -> first_trans = NULL;    //inserimento nonce NULL
     tmp_block -> head_trans = NULL;     //inserimento head_trans NULL
     tmp_block -> num_trans = 0;         //inderimento num_trans nullo
-    tmp_block -> creation_time = (time_t)(-1); //inserimento creation_time provvisoria
+    tmp_block -> creation_time = (time_t)(0); //inserimento creation_time provvisoria
     tmp_block -> next_block = NULL;     //inserimento next_block NULL
 
     return tmp_block;
