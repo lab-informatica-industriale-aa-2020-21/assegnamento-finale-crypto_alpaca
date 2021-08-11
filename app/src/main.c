@@ -126,13 +126,13 @@ int main()
    } while (end_choice != 'q' || end_choice != 'Q');
    
     
-    if(end_choice == 'q' || end_choice == 'Q'){
+    if(end_choice == 'q' || end_choice == 'Q'){ // scelta di terminare
         save_chain(chain_1, BLOCKCHAIN_TXT);
         free_chain(chain_1);
         printf("\n\nIl programma termina qui!");
         exit(0); // chiusura dell'esecuzione del programma 
     }
-    else{
+    else if (end_choice == 'c' || end_choice == 'C'){ // scelta di continuare
         goto insert_trans; 
     }
 }
