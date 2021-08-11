@@ -11,7 +11,7 @@
 #include <stdint.h>
 
 #include "blockchain.h"
-
+#include "file_IO.h"
 
 void manual_trans(chain *head_chain);
 void automatic_trans(chain *head_chain, uint32_t trans_to_generate);
@@ -21,7 +21,7 @@ int main()
     // Dichiarazioni variabili:
     uint32_t work_type = 0;
     uint32_t num_trans_to_generate = 0;
-    char input_choice;
+    char input_choice, end_choice;
     chain *chain_1;
 
     // Introduzione al programma implementato e messaggio di benvenuto 
@@ -37,7 +37,7 @@ int main()
            "0 -> transazione manuale\n"
            "1 -> transazione automatica");
 
-        scanf("%d", &work_type);
+        scanf("%d", &work_type); // lettura scelta di modalità di lavoro 
         
         if(work_type != false || work_type != true){
             printf("\n\nIl valore inserito non è valido!\n"
@@ -89,6 +89,39 @@ int main()
         automatic_trans(chain_1, num_trans_to_generate);
     }
     
+    /*------------------------------------------------------------------------------
+    *  Finita la creazione delle transazioni , esse vengono aggiunte in un blocco.
+    *  Successivamente questo blocco dovrà essere minato per poter essere 
+    *  aggiunto alla blockchain;
+    *-------------------------------------------------------------------------------
+    */
+   mine(chain_1);
+
+   /*-------------------------------------------------------------------------------
+   * Se si decide di terminare il programma, inserendo 'q', i dati creati vengono 
+   * salvati utilizzando la funzione save_chain(chain). Successivamente viene 
+   * deallocata la memoria occupata dalla chain creata richiamando la funzione 
+   * free_chain(chain).
+   * E' possibile trovare la stampa dei dati nel file BLOCKCHAIN_TXT   
+   *--------------------------------------------------------------------------------*/
+    // Richiesta di terminare o continuare il programma 
+    printf("\nSi vuole terminare qui in programma?"
+            "Si inserisca:"
+            "q -> USCITA/EXIT"
+            "c -> Continue");
+    scanf("%c", &end_choice);
+    
+    if( end_choice == 'q' || end_choice == 'Q'){
+        printf("Il programma termina qui!");
+        save_chain(chain_1, BLOCKCHAIN_TXT);
+        free_chain(chain_1);
+        exit(0); // chiusura dell'esecuzione del programma 
+    }
+    else{
+        save_chain(chain_1, BLOCKCHAIN_TXT);
+        free_chain(chain_1);
+        goto(),
+    }
 }
 
 
