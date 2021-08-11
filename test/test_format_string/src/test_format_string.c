@@ -53,7 +53,7 @@ void test_print_block_header_ShouldFormatFixedLenStringWithBlockHeaderInfo(void)
 	print_block_header(&test_block, test_string);
 
 	TEST_ASSERT_EQUAL_STRING_LEN("Index:                   0000000025\n"
-								 "Creation time:           data e ora\n"
+								 "Creation time:  1970-01-01 00:00:00\n"
 								 "Hash number:               000000d5\n"
 								 "                           00004b20\n"
 								 "                           00000000\n"
@@ -200,7 +200,7 @@ void test_print_block_ShouldFormatFixedLenStringWithBlockInfo(void) {
 	print_block(&test_block, test_string);
 
 	TEST_ASSERT_EQUAL_STRING_LEN("Index:                   0000000025\n"
-								 "Creation time:           data e ora\n"
+								 "Creation time:  1970-01-01 00:00:00\n"
 								 "Hash number:               000000d5\n"
 								 "                           00004b20\n"
 								 "                           00000000\n"
