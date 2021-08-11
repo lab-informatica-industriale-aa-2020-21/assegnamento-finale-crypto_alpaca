@@ -92,7 +92,9 @@ block *new_block(block *const head_block){
     }
     
     // Inserimento dati del blocco vuoto:
-    *(tmp_block -> hash) = 0xFFFFFFFF;    //inserimento primo elemento di hash (non minato)
+    *(tmp_block -> hash) = 0xFFFFFFFF;  //inserimeno del primo elemento di hash (non minato)
+    for (int i = 1; i < DIM_HASH; i++)
+        *(tmp_block -> hash + i) = 0;   //inserimento dei restanti elementi di hash (non minato)
     tmp_block -> nonce = 0;             //inserimento nonce nullo
     tmp_block -> first_trans = NULL;    //inserimento nonce NULL
     tmp_block -> head_trans = NULL;     //inserimento head_trans NULL
