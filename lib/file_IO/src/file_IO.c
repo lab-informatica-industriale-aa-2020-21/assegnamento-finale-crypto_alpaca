@@ -6,6 +6,7 @@
 #include "blockchain.h"
 #include "file_IO.h"
 #include "format_string.h"
+#include "hash.h"
 
 
 void write_block(const block *block_to_print, FILE *fp){
@@ -88,6 +89,6 @@ void get_prev_hash(uint32_t *hash, const char *file_path){
 
     uint32_t count_transaction = get_arg_uint32Dec(fp_chain, -2);
 
-    for (int i = 0; i < 8; i++)                                                                                             //---------------> inserire costante 8 da <hash.h>
-        hash [i] = get_arg_uint32Hex(fp_chain, (long)(-2 - NUM_TRANS_LINE * (int)count_transaction - 1 - 8 + i));          //---------------> inserire costante 8 da <hash.h>
+    for (int i = 0; i < DIM_HASH; i++)
+        hash [i] = get_arg_uint32Hex(fp_chain, (long)(-2 - NUM_TRANS_LINE * (int)count_transaction - 1 - DIM_HASH + i));
 }
