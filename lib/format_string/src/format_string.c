@@ -53,7 +53,7 @@
 *
 */
 void uint32_to_stringHex(const uint32_t number, char *str_out){
-    snprintf(str_out, HEX_NUMB_LENGTH + 1, "%08x", (int)number);    //[*]
+    snprintf(str_out, HEX_NUMB_LENGTH + 1, "%0*x", HEX_NUM_LENGTH, number);    //[*]
 }
 
 
@@ -69,7 +69,7 @@ void uint32_to_stringHex(const uint32_t number, char *str_out){
 *
 */
 void uint32_to_stringDec(const uint32_t number, char *str_out){
-    snprintf(str_out, DEC_NUMB_LENGTH + 1, "%010d", (int)number);    //[*]
+    snprintf(str_out, DEC_NUMB_LENGTH + 1, "%0*u", DEC_NUMB_LENGTH, number);    //[*]
 }
 
 
