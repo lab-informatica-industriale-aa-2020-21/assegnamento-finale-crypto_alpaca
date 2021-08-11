@@ -37,7 +37,7 @@ trans *new_trans(const uint32_t sender, const uint32_t receiver, const uint32_t 
 
     // Controllo se esiste una lista di transazioni:
     if(head_trans == NULL){
-        tmp_trans -> count_trans = 0;
+        tmp_trans -> count_trans = 1;
     }
 
     // Aggiunta di una transazione ad una lista esistente:
@@ -80,7 +80,7 @@ block *new_block(block *const head_block){
 
     // Controllo se esiste una lista di blocchi:
     if (head_block == NULL){
-        tmp_block -> count_block = 0;
+        tmp_block -> count_block = 1;
         tmp_block -> prev_hash = NULL;
     }
 
@@ -98,7 +98,7 @@ block *new_block(block *const head_block){
     tmp_block -> nonce = 0;             //inserimento nonce nullo
     tmp_block -> first_trans = NULL;    //inserimento nonce NULL
     tmp_block -> head_trans = NULL;     //inserimento head_trans NULL
-    tmp_block -> num_trans = 0;         //inderimento num_trans nullo
+    tmp_block -> num_trans = 1;         //inderimento num_trans nullo
     tmp_block -> creation_time = (time_t)(0); //inserimento creation_time provvisoria
     tmp_block -> next_block = NULL;     //inserimento next_block NULL
 
@@ -131,7 +131,7 @@ chain *new_chain(chain *const head_chain)
 
     // Controllo se esiste una lista di catene:
     if(head_chain == NULL){
-        tmp_chain -> count_chain = 0;
+        tmp_chain -> count_chain = 1;
     }
 
     // Aggiunta di una catena ad una lista esistente:
@@ -143,7 +143,7 @@ chain *new_chain(chain *const head_chain)
     // Inserimento dati della lisa vuota:
     tmp_chain -> first_block = NULL;    //inserimento first_block NULL
     tmp_chain -> head_block = NULL;     //inserimento head_block NULL
-    tmp_chain -> num_block = 0;         //inserimento num_block nullo
+    tmp_chain -> num_block = 1;         //inserimento num_block nullo
     tmp_chain -> next_chain = NULL;     //inserimento next_chain NULL
 
     return tmp_chain;
@@ -209,6 +209,8 @@ void input_trans(uint32_t sender, uint32_t receiver, uint32_t amount, chain *in_
         (in_chain -> head_block) -> head_trans =
             new_trans(sender, receiver, amount, (in_chain -> head_block) -> head_trans);
     }
+
+    in_chain -> num_block = (in_chain -> head_block) -> count_block;
 }
 
 
