@@ -227,14 +227,16 @@ void mine(chain *const chain_to_mine){
         for (int i = 0; i < DIM_HASH; i++)                      //copia del vettore prev_hash in previous_hash
             previous_hash [i] = (chain_to_mine -> head_block) -> prev_hash [i];
 
+    // Calcolo del primo hash:
+    hash_function(previous_hash, (chain_to_mine -> head_block) -> nonce, trans_str, strlen(trans_str), (chain_to_mine -> head_block) -> hash);
+    
     // Ciclo di 'mine':
         //controllo se i primi 4 bit (del primo uint_32) dell'hash sono diversi da 0
     while ((chain_to_mine -> head_block) -> hash[0] > MAX_VALID_FIRST_HASH_ELEMENT){
-
         // incremento del valore di 'nonce' fino a trovare quello corretto, in base alle condizione di hash scelte
         (chain_to_mine -> head_block) -> nonce ++;
 
-        //hash = funzione calcolo hash(previous_hash, ((chain -> head_block) -> num_trans) * BIT_PER_TRANS, trans_str, (chain -> head_block) -> nonce);
+        hash_function(previous_hash, (chain_to_mine -> head_block) -> nonce, trans_str, strlen(trans_str), (chain_to_mine -> head_block) -> hash);
     }
 
     (chain_to_mine -> head_block) -> creation_time = time(NULL);      // info mm/gg/yy (data) - h:min:sec (ora) sulla creazione del nuovo blocco
