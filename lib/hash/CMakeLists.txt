@@ -13,6 +13,7 @@ target_include_directories(hash
 
 target_link_libraries(hash
 	PUBLIC m
+	PUBLIC LII::format_string
 	)
 
 add_library(LII::hash ALIAS hash)
