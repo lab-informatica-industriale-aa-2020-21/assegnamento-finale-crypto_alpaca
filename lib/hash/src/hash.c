@@ -3,7 +3,9 @@
 #include <string.h>
 #include <stdbool.h>
 #include <math.h>
+
 #include "hash.h"
+#include "format_string.h"
 
 
 /*  Per Binotto: le funzioni che avevi dichiarato sono state spostate nel file hash.h. 
@@ -297,8 +299,12 @@ void loading_data (unsigned int* block_data, int n_block, const unsigned int* pr
 /*int_32_to_char ()
 **Funzione che permette di convertire un unsigned int in un vettore di char che ne descriva le singole cifre in codice ASCII.
 */
-char* int_32_to_char(unsigned int input){
-    //Sempre in BIG ENDIAN
+char* int_32_to_char(unsigned int input) {
+    char *string = malloc((HEX_NUMB_LENGTH + 1) * sizeof(char));
+    uint32_to_stringDec(input, string);
+    return string;
+
+/*    //Sempre in BIG ENDIAN
     int i=10;                               //Offset per utilizzare l'ordine dei byte di tipo BIG ENDIAN
     char *digit_eff = NULL;
 
@@ -313,7 +319,7 @@ char* int_32_to_char(unsigned int input){
         digit_eff[--i] = input % 10 + '0';
         input /= 10;   
     }
-return digit_eff;  
+return digit_eff; */
 }
 
 
