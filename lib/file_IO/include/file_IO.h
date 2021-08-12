@@ -27,6 +27,9 @@ uint32_t get_arg_uint32Dec(FILE *fp, long line);
 uint32_t get_arg_uint32Hex(FILE *fp, long line);
 
 
+uint32_t get_prev_index(const char *file_path);
+
+
 void get_prev_hash(uint32_t *hash, const char *file_path);
 
 

@@ -32,9 +32,9 @@ int main()
     *--------------------------------------------------------------------------------*/ 
     printf("\n\nBenvenuto! \n"
            "Questo programma simula l'algoritmo di gestione di una blockchain"
-           "Sei pronto a scoprirlo? Premi un tasto per continuare...  :)\n");
+           "Sei pronto a scoprirlo? Premi ENTER per continuare...  :)\n");
         
-    getchar(); // attesa di un input da tastiera per continuare l'esecuzione del programma
+    while (getchar()!='\n'){};// attesa di input  'ENTER' da tastiera per continuare l'esecuzione del programma
 
     do{
         printf("\n\nE' possibile creare le transazioni oppure fare in modo che il programma le crei in automatico.\n"
@@ -55,21 +55,23 @@ int main()
     
     if(work_type){
         // MANUAL MODE
-        printf("\nSi è scelta la modalità di inserimento manuale");
+        printf("\nSi è scelta la modalità di inserimento manuale\n");
            
         do{
             manual_trans(chain_1); // richiamo funzione per l'inserimento manuale delle transazioni
-            printf("\nVuoi aggiungere un'altra transazone? (Y/y/N/n)");
+            while (getchar()!='\n'){};
+            printf("\nVuoi aggiungere un'altra transazone? (Y/N)");
             scanf("%c", &input_choice);
 
             // Controllo inserimento caratteri corretti 
-            if(input_choice != 'Y' && input_choice != 'y' && input_choice != 'N' && input_choice != 'n'){
+            while(input_choice != 'Y' && input_choice != 'y' && input_choice != 'N' && input_choice != 'n'){
                 printf("\nL'inserimento non è valido. \n Inserisci uno tra i caratteri indicati");
-                printf("\nVuoi aggiungere un'altra transazone? (Y/y/N/n)");
+                printf("\nVuoi aggiungere un'altra transazone? (Y//N)");
+                while (getchar()!='\n'){};
                 scanf("%c", &input_choice);
             }
             // Controllo di conclusione di inserimento delle transazioni 
-            else if(input_choice == 'N' || input_choice == 'n'){
+            if(input_choice == 'N' || input_choice == 'n'){
                 printf("L'inserimento delle transazioni è terminato!\n"
                         "Ora il programma precede alla creazione e all'inserimento in un blocco e"
                         "infine a svolgere l'operazione di mining di quest'ultimo .");
