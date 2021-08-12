@@ -8,29 +8,6 @@
 #include "format_string.h"
 
 
-/*  Per Binotto: le funzioni che avevi dichiarato sono state spostate nel file hash.h. 
-                 Anche i 'define' sono stati spostati nel file hash.h 
-    La libreria 'hash.h è stata inclusa sopra.
-*/
-
-/*
-int main (int argc, char ** argv){
-    unsigned int prev_hash[8] = {1111111111, 2002222222, 3333333333, 1112222222, 1115555555, 1111666666, 1010777777 , 1112525252};
-    
-    unsigned int list_trans_len = 24*8;
-    char list_trans[24] = {'a', 'b', 'c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x'};
-    unsigned int *hash = NULL;        
-
-    hash = hash_function(prev_hash, 180, list_trans, list_trans_len);
-
-    for (int i = 0; i < 8; i++)
-        printf("%u\n", hash[i]);
-    
-    
-return 0;
-}
-*/
-
 /*Funzioni elementari per hash
 **  >> shift vs destra
 **  ^  operatore di XOR
