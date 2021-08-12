@@ -22,7 +22,7 @@ int main()
     uint32_t work_type = 0;
     uint32_t num_trans_to_generate = 0;
     char input_choice, end_choice = 'a';
-    chain *chain_1;
+    chain *chain_1 = new_chain(NULL);
 
     /*------------------------------------------------------------------------------
     *
