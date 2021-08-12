@@ -247,7 +247,7 @@ void mine(chain *const chain_to_mine){
             previous_hash [i] = (chain_to_mine -> head_block) -> prev_hash [i];
 
     // Calcolo del primo hash:
-    hash_function(previous_hash, (chain_to_mine -> head_block) -> nonce, trans_str, strlen(trans_str), (chain_to_mine -> head_block) -> hash);
+    hash_function(previous_hash, (chain_to_mine -> head_block) -> nonce, trans_str, 8 * strlen(trans_str), (chain_to_mine -> head_block) -> hash);
     
     // Ciclo di 'mine':
         //controllo se i primi 4 bit (del primo uint_32) dell'hash sono diversi da 0
