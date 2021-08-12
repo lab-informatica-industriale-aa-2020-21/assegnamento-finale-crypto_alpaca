@@ -114,6 +114,7 @@ int main()
     // Richiesta scelta se terminare o continuare il programma 
    do
    {
+       while (getchar()!='\n');
         printf("\nSi vuole terminare qui in programma?\n"
             "Si inserisca:\n"
             "q -> USCITA/EXIT\n"
@@ -155,6 +156,7 @@ void manual_trans(chain *head_chain)
     scanf("%u", &receiver);
     printf("\nImporto della transazione (formato DEC_INT): ");
     scanf("%u", &amount);
+    while (getchar()!='\n');
     input_trans(sender, receiver, amount, head_chain); // richiamo funzione per la creazione della transazione
 }
 
