@@ -183,7 +183,7 @@ bool get_str_creation_time(time_t creation_time, char *string) {
 *  
 * args:   sender              -> chiave pubblica mittente (uint32)
 *         receiver            -> chiave pubblica ricevente (uint32)
-*         amount              -> importao transazione (uint32)
+*         amount              -> importo transazione (uint32)
 *         *in_chain           -> puntatore alla chain in cui si vuole inserire la
 *                                transazione
 * return: void
