@@ -21,7 +21,7 @@ int main()
     // Dichiarazioni e iniziallizazione delle variabili:
     uint32_t work_type = 0;
     uint32_t num_trans_to_generate = 0;
-    char input_choice, end_choice;
+    char input_choice, end_choice, mine_choice;
     chain *chain_1 = new_chain(NULL);
 
     /*------------------------------------------------------------------------------
@@ -62,7 +62,6 @@ int main()
             while (getchar()!='\n'){};
             printf("\nVuoi aggiungere un'altra transazone? (Y/N)");
             scanf("%c", &input_choice);
-
             // Controllo inserimento caratteri corretti 
             while(input_choice != 'Y' && input_choice != 'y' && input_choice != 'N' && input_choice != 'n'){
                 printf("\nL'inserimento non è valido. \n Inserisci uno tra i caratteri indicati");
@@ -70,14 +69,39 @@ int main()
                 while (getchar()!='\n'){};
                 scanf("%c", &input_choice);
             }
+
+            /*------------------------------------------------------------------------------
+            *  Finita la creazione delle transazioni ,esse vengono aggiunte in un blocco.
+            *  Successivamente e' possibile scegliere se:
+            * 1- il blocco appena creato venga minato e aggiunto alla blockchain;
+            * 2- continuare ad aggiungere transazioni alla stesso blocco.
+            *-------------------------------------------------------------------------------
+            */
+            while (getchar()!='\n'){};
+            printf("Vuoi fare il mining del blocco oppure continuare a inserire le transazioni nello stesso blocco?\n"
+                    "Inserisci: \n"
+                    "1- MINING\n"
+                    "2- CONTINUE\n");
+            scanf("%c", &mine_choice);
+            while(mine_choice != 0 && mine_choice != 1){
+                printf("\nL'inserimento non è valido. \n Inserisci uno tra i caratteri indicati");
+                printf("Inserisci: \n"
+                    "1- MINING\n"
+                    "2- CONTINUE\n");
+                scanf("%c", &mine_choice);
+            };
+            if(mine_choice){
+                mine(chain_1);
+            }
+            
             // Controllo di conclusione di inserimento delle transazioni 
             if(input_choice == 'N' || input_choice == 'n'){
                 printf("L'inserimento delle transazioni è terminato!\n"
                         "Ora il programma precede alla creazione e all'inserimento in un blocco e"
                         "infine a svolgere l'operazione di mining di quest'ultimo .");
             }
-        }
-        while(input_choice == 'y' || input_choice == 'Y');
+        
+        }while(input_choice == 'y' || input_choice == 'Y');
     }
     else{
         // ATOMATIC MODE
@@ -97,15 +121,7 @@ int main()
         automatic_trans(chain_1, num_trans_to_generate);
     }
     
-    /*------------------------------------------------------------------------------
-    *  Finita la creazione delle transazioni , esse vengono aggiunte in un blocco.
-    *  Successivamente questo blocco dovrà essere minato per poter essere 
-    *  aggiunto alla blockchain;
-    *-------------------------------------------------------------------------------
-    */
-
-   mine(chain_1);
-
+    
    /*-------------------------------------------------------------------------------
    * Se si decide di terminare il programma, inserendo 'q', i dati creati vengono 
    * salvati utilizzando la funzione save_chain(chain). Successivamente viene 
@@ -132,7 +148,7 @@ int main()
     if(end_choice == 'q' || end_choice == 'Q'){ // scelta di terminare
         save_chain(chain_1, BLOCKCHAIN_TXT);
         free_chain(chain_1);
-        printf("\n\nIl programma termina qui!");
+        printf("\n\nIl programma termina qui!\n\n");
         return 0; // chiusura dell'esecuzione del programma 
     }
     else if (end_choice == 'c' || end_choice == 'C'){ // scelta di continuare
