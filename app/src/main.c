@@ -182,7 +182,7 @@ void automatic_trans(chain *head_chain, uint32_t trans_to_generate)
     * standard <stdlib.h>
     *---------------------------------------------------------------------*/
 
-    for(int i = 0; i < trans_to_generate; i++){
+    for(uint32_t i = 0; i < trans_to_generate; i++){
         
         sender = 4 * rand() * rand(); // assegnazione identificativo casuale al mittente (sender)
         receiver = 4 * rand() * rand(); // assegnazione identificativo casuale al destinatario (receiver)
