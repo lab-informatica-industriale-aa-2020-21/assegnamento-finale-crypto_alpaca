@@ -42,7 +42,7 @@ int main()
            "0 -> transazione manuale\n"
            "1 -> transazione automatica");
 
-        scanf("%d", &work_type); // lettura scelta di modalità di lavoro 
+        scanf("%u", &work_type); // lettura scelta di modalità di lavoro 
         
         if(work_type != 0 || work_type != 1){
             printf("\n\nIl valore inserito non è valido!\n"
@@ -81,14 +81,14 @@ int main()
         // AUTOMATIC MODE
         printf("\nSi è scelta la modalità di inserimento manuale");
         printf("\n Quante transazioni si volgiono generare?"); // Richiesta numero di transazioni che si vogliono generare
-        scanf("%d", & num_trans_to_generate);
+        scanf("%u", & num_trans_to_generate);
 
         // Controllo che il numero di transazioni che si vuole creare sia valido 
         while(num_trans_to_generate <= 0){
             printf("\nIl numero inserito non è valido!"
                     "Si inserisca un valore maggiore di 0");
             printf("\n Quante transazioni si volgiono generare?");
-            scanf("%d", &num_trans_to_generate);
+            scanf("%u", &num_trans_to_generate);
         }
 
         // Richiamo della funzione per la creazione automatica delle transazioni
@@ -183,18 +183,9 @@ void automatic_trans(chain *head_chain, uint32_t trans_to_generate)
     *---------------------------------------------------------------------*/
 
     for(int i = 0; i < trans_to_generate; i++){
+        
         sender = 4 * rand() * rand(); // assegnazione identificativo casuale al mittente (sender)
-        // Controllo di sicurezza che il numero non sia maggiore del max valore consentito da uint32_t
-        if(sender > 4294967296){ 
-            sender = 4 * rand() * rand(); // riassegnazione dell'identificativo
-        }
-
         receiver = 4 * rand() * rand(); // assegnazione identificativo casuale al destinatario (receiver)
-        // Controllo di sicurezza che il numero non sia maggiore del max valore consentito da uint32_t
-        if(receiver > 4294967296){ 
-            sender = 4 * rand() * rand(); // riassegnazione dell'identificativo
-        }
-
         amount = 1 + rand() * 100; // assegnazione di importo (amount) causale
 
         input_trans(sender, receiver, amount, head_chain); // richiamo funzione per la creazione della transazione
