@@ -111,7 +111,7 @@ int main()
     else{
         // ATOMATIC MODE
         printf("\nSi è scelta la modalità di inserimento automatica");
-        printf("\n Quante transazioni si volgiono generare?"); // Richiesta numero di transazioni che si vogliono generare
+        printf("\n Quante transazioni si vogliono generare?"); // Richiesta numero di transazioni che si vogliono generare
         scanf("%u", & num_trans_to_generate);
 
         // Controllo che il numero di transazioni che si vuole creare sia valido 
