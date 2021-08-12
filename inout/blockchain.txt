@@ -1,0 +1,38 @@
+Index:                   0000000001
+Creation time:  2021-08-12 14:58:52
+Hash number:               0045a423
+                           dc91b033
+                           d272e148
+                           c40a1d8d
+                           f439120e
+                           f83ff165
+                           76483d61
+                           2bc3ad65
+Nonce number:              00002792
+Transaction n.           0000000001
+Sender:                    000001b0
+Receiver:                  0000021f
+Amount:                  0000006543
+Transaction n.           0000000002
+Sender:                    0000021f
+Receiver:                  00001de6
+Amount:                  0000000657
+N. di trans.                      2
+                                   
+Index:                   0000000002
+Creation time:  2021-08-12 14:58:58
+Hash number:               003efd04
+                           045b51fe
+                           b6df063f
+                           9d59452b
+                           97cdd159
+                           5ebf1386
+                           d8399612
+                           f5d4a840
+Nonce number:              000001b8
+Transaction n.           0000000001
+Sender:                    00000159
+Receiver:                  0000028e
+Amount:                  0000005643
+N. di trans.                      1
+                                   

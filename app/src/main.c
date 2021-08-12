@@ -21,7 +21,8 @@ int main()
     // Dichiarazioni e iniziallizazione delle variabili:
     uint32_t work_type = 0;
     uint32_t num_trans_to_generate = 0;
-    char input_choice, end_choice, mine_choice;
+    char input_choice, end_choice;
+    uint32_t mine_choice;
     chain *chain_1 = new_chain(NULL);
 
     /*------------------------------------------------------------------------------
@@ -77,21 +78,24 @@ int main()
             * 2- continuare ad aggiungere transazioni alla stesso blocco.
             *-------------------------------------------------------------------------------
             */
-            while (getchar()!='\n'){};
-            printf("Vuoi fare il mining del blocco oppure continuare a inserire le transazioni nello stesso blocco?\n"
-                    "Inserisci: \n"
-                    "1- MINING\n"
-                    "2- CONTINUE\n");
-            scanf("%c", &mine_choice);
-            while(mine_choice != 0 && mine_choice != 1){
-                printf("\nL'inserimento non è valido. \n Inserisci uno tra i caratteri indicati");
-                printf("Inserisci: \n"
-                    "1- MINING\n"
-                    "2- CONTINUE\n");
-                scanf("%c", &mine_choice);
-            };
-            if(mine_choice){
-                mine(chain_1);
+            if(input_choice == 'y' || input_choice == 'Y'){
+                while (getchar()!='\n'){};
+                printf("Vuoi fare il mining del blocco oppure continuare a inserire le transazioni nello stesso blocco?\n"
+                        "Inserisci: \n"
+                        "1- MINING\n"
+                        "2- CONTINUE\n");
+                scanf("%u", &mine_choice);
+
+                while(mine_choice != 2 && mine_choice != 1){
+                    printf("\nL'inserimento non è valido. \n Inserisci uno tra i caratteri indicati");
+                    printf("Inserisci: \n"
+                        "1- MINING\n"
+                        "2- CONTINUE\n");
+                    scanf("%u", &mine_choice);
+                };
+                if(mine_choice == 1){
+                    mine(chain_1);
+                }
             }
             
             // Controllo di conclusione di inserimento delle transazioni 
@@ -99,6 +103,7 @@ int main()
                 printf("L'inserimento delle transazioni è terminato!\n"
                         "Ora il programma precede alla creazione e all'inserimento in un blocco e"
                         "infine a svolgere l'operazione di mining di quest'ultimo .");
+                mine(chain_1);
             }
         
         }while(input_choice == 'y' || input_choice == 'Y');
