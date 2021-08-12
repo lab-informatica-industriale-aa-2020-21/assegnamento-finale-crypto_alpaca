@@ -23,7 +23,7 @@ void write_block(const block *block_to_print, FILE *fp){
 void save_chain(const chain *chain_to_print, const char *file_path){
     //apertura file
     FILE *fp_chain; //creazione puntatore al file
-    fp_chain = fopen(file_path, "w+");  //apertura file in scrittura
+    fp_chain = fopen(file_path, "a+");  //apertura file in scrittura
     
 
     if (fp_chain == NULL){  //controllo se l'apertura ha avuto esito positivo
