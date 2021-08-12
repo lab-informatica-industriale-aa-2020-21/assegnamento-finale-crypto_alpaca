@@ -318,12 +318,7 @@ void hash_function (const unsigned int* prev_hash, unsigned int nonce, char* lis
     block_data = create_block(list_trans_len, &n_block);
     loading_data(block_data, n_block, prev_hash, nonce, list_trans, list_trans_len);
 
-    /*h_i = malloc(sizeof(unsigned int)*8);
-    if(h_i == NULL){
-        printf("Error: malloc() failure while generating h_i.");
-        exit(EXIT_FAILURE);
-    } 
-    */
+    
     for (int j = 0; j < n_block; j++){ 
         //Devo farlo sempre?
         copy_vector(h_0, DIM_HASH, h_i, DIM_HASH);
