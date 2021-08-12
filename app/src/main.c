@@ -114,7 +114,7 @@ int main()
     // Richiesta scelta se terminare o continuare il programma 
    do
    {
-       while (getchar()!='\n');
+       while (getchar()!='\n'){};
         printf("\nSi vuole terminare qui in programma?\n"
             "Si inserisca:\n"
             "q -> USCITA/EXIT\n"
