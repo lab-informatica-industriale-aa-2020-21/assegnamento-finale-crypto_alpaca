@@ -32,9 +32,9 @@ int main()
     *--------------------------------------------------------------------------------*/ 
     printf("\n\nBenvenuto! \n"
            "Questo programma simula l'algoritmo di gestione di una blockchain"
-           "Sei pronto a scoprirlo? Premi un tasto per continuare...  :)\n");
+           "Sei pronto a scoprirlo? Premi ENTER per continuare...  :)\n");
         
-    getchar(); // attesa di un input da tastiera per continuare l'esecuzione del programma
+    while (getchar()!='\n'){};// attesa di input  'ENTER' da tastiera per continuare l'esecuzione del programma
 
     do{
         printf("\n\nE' possibile creare le transazioni oppure fare in modo che il programma le crei in automatico.\n"
