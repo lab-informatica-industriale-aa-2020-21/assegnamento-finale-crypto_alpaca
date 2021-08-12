@@ -287,7 +287,7 @@ int main(void) {
     RUN_TEST(test_input_trans_shouldAddTransactionToEmptyChain);
     RUN_TEST(test_input_trans_shouldAddTransactionToChainWithMinedBlocks);
     RUN_TEST(test_input_trans_shouldAddTransactionToChainWithUnminedBlocks);
-    //RUN_TEST(test_mine_shouldMineBlockInGivenChain);
+    RUN_TEST(test_mine_shouldMineBlockInGivenChain);
 
     return UNITY_END();
 }
