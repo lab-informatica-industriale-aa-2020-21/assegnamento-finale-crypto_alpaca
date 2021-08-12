@@ -29,7 +29,7 @@ elseif(TARGET_GROUP STREQUAL test)
 
         add_subdirectory(external/Unity)
         add_subdirectory(test/test_hash)
-#	add_subdirectory(test/test_blockchain)
+	add_subdirectory(test/test_blockchain)
 	add_subdirectory(test/test_file_IO)
 	add_subdirectory(test/test_format_string)
 else()
