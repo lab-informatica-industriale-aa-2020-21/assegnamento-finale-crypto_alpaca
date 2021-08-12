@@ -194,12 +194,12 @@ void input_trans(uint32_t sender, uint32_t receiver, uint32_t amount, chain *in_
     if (in_chain -> head_block == NULL){
         in_chain -> first_block = new_block(NULL);
         in_chain -> head_block = in_chain -> first_block;
+        (in_chain -> head_block) -> count_block = get_prev_index(BLOCKCHAIN_TXT);
 
         // Creazione di una nuova tranzazione nel blocco 'head_block' della chain:
         (in_chain -> head_block) -> head_trans =
             new_trans(sender, receiver, amount, (in_chain -> head_block) -> head_trans);
         (in_chain -> head_block) -> first_trans = (in_chain -> head_block) -> head_trans;
-        (in_chain -> head_block) -> count_block = get_prev_index(BLOCKCHAIN_TXT);
     }
 
     // Controllo se il blocco più recente della chain è già 'minato':
