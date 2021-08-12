@@ -163,7 +163,7 @@ void test_get_arg_uint32Hex_ShouldReturnUint32FromGivenBlockchainFileLine(void) 
 void test_get_prev_index_ShouldReturnBlockIndexFromBlockchainTxtFile(void) {
 	uint32_t test_index = get_prev_index(TEST_BLOCKCHAIN_TXT);
 
-	TEST_ASSERT_EQUAL_UINT32(1, test_index);
+	TEST_ASSERT_EQUAL_UINT32(26, test_index);
 }
 
 void test_get_prev_hash_ShouldReadAndFillHashArray(void) {
