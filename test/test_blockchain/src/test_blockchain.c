@@ -233,7 +233,6 @@ void test_input_trans_shouldAddTransactionToChainWithMinedBlocks(void) {
 
     void test_input_trans_shouldAddTransactionToChainWithUnminedBlocks(void) {
         chain *test_chain = new_chain(NULL);
-        time_t exp_time = (time_t)(0);
 
         input_trans(0, 0, 0, test_chain);
         block *unmined_block = test_chain->head_block;
