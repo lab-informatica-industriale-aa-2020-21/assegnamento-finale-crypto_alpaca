@@ -284,7 +284,7 @@ void free_chain(chain *chain_to_free){
 
     // Ciclo di deallocamento della memoria:
     do{
-        trans *next_free_trans = (chain_to_free -> first_block) -> first_trans;
+        trans *next_free_trans = next_free_block -> first_trans;
         do{
             tmp_pointer_trans = next_free_trans -> next_trans;  // salvataggio del puntatore alla successiva transazione
             free(next_free_trans);                              // deallocazione delle memoria
