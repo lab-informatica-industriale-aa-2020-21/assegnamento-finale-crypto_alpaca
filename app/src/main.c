@@ -55,7 +55,7 @@ int main()
     
     if(work_type){
         // MANUAL MODE
-        printf("\nSi è scelta la modalità di inserimento manuale");
+        printf("\nSi è scelta la modalità di inserimento manuale\n");
            
         do{
             manual_trans(chain_1); // richiamo funzione per l'inserimento manuale delle transazioni
