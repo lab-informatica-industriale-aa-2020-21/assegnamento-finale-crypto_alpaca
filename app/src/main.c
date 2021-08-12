@@ -130,7 +130,7 @@ int main()
     if(end_choice == 'q' || end_choice == 'Q'){ // scelta di terminare
         save_chain(chain_1, BLOCKCHAIN_TXT);
         free_chain(chain_1);
-        printf("\n\nIl programma termina qui!");
+        printf("\n\nIl programma termina qui!\n\n");
         return 0; // chiusura dell'esecuzione del programma 
     }
     else if (end_choice == 'c' || end_choice == 'C'){ // scelta di continuare
