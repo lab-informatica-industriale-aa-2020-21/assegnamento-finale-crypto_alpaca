@@ -59,17 +59,19 @@ int main()
            
         do{
             manual_trans(chain_1); // richiamo funzione per l'inserimento manuale delle transazioni
-            printf("\nVuoi aggiungere un'altra transazone? (Y/y/N/n)");
+            while (getchar()!='\n'){};
+            printf("\nVuoi aggiungere un'altra transazone? (Y/N)");
             scanf("%c", &input_choice);
 
             // Controllo inserimento caratteri corretti 
-            if(input_choice != 'Y' && input_choice != 'y' && input_choice != 'N' && input_choice != 'n'){
+            while(input_choice != 'Y' && input_choice != 'y' && input_choice != 'N' && input_choice != 'n'){
                 printf("\nL'inserimento non è valido. \n Inserisci uno tra i caratteri indicati");
-                printf("\nVuoi aggiungere un'altra transazone? (Y/y/N/n)");
+                printf("\nVuoi aggiungere un'altra transazone? (Y//N)");
+                while (getchar()!='\n'){};
                 scanf("%c", &input_choice);
             }
             // Controllo di conclusione di inserimento delle transazioni 
-            else if(input_choice == 'N' || input_choice == 'n'){
+            if(input_choice == 'N' || input_choice == 'n'){
                 printf("L'inserimento delle transazioni è terminato!\n"
                         "Ora il programma precede alla creazione e all'inserimento in un blocco e"
                         "infine a svolgere l'operazione di mining di quest'ultimo .");
