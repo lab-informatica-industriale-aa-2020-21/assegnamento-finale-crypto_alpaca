@@ -27,7 +27,7 @@
 */
 trans *new_trans(const uint32_t sender, const uint32_t receiver, const uint32_t amount, trans *const head_trans){  
     // Allocazione di memoria per una transazione
-    trans *tmp_trans = malloc(sizeof(trans));
+    trans *tmp_trans = (trans *) malloc(sizeof(trans));
 
     // Controllo funzioanmento corretto di malloc():
     if(tmp_trans == NULL){
@@ -70,7 +70,7 @@ trans *new_trans(const uint32_t sender, const uint32_t receiver, const uint32_t 
 */
 block *new_block(block *const head_block){
     // Allocazione di memoria per una transazione:
-    block *tmp_block = malloc(sizeof(block));
+    block *tmp_block = (block *) malloc(sizeof(block));
 
     // Controllo funzionamento della malloc():
     if (tmp_block == NULL){
@@ -121,7 +121,7 @@ block *new_block(block *const head_block){
 chain *new_chain(chain *const head_chain)
 {
     // Allocazione di memoria per una transazione:
-    chain *tmp_chain = malloc(sizeof(chain));
+    chain *tmp_chain = (chain *) malloc(sizeof(chain));
 
     // Controllo funzionamento della malloc():
     if(tmp_chain == NULL){
@@ -295,4 +295,6 @@ void free_chain(chain *chain_to_free){
         free(next_free_block);                                  // deallocazione della memoria occupata dal blocco
         next_free_block = tmp_pointer_block;                    // passaggio al blocco successivo
     }while(next_free_block != NULL );                           // continua fino al termine della lista di blocchi
+
+    free(chain_to_free);
 }
