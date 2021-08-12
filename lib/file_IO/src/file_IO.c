@@ -23,13 +23,15 @@ void write_block(const block *block_to_print, FILE *fp){
 void save_chain(const chain *chain_to_print, const char *file_path){
     //apertura file
     FILE *fp_chain; //creazione puntatore al file
-    fp_chain = fopen(file_path, "w");  //apertura file in scrittura
-    fseek(fp_chain, 0L, SEEK_END);
+    fp_chain = fopen(file_path, "w+");  //apertura file in scrittura
+    
 
     if (fp_chain == NULL){  //controllo se l'apertura ha avuto esito positivo
         printf("Error: can't open %s\n", file_path);
         exit(EXIT_FAILURE);
     }
+
+    fseek(fp_chain, 0L, SEEK_END);
 
     block *next_to_print = chain_to_print -> first_block;
     do{
