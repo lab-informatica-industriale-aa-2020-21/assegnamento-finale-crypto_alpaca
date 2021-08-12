@@ -90,6 +90,12 @@ uint32_t get_prev_index(const char *file_path){
         exit(EXIT_FAILURE);
     }
 
+    //posizionamento all'inizio del file
+    fseek(fp_chain, 0L, SEEK_SET);
+    if (feof(fp_chain)){    //controllo di lettora EOF -> true = file vuoto
+        printf("funzionaaaaaa");
+        return 0;}
+
     uint32_t count_transaction = get_arg_uint32Dec(fp_chain, -2);
     
     return get_arg_uint32Dec(fp_chain, (long)(-2 - NUM_TRANS_LINE * (int)count_transaction - 1 - DIM_HASH - 2));
