@@ -92,7 +92,7 @@ uint32_t get_prev_index(const char *file_path){
 
     //posizionamento all'inizio del file
     fseek(fp_chain, 0L, SEEK_SET);
-    if (1){    //controllo di lettora EOF -> true = file vuoto
+    if (feof(fp_chain)){    //controllo di lettora EOF -> true = file vuoto
         printf("funzionaaaaaa");
         return 0;}
 
