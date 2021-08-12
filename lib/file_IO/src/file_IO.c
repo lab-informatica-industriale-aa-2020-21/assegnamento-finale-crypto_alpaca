@@ -80,6 +80,22 @@ uint32_t get_arg_uint32Hex(FILE *fp, long line){
 }
 
 
+uint32_t get_prev_index(const char *file_path){
+    //apertura file
+    FILE *fp_chain; //creazione puntatore al file
+    fp_chain = fopen(file_path, "r");  //apertura file in lettura
+
+    if (fp_chain == NULL){  //controllo se l'apertura ha avuto esito positivo
+        printf("Error: can't open %s\n", file_path);
+        exit(EXIT_FAILURE);
+    }
+
+    uint32_t count_transaction = get_arg_uint32Dec(fp_chain, -2);
+    
+    return get_arg_uint32Dec(fp_chain, (long)(-2 - NUM_TRANS_LINE * (int)count_transaction - 1 - DIM_HASH - 2));
+}
+
+
 void get_prev_hash(uint32_t *hash, const char *file_path){
     //apertura file
     FILE *fp_chain; //creazione puntatore al file

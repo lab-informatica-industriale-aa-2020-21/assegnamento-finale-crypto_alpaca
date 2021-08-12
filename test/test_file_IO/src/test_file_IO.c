@@ -160,6 +160,12 @@ void test_get_arg_uint32Hex_ShouldReturnUint32FromGivenBlockchainFileLine(void) 
 	TEST_ASSERT_EQUAL_UINT32(9834, test_int);
 }
 
+void test_get_prev_index_ShouldReturnBlockIndexFromBlockchainTxtFile(void) {
+	uint32_t test_index = get_prev_index(TEST_BLOCKCHAIN_TXT);
+
+	TEST_ASSERT_EQUAL_UINT32(1, test_index);
+}
+
 void test_get_prev_hash_ShouldReadAndFillHashArray(void) {
 	uint32_t test_prev_hash[8];
 	uint32_t exp_prev_hash[8] = {213, 19232, 0, 191302, 1752, 1, 5, 12332};
@@ -176,6 +182,7 @@ int main(void) {
 	RUN_TEST(test_get_arg_ShouldFillStringOfGivenBlockchainFileLine);
 	RUN_TEST(test_get_arg_uint32Dec_ShouldReturnUint32FromGivenBlockchainFileLine);
 	RUN_TEST(test_get_arg_uint32Hex_ShouldReturnUint32FromGivenBlockchainFileLine);
+	RUN_TEST(test_get_prev_index_ShouldReturnBlockIndexFromBlockchainTxtFile);
 	RUN_TEST(test_get_prev_hash_ShouldReadAndFillHashArray);
 	
 	return UNITY_END();
