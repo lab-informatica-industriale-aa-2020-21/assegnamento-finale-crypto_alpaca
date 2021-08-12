@@ -92,9 +92,8 @@ uint32_t get_prev_index(const char *file_path){
 
     //posizionamento all'inizio del file
     fseek(fp_chain, 0L, SEEK_END);
-    if (!ftell(fp_chain)){    //controllo di lettora EOF -> true = file vuoto
-        printf("funzionaaaaaa");
-        return 0;}
+    if (!ftell(fp_chain))   //controllo se il file è vuoto
+        return 0;
 
     uint32_t count_transaction = get_arg_uint32Dec(fp_chain, -2);
     
@@ -111,6 +110,11 @@ void get_prev_hash(uint32_t *hash, const char *file_path){
         printf("Error: can't open %s\n", file_path);
         exit(EXIT_FAILURE);
     }
+
+    //posizionamento all'inizio del file
+    fseek(fp_chain, 0L, SEEK_END);
+    if (!ftell(fp_chain))   //controllo se il file è vuoto
+        return;
 
     uint32_t count_transaction = get_arg_uint32Dec(fp_chain, -2);
 

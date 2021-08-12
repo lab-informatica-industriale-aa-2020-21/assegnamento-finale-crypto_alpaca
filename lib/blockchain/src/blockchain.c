@@ -239,7 +239,7 @@ void mine(chain *const chain_to_mine){
     format_data_for_hash(chain_to_mine -> head_block, trans_str);
 
     // Ricerca del prev hash:
-    uint32_t previous_hash [DIM_HASH];
+    uint32_t previous_hash [DIM_HASH] = {0};
 
     if ((chain_to_mine -> head_block) -> prev_hash == NULL)     //non esistono blocchi precedenti nella catena della sessione attuale
         get_prev_hash(previous_hash, BLOCKCHAIN_TXT);           //lettura prev_hash dal file blockchain.txt
