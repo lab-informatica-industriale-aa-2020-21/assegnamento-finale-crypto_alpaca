@@ -21,7 +21,7 @@ int main()
     // Dichiarazioni e iniziallizazione delle variabili:
     uint32_t work_type = 0;
     uint32_t num_trans_to_generate = 0;
-    char input_choice, end_choice = 'a';
+    char input_choice, end_choice;
     chain *chain_1 = new_chain(NULL);
 
     /*------------------------------------------------------------------------------
@@ -30,40 +30,40 @@ int main()
     * Interfacciamento con l'utente
     *
     *--------------------------------------------------------------------------------*/ 
-    printf("Benvenuto! \n"
+    printf("\n\nBenvenuto! \n"
            "Questo programma simula l'algoritmo di gestione di una blockchain"
-           "Sei pronto a scoprirlo? Premi un tasto per continuare...  :)");
+           "Sei pronto a scoprirlo? Premi un tasto per continuare...  :)\n");
         
     getchar(); // attesa di un input da tastiera per continuare l'esecuzione del programma
 
     do{
         printf("\n\nE' possibile creare le transazioni oppure fare in modo che il programma le crei in automatico.\n"
            "Inserisci:\n"
-           "0 -> transazione manuale\n"
-           "1 -> transazione automatica");
+           "1 -> transazione manuale\n"
+           "0 -> transazione automatica\n");
 
         scanf("%u", &work_type); // lettura scelta di modalità di lavoro 
         
-        if(work_type != 0 || work_type != 1){
+        if(work_type != 0 && work_type != 1){
             printf("\n\nIl valore inserito non è valido!\n"
                     " Inserisci '0' o '1'");
         }
     }
-    while(work_type != 0 || work_type != 1);
+    while(work_type != 0 && work_type != 1);
 
     insert_trans: // etichetta per tornare alla creazione delle transazioni
+    
     if(work_type){
         // MANUAL MODE
         printf("\nSi è scelta la modalità di inserimento manuale");
-        manual_trans(chain_1);
-    
+           
         do{
             manual_trans(chain_1); // richiamo funzione per l'inserimento manuale delle transazioni
             printf("\nVuoi aggiungere un'altra transazone? (Y/y/N/n)");
             scanf("%c", &input_choice);
 
             // Controllo inserimento caratteri corretti 
-            if(input_choice != 'Y' || input_choice != 'y' || input_choice != 'N' || input_choice != 'n'){
+            if(input_choice != 'Y' && input_choice != 'y' && input_choice != 'N' && input_choice != 'n'){
                 printf("\nL'inserimento non è valido. \n Inserisci uno tra i caratteri indicati");
                 printf("\nVuoi aggiungere un'altra transazone? (Y/y/N/n)");
                 scanf("%c", &input_choice);
@@ -78,8 +78,8 @@ int main()
         while(input_choice == 'y' || input_choice == 'Y');
     }
     else{
-        // AUTOMATIC MODE
-        printf("\nSi è scelta la modalità di inserimento manuale");
+        // ATOMATIC MODE
+        printf("\nSi è scelta la modalità di inserimento automatica");
         printf("\n Quante transazioni si volgiono generare?"); // Richiesta numero di transazioni che si vogliono generare
         scanf("%u", & num_trans_to_generate);
 
@@ -114,23 +114,23 @@ int main()
     // Richiesta scelta se terminare o continuare il programma 
    do
    {
-        printf("\nSi vuole terminare qui in programma?"
-            "Si inserisca:"
-            "q -> USCITA/EXIT"
-            "c -> Continue");
+        printf("\nSi vuole terminare qui in programma?\n"
+            "Si inserisca:\n"
+            "q -> USCITA/EXIT\n"
+            "c -> Continue\n");
         scanf("%c", &end_choice);
         // Controllo inserimento carattere corretto per l'uscita o la comtinuazione del programma
-        if (end_choice != 'q' || end_choice != 'Q' || end_choice != 'c' || end_choice != 'C'){
+        if (end_choice != 'q' && end_choice != 'Q' && end_choice != 'c' && end_choice != 'C'){
             printf("\n\nInserisci un carattere valido tra quelli elencati");
         }
-   } while (end_choice != 'q' || end_choice != 'Q' || end_choice == 'c' || end_choice == 'C');
+   } while (end_choice != 'q' && end_choice != 'Q' && end_choice == 'c' && end_choice == 'C');
    
     
     if(end_choice == 'q' || end_choice == 'Q'){ // scelta di terminare
         save_chain(chain_1, BLOCKCHAIN_TXT);
         free_chain(chain_1);
         printf("\n\nIl programma termina qui!");
-        exit(0); // chiusura dell'esecuzione del programma 
+        return 0; // chiusura dell'esecuzione del programma 
     }
     else if (end_choice == 'c' || end_choice == 'C'){ // scelta di continuare
         goto insert_trans; 

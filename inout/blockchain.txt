@@ -1,25 +1,2 @@
-Index:                   0000000025
-Creation time:           data e ora
-Hash number:               000000d5
-                           00004b20
-                           00000000
-                           0002eb46
-                           000006d8
-                           00000001
-                           00000005
-                           0000302c
-Nonce number:              0000997b
-Transaction n.           0000000001
-Sender:                    00005d69
-Receiver:                  008b7100
-Amount:                  0000001340
-Transaction n.           0000000002
-Sender:                    0002ef43
-Receiver:                  0000040f
-Amount:                  0000010923
-Transaction n.           0000000003
-Sender:                    00003021
-Receiver:                  0000266a
-Amount:                  0000000010
-N. di trans.                      3
+
                                    
