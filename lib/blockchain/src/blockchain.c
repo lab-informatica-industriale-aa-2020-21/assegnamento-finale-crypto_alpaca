@@ -194,7 +194,7 @@ void input_trans(uint32_t sender, uint32_t receiver, uint32_t amount, chain *in_
     if (in_chain -> head_block == NULL){
         in_chain -> first_block = new_block(NULL);
         in_chain -> head_block = in_chain -> first_block;
-        (in_chain -> head_block) -> count_block = get_prev_index(BLOCKCHAIN_TXT);
+        (in_chain -> head_block) -> count_block = get_prev_index(BLOCKCHAIN_TXT) + 1;
 
         // Creazione di una nuova tranzazione nel blocco 'head_block' della chain:
         (in_chain -> head_block) -> head_trans =
