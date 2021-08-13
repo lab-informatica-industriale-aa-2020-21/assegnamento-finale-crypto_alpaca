@@ -56,5 +56,8 @@ uint8_t selection_box(int n_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1])
         wattroff(w, A_STANDOUT);
     }
 
+    delwin(w);
+    endwin();
+
     return tmp;
 }
