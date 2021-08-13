@@ -1,7 +1,6 @@
 #ifndef GUI_H
 #define GUI_H
 
-#include <stdio.h>
 #include <ncurses.h>
 
 #define MAX_ROWS 24
@@ -28,6 +27,14 @@
  * COLOR_WHITE
  */
 
-int selection_box(char *title, int n_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1], int num_unselect, ...);
+int saturate(int value, int max_value);
+
+void set_colors(void);
+
+void print_selections(WINDOW *w, int *tmp, char *title, int n_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1], int *invisible);
+
+void user_selection(WINDOW *w, int *tmp, int n_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1], int *invisible);
+
+int selection_box(char *title, int num_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1], int num_unselect, ...);
 
 #endif

@@ -4,48 +4,26 @@
 
 #include "gui.h"
 
-int selection_box(char *title,int num_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1], int num_unselect, ...){
-    char item [MAX_STR_LEN + 1];
-    int invisible [MAX_ITEMS + 2] = {0};
-    int n_items = 0;
-    int n_unselect = 0;
-    int input = 0;
-    int tmp = -1;
-
-    //controllo num_items entro il limite massimo
-    if (num_items > MAX_ITEMS)
-        n_items = MAX_ITEMS;
+int saturate(int value, int max_value){
+    if (value > max_value)
+        return max_value;
     else
-        n_items = num_items;
+        return value;
+}
 
-    //controllo num_unselect entro il limite massimo
-    if (num_unselect > MAX_ITEMS)
-        n_unselect = MAX_ITEMS;
-    else
-        n_unselect = num_unselect;
 
-    //gestione input argomenti variabili
-    va_list unselectable;
-    va_start(unselectable, num_unselect);
-    for (int i = 0; i < n_unselect; i++)
-        invisible [va_arg(unselectable, int) + 1] = 1;
-    va_end(unselectable);
-
-    //inizializzazione
-    initscr();
-
-    //inizializzazione colori
+void set_colors(void){
     if (has_colors()){
         start_color();
         init_pair(TITLE_COLOR, COLOR_GREEN, COLOR_BLACK);
         init_pair(QUIT_COLOR, COLOR_RED, COLOR_BLACK);
         init_pair(INVISIBLE_COLOR, COLOR_MAGENTA, COLOR_BLACK);
     }
+}
 
-    //inizializzazione finestra
-    WINDOW *w;
-    w = newwin(MAX_ROWS, MAX_COLS, 0, 0);
-    box(w, 0, 0);
+
+void print_selections(WINDOW *w, int *tmp, char *title, int n_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1], int *invisible){
+    char item [MAX_STR_LEN + 1];
 
     //stampa titolo
     wattron(w, A_BOLD | A_UNDERLINE | COLOR_PAIR(TITLE_COLOR));
@@ -56,9 +34,9 @@ int selection_box(char *title,int num_items, char selections [MAX_ITEMS][MAX_STR
 
     //stampa selezioni
     for (int i = 0; i < n_items; i++){
-        if (invisible [i + 1] == 0 && tmp == -1){
+        if (invisible [i + 1] == 0 && *tmp == -1){
             wattron(w, A_STANDOUT);
-            tmp = i;
+            *tmp = i;
         }
         else
             wattroff(w, A_STANDOUT);
@@ -82,18 +60,21 @@ int selection_box(char *title,int num_items, char selections [MAX_ITEMS][MAX_STR
     mvwprintw(w, MAX_ITEMS + UNUSABLE_ROWS, 2, "%s", item);
     wattrset(w, A_NORMAL);
 
-    wrefresh(w);
+}
 
-    //impostazioni visualizzazione finestra
+
+void user_selection(WINDOW *w, int *tmp, int n_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1], int *invisible){
+    char item [MAX_STR_LEN + 1];
+    int input = 0;
+
     noecho();
     keypad(w, TRUE);
     curs_set(0);
 
-    //ciclo while di selezione
     while((input = wgetch(w)) != '\n'){
-        if(tmp != n_items){
-            sprintf(item, "%-*s", MAX_STR_LEN, selections[tmp]);
-            mvwprintw(w, tmp + UNUSABLE_ROWS, 2, "%s", item);
+        if(*tmp != n_items){
+            sprintf(item, "%-*s", MAX_STR_LEN, selections[*tmp]);
+            mvwprintw(w, *tmp + UNUSABLE_ROWS, 2, "%s", item);
         }
         else{
             wattron(w, COLOR_PAIR(QUIT_COLOR));
@@ -106,27 +87,35 @@ int selection_box(char *title,int num_items, char selections [MAX_ITEMS][MAX_STR
 
         switch(input){
             case KEY_UP:
-                tmp--;
-                while (invisible [tmp + 1])
-                    tmp--;
-                tmp = (tmp < 0) ? (n_items) : tmp;
-                while (invisible [tmp + 1])
-                    tmp--;
+                *tmp = *tmp -1;
+
+                while (invisible [*tmp + 1])
+                    *tmp = *tmp - 1;
+
+                *tmp = (*tmp < 0) ? n_items : *tmp;
+
+                while (invisible [*tmp + 1])
+                    *tmp = *tmp - 1;
+
                 break;
 
-                case KEY_DOWN:
-                    tmp++;
-                    while (invisible [tmp + 1])
-                        tmp++;
-                    tmp = (tmp > (n_items)) ? 0 : tmp;
-                    while (invisible [tmp + 1])
-                        tmp++;
-                    break;
+            case KEY_DOWN:
+                *tmp = *tmp + 1;
+
+                while (invisible [*tmp + 1])
+                    *tmp = *tmp + 1;
+
+                *tmp = (*tmp > n_items) ? 0 : *tmp;
+
+                while (invisible [*tmp + 1])
+                    *tmp = *tmp + 1;
+
+                break;
         }
 
-        if(tmp != n_items){
-            sprintf(item, "%-*s", MAX_STR_LEN, selections[tmp]);
-            mvwprintw(w, tmp + UNUSABLE_ROWS, 2, "%s", item);
+        if(*tmp != n_items){
+            sprintf(item, "%-*s", MAX_STR_LEN, selections[*tmp]);
+            mvwprintw(w, *tmp + UNUSABLE_ROWS, 2, "%s", item);
         }
         else{
             wattron(w, COLOR_PAIR(QUIT_COLOR));
@@ -137,6 +126,39 @@ int selection_box(char *title,int num_items, char selections [MAX_ITEMS][MAX_STR
 
         wattroff(w, A_STANDOUT);
     }
+}
+
+
+int selection_box(char *title, int num_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1], int num_unselect, ...){
+    int invisible [MAX_ITEMS + 2] = {0};
+    int tmp = -1;
+
+    int n_items = saturate(num_items, MAX_ITEMS);
+    int n_unselect = saturate(num_unselect, MAX_ITEMS - 1);
+
+    //gestione input argomenti variabili
+    va_list unselectable;
+    va_start(unselectable, num_unselect);
+    for (int i = 0; i < n_unselect; i++)
+        invisible [va_arg(unselectable, int) + 1] = 1;
+    va_end(unselectable);
+
+    //inizializzazione
+    initscr();
+
+    //inizializzazione colori
+    set_colors();
+
+    //inizializzazione finestra
+    WINDOW *w;
+    w = newwin(MAX_ROWS, MAX_COLS, 0, 0);
+    box(w, 0, 0);
+
+    //stampa tutte le selezioni
+    print_selections(w, &tmp, title, num_items, selections, invisible);
+
+    //selezione dell'utente salvata in tmp
+    user_selection(w, &tmp, n_items, selections, invisible);
 
     //chiusura finestra
     delwin(w);
