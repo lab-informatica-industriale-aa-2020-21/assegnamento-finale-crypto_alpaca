@@ -29,10 +29,8 @@ int main()
     system("clear");
     // Dichiarazioni e iniziallizazione delle variabili:
     uint8_t work_type = 0;
-    
     char input_choice;
     uint8_t mine_choice;
-    chain *chain_1 = new_chain(NULL);
 
     /*------------------------------------------------------------------------------
     *
@@ -50,20 +48,20 @@ int main()
         printf("\n\nE' possibile creare le transazioni oppure fare in modo che il programma le crei in automatico.\n"
            "Inserisci:\n"
            "1 -> transazione manuale\n"
-           "0 -> transazione automatica\n");
+           "2 -> transazione automatica\n");
 
         scanf("%u", &work_type); // lettura scelta di modalità di lavoro 
         
-        if(work_type != 0 && work_type != 1){
+        if(work_type != 1 && work_type != 1){
             printf("\n\nIl valore inserito non è valido!\n"
                     " Inserisci '0' o '1'");
         }
     }
-    while(work_type != 0 && work_type != 1);
+    while(work_type != 1 && work_type != 2);
 
     insert_trans: // etichetta per tornare alla creazione delle transazioni
     
-    if(work_type){
+    if(work_type == 1){
         manual_mode();
     }
     else{
@@ -91,10 +89,10 @@ int main()
         if != 'q' & != 'Q' & != 'c' & != 'C'){
             printf("\n\nInserisci un carattere valido tra quelli elencati");
         }
-   } while != 'q' && input_choice != 'Q' && input_choice == 'c' && input_choice == 'C');
+   } while( input_choice != 'q' && input_choice != 'Q' && input_choice == 'c' && input_choice == 'C');
    
     
-    i == 'q' || input_choice == 'Q'){ // scelta di terminare
+    if(input_choice == 'q' || input_choice == 'Q'){ // scelta di terminare
        end_mode();
     }
     else if == 'c' | == 'C'){ // scelta di continuare
@@ -109,6 +107,8 @@ int main()
 // Funzione per l'esecuzione del programma manuale
 void manual_mode(void){
     // MANUAL MODE
+        uint8_t input_choice;
+        chain *chain_1 = new_chain(NULL);
         printf("\nSi è scelta la modalità di inserimento manuale\n");
            
         do{
@@ -165,6 +165,7 @@ void manual_mode(void){
 // Funzione per l'esecuzione del programma automatico
 void auto_mode(void){
     // ATOMATIC MODE
+        chain *chain_1 = new_chain(NULL);
         uint32_t num_trans_to_generate = 0;
         printf("\nSi è scelta la modalità di inserimento automatica");
         printf("\n Quante transazioni si vogliono generare?"); // Richiesta numero di transazioni che si vogliono generare
