@@ -18,6 +18,8 @@ void automatic_trans(chain *head_chain, uint32_t trans_to_generate);
 
 int main()
 {
+    // Pulizia del terminale 
+    system("clear");
     // Dichiarazioni e iniziallizazione delle variabili:
     uint32_t work_type = 0;
     uint32_t num_trans_to_generate = 0;
