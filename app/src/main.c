@@ -12,6 +12,7 @@
 
 #include "blockchain.h"
 #include "file_IO.h"
+#include "gui.h"
 
 #define EXIT 4
 #define MANUAL_MODE 0
@@ -25,6 +26,7 @@
 #define YES 1
 #define NO 0
 
+#define TRANS_TO_GENERATE 10
 
 // Funzioni modalità di inserimento delle funzioni:
 void manual_trans(chain *head_chain);
@@ -38,16 +40,17 @@ void add_chain_auto(chain *blockchain);
 
 int main()
 {
-    // Dichiarazioni e iniziallizazione delle variabili:
-    uint8_t input_choice, save = 0;
-    chain *chain_1 = new_chain(NULL);
-    char selection[MAX_ITEMS][MAX_STR_LEN + 1] = {"SI", "NO"}
     /*------------------------------------------------------------------------------
     *
     * Introduzione al programma implementato e messaggio di benvenuto
     * Interfacciamento con l'utente
     *
     *--------------------------------------------------------------------------------*/ 
+    // Dichiarazioni e iniziallizazione delle variabili:
+    uint8_t input_choice, save = 0;
+    chain *chain_1 = new_chain(NULL);
+    char selection[MAX_ITEMS][MAX_STR_LEN + 1] = {"SI", "NO"};
+    
     while(1){
         input_choice = selection_box(3, "MANUAL", "AUTOMATIC", "EXIT");
 
@@ -60,13 +63,18 @@ int main()
                 add_chain_auto(chain_1);
                 break;
             case EXIT:
-                printf("\nVuoi salvare la blockchain creata?");
+                printf("\nAlcune transazioni non sono ancora state minate\n"
+                        "Uscire comunque? ");
                 save = selection_box(2, selection);
-                if(save)
-                    save_chain(chain_1);
+                if(save == YES)
+                    save_chain(chain_1, BLOCKCHAIN_TXT);
+                else{
+                    mine(chain_1);
+                    save_chain(chain_1, BLOCKCHAIN_TXT);
+                }
                 
                 free_chain(chain_1);
-                return 0;
+                exit(EXIT_SUCCESS);
                 break;  
         }
     }
@@ -78,9 +86,10 @@ int main()
 * ricevente (receiver) e anche dell'importo (amount) della transazione
 *-------------------------------------------------------------------------*/ 
 void add_chain_manual(chain *blockchain){
+    // MANUAL MODE
     uint32_t sender, receiver, amount;
     uint8_t input_choice;
-    char selection[MAX_ITEMS][MAX_STR_LEN + 1] = {"AGGIUNGI TRANSAZIONE", "MINING", "SHOW BLOCCO", "MENU' PRINCIPALE", "EXIT"};
+    char selection[MAX_ITEMS][MAX_STR_LEN + 1] = {"ADD TRANSACTION", "MINING", "SHOW BLOCCO", "MENU' PRINCIPALE", "EXIT"};
     char selection_2 [MAX_ITEMS][MAX_STR_LEN + 1] = {"SI", "NO"};
     
     input_choice = selection_box(5, selection);
@@ -122,7 +131,6 @@ void add_chain_manual(chain *blockchain){
 }
     
 
-
 /*------------------------------------------------------------------------
 * Funzione inserimento transazioni automatico
 * Vengono inseriti in maniera casuale gli identificativi del mittente 
@@ -131,69 +139,57 @@ void add_chain_manual(chain *blockchain){
 * della creazione della transazione
 *-------------------------------------------------------------------------*/
 void add_chain_auto(chain *blockchain){
+    // AUTOMATIC MODE
     uint32_t sender, receiver, amount;
     uint8_t input_choice;
 
-}
+    char selection[MAX_ITEMS][MAX_STR_LEN + 1] = {"NUM. TRANSACTION", "ADD TRANSACTION", "MINING", "SHOW BLOCK", "MENU' PRINCIPALE", "EXIT"};
+    char selection_2 [MAX_ITEMS][MAX_STR_LEN + 1] = {"SI", "NO"};
 
+    input_choice = selection_box(6, selection);
 
+    switch (input_choice)
+    {
+    case ADD_TRANS:
+        /*--------------------------------------------------------------------
+        * Generazione di un numero random da assegnare come indentificativo  
+        * al mittente e al destinatario.
+        * Il numero max assegnabile corrisponde a 2^32 = 4.294.967.296
+        * Eseguendo 4*rand()*rand() il numero max raggiungibile è 4.294.705.156,
+        * ovvero 4 * 32767 * 32767 (max numero raggiungibile in C)
+        * L'importo può variare tra 1€ e 3276700€ (32767*100)
+        * 
+        * rand(): funzione che genera numeri random contenuta nella libreria 
+        * standard <stdlib.h>
+        *---------------------------------------------------------------------*/
+        for(uint32_t i = 0; i < TRANS_TO_GENERATE; i++){
+            sender = 4 * rand() * rand();
+            receiver = 4 * rand() * rand();
+            amount = 1 + rand() * 100;
 
-
-
-
-
-
-
-
-
-
-
-
-// Funzione per l'esecuzione del programma automatico
-void auto_mode(chain *blockchain){
-    // ATOMATIC MODE
-        chain *chain_1 = new_chain(NULL);
-        uint32_t num_trans_to_generate = 0;
-        printf("\nSi è scelta la modalità di inserimento automatica");
-        printf("\n Quante transazioni si vogliono generare?"); // Richiesta numero di transazioni che si vogliono generare
-        scanf("%u", & num_trans_to_generate);
-
-        // Controllo che il numero di transazioni che si vuole creare sia valido 
-        while(num_trans_to_generate <= 0){
-            printf("\nIl numero inserito non è valido!"
-                    "Si inserisca un valore maggiore di 0");
-            printf("\n Quante transazioni si volgiono generare?");
-            scanf("%u", &num_trans_to_generate);
+            input_trans(sender, receiver, amount, blockchain); 
+        }        
+        break;
+    case MINE:
+        mine(blockchain);
+        break;
+    case SHOW_BLOCK: // si stampa il blocco creato
+        save_chain(blockchain, BLOCKCHAIN_TXT);
+        break;
+    case RETURN_MAIN_MENU:
+        break;  
+    case EXIT:
+        uint8_t exit_choice;
+        printf("\nSe sicuro di voler uscire dal programma?");
+        exit_choice = selection_box(2, selection_2);
+        
+        if(exit_choice == YES){
+            free_chain(blockchain);
+            exit(EXIT_SUCCESS);
         }
-
-        // Richiamo della funzione per la creazione automatica delle transazioni
-        automatic_trans(chain_1, num_trans_to_generate);
-}
-
-// Funzione per terminare il programma 
-void end_mode(chain *chain_to_mine){
-    save_chain(chain_1, BLOCKCHAIN_TXT);
-    free_chain(chain_1);
-    printf("\n\nIl programma termina qui!\n\n");
-    return 0; // chiusura dell'esecuzione del programma 
-}
-
-
-
-void automatic_trans(chain *head_chain, uint32_t trans_to_generate)
-{
-    uint32_t sender, receiver, amount;
-
-    /*--------------------------------------------------------------------
-    * Generazione di un numero random da assegnare come indentificativo  
-    * al mittente e al destinatario.
-    * Il numero max assegnabile corrisponde a 2^32 = 4.294.967.296
-    * Eseguendo 4*rand()*rand() il numero max raggiungibile è 4.294.705.156,
-    * ovvero 4 * 32767 * 32767 (max numero raggiungibile in C)
-    * L'importo può variare tra 1€ e 3276700€ (32767*100)
-    * 
-    * rand(): funzione che genera numeri random contenuta nella libreria 
-    * standard <stdlib.h>
-    *---------------------------------------------------------------------*/
-
+        else{
+            // torna alla schermata precedente per rifare la selezione
+            input_choice = selection_box(4, selection);
+        }
+    }
 }
