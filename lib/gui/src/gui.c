@@ -3,10 +3,10 @@
 
 #include "gui.h"
 
-uint8_t selection_box(int n_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1]){
+int selection_box(int n_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1]){
     char item[MAX_STR_LEN + 1];
     int input = 0;
-    uint8_t tmp = 0;
+    int tmp = 0;
     
     initscr();
     WINDOW *w;
