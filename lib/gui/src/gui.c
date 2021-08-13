@@ -42,7 +42,7 @@ uint8_t selection_box(int n_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1])
                 break;
         
             case KEY_DOWN:
-                i++;
+                tmp++;
                 tmp = (tmp > (n_items - 1)) ? 0 : tmp;
                 break;
         }
