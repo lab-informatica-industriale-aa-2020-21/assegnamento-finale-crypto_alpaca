@@ -3,8 +3,6 @@
 
 #include <ncurses.h>
 
-#include "gui.h"
-
 #define MAX_ROWS 24
 #define MAX_COLS 80
 #define MAX_STR_LEN (MAX_COLS - 6)

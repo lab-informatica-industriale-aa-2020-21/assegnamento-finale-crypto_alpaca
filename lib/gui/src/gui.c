@@ -1,6 +1,8 @@
 #include <ncurses.h>
 #include <stdint.h>
 
+#include "gui.h"
+
 uint8_t selection_box(int n_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1]){
     char item[MAX_STR_LEN + 1];
     int input = 0;
