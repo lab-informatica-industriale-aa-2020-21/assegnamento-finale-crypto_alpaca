@@ -37,17 +37,17 @@ uint8_t selection_box(int n_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1])
 
         switch(ch){
             case KEY_UP:
-                i--;
-                i = (i < 0) ? (n_items - 1) : i;
+                tmp--;
+                tmp = (i < 0) ? (n_items - 1) : tmp;
                 break;
         
             case KEY_DOWN:
                 i++;
-                i = (i > (n_items - 1)) ? 0 : i;
+                tmp = (i > (n_items - 1)) ? 0 : tmp;
                 break;
         }
 
-        sprintf(item, "%-*s", MAX_STR_LEN + 2, list[tmp]);
+        sprintf(item, "%-*s", MAX_STR_LEN + 2, selections[tmp]);
         mvwprintw(w, tmp + 1, 2, "%s", item);
         wattroff(w, A_STANDOUT);
     }
