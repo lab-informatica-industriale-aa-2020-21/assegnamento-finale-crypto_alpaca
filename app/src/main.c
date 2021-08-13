@@ -13,18 +13,25 @@
 #include "blockchain.h"
 #include "file_IO.h"
 
+// Funzioni modalità di inserimento delle funzioni:
 void manual_trans(chain *head_chain);
 void automatic_trans(chain *head_chain, uint32_t trans_to_generate);
+
+// Funzioni modalità di funzionamento:
+void manual_mode(void);
+void auto_mode(void);
+void end_mode(void);
+
 
 int main()
 {
     // Pulizia del terminale 
     system("clear");
     // Dichiarazioni e iniziallizazione delle variabili:
-    uint32_t work_type = 0;
-    uint32_t num_trans_to_generate = 0;
-    char input_choice, end_choice;
-    uint32_t mine_choice;
+    uint8_t work_type = 0;
+    
+    char input_choice;
+    uint8_t mine_choice;
     chain *chain_1 = new_chain(NULL);
 
     /*------------------------------------------------------------------------------
@@ -57,7 +64,51 @@ int main()
     insert_trans: // etichetta per tornare alla creazione delle transazioni
     
     if(work_type){
-        // MANUAL MODE
+        manual_mode();
+    }
+    else{
+        auto_mode();
+    }
+    
+    
+   /*-------------------------------------------------------------------------------
+   * Se si decide di terminare il programma, inserendo 'q', i dati creati vengono 
+   * salvati utilizzando la funzione save_chain(chain). Successivamente viene 
+   * deallocata la memoria occupata dalla chain creata richiamando la funzione 
+   * free_chain(chain).
+   * E' possibile trovare la stampa dei dati nel file BLOCKCHAIN_TXT   
+   *--------------------------------------------------------------------------------*/
+    // Richiesta scelta se terminare o continuare il programma 
+   do
+   {
+       while (getchar()!='\n'){};
+        printf("\nSi vuole terminare qui in programma?\n"
+            "Si inserisca:\n"
+            "q -> USCITA/EXIT\n"
+            "c -> Continue\n");
+        scanf("%c",);
+        // Controllo inserimento carattere corretto per l'uscita o la comtinuazione del programma
+        if != 'q' & != 'Q' & != 'c' & != 'C'){
+            printf("\n\nInserisci un carattere valido tra quelli elencati");
+        }
+   } while != 'q' && input_choice != 'Q' && input_choice == 'c' && input_choice == 'C');
+   
+    
+    i == 'q' || input_choice == 'Q'){ // scelta di terminare
+       end_mode();
+    }
+    else if == 'c' | == 'C'){ // scelta di continuare
+        goto insert_trans; 
+    }
+}
+
+/*----------------------------------------------------------------------------------
+**************************** IMPLEMENTAZIONI FUNZIONI ******************************
+------------------------------------------------------------------------------------*/
+
+// Funzione per l'esecuzione del programma manuale
+void manual_mode(void){
+    // MANUAL MODE
         printf("\nSi è scelta la modalità di inserimento manuale\n");
            
         do{
@@ -109,9 +160,12 @@ int main()
             }
         
         }while(input_choice == 'y' || input_choice == 'Y');
-    }
-    else{
-        // ATOMATIC MODE
+}
+
+// Funzione per l'esecuzione del programma automatico
+void auto_mode(void){
+    // ATOMATIC MODE
+        uint32_t num_trans_to_generate = 0;
         printf("\nSi è scelta la modalità di inserimento automatica");
         printf("\n Quante transazioni si vogliono generare?"); // Richiesta numero di transazioni che si vogliono generare
         scanf("%u", & num_trans_to_generate);
@@ -126,43 +180,15 @@ int main()
 
         // Richiamo della funzione per la creazione automatica delle transazioni
         automatic_trans(chain_1, num_trans_to_generate);
-    }
-    
-    
-   /*-------------------------------------------------------------------------------
-   * Se si decide di terminare il programma, inserendo 'q', i dati creati vengono 
-   * salvati utilizzando la funzione save_chain(chain). Successivamente viene 
-   * deallocata la memoria occupata dalla chain creata richiamando la funzione 
-   * free_chain(chain).
-   * E' possibile trovare la stampa dei dati nel file BLOCKCHAIN_TXT   
-   *--------------------------------------------------------------------------------*/
-    // Richiesta scelta se terminare o continuare il programma 
-   do
-   {
-       while (getchar()!='\n'){};
-        printf("\nSi vuole terminare qui in programma?\n"
-            "Si inserisca:\n"
-            "q -> USCITA/EXIT\n"
-            "c -> Continue\n");
-        scanf("%c", &end_choice);
-        // Controllo inserimento carattere corretto per l'uscita o la comtinuazione del programma
-        if (end_choice != 'q' && end_choice != 'Q' && end_choice != 'c' && end_choice != 'C'){
-            printf("\n\nInserisci un carattere valido tra quelli elencati");
-        }
-   } while (end_choice != 'q' && end_choice != 'Q' && end_choice == 'c' && end_choice == 'C');
-   
-    
-    if(end_choice == 'q' || end_choice == 'Q'){ // scelta di terminare
-        save_chain(chain_1, BLOCKCHAIN_TXT);
-        free_chain(chain_1);
-        printf("\n\nIl programma termina qui!\n\n");
-        return 0; // chiusura dell'esecuzione del programma 
-    }
-    else if (end_choice == 'c' || end_choice == 'C'){ // scelta di continuare
-        goto insert_trans; 
-    }
 }
 
+// Funzione per terminare il programma 
+void end_mode(void){
+     save_chain(chain_1, BLOCKCHAIN_TXT);
+    free_chain(chain_1);
+    printf("\n\nIl programma termina qui!\n\n");
+    return 0; // chiusura dell'esecuzione del programma 
+}
 
 /*------------------------------------------------------------------------
 * Funzione inserimento transazioni manuale
