@@ -21,6 +21,8 @@ add_subdirectory(lib/blockchain)
 add_subdirectory(lib/conflict)
 add_subdirectory(lib/file_IO)
 add_subdirectory(lib/format_string)
+add_subdirectory(lib/gui)
+
 
 if(TARGET_GROUP STREQUAL production)
         add_subdirectory(app)

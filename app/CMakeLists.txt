@@ -11,4 +11,5 @@ target_link_libraries(application
 	PRIVATE LII::blockchain
 	PRIVATE LII::file_IO
 	PRIVATE LII::format_string
+    PRIVATE LII::gui
 )
