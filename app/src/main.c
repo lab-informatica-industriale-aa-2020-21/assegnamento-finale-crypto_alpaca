@@ -20,13 +20,14 @@ void automatic_trans(chain *head_chain, uint32_t trans_to_generate);
 // Funzioni modalità di funzionamento:
 void manual_mode(void);
 void auto_mode(void);
-void end_mode(void);
+void end_mode(chain *chain_to_mine);
 
 
 int main()
 {
     // Pulizia del terminale 
     system("clear");
+    
     // Dichiarazioni e iniziallizazione delle variabili:
     uint8_t work_type = 0;
     char input_choice;
@@ -84,18 +85,18 @@ int main()
             "Si inserisca:\n"
             "q -> USCITA/EXIT\n"
             "c -> Continue\n");
-        scanf("%c",);
+        scanf("%c", input_choice);
         // Controllo inserimento carattere corretto per l'uscita o la comtinuazione del programma
-        if != 'q' & != 'Q' & != 'c' & != 'C'){
+        if(input_choice != 'q' && input_choice != 'Q' && input_choice != 'c' && input_choice != 'C'){
             printf("\n\nInserisci un carattere valido tra quelli elencati");
         }
    } while( input_choice != 'q' && input_choice != 'Q' && input_choice == 'c' && input_choice == 'C');
    
     
     if(input_choice == 'q' || input_choice == 'Q'){ // scelta di terminare
-       end_mode();
+       end_mode(chain_1);
     }
-    else if == 'c' | == 'C'){ // scelta di continuare
+    else if(input_choice == 'c' || input_choice == 'C'){ // scelta di continuare
         goto insert_trans; 
     }
 }
@@ -184,8 +185,8 @@ void auto_mode(void){
 }
 
 // Funzione per terminare il programma 
-void end_mode(void){
-     save_chain(chain_1, BLOCKCHAIN_TXT);
+void end_mode(chain *chain_to_mine){
+    save_chain(chain_1, BLOCKCHAIN_TXT);
     free_chain(chain_1);
     printf("\n\nIl programma termina qui!\n\n");
     return 0; // chiusura dell'esecuzione del programma 
