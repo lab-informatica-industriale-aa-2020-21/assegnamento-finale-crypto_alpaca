@@ -13,7 +13,7 @@
 #include "blockchain.h"
 #include "file_IO.h"
 
-#define EXIT -1
+#define EXIT 4
 #define MANUAL_MODE 0
 #define AUTO_MODE 1
 
@@ -39,31 +39,37 @@ void add_chain_auto(chain *blockchain);
 int main()
 {
     // Dichiarazioni e iniziallizazione delle variabili:
-    uint8_t input_choice;
+    uint8_t input_choice, save = 0;
     chain *chain_1 = new_chain(NULL);
+    char selection[MAX_ITEMS][MAX_STR_LEN + 1] = {"SI", "NO"}
     /*------------------------------------------------------------------------------
     *
     * Introduzione al programma implementato e messaggio di benvenuto
     * Interfacciamento con l'utente
     *
     *--------------------------------------------------------------------------------*/ 
+    while(1){
+        input_choice = selection_box(3, "MANUAL", "AUTOMATIC", "EXIT");
 
-    input_choice = selection_box(3, "MANUAL", "AUTOMATIC", "EXIT");
-
-    switch (input_choice)
-    {
-        case MANUAL_MODE:
-            add_chain_manual(chain_1);
-            break;
-        case AUTO_MODE:
-            add_chain_auto(chain_1);
-            break;
-        case EXIT:
-            return 0;
-            break;  
+        switch (input_choice)
+        {
+            case MANUAL_MODE:
+                add_chain_manual(chain_1);
+                break;
+            case AUTO_MODE:
+                add_chain_auto(chain_1);
+                break;
+            case EXIT:
+                printf("\nVuoi salvare la blockchain creata?");
+                save = selection_box(2, selection);
+                if(save)
+                    save_chain(chain_1);
+                
+                free_chain(chain_1);
+                return 0;
+                break;  
+        }
     }
-    
-
 }
 
 /*------------------------------------------------------------------------
@@ -97,7 +103,6 @@ void add_chain_manual(chain *blockchain){
         save_chain(blockchain, BLOCKCHAIN_TXT);
         break;
     case RETURN_MAIN_MENU:
-        // inserire funzione per tornare al menù principale 
         break;  
     case EXIT:
         uint8_t exit_choice;
