@@ -8,7 +8,6 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
-#include <stdint.h>
 
 #include "blockchain.h"
 #include "file_IO.h"
@@ -88,7 +87,7 @@ int main()
 void add_chain_manual(chain *blockchain){
     // MANUAL MODE
     uint32_t sender, receiver, amount;
-    uint8_t input_choice;
+    uint8_t input_choice, exit_choice;
     char selection[MAX_ITEMS][MAX_STR_LEN + 1] = {"ADD TRANSACTION", "MINING", "SHOW BLOCCO", "MENU' PRINCIPALE", "EXIT"};
     char selection_2 [MAX_ITEMS][MAX_STR_LEN + 1] = {"SI", "NO"};
     
@@ -114,7 +113,6 @@ void add_chain_manual(chain *blockchain){
     case RETURN_MAIN_MENU:
         break;  
     case EXIT:
-        uint8_t exit_choice;
         printf("\nSe sicuro di voler uscire dal programma?");
         exit_choice = selection_box(2, selection_2);
         
@@ -147,6 +145,7 @@ void add_chain_auto(chain *blockchain){
     char selection_2 [MAX_ITEMS][MAX_STR_LEN + 1] = {"SI", "NO"};
 
     input_choice = selection_box(6, selection);
+    int exit_choice;
 
     switch (input_choice)
     {
@@ -179,7 +178,6 @@ void add_chain_auto(chain *blockchain){
     case RETURN_MAIN_MENU:
         break;  
     case EXIT:
-        uint8_t exit_choice;
         printf("\nSe sicuro di voler uscire dal programma?");
         exit_choice = selection_box(2, selection_2);
         
