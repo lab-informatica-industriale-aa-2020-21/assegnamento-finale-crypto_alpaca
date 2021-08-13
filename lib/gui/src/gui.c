@@ -30,20 +30,20 @@ uint8_t selection_box(int n_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1])
     curs_set(0);
 
 
-    while((ch = wgetch(w)) != '\n'){
+    while((input = wgetch(w)) != '\n'){
         sprintf(item, "%-*s", MAX_STR_LEN + 2, selections[tmp]);
         mvwprintw(w, tmp + 1, 2, "%s", item);
         wattron(w, A_STANDOUT);
 
-        switch(ch){
+        switch(input){
             case KEY_UP:
                 tmp--;
-                tmp = (i < 0) ? (n_items - 1) : tmp;
+                tmp = (tmp < 0) ? (n_items - 1) : tmp;
                 break;
         
             case KEY_DOWN:
                 i++;
-                tmp = (i > (n_items - 1)) ? 0 : tmp;
+                tmp = (tmp > (n_items - 1)) ? 0 : tmp;
                 break;
         }
 
