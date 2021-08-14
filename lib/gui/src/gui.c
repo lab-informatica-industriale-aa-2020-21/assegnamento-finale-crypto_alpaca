@@ -29,6 +29,9 @@ int selection_box(int num_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1]){
         mvwprintw(w, i + 1, 2, "%s", item);
     }
 
+    sprintf(item, "%-*s", MAX_STR_LEN, "QUIT");
+    mvwprintw(w, MAX_ITEMS + 1, 2, "%s", item);
+
     wrefresh(w);
 
     noecho();
@@ -37,29 +40,46 @@ int selection_box(int num_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1]){
 
 
     while((input = wgetch(w)) != '\n'){
-        sprintf(item, "%-*s", MAX_STR_LEN, selections[tmp]);
-        mvwprintw(w, tmp + 1, 2, "%s", item);
-        wattron(w, A_STANDOUT);
+        if(tmp != n_items){
+            sprintf(item, "%-*s", MAX_STR_LEN, selections[tmp]);
+            mvwprintw(w, tmp + 1, 2, "%s", item);
+            wattron(w, A_STANDOUT);
+        }
+        else{
+            sprintf(item, "%-*s", MAX_STR_LEN, "QUIT");
+            mvwprintw(w, MAX_ITEMS + 1, 2, "%s", item);
+            wattron(w, A_STANDOUT);
+        }
 
         switch(input){
             case KEY_UP:
                 tmp--;
-                tmp = (tmp < 0) ? (n_items - 1) : tmp;
+                tmp = (tmp < 0) ? (n_items) : tmp;
                 break;
 
-            case KEY_DOWN:
-                tmp++;
-                tmp = (tmp > (n_items - 1)) ? 0 : tmp;
-                break;
+                case KEY_DOWN:
+                    tmp++;
+                    tmp = (tmp > (n_items)) ? 0 : tmp;
+                    break;
         }
 
-        sprintf(item, "%-*s", MAX_STR_LEN, selections[tmp]);
-        mvwprintw(w, tmp + 1, 2, "%s", item);
-        wattroff(w, A_STANDOUT);
+        if(tmp != n_items){
+            sprintf(item, "%-*s", MAX_STR_LEN, selections[tmp]);
+            mvwprintw(w, tmp + 1, 2, "%s", item);
+            wattroff(w, A_STANDOUT);
+        }
+        else{
+            sprintf(item, "%-*s", MAX_STR_LEN, "QUIT");
+            mvwprintw(w, MAX_ITEMS + 1, 2, "%s", item);
+            wattroff(w, A_STANDOUT);
+        }
     }
 
     delwin(w);
     endwin();
 
-    return tmp;
+    if(tmp == n_items)
+        return -1;
+    else
+        return tmp;
 }
