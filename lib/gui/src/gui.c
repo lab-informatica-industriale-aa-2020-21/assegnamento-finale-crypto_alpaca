@@ -22,6 +22,7 @@ int selection_box(char *title,int num_items, char selections [MAX_ITEMS][MAX_STR
     if (has_colors()){
         start_color();
         init_pair(TITLE_COLOR, COLOR_GREEN, COLOR_BLACK);
+        init_pair(QUIT_COLOR, COLOR_RED, COLOR_BLACK);
     }
 
     //inizializzazione finestra
@@ -30,7 +31,7 @@ int selection_box(char *title,int num_items, char selections [MAX_ITEMS][MAX_STR
     box(w, 0, 0);
 
     //stampa titolo
-    wattron(w, A_BOLD | A_UNDERLINE);
+    wattron(w, A_BOLD | A_UNDERLINE | COLOR_PAIR(TITLE_COLOR));
     sprintf(item, "%-*s", (int)(sizeof(title) - sizeof(char)), title);
     mvwprintw(w, 1, 2, "%s", item);
     wattrset(w, A_NORMAL);
@@ -49,8 +50,10 @@ int selection_box(char *title,int num_items, char selections [MAX_ITEMS][MAX_STR
     }
 
     //stampa "QUIT"
+    wattron(w, COLOR_PAIR(QUIT_COLOR));
     sprintf(item, "%-*s", MAX_STR_LEN, "QUIT");
     mvwprintw(w, MAX_ITEMS + UNUSABLE_ROWS, 2, "%s", item);
+    wattrset(w, A_NORMAL);
 
     wrefresh(w);
 
@@ -66,8 +69,10 @@ int selection_box(char *title,int num_items, char selections [MAX_ITEMS][MAX_STR
             mvwprintw(w, tmp + UNUSABLE_ROWS, 2, "%s", item);
         }
         else{
+            wattron(w, COLOR_PAIR(QUIT_COLOR));
             sprintf(item, "%-*s", MAX_STR_LEN, "QUIT");
             mvwprintw(w, MAX_ITEMS + UNUSABLE_ROWS, 2, "%s", item);
+            wattroff(w, COLOR_PAIR(QUIT_COLOR));
         }
 
         wattron(w, A_STANDOUT);
@@ -89,8 +94,10 @@ int selection_box(char *title,int num_items, char selections [MAX_ITEMS][MAX_STR
             mvwprintw(w, tmp + UNUSABLE_ROWS, 2, "%s", item);
         }
         else{
+            wattron(w, COLOR_PAIR(QUIT_COLOR));
             sprintf(item, "%-*s", MAX_STR_LEN, "QUIT");
             mvwprintw(w, MAX_ITEMS + UNUSABLE_ROWS, 2, "%s", item);
+            wattroff(w, COLOR_PAIR(QUIT_COLOR));
         }
 
         wattroff(w, A_STANDOUT);
