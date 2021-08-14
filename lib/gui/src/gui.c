@@ -1,11 +1,13 @@
 #include <ncurses.h>
-#include <stdint.h>
+#include <stdargs.h>
 
 #include "gui.h"
 
-int selection_box(char *title,int num_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1]){
-    char item[MAX_STR_LEN + 1];
-    int n_items;
+int selection_box(char *title,int num_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1], int num_unselect, ...){
+    char item [MAX_STR_LEN + 1];
+    int invisible [MAX_ITEMS + 2] = {0};
+    int n_items = 0;
+    int n_unselect = 0;
     int input = 0;
     int tmp = 0;
 
@@ -14,6 +16,19 @@ int selection_box(char *title,int num_items, char selections [MAX_ITEMS][MAX_STR
         n_items = MAX_ITEMS;
     else
         n_items = num_items;
+
+    //controllo num_unselect entro il limite massimo
+    if (num_unselect > MAX_ITEMS)
+        n_unselect = MAX_ITEMS;
+    else
+        n_unselect = num_unselect;
+
+    //gestione input argomenti variabili
+    va_list unselectable;
+    va_start(unselectable, num_unselect);
+    for (int i = 0; i < n_unselect; i++)
+        invisible [va_arg(unselectable, int) + 1] = 1;
+    va_end(unselectable);
 
     //inizializzazione
     initscr();
@@ -80,11 +95,15 @@ int selection_box(char *title,int num_items, char selections [MAX_ITEMS][MAX_STR
         switch(input){
             case KEY_UP:
                 tmp--;
+                while (invisible [tmp + 1])
+                    tmp--;
                 tmp = (tmp < 0) ? (n_items) : tmp;
                 break;
 
                 case KEY_DOWN:
                     tmp++;
+                    while (invisible [tmp + 1])
+                        tmp++;
                     tmp = (tmp > (n_items)) ? 0 : tmp;
                     break;
         }

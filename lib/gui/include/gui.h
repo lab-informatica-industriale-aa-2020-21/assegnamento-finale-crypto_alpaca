@@ -2,6 +2,7 @@
 #define GUI_H
 
 #include <ncurses.h>
+#include <stdargs.h>
 
 #define MAX_ROWS 24
 #define MAX_COLS 80
@@ -11,9 +12,7 @@
 
 //colori
 #define TITLE_COLOR 1
-#define SELECT_COLOR 2
-#define NON_SELECT_COLOR 3
-#define QUIT_COLOR 4
+#define QUIT_COLOR 2
 
 /*
  * colori disponibili:
@@ -27,6 +26,6 @@
  * COLOR_WHITE
  */
 
-int selection_box(char *title, int n_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1]);
+int selection_box(char *title, int n_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1], int num_unselect, ...);
 
 #endif
