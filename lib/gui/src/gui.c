@@ -1,4 +1,5 @@
 #include <ncurses.h>
+#include <string.h>
 #include <stdargs.h>
 
 #include "gui.h"
@@ -9,7 +10,7 @@ int selection_box(char *title,int num_items, char selections [MAX_ITEMS][MAX_STR
     int n_items = 0;
     int n_unselect = 0;
     int input = 0;
-    int tmp = 0;
+    int tmp = -1;
 
     //controllo num_items entro il limite massimo
     if (num_items > MAX_ITEMS)
@@ -38,6 +39,7 @@ int selection_box(char *title,int num_items, char selections [MAX_ITEMS][MAX_STR
         start_color();
         init_pair(TITLE_COLOR, COLOR_GREEN, COLOR_BLACK);
         init_pair(QUIT_COLOR, COLOR_RED, COLOR_BLACK);
+        init_pair(INVISIBLE_COLOR, COLOR_MAGENTA, COLOR_BLACK);
     }
 
     //inizializzazione finestra
@@ -54,13 +56,23 @@ int selection_box(char *title,int num_items, char selections [MAX_ITEMS][MAX_STR
 
     //stampa selezioni
     for (int i = 0; i < n_items; i++){
-        if (i == 0)
+        if (invisible [i + 1] == 0 && tmp == -1){
             wattron(w, A_STANDOUT);
+            tmp = i;
+        }
         else
             wattroff(w, A_STANDOUT);
 
-        sprintf(item, "%-*s", MAX_STR_LEN, selections[i]);
-        mvwprintw(w, i + UNUSABLE_ROWS, 2, "%s", item);
+        if (invisible [i + 1]){
+            wattron(w, COLOR_PAIR(INVISIBLE_COLOR));
+            sprintf(item, "%-*s", MAX_STR_LEN - strlen(UNAVAILABLE), selections[i]);
+            mvwprintw(w, i + UNUSABLE_ROWS, 2, "%s%s", item, UNAVAILABLE);
+        }
+        else{
+            sprintf(item, "%-*s", MAX_STR_LEN, selections[i]);
+            mvwprintw(w, i + UNUSABLE_ROWS, 2, "%s", item);
+        }
+
         wattrset(w, A_NORMAL);
     }
 
@@ -98,6 +110,8 @@ int selection_box(char *title,int num_items, char selections [MAX_ITEMS][MAX_STR
                 while (invisible [tmp + 1])
                     tmp--;
                 tmp = (tmp < 0) ? (n_items) : tmp;
+                while (invisible [tmp + 1])
+                    tmp--;
                 break;
 
                 case KEY_DOWN:
@@ -105,6 +119,8 @@ int selection_box(char *title,int num_items, char selections [MAX_ITEMS][MAX_STR
                     while (invisible [tmp + 1])
                         tmp++;
                     tmp = (tmp > (n_items)) ? 0 : tmp;
+                    while (invisible [tmp + 1])
+                        tmp++;
                     break;
         }
 
