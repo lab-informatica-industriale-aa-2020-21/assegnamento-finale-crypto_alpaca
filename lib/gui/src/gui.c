@@ -65,7 +65,7 @@ int selection_box(char *title,int num_items, char selections [MAX_ITEMS][MAX_STR
 
         if (invisible [i + 1]){
             wattron(w, COLOR_PAIR(INVISIBLE_COLOR));
-            sprintf(item, "%-*s", MAX_STR_LEN - strlen(UNAVAILABLE), selections[i]);
+            sprintf(item, "%-*s", MAX_STR_LEN - (int)strlen(UNAVAILABLE), selections[i]);
             mvwprintw(w, i + UNUSABLE_ROWS, 2, "%s%s", item, UNAVAILABLE);
         }
         else{
