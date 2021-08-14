@@ -219,6 +219,21 @@ void boundary_test_shift_state_reg_shouldRightShiftVettOf1Position(void) {
 	TEST_ASSERT_EQUAL_UINT32_ARRAY(exp_vett, vett, 100000);
 }
 
+void test_hash_function_shouldCalculateHashFunctionToGivenBlockParameters(void) {
+	const uint32_t prev_hash[DIM_HASH] = {0x00008ccb, 0x2fccac08, 0x4b800a28, 0x78d317e1,
+										  0x4fe88fdd, 0xb1e91d13, 0x1d1fc3d5, 0x23d67125};
+	uint32_t nonce = 0;
+	char *list_trans = NULL;
+	uint32_t test_hash[DIM_HASH];
+	uint32_t exp_hash[DIM_HASH] = {0x00006e7e, 0xfc85c279, 0x2609996e, 0x5eb734ea,
+								   0x250463d6, 0x16e00a41, 0x24d8e502, 0x34b8dc54};
+	uint32_t list_trans_length = 0;
+
+	hash_function(prev_hash, nonce, list_trans, list_trans_length, test_hash);
+
+	TEST_ASSERT_EQUAL_UINT32_ARRAY_MESSAGE(exp_hash, test_hash, DIM_HASH, "Error: Calculating hash function.");
+}
+
 
 int main(void) {
 
@@ -242,6 +257,8 @@ int main(void) {
 	RUN_TEST(test_copy_vector_shouldCopyVett1IntoVett2);
 	RUN_TEST(test_sum_vector_shouldSaveIntoVett2TheSumOfVett1AndVett2);
 	RUN_TEST(test_shift_state_reg_shouldRightShiftVettOf1Position);
+
+	RUN_TEST(test_hash_function_shouldCalculateHashFunctionToGivenBlockParameters);
 
 	//Boundary test
 	RUN_TEST(boundary_test_rotate_shouldRotateGiven32bitUintWord);
