@@ -9,6 +9,10 @@
 #include <stdbool.h>
 #include <math.h>
 
+#define setBit(A,k)     ( A[(k)/32] |= (1 << ((k)%32)) )
+#define clearBit(A,k)   ( A[(k)/32] &= ~(1 << ((k)%32)) )
+#define testBit(A,k)    ( A[(k)/32] & (1 << ((k)%32)) )
+
 // Variabili define:
 
 #define WORD_LEN 32
@@ -126,5 +130,24 @@ void loading_data (unsigned int* block_data, int n_block, const unsigned int* pr
 // Funzione Hash.
 void hash_function (const unsigned int* prev_hash, unsigned int nonce, char* list_trans,
                     unsigned int list_trans_len, uint32_t *h_i);
+
+
+void make_message_bits(char *const str_input, uint32_t *message_bits);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #endif

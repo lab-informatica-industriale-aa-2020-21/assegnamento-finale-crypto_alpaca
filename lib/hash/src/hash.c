@@ -5,6 +5,7 @@
 #include <math.h>
 
 #include "hash.h"
+#include "string.h"
 #include "format_string.h"
 
 
@@ -373,4 +374,45 @@ bool sum_vector(const unsigned int *vett1, int len1, unsigned int *vett2, int le
         for (int i = 0; i < len2; i++)
             vett2[i] = vett2[i] + vett1[i];
 return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void make_message_bits(char *const str_input, uint32_t *message_bits) {
+    uint32_t tmp = 0;
+    char char_to_shift;
+    size_t cell_capacity = sizeof(message_bits[0]) / sizeof(char);
+    size_t max_steps = (strlen(str_input) + cell_capacity - 1) / cell_capacity;
+
+    for (size_t i = 0; i < max_steps; i++) {
+        for (size_t j = 0; j < cell_capacity; j++) {
+            char_to_shift = str_input[cell_capacity * i + j];
+            tmp += (uint32_t) char_to_shift << (24 - 8 * j);
+        }
+        
+        message_bits[i] = tmp;
+        tmp = 0;
+    }
 }
