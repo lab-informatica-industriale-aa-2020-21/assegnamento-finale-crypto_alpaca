@@ -220,6 +220,15 @@ void boundary_test_shift_state_reg_shouldRightShiftVettOf1Position(void) {
 }
 
 
+void test_make_message_bits_shouldFillMessageBitsArrayWithAsciiValuesOfstr_input(void) {
+	char test_string[] = "stodelirandolol";
+	uint32_t test_message_bits[4];
+	uint32_t exp_message_bits[4] = {1937010532, 1701603698, 1634624623, 1819241472};
+	make_message_bits(test_string, test_message_bits);
+
+	TEST_ASSERT_EQUAL_UINT32_ARRAY_MESSAGE(exp_message_bits, test_message_bits, 4, "Error: message_bits.");
+}
+
 int main(void) {
 
 	UNITY_BEGIN();
@@ -242,6 +251,8 @@ int main(void) {
 	RUN_TEST(test_copy_vector_shouldCopyVett1IntoVett2);
 	RUN_TEST(test_sum_vector_shouldSaveIntoVett2TheSumOfVett1AndVett2);
 	RUN_TEST(test_shift_state_reg_shouldRightShiftVettOf1Position);
+
+	RUN_TEST(test_make_message_bits_shouldFillMessageBitsArrayWithAsciiValuesOfstr_input);
 
 	//Boundary test
 	RUN_TEST(boundary_test_rotate_shouldRotateGiven32bitUintWord);
