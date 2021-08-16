@@ -421,12 +421,14 @@ msg_block *make_new_msg_block(void) {
     msg_block *tmp_msg_block = (msg_block *) malloc(sizeof(msg_block));
     tmp_msg_block->data = NULL;
     tmp_msg_block->msg_len = 0;
+    tmp_msg_block->origin_msg_len = 0;
 
     return tmp_msg_block;
 }
 
 void write_message_bits(const char *const str_input, msg_block *msg_block_to_write) {
     msg_block_to_write->msg_len = (uint32_t) strlen(str_input);
+    msg_block_to_write->origin_msg_len = msg_block_to_write->msg_len;
     msg_block_to_write->data = (uint8_t *) malloc(msg_block_to_write->msg_len);
 
     for (uint32_t i = 0; str_input[i] != '\0'; i++)

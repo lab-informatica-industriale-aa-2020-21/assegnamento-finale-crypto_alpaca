@@ -236,7 +236,7 @@ void test_pad_msg_bloxk_shouldAddOneAfterTheMessageThatContainsAciiValuesOfStrin
 	msg_block *test_msg_block = make_new_msg_block();
 	uint32_t msg_len = test_msg_block->msg_len;
 
-	write_message_bits("Prova", test_msg_block);
+	write_message_bits("Provaciao", test_msg_block);
 	pad_msg_block(test_msg_block);
 
 	uint8_t *byte_to_test = test_msg_block->data;

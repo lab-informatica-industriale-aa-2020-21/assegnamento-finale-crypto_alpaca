@@ -111,6 +111,7 @@
 struct Msg_block {
     uint8_t *data;
     uint32_t msg_len;
+    uint32_t origin_msg_len;
 };
 typedef struct Msg_block msg_block;
 
