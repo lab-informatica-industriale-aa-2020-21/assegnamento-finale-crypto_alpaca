@@ -220,7 +220,7 @@ void boundary_test_shift_state_reg_shouldRightShiftVettOf1Position(void) {
 }
 
 
-void test_make_message_bits_shouldFillMessageBitsArrayWithAsciiValuesOfstr_input(void) {
+void test_write_msg_bits_shouldFillMessageBitsArrayWithAsciiValuesOfstr_input(void) {
 	char test_string[] = "stodelirandolol";
 	uint8_t exp_message_bits[15] = {115, 116, 111, 100, 101, 108, 105, 114, 97,
 								   110, 100, 111, 108, 111, 108};
@@ -232,6 +232,18 @@ void test_make_message_bits_shouldFillMessageBitsArrayWithAsciiValuesOfstr_input
 	TEST_ASSERT_EQUAL_UINT32_MESSAGE(15, test_msg_block->msg_len, "Error: msg_block_len.");
 }
 
+void test_pad_msg_bloxk_shouldAddOneAfterTheMessageThatContainsAciiValuesOfString(void) {
+	msg_block *test_msg_block = make_new_msg_block();
+	uint32_t msg_len = test_msg_block->msg_len;
+
+	write_message_bits("Prova", test_msg_block);
+	pad_msg_block(test_msg_block);
+
+	uint8_t *byte_to_test = test_msg_block->data;
+	byte_to_test = byte_to_test + test_msg_block->msg_len - 1;
+
+	TEST_ASSERT_EQUAL_UINT8_MESSAGE(0b10000000, *byte_to_test, "Error: evaluating byte padding.");
+}
 
 int main(void) {
 
@@ -256,7 +268,8 @@ int main(void) {
 	RUN_TEST(test_sum_vector_shouldSaveIntoVett2TheSumOfVett1AndVett2);
 	RUN_TEST(test_shift_state_reg_shouldRightShiftVettOf1Position);
 
-	RUN_TEST(test_make_message_bits_shouldFillMessageBitsArrayWithAsciiValuesOfstr_input);
+	RUN_TEST(test_write_msg_bits_shouldFillMessageBitsArrayWithAsciiValuesOfstr_input);
+	RUN_TEST(test_pad_msg_bloxk_shouldAddOneAfterTheMessageThatContainsAciiValuesOfString);
 
 	//Boundary test
 	RUN_TEST(boundary_test_rotate_shouldRotateGiven32bitUintWord);
