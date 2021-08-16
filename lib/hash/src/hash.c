@@ -449,16 +449,6 @@ void make_msg_block_list(uint32_t *msg_bits, uint32_t msg_block_len) {
 }
 
 
-uint8_t get_free_bytes(const uint32_t *const bytes_block) {
-    uint8_t i = 0;
-
-    while (!testBit(bytes_block, i))
-        i++;
-
-    return (i / 8);
-}
-
-
 
 
 
