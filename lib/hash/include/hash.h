@@ -146,6 +146,7 @@ void hash_function (const unsigned int* prev_hash, unsigned int nonce, char* lis
 
 msg_block *make_new_msg_block(void);
 void write_message_bits(const char *const str_input, msg_block *msg_block_to_write);
+void pad_msg_block(msg_block *msg_block_to_pad);
 void make_msg_block_list(uint32_t *msg_bits, uint32_t msg_len);
 
 

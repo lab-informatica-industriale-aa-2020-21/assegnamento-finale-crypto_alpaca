@@ -433,6 +433,18 @@ void write_message_bits(const char *const str_input, msg_block *msg_block_to_wri
         *(msg_block_to_write->data + i) = str_input[i];
 }
 
+void pad_msg_block(msg_block *msg_block_to_pad) {
+    if (realloc(msg_block_to_pad->data, msg_block_to_pad->msg_len + 1) == NULL) {
+        printf("Error reallocating memory.\n");
+        exit(EXIT_FAILURE);
+    }
+    uint8_t *byte_to_change = msg_block_to_pad->data + msg_block_to_pad->msg_len;
+    msg_block_to_pad->msg_len++;
+
+    setBit(byte_to_change, 7);
+    for (int i = 0; i < 7; i++)
+        clearBit(byte_to_change, i);
+}
 
 void make_msg_block_list(uint32_t *msg_bits, uint32_t msg_block_len) {
     uint32_t n_blocks = 0;
@@ -441,8 +453,6 @@ void make_msg_block_list(uint32_t *msg_bits, uint32_t msg_block_len) {
         n_blocks = 1;
     else
         n_blocks = 1 + (msg_block_len - 56 + 63) / 64;
-
-    uint32_t *msg_block_head = (uint32_t*) malloc(n_blocks * 64);
 
     
 
