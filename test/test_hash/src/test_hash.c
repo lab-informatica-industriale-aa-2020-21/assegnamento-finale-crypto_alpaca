@@ -222,12 +222,16 @@ void boundary_test_shift_state_reg_shouldRightShiftVettOf1Position(void) {
 
 void test_make_message_bits_shouldFillMessageBitsArrayWithAsciiValuesOfstr_input(void) {
 	char test_string[] = "stodelirandolol";
-	uint32_t test_message_bits[4];
-	uint32_t exp_message_bits[4] = {1937010532, 1701603698, 1634624623, 1819241472};
-	make_message_bits(test_string, test_message_bits);
+	uint8_t exp_message_bits[15] = {115, 116, 111, 100, 101, 108, 105, 114, 97,
+								   110, 100, 111, 108, 111, 108};
+	
+	msg_block *test_msg_block = make_new_msg_block();
+	write_message_bits(test_string, test_msg_block);
 
-	TEST_ASSERT_EQUAL_UINT32_ARRAY_MESSAGE(exp_message_bits, test_message_bits, 4, "Error: message_bits.");
+	TEST_ASSERT_EQUAL_UINT8_ARRAY_MESSAGE(exp_message_bits, test_msg_block->data, 15, "Error: message_bits.");
+	TEST_ASSERT_EQUAL_UINT32_MESSAGE(15, test_msg_block->msg_len, "Error: msg_block_len.");
 }
+
 
 int main(void) {
 
