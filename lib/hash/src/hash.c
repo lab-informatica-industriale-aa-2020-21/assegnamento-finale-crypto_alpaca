@@ -399,7 +399,7 @@ return 0;
 
 
 
-
+/*
 void make_message_bits(char *const str_input, uint32_t *message_bits) {
     uint32_t tmp = 0;
     char char_to_shift;
@@ -415,4 +415,52 @@ void make_message_bits(char *const str_input, uint32_t *message_bits) {
         message_bits[i] = tmp;
         tmp = 0;
     }
+}*/
+
+msg_block *make_new_msg_block(void) {
+    msg_block *tmp_msg_block = (msg_block *) malloc(sizeof(msg_block));
+    tmp_msg_block->data = NULL;
+    tmp_msg_block->msg_len = 0;
+
+    return tmp_msg_block;
 }
+
+void write_message_bits(const char *const str_input, msg_block *msg_block_to_write) {
+    msg_block_to_write->msg_len = (uint32_t) strlen(str_input);
+    msg_block_to_write->data = (uint8_t *) malloc(msg_block_to_write->msg_len);
+
+    for (uint32_t i = 0; str_input[i] != '\0'; i++)
+        *(msg_block_to_write->data + i) = str_input[i];
+}
+
+
+void make_msg_block_list(uint32_t *msg_bits, uint32_t msg_block_len) {
+    uint32_t n_blocks = 0;
+
+    if (msg_block_len < 56)
+        n_blocks = 1;
+    else
+        n_blocks = 1 + (msg_block_len - 56 + 63) / 64;
+
+    uint32_t *msg_block_head = (uint32_t*) malloc(n_blocks * 64);
+
+    
+
+}
+
+
+uint8_t get_free_bytes(const uint32_t *const bytes_block) {
+    uint8_t i = 0;
+
+    while (!testBit(bytes_block, i))
+        i++;
+
+    return (i / 8);
+}
+
+
+
+
+
+
+

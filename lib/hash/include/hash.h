@@ -9,9 +9,9 @@
 #include <stdbool.h>
 #include <math.h>
 
-#define setBit(A,k)     ( A[(k)/32] |= (1 << ((k)%32)) )
-#define clearBit(A,k)   ( A[(k)/32] &= ~(1 << ((k)%32)) )
-#define testBit(A,k)    ( A[(k)/32] & (1 << ((k)%32)) )
+#define setBit(A,k)     ( A[(k)/8] |= (1 << ((k)%8)) )
+#define clearBit(A,k)   ( A[(k)/8] &= ~(1 << ((k)%8)) )
+#define testBit(A,k)    ( A[(k)/8] & (1 << ((k)%8)) )
 
 // Variabili define:
 
@@ -107,6 +107,15 @@
                     0xbef9a3f7,\
                     0xc67178f2
 
+
+struct Msg_block {
+    uint8_t *data;
+    uint32_t msg_len;
+};
+typedef struct Msg_block msg_block;
+
+
+
 unsigned int rotate (unsigned int num, int n_bit);
 unsigned int sigma_0 (unsigned int x);
 unsigned int sigma_1 (unsigned int x);
@@ -132,13 +141,13 @@ void hash_function (const unsigned int* prev_hash, unsigned int nonce, char* lis
                     unsigned int list_trans_len, uint32_t *h_i);
 
 
-void make_message_bits(char *const str_input, uint32_t *message_bits);
 
 
 
-
-
-
+msg_block *make_new_msg_block(void);
+void write_message_bits(const char *const str_input, msg_block *msg_block_to_write);
+void make_msg_block_list(uint32_t *msg_bits, uint32_t msg_len);
+uint8_t get_free_bytes(const uint32_t *const bytes_block);
 
 
 
