@@ -32,7 +32,7 @@
 #define OFFSET_MOD_1 128                //Separatore tra dati e padding in caso di list_trans_len % 4 == 1. 
 #define OFFSET_MOD_2 2147483648         //Separatore tra dati e padding in caso di list_trans_len % 4 == 2. 
 #define OFFSET_MOD_3 8388608            //Separatore tra dati e padding in caso di list_trans_len % 4 == 3. 
-#define MSG_BLOCK_LEN 64
+#define MSG_BLOCK_LEN 16
 #define MSG_INFO_LEN 2
 
 #define H_INIZIALI  0x6a09e667,\

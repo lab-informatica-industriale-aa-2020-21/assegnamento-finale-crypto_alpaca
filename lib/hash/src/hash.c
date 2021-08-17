@@ -417,8 +417,9 @@ void load_data(const char *const str_input, uint32_t *msg_data, uint32_t *n_bloc
     uint64_t str_input_len = strlen(str_input);
     uint64_t msg_len = BIT_PER_CHAR * str_input_len;
     uint8_t free_bytes = strlen(str_input) % 4;
+    uint32_t n_words_to_fill = ceil((double)str_input_len / CHARS_PER_WORD);
 
-    for (uint64_t i = 0; i < str_input_len; i++)
+    for (uint64_t i = 0; i < n_words_to_fill; i++)
         for (uint8_t j = 0; j < CHARS_PER_WORD; j++) {
             uint32_t byte_to_write = (uint32_t) str_input[CHARS_PER_WORD * i + j];
             *(msg_data + i) += byte_to_write << (WORD_LEN - BIT_PER_CHAR *(1 + j));

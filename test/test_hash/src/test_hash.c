@@ -248,7 +248,7 @@ void test_load_data_shouldLoadMsgDataInTheBlock(void) {
 	load_data("Ciao", test_msg_block1, &n_blocks1);
 
 	TEST_ASSERT_EQUAL_UINT32_ARRAY_MESSAGE(exp_msg_data, test_msg_block1, 16,
-									"Error: loading string with offset into block.");
+									"Error: loading string into msg_data.");
 }
 
 int main(void) {
