@@ -403,15 +403,35 @@ uint32_t *make_msg_block(const char *const str_input, uint32_t *n_blocks) {
     uint8_t free_bytes = strlen(str_input) % 4;
 
     if (free_bytes == 0) 
-        *n_blocks = (strlen(str_input) + 1 + MSG_INFO_LEN) / MSG_BLOCK_LEN;
+        *n_blocks = ceil((strlen(str_input) + 1 + MSG_INFO_LEN) / (double) MSG_BLOCK_LEN);
     else
-        *n_blocks = (strlen(str_input) + MSG_INFO_LEN) / MSG_BLOCK_LEN;
+        *n_blocks = ceil ((strlen(str_input) + MSG_INFO_LEN) / (double) MSG_BLOCK_LEN);
     
     uint32_t *msg_data = (uint32_t *) calloc(*n_blocks * MSG_BLOCK_LEN, sizeof(uint32_t));
 
     return msg_data;
 }
 
+
+void load_data(const char *const str_input, uint32_t *msg_data, uint32_t *n_blocks) {
+    uint64_t str_input_len = strlen(str_input);
+    uint64_t msg_len = BIT_PER_CHAR * str_input_len;
+    uint8_t free_bytes = strlen(str_input) % 4;
+
+    for (uint64_t i = 0; i < str_input_len; i++)
+        for (uint8_t j = 0; j < CHARS_PER_WORD; j++) {
+            uint32_t byte_to_write = (uint32_t) str_input[CHARS_PER_WORD * i + j];
+            *(msg_data + i) += byte_to_write << (WORD_LEN - BIT_PER_CHAR *(1 + j));
+        }
+    
+    if (free_bytes == 0)
+        *(msg_data + str_input_len) = (1 << WORD_LEN - 1);
+    else
+        *(msg_data + str_input_len - 1) += (1 << free_bytes * BIT_PER_CHAR);
+    
+    *(msg_data + *n_blocks * MSG_BLOCK_LEN - MSG_INFO_LEN) = (uint32_t) (msg_len >> WORD_LEN/2);
+    *(msg_data + *n_blocks * MSG_BLOCK_LEN - MSG_INFO_LEN + 1) = (uint32_t) msg_len;
+}
 
 
 

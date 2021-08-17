@@ -17,6 +17,7 @@
 
 #define WORD_LEN 32
 #define BIT_PER_CHAR 8
+#define CHARS_PER_WORD 4
 #define DIM_HASH 8                      //L'hash avrà sempre dimensione pari a 256bit -> 8word
 #define PCI_HASH 65                     //Dimensione info di ridondanza definite dall'algoritmo SHA-256
 #define DIM_BLOCK_HASH 16               //Dimensione blocco hash in W32
@@ -147,7 +148,7 @@ void hash_function (const unsigned int* prev_hash, unsigned int nonce, char* lis
 
 uint32_t *make_msg_block(const char *const str_input, uint32_t *n_blocks);
 
-
+void load_data(const char *const str_input, uint32_t *msg_data, uint32_t *n_blocks);
 
 
 

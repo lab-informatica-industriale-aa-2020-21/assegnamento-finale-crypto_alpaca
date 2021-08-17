@@ -235,6 +235,18 @@ void test_make_msg_block_shouldReturnPointerToAllocatedMemoryForMsgBlock(void) {
 	TEST_ASSERT_EQUAL_UINT32_MESSAGE(1, n_blocks2, "Error: calculating n_blocks2.");
 }
 
+void test_load_data_shouldLoadMsgDataInTheBlock(void) {
+	uint32_t n_blocks1;
+	uint32_t *test_msg_block1 = make_msg_block("Ciao", &n_blocks1);
+
+	uint32_t exp_msg_data_with_offset[] = {1130979695, 2147483648};
+
+	load_data("Ciao", test_msg_block1, &n_blocks1);
+
+	TEST_ASSERT_EQUAL_UINT32_ARRAY_MESSAGE(exp_msg_data_with_offset, test_msg_block1, 2,
+									"Error: loading string with offset into block.");
+}
+
 int main(void) {
 
 	UNITY_BEGIN();
@@ -259,6 +271,7 @@ int main(void) {
 	RUN_TEST(test_shift_state_reg_shouldRightShiftVettOf1Position);
 
 	RUN_TEST(test_make_msg_block_shouldReturnPointerToAllocatedMemoryForMsgBlock);
+	RUN_TEST(test_load_data_shouldLoadMsgDataInTheBlock);
 
 	//Boundary test
 	RUN_TEST(boundary_test_rotate_shouldRotateGiven32bitUintWord);
