@@ -219,7 +219,21 @@ void boundary_test_shift_state_reg_shouldRightShiftVettOf1Position(void) {
 	TEST_ASSERT_EQUAL_UINT32_ARRAY(exp_vett, vett, 100000);
 }
 
+void test_make_msg_block_shouldReturnPointerToAllocatedMemoryForMsgBlock(void) {
+	char test_string1[] = "Prova";
+	char test_string2[] = "Ciao";
+	uint32_t n_blocks1;
+	uint32_t n_blocks2;
 
+	uint32_t *test_msg_block_1 = make_msg_block(test_string1, &n_blocks1);
+	uint32_t *test_msg_block_2 = make_msg_block(test_string2, &n_blocks2);
+
+	TEST_ASSERT_NOT_NULL_MESSAGE(test_msg_block_1, "Error: making msg_block1.");
+	TEST_ASSERT_NOT_NULL_MESSAGE(test_msg_block_2, "Error: making msg_block2.");
+
+	TEST_ASSERT_EQUAL_UINT32_MESSAGE(1, n_blocks1, "Error: calculating n_blocks1.");
+	TEST_ASSERT_EQUAL_UINT32_MESSAGE(1, n_blocks2, "Error: calculating n_blocks2.");
+}
 
 int main(void) {
 
@@ -243,6 +257,8 @@ int main(void) {
 	RUN_TEST(test_copy_vector_shouldCopyVett1IntoVett2);
 	RUN_TEST(test_sum_vector_shouldSaveIntoVett2TheSumOfVett1AndVett2);
 	RUN_TEST(test_shift_state_reg_shouldRightShiftVettOf1Position);
+
+	RUN_TEST(test_make_msg_block_shouldReturnPointerToAllocatedMemoryForMsgBlock);
 
 	//Boundary test
 	RUN_TEST(boundary_test_rotate_shouldRotateGiven32bitUintWord);
