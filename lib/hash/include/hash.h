@@ -145,7 +145,7 @@ void hash_function (const unsigned int* prev_hash, unsigned int nonce, char* lis
 
 
 
-uint32_t *make_msg_block(const char *const str_input, uint32_t *msg_len, uint32_t *n_blocks);
+uint32_t *make_msg_block(const char *const str_input, uint32_t *n_blocks);
 
 
 
