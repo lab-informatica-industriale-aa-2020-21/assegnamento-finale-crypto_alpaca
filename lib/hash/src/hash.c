@@ -425,9 +425,9 @@ void load_data(const char *const str_input, uint32_t *msg_data, uint32_t *n_bloc
         }
     
     if (free_bytes == 0)
-        *(msg_data + str_input_len) = (1 << WORD_LEN - 1);
+        *(msg_data + (str_input_len / CHARS_PER_WORD)) = (1 << WORD_LEN - 1);
     else
-        *(msg_data + str_input_len - 1) += (1 << free_bytes * BIT_PER_CHAR);
+        *(msg_data + (str_input_len / CHARS_PER_WORD)) += (1 << free_bytes * BIT_PER_CHAR);
     
     *(msg_data + *n_blocks * MSG_BLOCK_LEN - MSG_INFO_LEN) = (uint32_t) (msg_len >> WORD_LEN/2);
     *(msg_data + *n_blocks * MSG_BLOCK_LEN - MSG_INFO_LEN + 1) = (uint32_t) msg_len;

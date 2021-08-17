@@ -239,11 +239,15 @@ void test_load_data_shouldLoadMsgDataInTheBlock(void) {
 	uint32_t n_blocks1;
 	uint32_t *test_msg_block1 = make_msg_block("Ciao", &n_blocks1);
 
-	uint32_t exp_msg_data_with_offset[] = {1130979695, 2147483648};
+	uint32_t exp_msg_data[16] = {0};
+	exp_msg_data[0] = 1130979695;
+	exp_msg_data[1] = (1 << 31);
+	exp_msg_data[14] = 0;
+	exp_msg_data[15] = 32;
 
 	load_data("Ciao", test_msg_block1, &n_blocks1);
 
-	TEST_ASSERT_EQUAL_UINT32_ARRAY_MESSAGE(exp_msg_data_with_offset, test_msg_block1, 2,
+	TEST_ASSERT_EQUAL_UINT32_ARRAY_MESSAGE(exp_msg_data, test_msg_block1, 16,
 									"Error: loading string with offset into block.");
 }
 
