@@ -31,7 +31,8 @@
 #define OFFSET_MOD_1 128                //Separatore tra dati e padding in caso di list_trans_len % 4 == 1. 
 #define OFFSET_MOD_2 2147483648         //Separatore tra dati e padding in caso di list_trans_len % 4 == 2. 
 #define OFFSET_MOD_3 8388608            //Separatore tra dati e padding in caso di list_trans_len % 4 == 3. 
-
+#define MSG_BLOCK_LEN 64
+#define MSG_INFO_LEN 2
 
 #define H_INIZIALI  0x6a09e667,\
                     0xbb67ae85,\
@@ -111,7 +112,6 @@
 struct Msg_block {
     uint8_t *data;
     uint32_t msg_len;
-    uint32_t origin_msg_len;
 };
 typedef struct Msg_block msg_block;
 
@@ -132,7 +132,7 @@ bool copy_vector(const unsigned int *vett1, uint32_t len1, unsigned int *vett2, 
 bool sum_vector(const unsigned int *vett1, int len1, unsigned int *vett2, int len2);
 
 // Funzione per creaare il messaggio a partire dai dati ricevuti dal blocco
-unsigned int* create_block(unsigned int list_trans_len, int *n_block);
+//unsigned int* create_block(unsigned int list_trans_len, int *n_block);
 
 // Funzione per il caricamento dei dati relativi al blocco (pre_hash, nonce ecc...)
 void loading_data (unsigned int* block_data, int n_block, const unsigned int* prev_hash, unsigned int nonce, char* list_trans, unsigned int list_trans_len);
@@ -146,9 +146,8 @@ void hash_function (const unsigned int* prev_hash, unsigned int nonce, char* lis
 
 
 msg_block *make_new_msg_block(void);
-void write_message_bits(const char *const str_input, msg_block *msg_block_to_write);
-void pad_msg_block(msg_block *msg_block_to_pad);
-void make_msg_block_list(uint32_t *msg_bits, uint32_t msg_len);
+uint32_t *make_msg_block(const char *const str_input, uint32_t *msg_len, uint32_t *n_blocks);
+uint8_t get_free_bytes(char *string);
 
 
 

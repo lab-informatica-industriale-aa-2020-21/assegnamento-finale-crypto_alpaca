@@ -399,69 +399,23 @@ return 0;
 
 
 
-/*
-void make_message_bits(char *const str_input, uint32_t *message_bits) {
-    uint32_t tmp = 0;
-    char char_to_shift;
-    size_t cell_capacity = sizeof(message_bits[0]) / sizeof(char);
-    size_t max_steps = (strlen(str_input) + cell_capacity - 1) / cell_capacity;
+uint32_t *make_msg_block(const char *const str_input, uint32_t *msg_len, uint32_t *n_blocks) {
+    uint8_t free_bytes = get_free_bytes(str_input);
+    *msg_len = strlen(str_input);
 
-    for (size_t i = 0; i < max_steps; i++) {
-        for (size_t j = 0; j < cell_capacity; j++) {
-            char_to_shift = str_input[cell_capacity * i + j];
-            tmp += (uint32_t) char_to_shift << (24 - 8 * j);
-        }
-        
-        message_bits[i] = tmp;
-        tmp = 0;
-    }
-}*/
-
-msg_block *make_new_msg_block(void) {
-    msg_block *tmp_msg_block = (msg_block *) malloc(sizeof(msg_block));
-    tmp_msg_block->data = NULL;
-    tmp_msg_block->msg_len = 0;
-    tmp_msg_block->origin_msg_len = 0;
-
-    return tmp_msg_block;
-}
-
-void write_message_bits(const char *const str_input, msg_block *msg_block_to_write) {
-    msg_block_to_write->msg_len = (uint32_t) strlen(str_input);
-    msg_block_to_write->origin_msg_len = msg_block_to_write->msg_len;
-    msg_block_to_write->data = (uint8_t *) malloc(msg_block_to_write->msg_len);
-
-    for (uint32_t i = 0; str_input[i] != '\0'; i++)
-        *(msg_block_to_write->data + i) = str_input[i];
-}
-
-void pad_msg_block(msg_block *msg_block_to_pad) {
-    if (realloc(msg_block_to_pad->data, msg_block_to_pad->msg_len + 1) == NULL) {
-        printf("Error reallocating memory.\n");
-        exit(EXIT_FAILURE);
-    }
-    uint8_t *byte_to_change = msg_block_to_pad->data + msg_block_to_pad->msg_len;
-    msg_block_to_pad->msg_len++;
-
-    setBit(byte_to_change, 7);
-    for (int i = 0; i < 7; i++)
-        clearBit(byte_to_change, i);
-}
-
-void make_msg_block_list(uint32_t *msg_bits, uint32_t msg_block_len) {
-    uint32_t n_blocks = 0;
-
-    if (msg_block_len < 56)
-        n_blocks = 1;
+    if (free_bytes == 0) 
+        *n_blocks = (*msg_len + 1 + MSG_INFO_LEN) / MSG_BLOCK_LEN;
     else
-        n_blocks = 1 + (msg_block_len - 56 + 63) / 64;
-
+        *n_blocks = (*msg_len + MSG_INFO_LEN) / MSG_BLOCK_LEN;
     
+    uint32_t *msg_data = (uint32_t *) calloc(*n_blocks * MSG_BLOCK_LEN, sizeof(uint32_t));
 
+    return msg_data;
 }
 
-
-
+uint8_t get_free_bytes(char *string) {
+    return (strlen(string) % 4);
+}
 
 
 
