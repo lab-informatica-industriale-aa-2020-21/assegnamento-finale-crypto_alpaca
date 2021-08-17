@@ -400,7 +400,7 @@ return 0;
 
 
 uint32_t *make_msg_block(const char *const str_input, uint32_t *msg_len, uint32_t *n_blocks) {
-    uint8_t free_bytes = get_free_bytes(str_input);
+    uint8_t free_bytes = strlen(str_input) % 4;
     *msg_len = strlen(str_input);
 
     if (free_bytes == 0) 
@@ -411,10 +411,6 @@ uint32_t *make_msg_block(const char *const str_input, uint32_t *msg_len, uint32_
     uint32_t *msg_data = (uint32_t *) calloc(*n_blocks * MSG_BLOCK_LEN, sizeof(uint32_t));
 
     return msg_data;
-}
-
-uint8_t get_free_bytes(char *string) {
-    return (strlen(string) % 4);
 }
 
 
