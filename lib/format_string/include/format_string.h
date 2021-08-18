@@ -7,6 +7,7 @@
 #include <stdint.h>
 
 #include "blockchain.h"
+#include "gui.h"
 
 //costanti di lunghezza delle stringhe
 #define TITLE_LENGTH 15         //max caratteri per il titolo
@@ -125,6 +126,8 @@ args:       block_to_print  ->  puntatore al blocco da stampare
 return:     void
 */
 void print_block_header(const block *block_to_print, char *str_out);
+
+void block_header_matrix(const block *block_to_print, char matrix [BLOCK_LINES][LINE_LENGTH + 1]);
 
 /*
 'print_trans' formatta una stringa di 4 righe contenenti i dati di una transazione.

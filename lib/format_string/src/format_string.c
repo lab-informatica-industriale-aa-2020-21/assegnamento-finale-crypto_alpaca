@@ -205,7 +205,7 @@ void print_block_header(const block *block_to_print, char *str_out){
 *              matrix          ->  matrice su cui verrà salvato il risultato
 * return:      void
 */
-void block_header_matrix(const block *block_to_print, char matrix [BLOCK_LINES][MAX_STR_LEN + 1]){
+void block_header_matrix(const block *block_to_print, char matrix [BLOCK_LINES][LINE_LENGTH + 1]){
     char tmp [ARG_LENGTH + 1];  //per salvare le stringhe momentanee
 
     //line1 -> index

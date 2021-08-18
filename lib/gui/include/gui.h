@@ -5,6 +5,7 @@
 #include <blockchain.h>
 #include <stdint.h>
 
+
 //costanti
 #define MAX_ROWS 24
 #define MAX_COLS 80
@@ -27,6 +28,8 @@
 #define TITLE_COLOR 1
 #define QUIT_COLOR 2
 #define INVISIBLE_COLOR 3
+#define MINED_COLOR 4
+#define UNMINED_COLOR 5
 
 /*
  * colori disponibili:
@@ -47,7 +50,7 @@ int selection_box(char *title, int num_items, char selections [MAX_ITEMS][MAX_ST
 
 int transaction_box(char *title, uint32_t *sender, uint32_t *receiver, uint32_t *amount);
 
-void block_box(char *title, block block_to_print);
+void block_box(char *title, block *block_to_print);
 
 void title_box(char *title, int num_rows, char descriptions [MAX_ITEMS][MAX_STR_LEN + 1]);
 

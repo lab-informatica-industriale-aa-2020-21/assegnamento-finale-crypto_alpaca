@@ -210,9 +210,7 @@ int transaction_box(char *title, uint32_t *sender, uint32_t *receiver, uint32_t 
 *               *block_to_print -< puntatore al blocco da stampare
 * return:       void
 */
-
-/*
-void block_box(char *title, block block_to_print){
+void block_box(char *title, block *block_to_print){
     //inizializzazione matrice con informazioni sul blocco
     char block_matrix [BLOCK_LINES][LINE_LENGTH + 1];
     block_header_matrix (block_to_print, block_matrix);
@@ -268,7 +266,6 @@ void block_box(char *title, block block_to_print){
     endwin();
 }
 
-*/
 
 /* Funzione: 'title_box' 
 *-------------------------------------------------------------------------------------------
@@ -408,6 +405,8 @@ void set_colors(void){
         init_pair(TITLE_COLOR, COLOR_GREEN, COLOR_BLACK);   //args: macro per richiamo, colore carattere, colore sfondo
         init_pair(QUIT_COLOR, COLOR_RED, COLOR_BLACK);
         init_pair(INVISIBLE_COLOR, COLOR_MAGENTA, COLOR_BLACK);
+        init_pair(MINED_COLOR, COLOR_GREEN, COLOR_BLACK);
+        init_pair(UNMINED_COLOR, COLOR_RED, COLOR_BLACK);
     }
 }
 
@@ -996,13 +995,13 @@ void print_manual_menu(chain *chain_to_edit, unsigned int *const trans_counter) 
                 break;
             case 1:
                 //Minare blocco
-                //mine(chain_to_edit);
+                mine(chain_to_edit);
                 *trans_counter = 0;
                 save_chain(chain_to_edit, BLOCKCHAIN_TXT);
                 break;
             case 2:
                 //Visualizzare blocco
-                //block_box("Prova", chain_to_edit->head_block);
+                block_box("ULTIMO BLOCCO DELLA CATENA", chain_to_edit->head_block);
                 break;
             case 3:
                 //Tornare al menu principale
@@ -1053,7 +1052,7 @@ void print_automatic_menu(chain *chain_to_edit, unsigned int *const trans_counte
                 break;
             case 3:
                 //Visualizzare il blocco
-                //block_box("Prova", chain_to_edit->head_block);
+                block_box("ULTIMO BLOCCO DELLA CATENA", chain_to_edit->head_block);
                 break;
             case 4:
                 //Tornare al menu principale
