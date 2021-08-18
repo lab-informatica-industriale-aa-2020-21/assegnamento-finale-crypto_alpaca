@@ -1,14 +1,17 @@
+/*===========================================================================*/
 /**
  * @file hash.c
- * @brief File sorgente per lo SHA-256
+ * @brief File sorgente del modulo SHA-256
  * 
- * Questo modulo permette di implementare la funzione di hash secondo lo standard SHA256.
- * Data una stringa di dati, restituisce una serie di 256 bit generati da una funzione
- * non invertibile.
+ * Questo modulo permette di implementare la funzione di hash secondo lo 
+ * standard SHA256. Data una stringa di dati, restituisce una serie di
+ * 256 bit generati da una funzione non invertibile.
  * 
  * @authors Andrea Binotto
  * @authors Alberto Trabacchin
  */
+/*===========================================================================*/
+
 
 #include <stdio.h>
 #include <stdlib.h>
