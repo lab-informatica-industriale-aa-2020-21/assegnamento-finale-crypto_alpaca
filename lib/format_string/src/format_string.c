@@ -321,7 +321,7 @@ void format_data_for_hash(const block *block_source, char *str_for_hash){
             strcpy(str_for_hash, tmp);
         else
             strcat(str_for_hash, tmp);
-
+    }
     do{
         uint32_to_stringHex(next_to_print -> sender, tmp);
         strcat(str_for_hash, tmp);
