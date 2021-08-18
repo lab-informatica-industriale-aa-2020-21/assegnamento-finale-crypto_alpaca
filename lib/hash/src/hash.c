@@ -225,6 +225,15 @@ char* int_32_to_char(unsigned int input) {
     return string;
 }
 
+
+/*Funzione: shift_state_reg
+ *-------------------------
+ *Permette lo shift di un array, a destra di una posizione.
+ *
+ *vett: array da shiftare
+ *len: lunghezza di vett
+ */
+
 void shift_state_reg(unsigned int *vett, int len){
     for (int i = 1; i < len; i++)
         vett[len-i] = vett[len-i-1];
