@@ -5,6 +5,7 @@
 
 #include "blockchain.h"
 #include "format_string.h"
+#include "gui.h"
 
 
 /******************************************************************************
@@ -179,6 +180,89 @@ void print_block_header(const block *block_to_print, char *str_out){
             "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s",
             line1, line2, line3, line4, line5, line6, line7, line8, line9,
             line10, line11);    //[*]
+}
+
+
+/* Funzione: 'block_header_matrix' 
+*-------------------------------------------------------------------------------------------
+* formatta una matrice di 11 righe contenenti i dati di un blocco.
+* line1   ->  indice del blocco
+* line2   ->  data e ora di creazione
+* line3   ->  hash
+* line4   ->  hash
+* line5   ->  hash
+* line6   ->  hash
+* line7   ->  hash
+* line8   ->  hash
+* line9   ->  hash
+* line10  ->  hash
+* line11  ->  nonce
+*-------------------------------------------------------------------------------------------
+* 
+* args:        block_to_print  ->  puntatore al blocco da stampare
+*              matrix          ->  matrice su cui verrà salvato il risultato
+* return:      void
+*/
+void block_header_matrix(const block *block_to_print, char matrix [BLOCK_LINES][MAX_STR_LEN + 1]){
+    char tmp [ARG_LENGTH + 1];  //per salvare le stringhe momentanee
+
+    //line1 -> index
+    char line1 [LINE_LENGTH + 1];
+    uint32_to_stringDec(block_to_print -> count_block, tmp);
+    print_line(IND, tmp, line1);
+
+    //line2 -> creation
+    char line2 [LINE_LENGTH + 1];
+    get_str_creation_time(block_to_print -> creation_time, tmp);
+    print_line(CRE, tmp, line2);
+
+    //line3, 4, 5, 6, 7, 8, 9, 10 -> hash
+    char line3 [LINE_LENGTH + 1], line4 [LINE_LENGTH + 1],
+            line5 [LINE_LENGTH + 1], line6 [LINE_LENGTH + 1],
+            line7 [LINE_LENGTH + 1], line8 [LINE_LENGTH + 1],
+            line9 [LINE_LENGTH + 1], line10 [LINE_LENGTH + 1],
+            line11 [LINE_LENGTH + 1];
+
+        //3
+    uint32_to_stringHex(block_to_print -> hash [0], tmp);
+    print_line(HASH, tmp, line3);
+        //4
+    uint32_to_stringHex(block_to_print -> hash [1], tmp);
+    print_line(" ", tmp, line4);
+        //5
+    uint32_to_stringHex(block_to_print -> hash [2], tmp);
+    print_line(" ", tmp, line5);
+        //6
+    uint32_to_stringHex(block_to_print -> hash [3], tmp);
+    print_line(" ", tmp, line6);
+        //7
+    uint32_to_stringHex(block_to_print -> hash [4], tmp);
+    print_line(" ", tmp, line7);
+        //8
+    uint32_to_stringHex(block_to_print -> hash [5], tmp);
+    print_line(" ", tmp, line8);
+        //9
+    uint32_to_stringHex(block_to_print -> hash [6], tmp);
+    print_line(" ", tmp, line9);
+        //10
+    uint32_to_stringHex(block_to_print -> hash [7], tmp);
+    print_line(" ", tmp, line10);
+
+    //line11 -> nonce
+    uint32_to_stringHex(block_to_print -> nonce, tmp);
+    print_line(NONCE, tmp, line11);
+
+    strcpy(matrix [0], line1);
+    strcpy(matrix [1], line2);
+    strcpy(matrix [2], line3;
+    strcpy(matrix [3], line4);
+    strcpy(matrix [4], line5);
+    strcpy(matrix [5], line6);
+    strcpy(matrix [6], line7);
+    strcpy(matrix [7], line8);
+    strcpy(matrix [8], line9);
+    strcpy(matrix [9], line10);
+    strcpy(matrix [10], line11);
 }
 
 

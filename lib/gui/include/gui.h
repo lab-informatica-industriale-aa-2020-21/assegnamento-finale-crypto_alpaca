@@ -2,6 +2,7 @@
 #define GUI_H
 
 #include <ncurses.h>
+#include <blockchain.h>
 
 //costanti
 #define MAX_ROWS 24
@@ -12,11 +13,14 @@
 #define MAX_UINT32 4294967295
 #define UNAVAILABLE "(unavailable!)"
 #define INPUT "Press space..."
+#define BLOCK_LINES 11
 
 //colori
 #define TITLE_COLOR 1
 #define QUIT_COLOR 2
 #define INVISIBLE_COLOR 3
+#define MINED_COLOR 4
+#define UNMINED_COLOR 5
 
 /*
  * colori disponibili:
@@ -47,5 +51,7 @@ void user_selection(WINDOW *w, int *tmp, int n_items, char selections [MAX_ITEMS
 int selection_box(char *title, int num_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1], int input_index, uint32_t *input_uint, int num_unselect, ...);
 
 void title_box(char *title, int num_rows, char descriptions [MAX_ITEMS][MAX_STR_LEN + 1]);
+
+void block_box(char *title, block block_to_print);
 
 #endif

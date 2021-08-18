@@ -3,12 +3,82 @@
 
 
 #include "gui.h"
+#include "format_string.h"
+#include "blockchain.h"
 
+
+//  !!! IMPORTANTE PER NON PERDERSI! !!!
 
 //funzioni da utilizzare (non interne):
 //-selection_box
 //-title_box
+//-block_box
 
+
+
+/* Funzione: 'block_box' 
+*-------------------------------------------------------------------------------------------
+*  Stampa su terminale una schermata con titolo e informazioni di un blocco spacificato
+*  negli argomenti; l'hash sarà stampato in verde se il blocco è minato, in rosso se non
+*  lo è ancora.
+*-------------------------------------------------------------------------------------------
+* 
+* args:         *title          -> stringa contenente il titlo (dim<MAX_STR_LEN)
+*               *block_to_print -< puntatore al blocco da stampare
+* return:       void
+*/
+void block_box(char *title, block block_to_print){
+    //inizializzazione matrice con informazioni sul blocco
+    char block_matrix [BLOCK_LINES][LINE_LENGTH + 1];
+    block_header_matrix (block_to_print, block_matrix);
+
+    //inizializzazione ncurses
+    initscr();
+
+    //inizializzazione colori
+    set_colors();
+
+    //inizializzazione finestra
+    WINDOW *w = new_window();
+
+    //vengono definiti i comportamenti della finestra agli input
+    noecho();
+    keypad(w, TRUE);
+    curs_set(0);
+
+    //stampa titolo
+        //attivazione attributi; args: *w, attributi | ...
+    wattron(w, A_BOLD | A_UNDERLINE | COLOR_PAIR(TITLE_COLOR));
+        //stampa del titolo a schermo
+    mvwprintw(w, 1, 2, "%s", title);
+        //ripristino attributi normali
+    wattrset(w, A_NORMAL);
+
+    //stampa blocco
+    for (int i = 0; i < BLOCK_LINES; i++){
+        if (i > 1 && i < 10){   //indici delle informazioni di hash
+            if (block_to_print -> hash [0] > MAX_VALID_FIRST_HASH_ELEMENT)  //condizione blocco non minato
+                wattron(w, COLOR_PAIR(UNMINED_COLOR));
+                mvwprintw(w, UNUSABLE_ROWS + i, 2, "%s", block_matrix [i]); //stampa rosso
+                wattroff(w, COLOR_PAIR(UNMINED_COLOR));
+            else                                                            //condizione blocck minato
+                wattron(w, COLOR_PAIR(MINED_COLOR));
+                mvwprintw(w, UNUSABLE_ROWS + i, 2, "%s", block_matrix [i]); //stampa verde
+                wattroff(w, COLOR_PAIR(MINED_COLOR));
+        else
+            mvwprintw(w, UNUSABLE_ROWS + i, 2, "%s", block_matrix [i]);     //stampa altre informazioni
+    }
+
+    //stampa "Press ENTER"
+    mvwprintw(w, MAX_ITEMS + UNUSABLE_ROWS, 2, "%*s", MAX_STR_LEN, "Press ENTER");
+
+    //sttesa input ENTER
+    while(wgetch(w) != '\n'){};
+
+    //chiusura finestra
+    delwin(w);
+    endwin();
+}
 
 
 /* Funzione: 'title_box' 
@@ -241,6 +311,8 @@ void set_colors(void){
         init_pair(TITLE_COLOR, COLOR_GREEN, COLOR_BLACK);   //args: macro per richiamo, colore carattere, colore sfondo
         init_pair(QUIT_COLOR, COLOR_RED, COLOR_BLACK);
         init_pair(INVISIBLE_COLOR, COLOR_MAGENTA, COLOR_BLACK);
+        init_pair(MINED_COLOR, COLOR_GREEN, COLOR_BLACK);
+        inti_pair(UNMINED_COLOR, COLOR_RED, COLOR_BLACK);
     }
 }
 
