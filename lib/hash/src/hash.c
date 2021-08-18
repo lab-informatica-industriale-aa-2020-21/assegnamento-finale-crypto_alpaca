@@ -1,6 +1,6 @@
 /**
  * @file hash.c
- * @brief Modulo di hash.
+ * @brief File sorgente per lo SHA-256
  * 
  * Questo modulo permette di implementare la funzione di hash secondo lo standard SHA256.
  * Data una stringa di dati, restituisce una serie di 256 bit generati da una funzione

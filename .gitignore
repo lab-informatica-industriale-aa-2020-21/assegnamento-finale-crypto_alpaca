@@ -2,4 +2,3 @@
 .vscode/settings.json
 build/*
 inout/*
-documentation/html/*

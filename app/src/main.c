@@ -13,14 +13,11 @@
 
 
 #include "blockchain.h"
-#include "file_IO.h"
 #include "gui.h"
-
 
 
 int main(void) {
     chain *chain1 = new_chain(NULL);
-
     print_menu(chain1);
 
     return 0;
