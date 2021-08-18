@@ -300,22 +300,35 @@ void print_block(const block *block_to_print, char *str_out){
 }
 
 
-void format_data_for_hash(const block *block_source, char *trans_str){
+void format_data_for_hash(const block *block_source, char *str_for_hash){
     trans *next_to_print = block_source -> first_trans;
     char tmp [HEX_NUMB_LENGTH + 1];
 
+    // Ricerca del prev hash:
+    uint32_t previous_hash [DIM_HASH] = {0};
+
+    if ((chain_to_mine -> head_block) -> prev_hash == NULL)     //non esistono blocchi precedenti nella catena della sessione attuale
+        get_prev_hash(previous_hash, BLOCKCHAIN_TXT);           //lettura prev_hash dal file blockchain.txt
+    else
+        for (int i = 0; i < DIM_HASH; i++)                      //copia del vettore prev_hash in previous_hash
+            previous_hash [i] = (chain_to_mine -> head_block) -> prev_hash [i];
+
+    for (int i = 0; i < DIM_HASH; i++){
+        uint32_to_stringHex(previous_hash[i], tmp);
+        if (i == 0)
+            strcpy(str_for_hash, tmp);
+        else
+            strcat(str_for_hash, tmp);
+
     do{
         uint32_to_stringHex(next_to_print -> sender, tmp);
-        if (next_to_print == block_source -> first_trans)
-            strcpy(trans_str, tmp);
-        else
-            strcat(trans_str, tmp);
+        strcat(str_for_hash, tmp);
 
         uint32_to_stringHex(next_to_print -> receiver, tmp);
-        strcat(trans_str, tmp);
+        strcat(str_for_hash, tmp);
 
         uint32_to_stringHex(next_to_print -> amount, tmp);
-        strcat(trans_str, tmp);
+        strcat(str_for_hash, tmp);
 
         next_to_print = next_to_print -> next_trans;
     } while(next_to_print != NULL);
