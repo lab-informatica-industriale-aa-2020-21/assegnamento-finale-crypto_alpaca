@@ -237,18 +237,30 @@ void test_make_msg_block_shouldReturnPointerToAllocatedMemoryForMsgBlock(void) {
 
 void test_load_data_shouldLoadMsgDataInTheBlock(void) {
 	uint32_t n_blocks1;
+	uint32_t n_blocks2;
 	uint32_t *test_msg_block1 = make_msg_block("Ciao", &n_blocks1);
+	uint32_t *test_msg_block2 = make_msg_block("Cia", &n_blocks2);
 
-	uint32_t exp_msg_data[16] = {0};
-	exp_msg_data[0] = 1130979695;
-	exp_msg_data[1] = (1 << 31);
-	exp_msg_data[14] = 0;
-	exp_msg_data[15] = 32;
+	uint32_t exp_msg_data1[16] = {0};
+	uint32_t exp_msg_data2[16] = {0};
+
+	exp_msg_data1[0] = 1130979695;
+	exp_msg_data1[1] = (1 << 31);
+	exp_msg_data1[14] = 0;
+	exp_msg_data1[15] = 32;
+
+	exp_msg_data2[0] = 1130979712;
+	exp_msg_data2[14] = 0;
+	exp_msg_data2[15] = 24;
 
 	load_data("Ciao", test_msg_block1, &n_blocks1);
+	load_data("Cia", test_msg_block2, &n_blocks2);
 
-	TEST_ASSERT_EQUAL_UINT32_ARRAY_MESSAGE(exp_msg_data, test_msg_block1, 16,
-									"Error: loading string into msg_data.");
+	TEST_ASSERT_EQUAL_UINT32_ARRAY_MESSAGE(exp_msg_data1, test_msg_block1, 16,
+									"Error: loading string1 into msg_data1.");
+	
+	TEST_ASSERT_EQUAL_UINT32_ARRAY_MESSAGE(exp_msg_data2, test_msg_block2, 16,
+									"Error: loading string2 into msg_data2.");
 }
 
 int main(void) {

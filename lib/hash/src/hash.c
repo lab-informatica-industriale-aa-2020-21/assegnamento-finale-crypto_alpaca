@@ -400,7 +400,7 @@ return 0;
 
 
 uint32_t *make_msg_block(const char *const str_input, uint32_t *n_blocks) {
-    uint8_t free_bytes = strlen(str_input) % 4;
+    uint8_t free_bytes = get_free_bytes(str_input);
 
     if (free_bytes == 0) 
         *n_blocks = ceil((strlen(str_input) + 1 + MSG_INFO_LEN) / (double) MSG_BLOCK_LEN);
@@ -416,7 +416,7 @@ uint32_t *make_msg_block(const char *const str_input, uint32_t *n_blocks) {
 void load_data(const char *const str_input, uint32_t *msg_data, uint32_t *n_blocks) {
     uint64_t str_input_len = strlen(str_input);
     uint64_t msg_len = BIT_PER_CHAR * str_input_len;
-    uint8_t free_bytes = strlen(str_input) % 4;
+    uint8_t free_bytes = get_free_bytes(str_input);
     uint32_t n_words_to_fill = ceil((double)str_input_len / CHARS_PER_WORD);
 
     for (uint64_t i = 0; i < n_words_to_fill; i++)
@@ -428,11 +428,24 @@ void load_data(const char *const str_input, uint32_t *msg_data, uint32_t *n_bloc
     if (free_bytes == 0)
         *(msg_data + (str_input_len / CHARS_PER_WORD)) = (1 << WORD_LEN - 1);
     else
-        *(msg_data + (str_input_len / CHARS_PER_WORD)) += (1 << free_bytes * BIT_PER_CHAR);
+        *(msg_data + (str_input_len / CHARS_PER_WORD)) += (1 << (free_bytes * BIT_PER_CHAR - 1));
     
     *(msg_data + *n_blocks * MSG_BLOCK_LEN - MSG_INFO_LEN) = (uint32_t) (msg_len >> WORD_LEN/2);
     *(msg_data + *n_blocks * MSG_BLOCK_LEN - MSG_INFO_LEN + 1) = (uint32_t) msg_len;
 }
 
 
-
+uint8_t get_free_bytes(const char *const string) {
+    switch (strlen(string) % 4) {
+        case 0:
+            return 0;
+        case 1:
+            return 3;
+        case 2:
+            return 2;
+        case 3:
+            return 1;
+        default:
+            exit(EXIT_FAILURE);
+    } 
+}
