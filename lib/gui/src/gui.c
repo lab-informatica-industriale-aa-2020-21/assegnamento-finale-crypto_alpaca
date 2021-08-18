@@ -20,6 +20,7 @@
 //-title_box
 //-block_box
 //-mining_box
+//-mined_box
 
 
 
@@ -330,16 +331,7 @@ void title_box(char*title, int num_rows, char descriptions [MAX_ITEMS][MAX_STR_L
 * args:         void
 * return:       void
 */
-void mining_box(void){
-    //inizializzazione ncurses
-    initscr();
-
-    //inizializzazione colori
-    set_colors();
-
-    //inizializzazione finestra
-    WINDOW *w = new_window();
-
+void mining_box(WINDOW *w){
     //vengono definiti i comportamenti della finestra agli input
     noecho();
     keypad(w, TRUE);
@@ -361,13 +353,6 @@ void mining_box(void){
     //stampa schermata
     for (int i = 0; i < MINE_ROWS; i++)
         mvwprintw(w, MINE_ROWS/2 + i, MAX_STR_LEN/2 - MAX_STR_LEN_MINE/2 + 2, "%s", matrix [i]);
-
-    //sttesa input ENTER
-    while(wgetch(w) != '\n'){};
-
-    //chiusura finestra
-    delwin(w);
-    endwin();
 }
 
 
@@ -1062,7 +1047,7 @@ void print_automatic_menu(chain *chain_to_edit, unsigned int *const trans_counte
                 break;
             case 2:
                 //Minare il blocco
-                //mine(chain_to_edit);
+                mine(chain_to_edit);
                 *trans_counter = 0;
                 save_chain(chain_to_edit, BLOCKCHAIN_TXT);
                 break;

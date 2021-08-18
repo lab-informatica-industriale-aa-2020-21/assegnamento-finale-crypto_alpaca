@@ -51,7 +51,7 @@ void block_box(char *title, block block_to_print);
 
 void title_box(char *title, int num_rows, char descriptions [MAX_ITEMS][MAX_STR_LEN + 1]);
 
-void mining_box(void);
+void mining_box(WINDOW *w);
 
 
 //funzioni interne
