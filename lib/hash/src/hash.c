@@ -58,7 +58,7 @@ return num;
 unsigned int rotate (unsigned int x, int n_bit)
 {
     unsigned int num=0;
-    num = (x >> n_bit) | (x << (WORD_LEN-n_bit));
+    num = (x >> n_bit) | (x << (WORD_LEN_BITS-n_bit));
 return num;
 }
 
@@ -99,17 +99,17 @@ return vett;
 */
 unsigned int choice (unsigned int x, unsigned int y, unsigned int z)
 {
-    bool x_bit[WORD_LEN] = {0};
-    bool y_bit[WORD_LEN] = {0};
-    bool z_bit[WORD_LEN] = {0};
+    bool x_bit[WORD_LEN_BITS] = {0};
+    bool y_bit[WORD_LEN_BITS] = {0};
+    bool z_bit[WORD_LEN_BITS] = {0};
 
-    bool num[WORD_LEN] = {0};
+    bool num[WORD_LEN_BITS] = {0};
 
-    decimal_to_bin(x, x_bit, WORD_LEN);
-    decimal_to_bin(y, y_bit, WORD_LEN);
-    decimal_to_bin(z, z_bit, WORD_LEN);
+    decimal_to_bin(x, x_bit, WORD_LEN_BITS);
+    decimal_to_bin(y, y_bit, WORD_LEN_BITS);
+    decimal_to_bin(z, z_bit, WORD_LEN_BITS);
  
-    for (int i = 0; i < WORD_LEN; i++)
+    for (int i = 0; i < WORD_LEN_BITS; i++)
     {
         if(x_bit[i] == 0)
             num[i] = z_bit[i];
@@ -117,7 +117,7 @@ unsigned int choice (unsigned int x, unsigned int y, unsigned int z)
             num[i] = y_bit[i];
     }
 
-return bin_to_decimal(num, WORD_LEN);
+return bin_to_decimal(num, WORD_LEN_BITS);
 }
 
 /*majority()
@@ -128,24 +128,24 @@ return bin_to_decimal(num, WORD_LEN);
 */
 unsigned int majority (unsigned int x, unsigned int y, unsigned int z)
 {
-    bool x_bit[WORD_LEN] = {0};
-    bool y_bit[WORD_LEN] = {0};
-    bool z_bit[WORD_LEN] = {0};
+    bool x_bit[WORD_LEN_BITS] = {0};
+    bool y_bit[WORD_LEN_BITS] = {0};
+    bool z_bit[WORD_LEN_BITS] = {0};
 
-    bool num[WORD_LEN] = {0};
+    bool num[WORD_LEN_BITS] = {0};
 
-    decimal_to_bin(x, x_bit, WORD_LEN);
-    decimal_to_bin(y, y_bit, WORD_LEN);
-    decimal_to_bin(z, z_bit, WORD_LEN);
+    decimal_to_bin(x, x_bit, WORD_LEN_BITS);
+    decimal_to_bin(y, y_bit, WORD_LEN_BITS);
+    decimal_to_bin(z, z_bit, WORD_LEN_BITS);
 
-    for (int i = 0; i < WORD_LEN; i++){
+    for (int i = 0; i < WORD_LEN_BITS; i++){
         if((x_bit[i] && y_bit[i]) || (z_bit[i] && y_bit[i]) || (x_bit[i] && z_bit[i])) 
             num[i] = 1;
         else   
             num[i] = 0;
     }
     
-return bin_to_decimal(num, WORD_LEN);
+return bin_to_decimal(num, WORD_LEN_BITS);
 }
 
 
@@ -191,11 +191,11 @@ uint32_t *make_msg_block(const char *const str_input, uint32_t *const n_blocks) 
     uint8_t free_bytes = get_free_bytes(str_input);
 
     if (free_bytes == 0) 
-        *n_blocks = ceil((strlen(str_input) + 1 + MSG_INFO_LEN) / (double) MSG_BLOCK_LEN);
+        *n_blocks = ceil((strlen(str_input) + sizeof(uint32_t) + MSG_INFO_LEN_BYTES) / (double) MSG_BLOCK_LEN_BYTES);
     else
-        *n_blocks = ceil ((strlen(str_input) + MSG_INFO_LEN) / (double) MSG_BLOCK_LEN);
+        *n_blocks = ceil ((strlen(str_input) + MSG_INFO_LEN_BYTES) / (double) MSG_BLOCK_LEN_BYTES);
     
-    uint32_t *msg_data = (uint32_t *) calloc(*n_blocks * MSG_BLOCK_LEN, sizeof(uint32_t));
+    uint32_t *msg_data = (uint32_t *) calloc(*n_blocks * 64, sizeof(uint32_t));
 
     return msg_data;
 }
@@ -210,19 +210,19 @@ void load_data(const char *const str_input, uint32_t *msg_data, uint32_t *const 
     for (uint64_t i = 0; i < n_words_to_fill; i++)
         for (uint8_t j = 0; j < CHARS_PER_WORD; j++) {
             uint32_t byte_to_write = (uint32_t) str_input[CHARS_PER_WORD * i + j];
-            *(msg_data + i) += byte_to_write << (WORD_LEN - BIT_PER_CHAR * (1 + j));
+            *(msg_data + i) += byte_to_write << (WORD_LEN_BITS - BIT_PER_CHAR * (1 + j));
 
             if ((i == (n_words_to_fill - 1)) && (j == (CHARS_PER_WORD - free_bytes)))
                 break;
         }
     
     if (free_bytes == 0)
-        *(msg_data + (str_input_len / CHARS_PER_WORD)) = (1 << WORD_LEN - 1);
+        *(msg_data + (str_input_len / CHARS_PER_WORD)) = (1 << WORD_LEN_BITS - 1);
     else
         *(msg_data + (str_input_len / CHARS_PER_WORD)) += (1 << (free_bytes * BIT_PER_CHAR - 1));
     
-    *(msg_data + *n_blocks * MSG_BLOCK_LEN - MSG_INFO_LEN) = (uint32_t) (msg_len >> WORD_LEN/2);
-    *(msg_data + *n_blocks * MSG_BLOCK_LEN - MSG_INFO_LEN + 1) = (uint32_t) msg_len;
+    *(msg_data + *n_blocks * MSG_BLOCK_LEN_WORDS - MSG_INFO_LEN_WORDS) = (uint32_t) (msg_len >> WORD_LEN_BITS/2);
+    *(msg_data + *n_blocks * MSG_BLOCK_LEN_WORDS - MSG_INFO_LEN_WORDS + 1) = (uint32_t) msg_len;
 }
 
 

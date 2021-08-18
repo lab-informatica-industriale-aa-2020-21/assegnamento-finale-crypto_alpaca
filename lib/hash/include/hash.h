@@ -15,7 +15,7 @@
 
 // Variabili define:
 
-#define WORD_LEN 32
+#define WORD_LEN_BITS 32
 #define BIT_PER_CHAR 8
 #define CHARS_PER_WORD 4
 #define DIM_HASH 8                      //L'hash avrà sempre dimensione pari a 256bit -> 8word
@@ -32,8 +32,11 @@
 #define OFFSET_MOD_1 128                //Separatore tra dati e padding in caso di list_trans_len % 4 == 1. 
 #define OFFSET_MOD_2 2147483648         //Separatore tra dati e padding in caso di list_trans_len % 4 == 2. 
 #define OFFSET_MOD_3 8388608            //Separatore tra dati e padding in caso di list_trans_len % 4 == 3. 
-#define MSG_BLOCK_LEN 16
-#define MSG_INFO_LEN 2
+
+#define MSG_INFO_LEN_WORDS 2
+#define MSG_INFO_LEN_BYTES 8
+#define MSG_BLOCK_LEN_WORDS 16
+#define MSG_BLOCK_LEN_BYTES 64
 
 #define H_INIZIALI  0x6a09e667,\
                     0xbb67ae85,\
