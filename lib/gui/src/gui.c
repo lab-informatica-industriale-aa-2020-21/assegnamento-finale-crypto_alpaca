@@ -46,7 +46,7 @@
 *  | selezione 2                                                                  | <- return 1
 *  | non disponibile 1                                             (unavailable!) | <- no return
 *  | selezione 3                                                                  | <- return 3
-*  | selezione con input 'uint'                                    Press space... | <- return 4 & 'uint'
+*  | selezione con input 'uint'                                    Press space... | <- no return, salvataggio 'uint'
 *  | non disponibile 2                                             (unavailable!) | <- no return
 *  | non disponibile 3                                             (unavailable!) | <- no return
 *  | selezione 4                                                                  | <- return 7
@@ -870,7 +870,7 @@ void user_selection(WINDOW *w, int *tmp, int n_items, char selections [MAX_ITEMS
 
     //ciclo di selezione (input dell'utente)
     //il ciclo termina alla pressione di 'ENTER'
-    while((input = wgetch(w)) != '\n'){
+    while((input = wgetch(w)) != '\n' || *tmp == input_index){
 
         //dopo l'input dell'utente, l'elemento precedentemente selezionato
         //viene ristampato senza l'attributo A_STANDOUT
@@ -1051,8 +1051,6 @@ void print_automatic_menu(chain *chain_to_edit, unsigned int *const trans_counte
             choice = selection_box(subtitle, num_items, selections, 0, &n_trans, 0);
 
         switch (choice) {
-            case 0:
-                break;
             case 1:
                 //Aggiungere nova transazione
                 make_random_trans(chain_to_edit, n_trans);
@@ -1077,7 +1075,6 @@ void print_automatic_menu(chain *chain_to_edit, unsigned int *const trans_counte
             default:
                 exit(EXIT_FAILURE);
         }
-        n_trans = 0;
     }
 }
 
