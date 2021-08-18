@@ -8,10 +8,16 @@
 #include "string.h"
 #include "format_string.h"
 
-/*sigma_0()
-**Funzione che preleva in input una word a 32bit e restituisce il risultato dell'operazione indicata.
-**(Rotazione di 7) XOR (Rotazione di 18) XOR (shift di 3 a dx)
-*/
+
+/*Funzione: sigma_0
+ *-----------------
+ *Funzione che esegue l'operazione indicata: ROTR(x,7) XOR ROTR(x,18) XOR SHIFTR(x, 3)
+ *
+ *x: word uint32 su cui eseguire l'operazione
+ * 
+ * Ritorna una word uint32 contenente il risultato dell'operazione
+ */
+
 unsigned int sigma_0 (unsigned int x)
 {
     unsigned int num=0;
@@ -19,10 +25,16 @@ unsigned int sigma_0 (unsigned int x)
 return num;
 }
 
-/*sigma_1()
-**Funzione che preleva in input una word a 32bit e restituisce il risultato dell'operazione indicata.
-**(Rotazione di 17) XOR (Rotazione di 19) XOR (shift di 10 a dx)
-*/
+
+/*Funzione: sigma_1
+ *-----------------
+ *Funzione che esegue l'operazione indicata: ROTR(x,17) XOR ROTR(x,19) XOR SHIFTR(x, 10)
+ *
+ *x: word uint32 su cui eseguire l'operazione
+ * 
+ * Ritorna una word uint32 contenente il risultato dell'operazione
+ */
+
 unsigned int sigma_1 (unsigned int x)
 {
     unsigned int num=0;
@@ -30,10 +42,16 @@ unsigned int sigma_1 (unsigned int x)
 return num;
 }
 
-/*usigma_0() 
-**Funzione che preleva in input una word a 32bit e restituisce il risultato dell'operazione indicata.
-**(Rotazione di 2) XOR (Rotazione di 13) XOR (Rotazione di 22)
-*/
+
+/*Funzione: usigma_1
+ *------------------
+ *Funzione che esegue l'operazione indicata: ROTR(x,2) XOR ROTR(x,13) XOR ROTR(x, 22)
+ *
+ *x: word uint32 su cui eseguire l'operazione
+ * 
+ * Ritorna una word uint32 contenente il risultato dell'operazione
+ */
+
 unsigned int usigma_0 (unsigned int x)
 {
     unsigned int num=0;
@@ -41,10 +59,16 @@ unsigned int usigma_0 (unsigned int x)
 return num;
 }
 
-/*usigma_1()
-**Funzione che preleva in input una word a 32bit e restituisce il risultato dell'operazione indicata.
-**(Rotazione di 6) XOR (Rotazione di 11) XOR (Rotazione di 25)
-*/
+
+/*Funzione: usigma_1
+ *------------------
+ *Funzione che esegue l'operazione indicata: ROTR(x,6) XOR ROTR(x,11) XOR ROTR(x, 25)
+ *
+ *x: word uint32 su cui eseguire l'operazione
+ * 
+ * Ritorna una word uint32 contenente il risultato dell'operazione
+ */
+
 unsigned int usigma_1 (unsigned int x)
 {
     unsigned int num=0;
@@ -52,9 +76,17 @@ unsigned int usigma_1 (unsigned int x)
 return num;
 }
 
-/*rotate()
-**Funzione che preleva in input una word a 32bit ed effettua la rotazione della stessa
-*/
+
+/*Funzione: rotate
+ *----------------
+ *Permette la rotazione di una word uint32, a destra di n_bit posizioni.
+ *
+ *x: word a cui applicare la rotazione
+ *n_bit: numero di posizioni di cui eseguire la rotazione.
+ *
+ *Ritorna una word uint32 che contiene la x ruotata.
+ */
+
 unsigned int rotate (unsigned int x, int n_bit)
 {
     unsigned int num=0;
@@ -62,11 +94,17 @@ unsigned int rotate (unsigned int x, int n_bit)
 return num;
 }
 
-/*decimal_to_bin() : conversione decimale -> binario.
-**Funzione che realizza la conversione da decimale a binaria. Viene utilizzata la convenzione BIG ENDIAN.
-**
-**Il formato BIG ENDIAN equivale a porre in v[0] = MSB; v[max] = LSB;
-*/
+
+/*Funzione: decimal_to_bin
+ *------------------------
+ *Realizza la conversione di un uint32 in forma binaria. Il formato è il
+ *BIG ENDIAN, che equivale a porre: vett[0] = MSB, vett[max] = LSB.
+ *
+ *x: numero da convertire
+ *vett: array in cui salvare la word in formato binario
+ *len_vett: numero di bit necessari per la conversione da decimale a binario
+ */
+
 void decimal_to_bin (unsigned int x, bool *vett, int len_vett)
 { 
     for (int i = 0; i < len_vett; i++){
@@ -79,9 +117,18 @@ void decimal_to_bin (unsigned int x, bool *vett, int len_vett)
     }
 }
 
-/*bin_to_decimal() : conversione binario -> decimale
-**Funzione che realizza la conversione da bianario a decimale.
-*/
+
+/*Funzione: bin_to_decimal
+ *------------------------
+ *Funzione che converte un numero uint32 scritto in forma binaria nella
+ *rispettiva versione in forma decimale.
+ *
+ *x: array di booleani che contiene i bit del numero da convertire
+ *len_x: lunghezza dei bit della word da convertire
+ *
+ * Ritorna il numero convertito in forma decimale.
+ */
+
 unsigned int bin_to_decimal (bool *x, int len_x)
 {
     unsigned int vett = 0;
@@ -91,12 +138,17 @@ unsigned int bin_to_decimal (bool *x, int len_x)
 return vett;
 }
 
-/*choice() : scelta()
-**x, y, z := word a 32 bit passati alla funzione,
-**num := word a 32 bit ritornata dalla funzione,
-**
-**In base al valore assunto da x[i], num[i] sarà uguale a y[i] oppure z[i].
-*/
+
+/*Funzione: choice
+ *----------------
+ *Funzione che sceglie i bit di ogni posizione delle word y, z, in base
+ *al contenuto della word x.
+ *
+ *x: word che determina la scelta
+ *y: prima word sceglibile
+ *z: seconda word sceglibile
+ */
+
 unsigned int choice (unsigned int x, unsigned int y, unsigned int z)
 {
     bool x_bit[WORD_LEN_BITS] = {0};
@@ -120,12 +172,19 @@ unsigned int choice (unsigned int x, unsigned int y, unsigned int z)
 return bin_to_decimal(num, WORD_LEN_BITS);
 }
 
-/*majority()
-**x, y, z := word a 32 bit passati alla funzione,
-**num := word a 32 bit ritornata dalla funzione,
-**
-**num[i] sarà pari al valore che è presente in maggioranza sulla colonna i-esima.
-*/
+
+/*Funzione: majority
+ *------------------
+ *Permette di determinare quali bit prevalgono in ogni posizione delle
+ *word uint32 x, y, z.
+ *
+ *x: prima word da comparare
+ *y: seconda word da comparare
+ *z: terza word da comparare
+ *
+ * Ritorna il risultato delle comparazioni tramite una word uint32.
+ */
+
 unsigned int majority (unsigned int x, unsigned int y, unsigned int z)
 {
     bool x_bit[WORD_LEN_BITS] = {0};
@@ -149,9 +208,17 @@ return bin_to_decimal(num, WORD_LEN_BITS);
 }
 
 
-/*int_32_to_char ()
-**Funzione che permette di convertire un unsigned int in un vettore di char che ne descriva le singole cifre in codice ASCII.
-*/
+/*Funzione: int32_to_char
+ *-----------------------
+ *Converte un numero uint32 in un vettore di char che ne descrive
+ *le singole cifre.
+ *
+ *input: numero uint32 da analizzare
+ *
+ *Ritorna il puntatore ad un array di char che contiene le cifre di input
+ *codificate come caratteri ASCII.
+ */
+
 char* int_32_to_char(unsigned int input) {
     char *string = malloc((HEX_NUMB_LENGTH + 1) * sizeof(char));
     uint32_to_stringDec(input, string);
@@ -163,7 +230,19 @@ void shift_state_reg(unsigned int *vett, int len){
         vett[len-i] = vett[len-i-1];
 }
 
-//Copia vett2[i] = vett1[i]
+
+/*Funzione: copy_vector
+ *---------------------
+ *Permette la copia di un array in un altro.
+ *
+ *vett1: array da copiare
+ *len1: lunghezza di vett1
+ *vett2: array in cui viene copiato vett1
+ *
+ * Ritorna uno 0 booleano se la copia avviene correttamente, altrimenti
+ * comporta l'uscita dal programma con un errore.
+ */
+
 bool copy_vector(const unsigned int *vett1, uint32_t len1, unsigned int *vett2, uint32_t len2){
     if(len1 != len2){
         printf("Error: what to copy? Lengths are different");
@@ -175,7 +254,20 @@ bool copy_vector(const unsigned int *vett1, uint32_t len1, unsigned int *vett2, 
 return 0;
 }
 
-//Somma tra due vettori vett2[i] = vett2[i] + vett1[i]
+
+/*Funzione: sum_vector
+ *--------------------
+ *Permette la somma di due array di uint32 di lunghezza uguale.
+ *
+ *vett1: primo array da sommare
+ *len1: lunghezza di vett1
+ *vett2: secondo array da sommare, su cui viene salvato il risultato
+ *len2: lunghezza di vett2
+ *
+ *Se la somma avviene correttamente ritorna uno 0 booleano, altrimenti
+ *comporta l'uscita dal programma con un errore.
+ */
+
 bool sum_vector(const unsigned int *vett1, int len1, unsigned int *vett2, int len2){
     if(len1 != len2){
         printf("Error: what to sum? Lengths are different");
@@ -186,6 +278,17 @@ bool sum_vector(const unsigned int *vett1, int len1, unsigned int *vett2, int le
             vett2[i] = vett2[i] + vett1[i];
 return 0;
 }
+
+
+/*Funzione: make_msg_block
+ *------------------------
+ *Alloca la memoria necessaria per creare il blocco di dati
+ *
+ * str_input: stringa su cui viene eseguita la funzione di hash
+ * n_blocks: numero di blocchi da allocare in memoria
+ * 
+ * Ritorna il puntatore al primo byte del blocco di dati
+ */
 
 uint32_t *make_msg_block(const char *const str_input, uint32_t *const n_blocks) {
     uint8_t free_bytes = get_free_bytes(str_input);
@@ -200,6 +303,16 @@ uint32_t *make_msg_block(const char *const str_input, uint32_t *const n_blocks) 
     return msg_data;
 }
 
+
+/*Funzione: load_data
+ *-------------------
+ *Riempie il blocco di dati vuoto con il messaggio, il bit di offset e la
+ *lunghezza del messaggio.
+ *
+ *str_input: stringa che contiene il messaggio da scrivere nel blocco di dati
+ *msg_data: puntatore al primo byte del blocco di dati
+ * n_blocks: numero di blocchi da allocare in memoria
+ */
 
 void load_data(const char *const str_input, uint32_t *msg_data, uint32_t *const n_blocks) {
     uint64_t str_input_len = strlen(str_input);
@@ -226,6 +339,17 @@ void load_data(const char *const str_input, uint32_t *msg_data, uint32_t *const 
 }
 
 
+/*Funzione: get_free_bytes
+ *------------------------
+ *Calcola quanti byte sono rimasti liberi per la scrittura di informazioni
+ *nell'ultima word in cui viene scritto l'ultimo gruppo di caratteri del
+ *messaggio. Viene utilizzata per trascrivere correttamente l'1 di offset.
+ *
+ *string: stringa contenente il messaggio
+ *
+ * Ritorna il numero di byte liberi nell'ultima word
+ */
+
 uint8_t get_free_bytes(const char *const string) {
     switch (strlen(string) % 4) {
         case 0:
@@ -241,6 +365,15 @@ uint8_t get_free_bytes(const char *const string) {
     } 
 }
 
+
+/*Funzione: hash
+ *--------------
+ *Funzione che applica la funzione di hash a una determinata stringa.
+ *
+ *str_input: stringa che contiene il messaggio su cui operare l'hashing
+ *h_i: array in cui viene salvato l'hash in gruppi di word a 32 bit
+ */
+
 void hash(const char *const str_input, uint32_t *const h_i) {
     uint32_t n_blocks;
     uint32_t h_0[DIM_HASH] = {H_INIZIALI};
@@ -253,7 +386,6 @@ void hash(const char *const str_input, uint32_t *const h_i) {
     load_data(str_input, msg_data, &n_blocks);
 
     for (uint32_t j = 0; j < n_blocks; j++){ 
-        //Devo farlo sempre?
         copy_vector(h_0, DIM_HASH, h_i, DIM_HASH);
 
         //Message schedule
