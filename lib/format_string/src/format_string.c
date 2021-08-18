@@ -174,7 +174,7 @@ void print_block_header(const block *block_to_print, char *str_out){
     print_line(" ", tmp, line10);
 
     //line11 -> nonce
-    uint32_to_stringHex(block_to_print -> nonce, tmp);
+    uint32_to_stringDec(block_to_print -> nonce, tmp);
     print_line(NONCE, tmp, line11);
 
     //stringa finale
@@ -251,7 +251,7 @@ void block_header_matrix(const block *block_to_print, char matrix [BLOCK_LINES][
     print_line(" ", tmp, line10);
 
     //line11 -> nonce
-    uint32_to_stringHex(block_to_print -> nonce, tmp);
+    uint32_to_stringDec(block_to_print -> nonce, tmp);
     print_line(NONCE, tmp, line11);
 
     strcpy(matrix [0], line1);
