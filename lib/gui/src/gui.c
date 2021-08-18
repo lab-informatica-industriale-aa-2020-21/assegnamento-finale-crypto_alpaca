@@ -13,7 +13,42 @@
 //-selection_box
 //-title_box
 //-block_box
+//-mining_box
 
+
+/* Funzione: 'mining_box' 
+*-------------------------------------------------------------------------------------------
+*  Stampa su terminale una schermata di caricamento durante il 'mining'.
+*  (La finestra va inizializzata e chiusta direttamene nella funzione 'mine' in
+*  'blockchain.h')
+*-------------------------------------------------------------------------------------------
+* 
+* args:         void
+* return:       void
+*/
+void mining_box(void){
+    //vengono definiti i comportamenti della finestra agli input
+    noecho();
+    keypad(w, TRUE);
+    curs_set(0);
+
+    //stampa schermata di mining
+    char matrix [MINE_ROWS][MAX_STR_LEN_MINE + 1] = {"        ______TT______       ",
+                                                     "       /______________\\      ",
+                                                     "              ||             ",
+                                                     "              ||             ",
+                                                     "              ||             ",
+                                                     "              ||             ",
+                                                     "              ||             ",
+                                                     "              \\/             ",
+                                                     "              °°            ",
+                                                     "                             ",
+                                                     "           Mining...         "};
+    
+    //stampa schermata
+    for (int i = 0; i < MINE_ROWS; i++)
+        mvwprintw(w, MINE_ROWS/2 + i, MAX_STR_LEN/2 - MAX_STR_LEN_MINE/2 + 2, "%s", matrix [i]);
+}
 
 
 /* Funzione: 'block_box' 

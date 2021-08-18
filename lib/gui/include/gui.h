@@ -54,4 +54,6 @@ void title_box(char *title, int num_rows, char descriptions [MAX_ITEMS][MAX_STR_
 
 void block_box(char *title, block block_to_print);
 
+void mining_box(void);
+
 #endif
