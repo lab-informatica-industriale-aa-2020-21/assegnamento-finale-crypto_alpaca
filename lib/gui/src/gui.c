@@ -4,6 +4,59 @@
 
 #include "gui.h"
 
+/* Funzione: 'title_box' 
+*-------------------------------------------------------------------------------------------
+*  Stampa su terminale una schermata di avvio con titolo e desctrizione.
+*-------------------------------------------------------------------------------------------
+* 
+* args:         *title          -> stringa contenente il titlo (dim<MAX_STR_LEN)
+*               num_rows        -> numero di righe della descrizione
+*               descriptions    -> matrice di stringhe contenente le righe della
+*                                  descrizione
+* return:       void
+*/
+void title_box(char*title, int num_rows, char descriptions [MAX_ITEMS][MAX_STR_LEN + 1]){
+    //saturazione di num_rows entro i limiti
+    int n_rows = saturate(num_rows, MAX_ITEMS);
+
+    //inizializzazione ncurses
+    initscr();
+
+    //inizializzazione colori
+    set_colors();
+
+    //inizializzazione finestra
+    WINDOW *w = new_window();
+
+    //vengono definiti i comportamenti della finestra agli input
+    noecho();
+    keypad(w, TRUE);
+    curs_set(0);
+
+    //stampa titolo
+        //attivazione attributi; args: *w, attributi | ...
+    wattron(w, A_BOLD | A_UNDERLINE | COLOR_PAIR(TITLE_COLOR));
+        //stampa del titolo a schermo
+    mvwprintw(w, 1, 2, "%s", title);
+        //ripristino attributi normali
+    wattrset(w, A_NORMAL);
+
+    //stampa descrizione
+    for (int i = 0; i < n_rows; i++)
+        mvwprintw(w, UNUSABLE_ROWS + i, 2, "%s", descriptions [i]);
+
+    //stampa "Press ENTER"
+    mvwprintw(w, MAX_ITEMS + UNUSABLE_ROWS, 2, "%*s", MAX_STR_LEN, "Press ENTER");
+
+    //sttesa input ENTER
+    while(wgetch(w) != '\n'){};
+
+    //chiusura finestra
+    delwin(w);
+    endwin();
+}
+
+
 /* Funzione: 'selection_box' 
 *-------------------------------------------------------------------------------------------
 *  Formatta su terminale una finestra di selezione, completa di titolo, selezioni, e
@@ -13,6 +66,10 @@
 *  utile mostrare delle funzioni che si attiveranno nello sviluppo del programma.
 *  Se necessario, può implementare una selezione speciale con la possibilità aggiuntiva
 *  di inserire un input di tipo 'uint' da tastiera che sarà ritornato con un puntatore.
+*
+*  Dimensioni massime stringhe:
+*  titolo e selezioni "normali" -> MAX_STR_LEN + 1
+*  selezioni non disponibili e con input 'uint' -> MAX_STR_LEN - 14 + 1
 *
 *  Esempio finestra di selezione:
 *
