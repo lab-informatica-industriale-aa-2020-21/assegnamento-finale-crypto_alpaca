@@ -113,14 +113,6 @@
                     0xc67178f2
 
 
-struct Msg_block {
-    uint8_t *data;
-    uint32_t msg_len;
-};
-typedef struct Msg_block msg_block;
-
-
-
 unsigned int rotate (unsigned int num, int n_bit);
 unsigned int sigma_0 (unsigned int x);
 unsigned int sigma_1 (unsigned int x);
