@@ -17,7 +17,7 @@
 #define BLOCK_LINES 11
 #define MINE_ROWS 11
 #define MAX_STR_LEN_MINE 30
-#define TRANS_ROWS 3
+#define TRANS_ROWS 4
 #define SENDER "Sender (DEC):"
 #define RECEIVER "Receiver (DEC):"
 #define AMOUNT "Amount (DEC):"

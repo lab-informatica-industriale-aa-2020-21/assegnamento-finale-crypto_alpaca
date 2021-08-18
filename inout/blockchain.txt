@@ -11311,3 +11311,815 @@ Receiver:                  327b23c7
 Amount:                  1681692778
 N. di trans.                      1
                                    
+Index:                   0000000016
+Creation time:  2021-08-18 21:02:34
+Hash number:               0002248b
+                           d0746c48
+                           71d805b8
+                           f1d10c5a
+                           b2226106
+                           f1b0fb92
+                           ebeea30b
+                           7ce79beb
+Nonce number:              00000131
+Transaction n.           0000000001
+Sender:                    6b8b4568
+Receiver:                  327b23c7
+Amount:                  1681692778
+Transaction n.           0000000002
+Sender:                    66334874
+Receiver:                  74b0dc52
+Amount:                  0424238336
+Transaction n.           0000000003
+Sender:                    2ae8944b
+Receiver:                  625558ed
+Amount:                  0596516650
+Transaction n.           0000000004
+Sender:                    46e87cce
+Receiver:                  3d1b58bb
+Amount:                  1350490028
+Transaction n.           0000000005
+Sender:                    2eb141f3
+Receiver:                  41b71efc
+Amount:                  2044897764
+Transaction n.           0000000006
+Sender:                    7545e147
+Receiver:                  515f007d
+Amount:                  1540383427
+Transaction n.           0000000007
+Sender:                    12200855
+Receiver:                  4db127f9
+Amount:                  0035005212
+Transaction n.           0000000008
+Sender:                    1f16e9e9
+Receiver:                  1190cde8
+Amount:                  1726956430
+Transaction n.           0000000009
+Sender:                    140e0f77
+Receiver:                  3352255b
+Amount:                  0278722863
+Transaction n.           0000000010
+Sender:                    0ded7264
+Receiver:                  7fdcc234
+Amount:                  0468703136
+Transaction n.           0000000011
+Sender:                    41a7c4ca
+Receiver:                  6b68079b
+Amount:                  1315634023
+Transaction n.           0000000012
+Sender:                    25e45d33
+Receiver:                  519b500e
+Amount:                  1125898168
+Transaction n.           0000000013
+Sender:                    3f2dba32
+Receiver:                  7c83e459
+Amount:                  0628175012
+Transaction n.           0000000014
+Sender:                    62bbd95b
+Receiver:                  436c6126
+Amount:                  1653377374
+Transaction n.           0000000015
+Sender:                    333ab106
+Receiver:                  721da318
+Amount:                  0608413785
+Transaction n.           0000000016
+Sender:                    2d1d5aea
+Receiver:                  6763845f
+Amount:                  1973594325
+Transaction n.           0000000017
+Sender:                    08edbdac
+Receiver:                  79838cb3
+Amount:                  1129566414
+Transaction n.           0000000018
+Sender:                    0b03e0c7
+Receiver:                  189a769c
+Amount:                  1424268981
+Transaction n.           0000000019
+Sender:                    71f32455
+Receiver:                  2ca88612
+Amount:                  0137806863
+Transaction n.           0000000020
+Sender:                    02901d83
+Receiver:                  3a95f875
+Amount:                  0135497282
+N. di trans.                     20
+                                   
+Index:                   0000000017
+Creation time:  2021-08-18 21:03:16
+Hash number:               00e7e6cb
+                           7ec534f6
+                           b5c6b2d9
+                           480a5738
+                           c8e47e61
+                           5d49653c
+                           f2b8591e
+                           c007145a
+Nonce number:              00000059
+Transaction n.           0000000001
+Sender:                    6b8b4568
+Receiver:                  327b23c7
+Amount:                  1681692778
+Transaction n.           0000000002
+Sender:                    66334874
+Receiver:                  74b0dc52
+Amount:                  0424238336
+Transaction n.           0000000003
+Sender:                    2ae8944b
+Receiver:                  625558ed
+Amount:                  0596516650
+Transaction n.           0000000004
+Sender:                    46e87cce
+Receiver:                  3d1b58bb
+Amount:                  1350490028
+Transaction n.           0000000005
+Sender:                    2eb141f3
+Receiver:                  41b71efc
+Amount:                  2044897764
+Transaction n.           0000000006
+Sender:                    7545e147
+Receiver:                  515f007d
+Amount:                  1540383427
+Transaction n.           0000000007
+Sender:                    12200855
+Receiver:                  4db127f9
+Amount:                  0035005212
+Transaction n.           0000000008
+Sender:                    1f16e9e9
+Receiver:                  1190cde8
+Amount:                  1726956430
+Transaction n.           0000000009
+Sender:                    140e0f77
+Receiver:                  3352255b
+Amount:                  0278722863
+Transaction n.           0000000010
+Sender:                    0ded7264
+Receiver:                  7fdcc234
+Amount:                  0468703136
+Transaction n.           0000000011
+Sender:                    41a7c4ca
+Receiver:                  6b68079b
+Amount:                  1315634023
+Transaction n.           0000000012
+Sender:                    25e45d33
+Receiver:                  519b500e
+Amount:                  1125898168
+Transaction n.           0000000013
+Sender:                    3f2dba32
+Receiver:                  7c83e459
+Amount:                  0628175012
+Transaction n.           0000000014
+Sender:                    62bbd95b
+Receiver:                  436c6126
+Amount:                  1653377374
+Transaction n.           0000000015
+Sender:                    333ab106
+Receiver:                  721da318
+Amount:                  0608413785
+Transaction n.           0000000016
+Sender:                    2d1d5aea
+Receiver:                  6763845f
+Amount:                  1973594325
+Transaction n.           0000000017
+Sender:                    08edbdac
+Receiver:                  79838cb3
+Amount:                  1129566414
+Transaction n.           0000000018
+Sender:                    0b03e0c7
+Receiver:                  189a769c
+Amount:                  1424268981
+Transaction n.           0000000019
+Sender:                    71f32455
+Receiver:                  2ca88612
+Amount:                  0137806863
+Transaction n.           0000000020
+Sender:                    02901d83
+Receiver:                  3a95f875
+Amount:                  0135497282
+N. di trans.                     20
+                                   
+Index:                   0000000017
+Creation time:  2021-08-18 21:03:16
+Hash number:               00e7e6cb
+                           7ec534f6
+                           b5c6b2d9
+                           480a5738
+                           c8e47e61
+                           5d49653c
+                           f2b8591e
+                           c007145a
+Nonce number:              00000059
+Transaction n.           0000000001
+Sender:                    6b8b4568
+Receiver:                  327b23c7
+Amount:                  1681692778
+Transaction n.           0000000002
+Sender:                    66334874
+Receiver:                  74b0dc52
+Amount:                  0424238336
+Transaction n.           0000000003
+Sender:                    2ae8944b
+Receiver:                  625558ed
+Amount:                  0596516650
+Transaction n.           0000000004
+Sender:                    46e87cce
+Receiver:                  3d1b58bb
+Amount:                  1350490028
+Transaction n.           0000000005
+Sender:                    2eb141f3
+Receiver:                  41b71efc
+Amount:                  2044897764
+Transaction n.           0000000006
+Sender:                    7545e147
+Receiver:                  515f007d
+Amount:                  1540383427
+Transaction n.           0000000007
+Sender:                    12200855
+Receiver:                  4db127f9
+Amount:                  0035005212
+Transaction n.           0000000008
+Sender:                    1f16e9e9
+Receiver:                  1190cde8
+Amount:                  1726956430
+Transaction n.           0000000009
+Sender:                    140e0f77
+Receiver:                  3352255b
+Amount:                  0278722863
+Transaction n.           0000000010
+Sender:                    0ded7264
+Receiver:                  7fdcc234
+Amount:                  0468703136
+Transaction n.           0000000011
+Sender:                    41a7c4ca
+Receiver:                  6b68079b
+Amount:                  1315634023
+Transaction n.           0000000012
+Sender:                    25e45d33
+Receiver:                  519b500e
+Amount:                  1125898168
+Transaction n.           0000000013
+Sender:                    3f2dba32
+Receiver:                  7c83e459
+Amount:                  0628175012
+Transaction n.           0000000014
+Sender:                    62bbd95b
+Receiver:                  436c6126
+Amount:                  1653377374
+Transaction n.           0000000015
+Sender:                    333ab106
+Receiver:                  721da318
+Amount:                  0608413785
+Transaction n.           0000000016
+Sender:                    2d1d5aea
+Receiver:                  6763845f
+Amount:                  1973594325
+Transaction n.           0000000017
+Sender:                    08edbdac
+Receiver:                  79838cb3
+Amount:                  1129566414
+Transaction n.           0000000018
+Sender:                    0b03e0c7
+Receiver:                  189a769c
+Amount:                  1424268981
+Transaction n.           0000000019
+Sender:                    71f32455
+Receiver:                  2ca88612
+Amount:                  0137806863
+Transaction n.           0000000020
+Sender:                    02901d83
+Receiver:                  3a95f875
+Amount:                  0135497282
+N. di trans.                     20
+                                   
+Index:                   0000000018
+Creation time:  2021-08-18 21:03:27
+Hash number:               007c1888
+                           897622e6
+                           7415f6f4
+                           6d1959de
+                           fd7f8242
+                           6560ecc5
+                           5f78418d
+                           b16e32a8
+Nonce number:              00000027
+Transaction n.           0000000001
+Sender:                    1e7ff522
+Receiver:                  7c3dbd3e
+Amount:                  1937477085
+Transaction n.           0000000002
+Sender:                    6ceaf088
+Receiver:                  22221a71
+Amount:                  1159126506
+Transaction n.           0000000003
+Sender:                    3006c83f
+Receiver:                  614fd4a2
+Amount:                  1100661314
+Transaction n.           0000000004
+Sender:                    5577f8e2
+Receiver:                  440badfd
+Amount:                  0084353896
+Transaction n.           0000000005
+Sender:                    3804823f
+Receiver:                  77465f02
+Amount:                  1998898815
+Transaction n.           0000000006
+Sender:                    5c482a98
+Receiver:                  2463b9eb
+Amount:                  1585990365
+Transaction n.           0000000007
+Sender:                    51ead36c
+Receiver:                  2d517797
+Amount:                  1477171088
+Transaction n.           0000000008
+Sender:                    153ea439
+Receiver:                  3855585d
+Amount:                  1889947179
+Transaction n.           0000000009
+Sender:                    6a2342ed
+Receiver:                  2a487cb1
+Amount:                  0491705404
+Transaction n.           0000000010
+Sender:                    725a06fc
+Receiver:                  2cd89a33
+Amount:                  1474612400
+Transaction n.           0000000011
+Sender:                    7a6d8d3d
+Receiver:                  4b588f55
+Amount:                  1411549677
+Transaction n.           0000000012
+Sender:                    6de91b19
+Receiver:                  38437fdc
+Amount:                  1984210013
+Transaction n.           0000000013
+Sender:                    32fff903
+Receiver:                  684a481b
+Amount:                  1469348095
+Transaction n.           0000000014
+Sender:                    749abb44
+Receiver:                  3dc240fc
+Amount:                  0463480571
+Transaction n.           0000000015
+Sender:                    79a1deab
+Receiver:                  75c6c33b
+Amount:                  0317097468
+Transaction n.           0000000016
+Sender:                    70c6a52a
+Receiver:                  520eedd2
+Amount:                  0927612903
+Transaction n.           0000000017
+Sender:                    4f4ef006
+Receiver:                  23f9c13d
+Amount:                  1687926653
+Transaction n.           0000000018
+Sender:                    275ac795
+Receiver:                  39386576
+Amount:                  0485560281
+Transaction n.           0000000019
+Sender:                    180115bf
+Receiver:                  235ba862
+Amount:                  1194953866
+Transaction n.           0000000020
+Sender:                    354fe9fa
+Receiver:                  15b5af5d
+Amount:                  1947346620
+N. di trans.                     20
+                                   
+Index:                   0000000017
+Creation time:  2021-08-18 21:03:16
+Hash number:               00e7e6cb
+                           7ec534f6
+                           b5c6b2d9
+                           480a5738
+                           c8e47e61
+                           5d49653c
+                           f2b8591e
+                           c007145a
+Nonce number:              00000059
+Transaction n.           0000000001
+Sender:                    6b8b4568
+Receiver:                  327b23c7
+Amount:                  1681692778
+Transaction n.           0000000002
+Sender:                    66334874
+Receiver:                  74b0dc52
+Amount:                  0424238336
+Transaction n.           0000000003
+Sender:                    2ae8944b
+Receiver:                  625558ed
+Amount:                  0596516650
+Transaction n.           0000000004
+Sender:                    46e87cce
+Receiver:                  3d1b58bb
+Amount:                  1350490028
+Transaction n.           0000000005
+Sender:                    2eb141f3
+Receiver:                  41b71efc
+Amount:                  2044897764
+Transaction n.           0000000006
+Sender:                    7545e147
+Receiver:                  515f007d
+Amount:                  1540383427
+Transaction n.           0000000007
+Sender:                    12200855
+Receiver:                  4db127f9
+Amount:                  0035005212
+Transaction n.           0000000008
+Sender:                    1f16e9e9
+Receiver:                  1190cde8
+Amount:                  1726956430
+Transaction n.           0000000009
+Sender:                    140e0f77
+Receiver:                  3352255b
+Amount:                  0278722863
+Transaction n.           0000000010
+Sender:                    0ded7264
+Receiver:                  7fdcc234
+Amount:                  0468703136
+Transaction n.           0000000011
+Sender:                    41a7c4ca
+Receiver:                  6b68079b
+Amount:                  1315634023
+Transaction n.           0000000012
+Sender:                    25e45d33
+Receiver:                  519b500e
+Amount:                  1125898168
+Transaction n.           0000000013
+Sender:                    3f2dba32
+Receiver:                  7c83e459
+Amount:                  0628175012
+Transaction n.           0000000014
+Sender:                    62bbd95b
+Receiver:                  436c6126
+Amount:                  1653377374
+Transaction n.           0000000015
+Sender:                    333ab106
+Receiver:                  721da318
+Amount:                  0608413785
+Transaction n.           0000000016
+Sender:                    2d1d5aea
+Receiver:                  6763845f
+Amount:                  1973594325
+Transaction n.           0000000017
+Sender:                    08edbdac
+Receiver:                  79838cb3
+Amount:                  1129566414
+Transaction n.           0000000018
+Sender:                    0b03e0c7
+Receiver:                  189a769c
+Amount:                  1424268981
+Transaction n.           0000000019
+Sender:                    71f32455
+Receiver:                  2ca88612
+Amount:                  0137806863
+Transaction n.           0000000020
+Sender:                    02901d83
+Receiver:                  3a95f875
+Amount:                  0135497282
+N. di trans.                     20
+                                   
+Index:                   0000000018
+Creation time:  2021-08-18 21:03:27
+Hash number:               007c1888
+                           897622e6
+                           7415f6f4
+                           6d1959de
+                           fd7f8242
+                           6560ecc5
+                           5f78418d
+                           b16e32a8
+Nonce number:              00000027
+Transaction n.           0000000001
+Sender:                    1e7ff522
+Receiver:                  7c3dbd3e
+Amount:                  1937477085
+Transaction n.           0000000002
+Sender:                    6ceaf088
+Receiver:                  22221a71
+Amount:                  1159126506
+Transaction n.           0000000003
+Sender:                    3006c83f
+Receiver:                  614fd4a2
+Amount:                  1100661314
+Transaction n.           0000000004
+Sender:                    5577f8e2
+Receiver:                  440badfd
+Amount:                  0084353896
+Transaction n.           0000000005
+Sender:                    3804823f
+Receiver:                  77465f02
+Amount:                  1998898815
+Transaction n.           0000000006
+Sender:                    5c482a98
+Receiver:                  2463b9eb
+Amount:                  1585990365
+Transaction n.           0000000007
+Sender:                    51ead36c
+Receiver:                  2d517797
+Amount:                  1477171088
+Transaction n.           0000000008
+Sender:                    153ea439
+Receiver:                  3855585d
+Amount:                  1889947179
+Transaction n.           0000000009
+Sender:                    6a2342ed
+Receiver:                  2a487cb1
+Amount:                  0491705404
+Transaction n.           0000000010
+Sender:                    725a06fc
+Receiver:                  2cd89a33
+Amount:                  1474612400
+Transaction n.           0000000011
+Sender:                    7a6d8d3d
+Receiver:                  4b588f55
+Amount:                  1411549677
+Transaction n.           0000000012
+Sender:                    6de91b19
+Receiver:                  38437fdc
+Amount:                  1984210013
+Transaction n.           0000000013
+Sender:                    32fff903
+Receiver:                  684a481b
+Amount:                  1469348095
+Transaction n.           0000000014
+Sender:                    749abb44
+Receiver:                  3dc240fc
+Amount:                  0463480571
+Transaction n.           0000000015
+Sender:                    79a1deab
+Receiver:                  75c6c33b
+Amount:                  0317097468
+Transaction n.           0000000016
+Sender:                    70c6a52a
+Receiver:                  520eedd2
+Amount:                  0927612903
+Transaction n.           0000000017
+Sender:                    4f4ef006
+Receiver:                  23f9c13d
+Amount:                  1687926653
+Transaction n.           0000000018
+Sender:                    275ac795
+Receiver:                  39386576
+Amount:                  0485560281
+Transaction n.           0000000019
+Sender:                    180115bf
+Receiver:                  235ba862
+Amount:                  1194953866
+Transaction n.           0000000020
+Sender:                    354fe9fa
+Receiver:                  15b5af5d
+Amount:                  1947346620
+N. di trans.                     20
+                                   
+Index:                   0000000019
+Creation time:  2021-08-18 21:03:51
+Hash number:               007e2a74
+                           c51f83f0
+                           aa1e3a72
+                           fe06cdad
+                           fa1cb6a7
+                           f6d5a204
+                           38865faf
+                           9b9bf275
+Nonce number:              0000007d
+Transaction n.           0000000001
+Sender:                    00000018
+Receiver:                  00000159
+Amount:                  0000000345
+N. di trans.                      1
+                                   
+Index:                   0000000017
+Creation time:  2021-08-18 21:03:16
+Hash number:               00e7e6cb
+                           7ec534f6
+                           b5c6b2d9
+                           480a5738
+                           c8e47e61
+                           5d49653c
+                           f2b8591e
+                           c007145a
+Nonce number:              00000059
+Transaction n.           0000000001
+Sender:                    6b8b4568
+Receiver:                  327b23c7
+Amount:                  1681692778
+Transaction n.           0000000002
+Sender:                    66334874
+Receiver:                  74b0dc52
+Amount:                  0424238336
+Transaction n.           0000000003
+Sender:                    2ae8944b
+Receiver:                  625558ed
+Amount:                  0596516650
+Transaction n.           0000000004
+Sender:                    46e87cce
+Receiver:                  3d1b58bb
+Amount:                  1350490028
+Transaction n.           0000000005
+Sender:                    2eb141f3
+Receiver:                  41b71efc
+Amount:                  2044897764
+Transaction n.           0000000006
+Sender:                    7545e147
+Receiver:                  515f007d
+Amount:                  1540383427
+Transaction n.           0000000007
+Sender:                    12200855
+Receiver:                  4db127f9
+Amount:                  0035005212
+Transaction n.           0000000008
+Sender:                    1f16e9e9
+Receiver:                  1190cde8
+Amount:                  1726956430
+Transaction n.           0000000009
+Sender:                    140e0f77
+Receiver:                  3352255b
+Amount:                  0278722863
+Transaction n.           0000000010
+Sender:                    0ded7264
+Receiver:                  7fdcc234
+Amount:                  0468703136
+Transaction n.           0000000011
+Sender:                    41a7c4ca
+Receiver:                  6b68079b
+Amount:                  1315634023
+Transaction n.           0000000012
+Sender:                    25e45d33
+Receiver:                  519b500e
+Amount:                  1125898168
+Transaction n.           0000000013
+Sender:                    3f2dba32
+Receiver:                  7c83e459
+Amount:                  0628175012
+Transaction n.           0000000014
+Sender:                    62bbd95b
+Receiver:                  436c6126
+Amount:                  1653377374
+Transaction n.           0000000015
+Sender:                    333ab106
+Receiver:                  721da318
+Amount:                  0608413785
+Transaction n.           0000000016
+Sender:                    2d1d5aea
+Receiver:                  6763845f
+Amount:                  1973594325
+Transaction n.           0000000017
+Sender:                    08edbdac
+Receiver:                  79838cb3
+Amount:                  1129566414
+Transaction n.           0000000018
+Sender:                    0b03e0c7
+Receiver:                  189a769c
+Amount:                  1424268981
+Transaction n.           0000000019
+Sender:                    71f32455
+Receiver:                  2ca88612
+Amount:                  0137806863
+Transaction n.           0000000020
+Sender:                    02901d83
+Receiver:                  3a95f875
+Amount:                  0135497282
+N. di trans.                     20
+                                   
+Index:                   0000000018
+Creation time:  2021-08-18 21:03:27
+Hash number:               007c1888
+                           897622e6
+                           7415f6f4
+                           6d1959de
+                           fd7f8242
+                           6560ecc5
+                           5f78418d
+                           b16e32a8
+Nonce number:              00000027
+Transaction n.           0000000001
+Sender:                    1e7ff522
+Receiver:                  7c3dbd3e
+Amount:                  1937477085
+Transaction n.           0000000002
+Sender:                    6ceaf088
+Receiver:                  22221a71
+Amount:                  1159126506
+Transaction n.           0000000003
+Sender:                    3006c83f
+Receiver:                  614fd4a2
+Amount:                  1100661314
+Transaction n.           0000000004
+Sender:                    5577f8e2
+Receiver:                  440badfd
+Amount:                  0084353896
+Transaction n.           0000000005
+Sender:                    3804823f
+Receiver:                  77465f02
+Amount:                  1998898815
+Transaction n.           0000000006
+Sender:                    5c482a98
+Receiver:                  2463b9eb
+Amount:                  1585990365
+Transaction n.           0000000007
+Sender:                    51ead36c
+Receiver:                  2d517797
+Amount:                  1477171088
+Transaction n.           0000000008
+Sender:                    153ea439
+Receiver:                  3855585d
+Amount:                  1889947179
+Transaction n.           0000000009
+Sender:                    6a2342ed
+Receiver:                  2a487cb1
+Amount:                  0491705404
+Transaction n.           0000000010
+Sender:                    725a06fc
+Receiver:                  2cd89a33
+Amount:                  1474612400
+Transaction n.           0000000011
+Sender:                    7a6d8d3d
+Receiver:                  4b588f55
+Amount:                  1411549677
+Transaction n.           0000000012
+Sender:                    6de91b19
+Receiver:                  38437fdc
+Amount:                  1984210013
+Transaction n.           0000000013
+Sender:                    32fff903
+Receiver:                  684a481b
+Amount:                  1469348095
+Transaction n.           0000000014
+Sender:                    749abb44
+Receiver:                  3dc240fc
+Amount:                  0463480571
+Transaction n.           0000000015
+Sender:                    79a1deab
+Receiver:                  75c6c33b
+Amount:                  0317097468
+Transaction n.           0000000016
+Sender:                    70c6a52a
+Receiver:                  520eedd2
+Amount:                  0927612903
+Transaction n.           0000000017
+Sender:                    4f4ef006
+Receiver:                  23f9c13d
+Amount:                  1687926653
+Transaction n.           0000000018
+Sender:                    275ac795
+Receiver:                  39386576
+Amount:                  0485560281
+Transaction n.           0000000019
+Sender:                    180115bf
+Receiver:                  235ba862
+Amount:                  1194953866
+Transaction n.           0000000020
+Sender:                    354fe9fa
+Receiver:                  15b5af5d
+Amount:                  1947346620
+N. di trans.                     20
+                                   
+Index:                   0000000019
+Creation time:  2021-08-18 21:03:51
+Hash number:               007e2a74
+                           c51f83f0
+                           aa1e3a72
+                           fe06cdad
+                           fa1cb6a7
+                           f6d5a204
+                           38865faf
+                           9b9bf275
+Nonce number:              0000007d
+Transaction n.           0000000001
+Sender:                    00000018
+Receiver:                  00000159
+Amount:                  0000000345
+N. di trans.                      1
+                                   
+Index:                   0000000020
+Creation time:  2021-08-18 21:04:19
+Hash number:               00466749
+                           0219b06e
+                           ef29e65b
+                           2786e5c2
+                           4bbd19b0
+                           684a5e2a
+                           67a20670
+                           f2a8fb0c
+Nonce number:              000001c4
+Transaction n.           0000000001
+Sender:                    000001c8
+Receiver:                  00000038
+Amount:                  0000002356
+N. di trans.                      1
+                                   
+Index:                   0000000021
+Creation time:  2021-08-18 21:38:25
+Hash number:               00717bd9
+                           63542d0d
+                           72746294
+                           a9ae7979
+                           3b5c837e
+                           b8fe393d
+                           2aa5cff6
+                           e4064f94
+Nonce number:              0000007f
+Transaction n.           0000000001
+Sender:                    00000022
+Receiver:                  00000159
+Amount:                  0000002345
+N. di trans.                      1
+                                   

@@ -161,8 +161,8 @@ int selection_box(char *title, int num_items, char selections [MAX_ITEMS][MAX_ST
 *               *sender         -> puntatore alla variabile sender
 *               *receiver       -> puntatore alla variabile receiver
 *               *amount         -> puntatore alla variabile amount
-* return:       transaction_box -> '0' se l'utente preme ENTER non su 'QUIT'
-*                                  '-1' se l'utente preme ENTER su 'QUIT'
+* return:       transaction_box -> '0' se l'utente seleziona 'Enter'
+*                                  '-1' se l'utente seleziona'QUIT'
 */
 int transaction_box(char *title, uint32_t *sender, uint32_t *receiver, uint32_t *amount){
     //variabile che tiene traccia della selezione istantanea dell'utente
@@ -192,10 +192,12 @@ int transaction_box(char *title, uint32_t *sender, uint32_t *receiver, uint32_t 
     endwin();
 
     //return
-    if(tmp != TRANS_ROWS)  //return = 0 se l'utente preme 'ENTER' su una selezione qualsiasi
+    if(tmp == TRANS_ROWS - 1)   //return = 0 se l'utente seleziona 'Enter'
         return 0;
+    if(tmp == TRANS_ROWS)
+        return -1;              //return = -1 se l'utente seleziona 'QUIT'
     else
-        return -1;     //return = -1 se l'utente seleziona 'QUIT'
+        exit(EXIT_FAILURE);
 }
 
 
@@ -632,7 +634,7 @@ void print_transaction(WINDOW *w, int *tmp, char *str_sender, char *str_receiver
     char item [MAX_STR_LEN + 1];
     
     //stampa delle selezioni con input 'uint'
-    if (*tmp != TRANS_ROWS){
+    if (*tmp < TRANS_ROWS - 1){
         sprintf(item, "%-*s", MAX_STR_LEN - (int)strlen(INPUT), selections[*tmp]);
         mvwprintw(w, *tmp + UNUSABLE_ROWS, 2, "%s", item);
 
@@ -649,6 +651,11 @@ void print_transaction(WINDOW *w, int *tmp, char *str_sender, char *str_receiver
                 mvwprintw(w, *tmp + UNUSABLE_ROWS, MAX_COLS - (int)strlen(INPUT) - 2, "%-s", str_amount);
                 break;
         }
+    }
+    //stampa di 'Enter'
+    else if (*tmp == TRANS_ROWS - 1){
+        sprintf(item, "%-*s", MAX_STR_LEN, "Enter");
+        mvwprintw(w, *tmp + UNUSABLE_ROWS, 2, "%s", item);
     }
     //stampa di 'QUIT'
     else{
@@ -757,8 +764,8 @@ void print_selection_box(WINDOW *w, int *tmp, char *title, int n_items, char sel
 
 /* Funzione: 'print_transaction_box' 
 *-------------------------------------------------------------------------------------------
-*  Stampa a terminale in una finestra in ordine: titolo, selezioni con input 'uint' e
-*  selezione 'QUIT'.
+*  Stampa a terminale in una finestra in ordine: titolo, selezioni con input 'uint',
+*  selezione 'Enter' e selezione 'QUIT'.
 *-------------------------------------------------------------------------------------------
 * 
 * args:         *w              -> puntatore ad una finestra precedentemente inizializzata
@@ -790,15 +797,19 @@ void print_transaction_box(WINDOW *w, char *title, char selections [MAX_ITEMS][M
             //si rimuove l'attributo A_STANDOUT per i successivi elementi
             wattroff(w, A_STANDOUT);
 
-
         
-        //si formatta una selezione con input 'uint'
-        sprintf(item, "%-*s", MAX_STR_LEN - (int)strlen(INPUT), selections[i]);
-        mvwprintw(w, i + UNUSABLE_ROWS, 2, "%s", item);
-
-        //si stampa la casella di inserimento 'uint'
-        mvwprintw(w, i + UNUSABLE_ROWS, 2 + (int)strlen(item), "%-s", INPUT);
-        
+        if (i != TRANS_ROWS - 1){
+            //si formatta una selezione con input 'uint'
+            sprintf(item, "%-*s", MAX_STR_LEN - (int)strlen(INPUT), selections[i]);
+            mvwprintw(w, i + UNUSABLE_ROWS, 2, "%s", item);
+            //si stampa la casella di inserimento 'uint'
+            mvwprintw(w, i + UNUSABLE_ROWS, 2 + (int)strlen(item), "%-s", INPUT);
+        }
+        else{
+            //si stampa "Enter"
+            sprintf(item, "%-*s", MAX_STR_LEN, "Enter");
+            mvwprintw(w, i + UNUSABLE_ROWS, 2, "%s", item);
+        }
 
         //si ripristinano gli attributi
         wattrset(w, A_NORMAL);
@@ -910,7 +921,7 @@ void user_trans_input(WINDOW *w, int *tmp, char selections [MAX_ITEMS][MAX_STR_L
 
     //ciclo di selezione (input dell'utente)
     //il ciclo termina alla pressione di 'ENTER'
-    while((input = wgetch(w)) != '\n'){
+    while((input = wgetch(w)) != '\n' || *tmp < TRANS_ROWS - 1){
 
         //dopo l'input dell'utente, l'elemento precedentemente selezionato
         //viene ristampato senza l'attributo A_STANDOUT
