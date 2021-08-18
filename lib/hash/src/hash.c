@@ -162,23 +162,6 @@ char* int_32_to_char(unsigned int input) {
     char *string = malloc((HEX_NUMB_LENGTH + 1) * sizeof(char));
     uint32_to_stringDec(input, string);
     return string;
-
-/*    //Sempre in BIG ENDIAN
-    int i=10;                               //Offset per utilizzare l'ordine dei byte di tipo BIG ENDIAN
-    char *digit_eff = NULL;
-
-    digit_eff = (char *) calloc(N_CHAR_PER_UINT32, sizeof(char));         //Variabile che conterrà le cifre effettive.
-    if(digit_eff == NULL){
-        printf("Error: calloc() failure");
-        exit(EXIT_FAILURE);
-    }
-
-    //Ricavo le cifre e le converto in char.
-    while (input){
-        digit_eff[--i] = input % 10 + '0';
-        input /= 10;   
-    }
-return digit_eff; */
 }
 
 void shift_state_reg(unsigned int *vett, int len){
