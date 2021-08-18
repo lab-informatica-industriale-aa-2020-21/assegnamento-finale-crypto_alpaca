@@ -132,31 +132,9 @@ void shift_state_reg(unsigned int *vett, int len);
 bool copy_vector(const unsigned int *vett1, uint32_t len1, unsigned int *vett2, uint32_t len2);
 bool sum_vector(const unsigned int *vett1, int len1, unsigned int *vett2, int len2);
 
-// Funzione per creaare il messaggio a partire dai dati ricevuti dal blocco
-//unsigned int* create_block(unsigned int list_trans_len, int *n_block);
-
-// Funzione per il caricamento dei dati relativi al blocco (pre_hash, nonce ecc...)
-//void loading_data (unsigned int* block_data, int n_block, const unsigned int* prev_hash, unsigned int nonce, char* list_trans, unsigned int list_trans_len);
-
-// Funzione Hash.
-//void hash_function (const unsigned int* prev_hash, unsigned int nonce, char* list_trans,
-//                    unsigned int list_trans_len, uint32_t *h_i);
-
-
-void hash_function (const unsigned int* prev_hash, unsigned int nonce, char* list_trans,
-                    unsigned int list_trans_len, uint32_t *h_i);
-
-
 uint32_t *make_msg_block(const char *const str_input, uint32_t *const n_blocks);
 void load_data(const char *const str_input, uint32_t *msg_data, uint32_t * const n_blocks);
 uint8_t get_free_bytes(const char *const string);
 void hash(const char *const str_input, uint32_t *const h_i);
-
-
-
-
-
-
-
 
 #endif
