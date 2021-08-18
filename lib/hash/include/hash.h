@@ -9,10 +9,15 @@
 #include <stdbool.h>
 #include <math.h>
 
+#define setBit(A,k)     ( A[(k)/8] |= (1 << ((k)%8)) )
+#define clearBit(A,k)   ( A[(k)/8] &= ~(1 << ((k)%8)) )
+#define testBit(A,k)    ( A[(k)/8] & (1 << ((k)%8)) )
+
 // Variabili define:
 
 #define WORD_LEN 32
 #define BIT_PER_CHAR 8
+#define CHARS_PER_WORD 4
 #define DIM_HASH 8                      //L'hash avrà sempre dimensione pari a 256bit -> 8word
 #define PCI_HASH 65                     //Dimensione info di ridondanza definite dall'algoritmo SHA-256
 #define DIM_BLOCK_HASH 16               //Dimensione blocco hash in W32
@@ -27,7 +32,8 @@
 #define OFFSET_MOD_1 128                //Separatore tra dati e padding in caso di list_trans_len % 4 == 1. 
 #define OFFSET_MOD_2 2147483648         //Separatore tra dati e padding in caso di list_trans_len % 4 == 2. 
 #define OFFSET_MOD_3 8388608            //Separatore tra dati e padding in caso di list_trans_len % 4 == 3. 
-
+#define MSG_BLOCK_LEN 16
+#define MSG_INFO_LEN 2
 
 #define H_INIZIALI  0x6a09e667,\
                     0xbb67ae85,\
@@ -103,12 +109,21 @@
                     0xbef9a3f7,\
                     0xc67178f2
 
+
+struct Msg_block {
+    uint8_t *data;
+    uint32_t msg_len;
+};
+typedef struct Msg_block msg_block;
+
+
+
 unsigned int rotate (unsigned int num, int n_bit);
 unsigned int sigma_0 (unsigned int x);
 unsigned int sigma_1 (unsigned int x);
 unsigned int usigma_0 (unsigned int x);
 unsigned int usigma_1 (unsigned int x);
-unsigned int maggiority (unsigned int x, unsigned int y,  unsigned int z);
+unsigned int majority (unsigned int x, unsigned int y,  unsigned int z);
 unsigned int choice ( unsigned int x, unsigned int y,  unsigned int z);
 unsigned int bin_to_decimal (bool *x, int len_x);
 void decimal_to_bin (unsigned int x, bool *vett, int len_vett);
@@ -117,14 +132,9 @@ void shift_state_reg(unsigned int *vett, int len);
 bool copy_vector(const unsigned int *vett1, uint32_t len1, unsigned int *vett2, uint32_t len2);
 bool sum_vector(const unsigned int *vett1, int len1, unsigned int *vett2, int len2);
 
-// Funzione per creaare il messaggio a partire dai dati ricevuti dal blocco
-unsigned int* create_block(unsigned int list_trans_len, int *n_block);
-
-// Funzione per il caricamento dei dati relativi al blocco (pre_hash, nonce ecc...)
-void loading_data (unsigned int* block_data, int n_block, const unsigned int* prev_hash, unsigned int nonce, char* list_trans, unsigned int list_trans_len);
-
-// Funzione Hash.
-void hash_function (const unsigned int* prev_hash, unsigned int nonce, char* list_trans,
-                    unsigned int list_trans_len, uint32_t *h_i);
+uint32_t *make_msg_block(const char *const str_input, uint32_t *const n_blocks);
+void load_data(const char *const str_input, uint32_t *msg_data, uint32_t * const n_blocks);
+uint8_t get_free_bytes(const char *const string);
+void hash(const char *const str_input, uint32_t *const h_i);
 
 #endif

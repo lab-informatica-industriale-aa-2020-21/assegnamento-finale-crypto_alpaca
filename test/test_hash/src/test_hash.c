@@ -119,19 +119,19 @@ void boundary_test_choice_shouldAssignYorXtoZdependingOnX(void) {
 }
 
 void test_majority_shouldReturnsMajorityBitwiseXYZ(void) {
-	TEST_ASSERT_EQUAL(1842722981, maggiority(3515164733, 1834274982, 1843249093));
+	TEST_ASSERT_EQUAL(1842722981, majority(3515164733, 1834274982, 1843249093));
 }
 
 void boundary_test_majority_shouldReturnsMajorityBitwiseXYZ(void) {
-	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, maggiority(UINT32_MAX, UINT32_MAX, 0));
-	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, maggiority(UINT32_MAX, 0, UINT32_MAX));
-	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, maggiority(0, UINT32_MAX, UINT32_MAX));
-	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, maggiority(UINT32_MAX, UINT32_MAX, UINT32_MAX));
+	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, majority(UINT32_MAX, UINT32_MAX, 0));
+	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, majority(UINT32_MAX, 0, UINT32_MAX));
+	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, majority(0, UINT32_MAX, UINT32_MAX));
+	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, majority(UINT32_MAX, UINT32_MAX, UINT32_MAX));
 
-	TEST_ASSERT_EQUAL_UINT32(0, maggiority(UINT32_MAX, 0, 0));
-	TEST_ASSERT_EQUAL_UINT32(0, maggiority(0, 0, UINT32_MAX));
-	TEST_ASSERT_EQUAL_UINT32(0, maggiority(0, UINT32_MAX, 0));
-	TEST_ASSERT_EQUAL_UINT32(0, maggiority(0, 0, 0));
+	TEST_ASSERT_EQUAL_UINT32(0, majority(UINT32_MAX, 0, 0));
+	TEST_ASSERT_EQUAL_UINT32(0, majority(0, 0, UINT32_MAX));
+	TEST_ASSERT_EQUAL_UINT32(0, majority(0, UINT32_MAX, 0));
+	TEST_ASSERT_EQUAL_UINT32(0, majority(0, 0, 0));
 }
 
 
@@ -219,6 +219,59 @@ void boundary_test_shift_state_reg_shouldRightShiftVettOf1Position(void) {
 	TEST_ASSERT_EQUAL_UINT32_ARRAY(exp_vett, vett, 100000);
 }
 
+void test_make_msg_block_shouldReturnPointerToAllocatedMemoryForMsgBlock(void) {
+	char test_string1[] = "Prova";
+	char test_string2[] = "Ciao";
+	uint32_t n_blocks1;
+	uint32_t n_blocks2;
+
+	uint32_t *test_msg_block_1 = make_msg_block(test_string1, &n_blocks1);
+	uint32_t *test_msg_block_2 = make_msg_block(test_string2, &n_blocks2);
+
+	TEST_ASSERT_NOT_NULL_MESSAGE(test_msg_block_1, "Error: making msg_block1.");
+	TEST_ASSERT_NOT_NULL_MESSAGE(test_msg_block_2, "Error: making msg_block2.");
+
+	TEST_ASSERT_EQUAL_UINT32_MESSAGE(1, n_blocks1, "Error: calculating n_blocks1.");
+	TEST_ASSERT_EQUAL_UINT32_MESSAGE(1, n_blocks2, "Error: calculating n_blocks2.");
+}
+
+void test_load_data_shouldLoadMsgDataInTheBlock(void) {
+	uint32_t n_blocks1;
+	uint32_t n_blocks2;
+	uint32_t *test_msg_block1 = make_msg_block("Ciao", &n_blocks1);
+	uint32_t *test_msg_block2 = make_msg_block("Cia", &n_blocks2);
+
+	uint32_t exp_msg_data1[16] = {0};
+	uint32_t exp_msg_data2[16] = {0};
+
+	exp_msg_data1[0] = 1130979695;
+	exp_msg_data1[1] = (1 << 31);
+	exp_msg_data1[14] = 0;
+	exp_msg_data1[15] = 32;
+
+	exp_msg_data2[0] = 1130979712;
+	exp_msg_data2[14] = 0;
+	exp_msg_data2[15] = 24;
+
+	load_data("Ciao", test_msg_block1, &n_blocks1);
+	load_data("Cia", test_msg_block2, &n_blocks2);
+
+	TEST_ASSERT_EQUAL_UINT32_ARRAY_MESSAGE(exp_msg_data1, test_msg_block1, 16,
+									"Error: loading string1 into msg_data1.");
+	
+	TEST_ASSERT_EQUAL_UINT32_ARRAY_MESSAGE(exp_msg_data2, test_msg_block2, 16,
+									"Error: loading string2 into msg_data2.");
+}
+
+void test_hash_shouldCalculateHashFunctionToStringPassedAsArgument(void) {
+	char test_string[] = "greg";
+	uint32_t h_i[DIM_HASH];
+
+	hash(test_string, h_i);
+	
+	for (int i = 0; i < 8; i++)
+		printf("%08jx\n", *(h_i + i));
+}
 
 int main(void) {
 
@@ -242,6 +295,10 @@ int main(void) {
 	RUN_TEST(test_copy_vector_shouldCopyVett1IntoVett2);
 	RUN_TEST(test_sum_vector_shouldSaveIntoVett2TheSumOfVett1AndVett2);
 	RUN_TEST(test_shift_state_reg_shouldRightShiftVettOf1Position);
+
+	RUN_TEST(test_make_msg_block_shouldReturnPointerToAllocatedMemoryForMsgBlock);
+	RUN_TEST(test_load_data_shouldLoadMsgDataInTheBlock);
+	RUN_TEST(test_hash_shouldCalculateHashFunctionToStringPassedAsArgument);
 
 	//Boundary test
 	RUN_TEST(boundary_test_rotate_shouldRotateGiven32bitUintWord);
