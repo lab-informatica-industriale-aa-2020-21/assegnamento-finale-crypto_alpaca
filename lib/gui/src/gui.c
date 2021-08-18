@@ -4,6 +4,13 @@
 
 #include "gui.h"
 
+
+//funzioni da utilizzare (non interne):
+//-selection_box
+//-title_box
+
+
+
 /* Funzione: 'title_box' 
 *-------------------------------------------------------------------------------------------
 *  Stampa su terminale una schermata di avvio con titolo e desctrizione.
