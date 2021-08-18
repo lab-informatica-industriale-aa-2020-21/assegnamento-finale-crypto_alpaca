@@ -1,4 +1,3 @@
-// File header per la funzione di hash:
 #ifndef HASH_H
 #define HASH_H
 
@@ -9,11 +8,6 @@
 #include <stdbool.h>
 #include <math.h>
 
-#define setBit(A,k)     ( A[(k)/8] |= (1 << ((k)%8)) )
-#define clearBit(A,k)   ( A[(k)/8] &= ~(1 << ((k)%8)) )
-#define testBit(A,k)    ( A[(k)/8] & (1 << ((k)%8)) )
-
-// Variabili define:
 
 #define WORD_LEN_BITS 32
 #define BIT_PER_CHAR 8
