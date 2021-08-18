@@ -119,19 +119,19 @@ void boundary_test_choice_shouldAssignYorXtoZdependingOnX(void) {
 }
 
 void test_majority_shouldReturnsMajorityBitwiseXYZ(void) {
-	TEST_ASSERT_EQUAL(1842722981, maggiority(3515164733, 1834274982, 1843249093));
+	TEST_ASSERT_EQUAL(1842722981, majority(3515164733, 1834274982, 1843249093));
 }
 
 void boundary_test_majority_shouldReturnsMajorityBitwiseXYZ(void) {
-	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, maggiority(UINT32_MAX, UINT32_MAX, 0));
-	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, maggiority(UINT32_MAX, 0, UINT32_MAX));
-	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, maggiority(0, UINT32_MAX, UINT32_MAX));
-	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, maggiority(UINT32_MAX, UINT32_MAX, UINT32_MAX));
+	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, majority(UINT32_MAX, UINT32_MAX, 0));
+	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, majority(UINT32_MAX, 0, UINT32_MAX));
+	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, majority(0, UINT32_MAX, UINT32_MAX));
+	TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, majority(UINT32_MAX, UINT32_MAX, UINT32_MAX));
 
-	TEST_ASSERT_EQUAL_UINT32(0, maggiority(UINT32_MAX, 0, 0));
-	TEST_ASSERT_EQUAL_UINT32(0, maggiority(0, 0, UINT32_MAX));
-	TEST_ASSERT_EQUAL_UINT32(0, maggiority(0, UINT32_MAX, 0));
-	TEST_ASSERT_EQUAL_UINT32(0, maggiority(0, 0, 0));
+	TEST_ASSERT_EQUAL_UINT32(0, majority(UINT32_MAX, 0, 0));
+	TEST_ASSERT_EQUAL_UINT32(0, majority(0, 0, UINT32_MAX));
+	TEST_ASSERT_EQUAL_UINT32(0, majority(0, UINT32_MAX, 0));
+	TEST_ASSERT_EQUAL_UINT32(0, majority(0, 0, 0));
 }
 
 
@@ -263,6 +263,16 @@ void test_load_data_shouldLoadMsgDataInTheBlock(void) {
 									"Error: loading string2 into msg_data2.");
 }
 
+void test_hash_shouldCalculateHashFunctionToStringPassedAsArgument(void) {
+	char test_string[] = "greg";
+	uint32_t h_i[DIM_HASH];
+
+	hash(test_string, h_i);
+	
+	for (int i = 0; i < 8; i++)
+		printf("%08jx\n", *(h_i + i));
+}
+
 int main(void) {
 
 	UNITY_BEGIN();
@@ -288,6 +298,7 @@ int main(void) {
 
 	RUN_TEST(test_make_msg_block_shouldReturnPointerToAllocatedMemoryForMsgBlock);
 	RUN_TEST(test_load_data_shouldLoadMsgDataInTheBlock);
+	RUN_TEST(test_hash_shouldCalculateHashFunctionToStringPassedAsArgument);
 
 	//Boundary test
 	RUN_TEST(boundary_test_rotate_shouldRotateGiven32bitUintWord);

@@ -132,7 +132,7 @@ return bin_to_decimal(num, WORD_LEN);
 **
 **num[i] sarà pari al valore che è presente in maggioranza sulla colonna i-esima.
 */
-unsigned int maggiority (unsigned int x, unsigned int y, unsigned int z)
+unsigned int majority (unsigned int x, unsigned int y, unsigned int z)
 {
     bool x_bit[WORD_LEN] = {0};
     bool y_bit[WORD_LEN] = {0};
@@ -213,6 +213,7 @@ return block_data;
 **
 */
 
+/*
 void loading_data (unsigned int* block_data, int n_block, const unsigned int* prev_hash, unsigned int nonce, char* list_trans, unsigned int list_trans_len)
 {
     uint64_t dim_dati = 0;     //Dimensione blocco (dati) in bit.
@@ -245,6 +246,7 @@ void loading_data (unsigned int* block_data, int n_block, const unsigned int* pr
         }
     }
     
+    
     //Memorizzazione list_trans nel block_data. 
     //NB: list_trans avrà un numero di celle char empre multiplo di 24. Quindi riuscirò sempre a riempire completamente 6*n word a 32bit.
     //list_trans_len/BIT_PER_CHAR := numero di celle in list_trans. Dividendo qst per 4 calcolo quante W32bit sono necessarie per la memorizz.
@@ -254,6 +256,7 @@ void loading_data (unsigned int* block_data, int n_block, const unsigned int* pr
             block_data[j+N_CHAR_PER_PREV_HASH] += list_trans[4*j+i] << (3-i)*8;
         }
     }
+
 
     nonce_char = int_32_to_char(nonce);
 
@@ -272,7 +275,7 @@ void loading_data (unsigned int* block_data, int n_block, const unsigned int* pr
     block_data[(n_block * DIM_BLOCK_HASH) - 1] = ((dim_dati) << WORD_LEN ) >> WORD_LEN ;
 
 }
-
+/*
 
 /*int_32_to_char ()
 **Funzione che permette di convertire un unsigned int in un vettore di char che ne descriva le singole cifre in codice ASCII.
@@ -300,7 +303,7 @@ char* int_32_to_char(unsigned int input) {
 return digit_eff; */
 }
 
-
+/*
 void hash_function (const unsigned int* prev_hash, unsigned int nonce, char* list_trans,
                     unsigned int list_trans_len, uint32_t *h_i)
 {
@@ -333,7 +336,7 @@ void hash_function (const unsigned int* prev_hash, unsigned int nonce, char* lis
             }
 
             temp1 = usigma_1(h_i[4]) + choice(h_i[4], h_i[5], h_i[6]) + h_i[7] + k_constants[i] + words[i];
-            temp2 = usigma_0(h_i[0]) + maggiority(h_i[0], h_i[1], h_i[2]);
+            temp2 = usigma_0(h_i[0]) + majority(h_i[0], h_i[1], h_i[2]);
 
             shift_state_reg(h_i, 8);        //Sposto in basso in coeff. a->b, b->c etc.
 
@@ -345,6 +348,7 @@ void hash_function (const unsigned int* prev_hash, unsigned int nonce, char* lis
         copy_vector(h_i, DIM_HASH, h_0, DIM_HASH);      //Aggiorno gli status register di partenza in caso vi siano ulteriori blocchi (n_block > 0)
     }
 }
+*/
 
 //
 void shift_state_reg(unsigned int *vett, int len){
@@ -399,7 +403,7 @@ return 0;
 
 
 
-uint32_t *make_msg_block(const char *const str_input, uint32_t *n_blocks) {
+uint32_t *make_msg_block(const char *const str_input, uint32_t *const n_blocks) {
     uint8_t free_bytes = get_free_bytes(str_input);
 
     if (free_bytes == 0) 
@@ -413,7 +417,7 @@ uint32_t *make_msg_block(const char *const str_input, uint32_t *n_blocks) {
 }
 
 
-void load_data(const char *const str_input, uint32_t *msg_data, uint32_t *n_blocks) {
+void load_data(const char *const str_input, uint32_t *msg_data, uint32_t *const n_blocks) {
     uint64_t str_input_len = strlen(str_input);
     uint64_t msg_len = BIT_PER_CHAR * str_input_len;
     uint8_t free_bytes = get_free_bytes(str_input);
@@ -422,7 +426,7 @@ void load_data(const char *const str_input, uint32_t *msg_data, uint32_t *n_bloc
     for (uint64_t i = 0; i < n_words_to_fill; i++)
         for (uint8_t j = 0; j < CHARS_PER_WORD; j++) {
             uint32_t byte_to_write = (uint32_t) str_input[CHARS_PER_WORD * i + j];
-            *(msg_data + i) += byte_to_write << (WORD_LEN - BIT_PER_CHAR *(1 + j));
+            *(msg_data + i) += byte_to_write << (WORD_LEN - BIT_PER_CHAR * (1 + j));
         }
     
     if (free_bytes == 0)
@@ -448,4 +452,91 @@ uint8_t get_free_bytes(const char *const string) {
         default:
             exit(EXIT_FAILURE);
     } 
+}
+
+void hash_function (const unsigned int* prev_hash, unsigned int nonce, char* list_trans,
+                    unsigned int list_trans_len, uint32_t *h_i)
+{
+    int n_block = 0;                                //Mi serve per capire quanti blocchi da 512 ci sono
+
+    unsigned int *block_data = NULL;
+    //unsigned int h_i[8] = {0};                    
+    //unsigned int *h_i = NULL;                       //E' l'hash dell'i-esimo blocco. Composto da 8 word a 32bit come da definizione.
+    unsigned int h_0[DIM_HASH] = {H_INIZIALI};      //State register h0 := valori iniziali dettati da delle costanti.
+    unsigned int words[64] = {0};                   //conterrà le 64 word su cui l'hash dovrà operare. Le prime 16 sono prelevate dal block_data.
+    
+    unsigned int temp1, temp2;
+    unsigned int k_constants[64] = {KI_INIZIALI};
+    int offset = 16;                                //offset che mi permette di recuperare dal block_data word a 32bit in pacchetti di 16.
+
+    block_data = create_block(list_trans_len, &n_block);
+    //load_data(block_data, n_block, prev_hash, nonce, list_trans, list_trans_len);
+
+    
+    for (int j = 0; j < n_block; j++){ 
+        //Devo farlo sempre?
+        copy_vector(h_0, DIM_HASH, h_i, DIM_HASH);
+
+        for (int k = 0; k < DIM_BLOCK_HASH; k++){
+            words[k] = block_data[k+j*offset];      //Ogni volta che ho compresso un'intero blocco devo procedere con il prossimo e per prima cosa prelevo le 16word di partenza
+        }
+        for (int i = 0; i < 64; i++){               //Opero sulle 64 word. Le prime 16 note, le restanti calcolate come segue.    
+            if (i >= DIM_BLOCK_HASH){               
+                words[i] = sigma_1(i-2) + words[i-7] + sigma_0(i-15) + words[i-16];
+            }
+
+            temp1 = usigma_1(h_i[4]) + choice(h_i[4], h_i[5], h_i[6]) + h_i[7] + k_constants[i] + words[i];
+            temp2 = usigma_0(h_i[0]) + majority(h_i[0], h_i[1], h_i[2]);
+
+            shift_state_reg(h_i, 8);        //Sposto in basso in coeff. a->b, b->c etc.
+
+            h_i[0] = temp1 + temp2;
+            h_i[3] += temp1;    
+        }
+
+        sum_vector(h_0, DIM_HASH, h_i, DIM_HASH);       //Calcolo gli state register del blocco attuale definiti come h(i) = h(0) + h(i)    () := pedici
+        copy_vector(h_i, DIM_HASH, h_0, DIM_HASH);      //Aggiorno gli status register di partenza in caso vi siano ulteriori blocchi (n_block > 0)
+    }
+}
+
+
+void hash(const char *const str_input, uint32_t *const h_i) {
+    uint32_t n_blocks;
+    uint32_t h_0[DIM_HASH] = {H_INIZIALI};
+    uint32_t k_constants[64] = {KI_INIZIALI};
+    uint32_t words[64] = {0};
+    uint32_t tmp1, tmp2;
+    uint8_t offset = 16; //Si può dichiarare come macro
+
+    uint32_t *msg_data = make_msg_block(str_input, &n_blocks);
+    load_data(str_input, msg_data, &n_blocks);
+
+    for (uint32_t j = 0; j < n_blocks; j++){ 
+        //Devo farlo sempre?
+        copy_vector(h_0, DIM_HASH, h_i, DIM_HASH);
+
+        //Message schedule
+        for (int k = 0; k < DIM_BLOCK_HASH; k++){
+            words[k] = msg_data[k+j*offset];      //Ogni volta che ho compresso un'intero blocco devo procedere con il prossimo e per prima cosa prelevo le 16word di partenza
+        }
+
+        for (int i = 0; i < 64; i++){               //Opero sulle 64 word. Le prime 16 note, le restanti calcolate come segue.    
+            if (i >= DIM_BLOCK_HASH){               
+                words[i] = sigma_1(words[i-2]) + words[i-7] + sigma_0(words[i-15]) + words[i-16];
+            }
+
+            tmp1 = usigma_1(h_i[4]) + choice(h_i[4], h_i[5], h_i[6]) + h_i[7] + k_constants[i] + words[i];
+            tmp2 = usigma_0(h_i[0]) + majority(h_i[0], h_i[1], h_i[2]);
+
+            shift_state_reg(h_i, 8);        //Sposto in basso in coeff. a->b, b->c etc.
+
+            h_i[0] = tmp1 + tmp2;
+            h_i[4] += tmp1;    
+        }
+
+        sum_vector(h_0, DIM_HASH, h_i, DIM_HASH);       //Calcolo gli state register del blocco attuale definiti come h(i) = h(0) + h(i)    () := pedici
+        copy_vector(h_i, DIM_HASH, h_0, DIM_HASH);      //Aggiorno gli status register di partenza in caso vi siano ulteriori blocchi (n_block > 0)
+    }
+
+    free(msg_data);
 }
