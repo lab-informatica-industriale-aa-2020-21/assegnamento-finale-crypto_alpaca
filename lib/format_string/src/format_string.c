@@ -5,6 +5,8 @@
 
 #include "blockchain.h"
 #include "format_string.h"
+#include "hash.h"
+#include "file_IO.h"
 
 
 /******************************************************************************
@@ -307,11 +309,11 @@ void format_data_for_hash(const block *block_source, char *str_for_hash){
     // Ricerca del prev hash:
     uint32_t previous_hash [DIM_HASH] = {0};
 
-    if ((chain_to_mine -> head_block) -> prev_hash == NULL)     //non esistono blocchi precedenti nella catena della sessione attuale
+    if (block_source -> prev_hash == NULL)     //non esistono blocchi precedenti nella catena della sessione attuale
         get_prev_hash(previous_hash, BLOCKCHAIN_TXT);           //lettura prev_hash dal file blockchain.txt
     else
         for (int i = 0; i < DIM_HASH; i++)                      //copia del vettore prev_hash in previous_hash
-            previous_hash [i] = (chain_to_mine -> head_block) -> prev_hash [i];
+            previous_hash [i] = block_source -> prev_hash [i];
 
     for (int i = 0; i < DIM_HASH; i++){
         uint32_to_stringHex(previous_hash[i], tmp);
