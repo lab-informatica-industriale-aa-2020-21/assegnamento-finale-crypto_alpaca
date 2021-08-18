@@ -352,6 +352,8 @@ void mining_box(WINDOW *w){
     //stampa schermata
     for (int i = 0; i < MINE_ROWS; i++)
         mvwprintw(w, MINE_ROWS/2 + i, MAX_STR_LEN/2 - MAX_STR_LEN_MINE/2 + 2, "%s", matrix [i]);
+
+    wrefresh(w);
 }
 
 
