@@ -219,6 +219,13 @@ void boundary_test_shift_state_reg_shouldRightShiftVettOf1Position(void) {
 	TEST_ASSERT_EQUAL_UINT32_ARRAY(exp_vett, vett, 100000);
 }
 
+void test_get_free_bytes_shouldCalculateHowManyFreeBytesThereAreIntoWord32(void) {
+	TEST_ASSERT_EQUAL_UINT8_MESSAGE(0, get_free_bytes("Ciao"), "Error: calculating 0 free bytes.");
+	TEST_ASSERT_EQUAL_UINT8_MESSAGE(1, get_free_bytes("Cia"), "Error: calculating 1 free byte.");
+	TEST_ASSERT_EQUAL_UINT8_MESSAGE(2, get_free_bytes("Ci"), "Error: calculating 2 free bytes.");
+	TEST_ASSERT_EQUAL_UINT8_MESSAGE(3, get_free_bytes("C"), "Error: calculating 3 free bytes.");
+}
+
 void test_make_msg_block_shouldReturnPointerToAllocatedMemoryForMsgBlock(void) {
 	char test_string1[] = "Prova";
 	char test_string2[] = "Ciao";
@@ -238,8 +245,10 @@ void test_make_msg_block_shouldReturnPointerToAllocatedMemoryForMsgBlock(void) {
 void test_load_data_shouldLoadMsgDataInTheBlock(void) {
 	uint32_t n_blocks1;
 	uint32_t n_blocks2;
-	uint32_t *test_msg_block1 = make_msg_block("Ciao", &n_blocks1);
-	uint32_t *test_msg_block2 = make_msg_block("Cia", &n_blocks2);
+	char str1[] = "Ciao";
+	char str2[] = "C";
+	uint32_t *test_msg_block1 = make_msg_block(str1, &n_blocks1);
+	uint32_t *test_msg_block2 = make_msg_block(str2, &n_blocks2);
 
 	uint32_t exp_msg_data1[16] = {0};
 	uint32_t exp_msg_data2[16] = {0};
@@ -249,12 +258,12 @@ void test_load_data_shouldLoadMsgDataInTheBlock(void) {
 	exp_msg_data1[14] = 0;
 	exp_msg_data1[15] = 32;
 
-	exp_msg_data2[0] = 1130979712;
+	exp_msg_data2[0] = (str2[0] << 24) + (1 << 23);
 	exp_msg_data2[14] = 0;
-	exp_msg_data2[15] = 24;
+	exp_msg_data2[15] = 8;
 
-	load_data("Ciao", test_msg_block1, &n_blocks1);
-	load_data("Cia", test_msg_block2, &n_blocks2);
+	load_data(str1, test_msg_block1, &n_blocks1);
+	load_data(str2, test_msg_block2, &n_blocks2);
 
 	TEST_ASSERT_EQUAL_UINT32_ARRAY_MESSAGE(exp_msg_data1, test_msg_block1, 16,
 									"Error: loading string1 into msg_data1.");
@@ -263,14 +272,37 @@ void test_load_data_shouldLoadMsgDataInTheBlock(void) {
 									"Error: loading string2 into msg_data2.");
 }
 
+void boundary_test_load_data_shouldLoadMsgDataInTheBlock(void) {
+	uint32_t n_blocks1;
+	char str1[] = "Ciao come va la vita";
+	uint32_t exp_msg_data1[16] = {0};
+	uint32_t *test_msg_block1 = make_msg_block(str1, &n_blocks1);
+
+	exp_msg_data1[0] = 1130979695;
+	exp_msg_data1[1] = 543387501;
+	exp_msg_data1[2] = 1696626273;
+	exp_msg_data1[3] = 543973664;
+	exp_msg_data1[4] = 1986622561;
+	exp_msg_data1[5] = (1 << 31);
+
+	exp_msg_data1[14] = 0;
+	exp_msg_data1[15] = 160;
+
+	load_data(str1, test_msg_block1, &n_blocks1);
+
+	TEST_ASSERT_EQUAL_UINT32_ARRAY_MESSAGE(exp_msg_data1, test_msg_block1, 16,
+									"Error: loading long string1 into msg_data1.");
+
+}
+
 void test_hash_shouldCalculateHashFunctionToStringPassedAsArgument(void) {
-	char test_string[] = "greg";
+	char test_string[] = "Messaggio di prova";
+	uint32_t exp_h_i[DIM_HASH] = {0x6b563820, 0x8ce6ac30, 0x47e6d9fb, 0x0087cd69, 
+								   0xb9f15376, 0xc514598b, 0x328ceeb6, 0xbf917969};
 	uint32_t h_i[DIM_HASH];
 
 	hash(test_string, h_i);
-	
-	for (int i = 0; i < 8; i++)
-		printf("%08jx\n", *(h_i + i));
+	TEST_ASSERT_EQUAL_HEX_ARRAY_MESSAGE(exp_h_i, h_i, DIM_HASH, "Error: hashing message.");
 }
 
 int main(void) {
@@ -296,6 +328,7 @@ int main(void) {
 	RUN_TEST(test_sum_vector_shouldSaveIntoVett2TheSumOfVett1AndVett2);
 	RUN_TEST(test_shift_state_reg_shouldRightShiftVettOf1Position);
 
+	RUN_TEST(test_get_free_bytes_shouldCalculateHowManyFreeBytesThereAreIntoWord32);
 	RUN_TEST(test_make_msg_block_shouldReturnPointerToAllocatedMemoryForMsgBlock);
 	RUN_TEST(test_load_data_shouldLoadMsgDataInTheBlock);
 	RUN_TEST(test_hash_shouldCalculateHashFunctionToStringPassedAsArgument);
@@ -318,6 +351,8 @@ int main(void) {
 	RUN_TEST(boundary_test_copy_vector_shouldCopyVett1IntoVett2);
 	RUN_TEST(boundary_test_sum_vector_shouldSaveIntoVett2TheSumOfVett1AndVett2);
 	RUN_TEST(boundary_test_shift_state_reg_shouldRightShiftVettOf1Position);
+
+	RUN_TEST(boundary_test_load_data_shouldLoadMsgDataInTheBlock);
 
 	return(UNITY_END());
 }
