@@ -235,29 +235,25 @@ void input_trans(uint32_t sender, uint32_t receiver, uint32_t amount, chain *in_
 */
 void mine(chain *const chain_to_mine){
     // Formattazione della lista di transazioni in una stringa continua:
-    char trans_str [DATA_TRANS * HEX_NUMB_LENGTH * (chain_to_mine -> head_block) -> num_trans + 1];
-    format_data_for_hash(chain_to_mine -> head_block, trans_str);
-
-    // Ricerca del prev hash:
-    uint32_t previous_hash [DIM_HASH] = {0};
-
-    if ((chain_to_mine -> head_block) -> prev_hash == NULL)     //non esistono blocchi precedenti nella catena della sessione attuale
-        get_prev_hash(previous_hash, BLOCKCHAIN_TXT);           //lettura prev_hash dal file blockchain.txt
-    else
-        for (int i = 0; i < DIM_HASH; i++)                      //copia del vettore prev_hash in previous_hash
-            previous_hash [i] = (chain_to_mine -> head_block) -> prev_hash [i];
+    char str_for_hash [DIM_STR_HASH + DIM_STR_TRANS * (chain_to_mine -> head_block) -> num_trans + HEX_NUMB_LENGTH + 1];
+    format_data_for_hash(chain_to_mine -> head_block, str_for_hash);
+    
+    char nonce_str [HEX_NUMB_LENGTH + 1];
+    uint32_to_stringHex((chain_to_mine -> head_block) -> nonce, nonce_str);
+    strcat(str_for_hash, nonce_str);
 
     // Calcolo del primo hash:
-    hash_function(previous_hash, (chain_to_mine -> head_block) -> nonce, trans_str, 8 * strlen(trans_str), (chain_to_mine -> head_block) -> hash);
+    hash(str_for_hash, (chain_to_mine -> head_block) -> hash);
     
     // Ciclo di 'mine':
         //controllo se i primi 4 bit (del primo uint_32) dell'hash sono diversi da 0
     while ((chain_to_mine -> head_block) -> hash[0] > MAX_VALID_FIRST_HASH_ELEMENT){
         // incremento del valore di 'nonce' fino a trovare quello corretto, in base alle condizione di hash scelte
         (chain_to_mine -> head_block) -> nonce ++;
+        uint32_to_stringHex((chain_to_mine -> head_block) -> nonce, nonce_str);
+        strcat(str_for_hash - HEX_NUMB_LENGTH - 1, nonce_str);
 
-        hash_function(previous_hash, (chain_to_mine -> head_block) -> nonce, trans_str, strlen(trans_str), (chain_to_mine -> head_block) -> hash);
-    }
+        hash(str_for_hash, (chain_to_mine -> head_block) -> hash);    }
 
     (chain_to_mine -> head_block) -> creation_time = time(NULL);      // info mm/gg/yy (data) - h:min:sec (ora) sulla creazione del nuovo blocco
 }
