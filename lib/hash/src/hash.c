@@ -8,12 +8,6 @@
 #include "string.h"
 #include "format_string.h"
 
-
-/*Funzioni elementari per hash
-**  >> shift vs destra
-**  ^  operatore di XOR
-*/
-
 /*sigma_0()
 **Funzione che preleva in input una word a 32bit e restituisce il risultato dell'operazione indicata.
 **(Rotazione di 7) XOR (Rotazione di 18) XOR (shift di 3 a dx)
@@ -217,6 +211,9 @@ void load_data(const char *const str_input, uint32_t *msg_data, uint32_t *const 
         for (uint8_t j = 0; j < CHARS_PER_WORD; j++) {
             uint32_t byte_to_write = (uint32_t) str_input[CHARS_PER_WORD * i + j];
             *(msg_data + i) += byte_to_write << (WORD_LEN - BIT_PER_CHAR * (1 + j));
+
+            if ((i == (n_words_to_fill - 1)) && (j == (CHARS_PER_WORD - free_bytes)))
+                break;
         }
     
     if (free_bytes == 0)
