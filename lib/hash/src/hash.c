@@ -217,7 +217,7 @@ void load_data(const char *const str_input, uint32_t *msg_data, uint32_t *const 
         }
     
     if (free_bytes == 0)
-        *(msg_data + (str_input_len / CHARS_PER_WORD)) = (1 << WORD_LEN_BITS - 1);
+        *(msg_data + (str_input_len / CHARS_PER_WORD)) = (1 << (WORD_LEN_BITS - 1));
     else
         *(msg_data + (str_input_len / CHARS_PER_WORD)) += (1 << (free_bytes * BIT_PER_CHAR - 1));
     
