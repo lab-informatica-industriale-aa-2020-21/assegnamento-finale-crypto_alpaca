@@ -162,15 +162,15 @@
 #include "gui.h"
 
 //costanti di lunghezza delle stringhe
-#define TITLE_LENGTH 15         //max caratteri per il titolo
-#define ARG_LENGTH 20           //max caratteri per l'argomento
-#define LINE_LENGTH (TITLE_LENGTH + ARG_LENGTH)     //max caratteri per una riga
-#define NUM_HEADER_LINE 11      //righe header blocco
-#define NUM_TRANS_LINE 4        //righe per una transazione
-#define BLOCK_HEADER_LENGTH (NUM_HEADER_LINE * (LINE_LENGTH + 1))   //numero caratteri del blocco
-#define TRANS_LENGTH (NUM_TRANS_LINE * (LINE_LENGTH + 1))           //numer caratteri di una transazione
-#define HEX_NUMB_LENGTH 8       //max caratteri per un int a 32 bit in esadecimale
-#define DEC_NUMB_LENGTH 10      //max caratteri per un int a 32 bit in decimale
+#define TITLE_LENGTH 15
+#define ARG_LENGTH 20
+#define LINE_LENGTH (TITLE_LENGTH + ARG_LENGTH)
+#define NUM_HEADER_LINE 11
+#define NUM_TRANS_LINE 4
+#define BLOCK_HEADER_LENGTH (NUM_HEADER_LINE * (LINE_LENGTH + 1))
+#define TRANS_LENGTH (NUM_TRANS_LINE * (LINE_LENGTH + 1))
+#define HEX_NUMB_LENGTH 8
+#define DEC_NUMB_LENGTH 10
 
 //stringhe costanti per titoli e nomi di file
 #define IND "Index:"
