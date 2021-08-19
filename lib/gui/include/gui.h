@@ -269,8 +269,8 @@ void user_selection(WINDOW *w, int *tmp, int n_items,
                 uint32_t *input_uint, int *invisible);
 
 void user_trans_input(WINDOW *w, int *tmp,
-                char selections [MAX_ITEMS][MAX_STR_LEN + 1], uint32_t *sender
-                 uint32_t *receiver, uint32_t *amount);
+                char selections [MAX_ITEMS][MAX_STR_LEN + 1], uint32_t *sender,
+                uint32_t *receiver, uint32_t *amount);
 
 
 
