@@ -12,7 +12,7 @@ target_include_directories(gui
         )
 
 target_link_libraries(gui
-        PUBLIC LII::blockchain
+        PUBLIC ncurses
         )
 
 add_library(LII::gui ALIAS gui)
