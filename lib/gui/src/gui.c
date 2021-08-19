@@ -107,9 +107,10 @@
  * di indice 'i' della matrice 'selections'
  */
 
-int selection_box(char *title, int num_items,
-            char selections [MAX_ITEMS][MAX_STR_LEN + 1], int input_index,
-            uint32_t *input_uint, int num_unselect, ...){
+int selection_box(const char *title, const int num_items,
+                char selections [MAX_ITEMS][MAX_STR_LEN + 1],
+                const int input_index, uint32_t * const input_uint,
+                const int num_unselect, ...){
     //tmp è la variabile che la funzione ritornerà, corrispondente alla
     //selezione fatta a schermo dall'utente.
     //inizializzata a "-1", verà posta a ad un valore '>=0' nel momento
@@ -189,8 +190,8 @@ int selection_box(char *title, int num_items,
  * '-1' se l'utente seleziona'QUIT'
  */
 
-int transaction_box(char *title, uint32_t *sender, uint32_t *receiver,
-            uint32_t *amount){
+int transaction_box(const char *title, uint32_t * const sender,
+                uint32_t * const receiver, uint32_t * const amount){
     //variabile che tiene traccia della selezione istantanea dell'utente
     int tmp = 0;
 
@@ -263,7 +264,7 @@ void welcome_box(void){
  * @param[in] block_to_print puntatore al blocco da stampare
  */
 
-void block_box(char *title, block *block_to_print){
+void block_box(const char *title, const block *block_to_print){
     //inizializzazione matrice con informazioni sul blocco
     char block_matrix [BLOCK_LINES][LINE_LENGTH + 1];
     block_header_matrix (block_to_print, block_matrix);
@@ -331,8 +332,8 @@ void block_box(char *title, block *block_to_print){
  * @param[in] descriptions matrice di stringhe contenente le righe della descrizione
  */
 
-void title_box(char*title, int num_rows,
-            char descriptions [MAX_ITEMS][MAX_STR_LEN + 1]){
+void title_box(const char *title, const int num_rows,
+                char descriptions [MAX_ITEMS][MAX_STR_LEN + 1]){
     //saturazione di num_rows entro i limiti
     int n_rows = saturate(num_rows, MAX_ITEMS);
 
@@ -419,7 +420,7 @@ void mining_box(WINDOW *w){
  * @return valore saturato
  */
 
-int saturate(int value, int max_value){
+int saturate(const int value, const int max_value){
     if (value > max_value)
         return max_value;
     else
@@ -496,9 +497,10 @@ void set_colors(void){
  * (è spiegato in selection_box perche 'i+1')
  */
 
-void keyboard_input(WINDOW *w, int *input, int *tmp, int n_items,
-            int input_index, uint32_t *input_uint, char *str_input,
-            int *invisible){
+void keyboard_input(WINDOW *w, int * const input, int * const tmp,
+                const int n_items, const int input_index,
+                uint32_t * const input_uint, char * const str_input,
+                const int *invisible){
     switch(*input){
             case KEY_UP:    //caso freccia su
                 *tmp = *tmp - 1;         //decremento 'tmp'
@@ -571,9 +573,10 @@ void keyboard_input(WINDOW *w, int *input, int *tmp, int n_items,
  * @param[out] str_amount stringa su cui è/verrà formattato il valore di amount
  */
 
-void keyboard_trans_input(WINDOW *w, int *input, int *tmp, uint32_t *sender,
-            uint32_t *receiver, uint32_t *amount, char *str_sender,
-            char *str_receiver, char *str_amount){
+void keyboard_trans_input(WINDOW *w, int * const input, int * const tmp,
+                uint32_t * const sender, uint32_t * const receiver,
+                uint32_t * const amount, char * const str_sender,
+                char * const str_receiver, char * const str_amount){
     switch(*input){
             case KEY_UP:    //caso freccia su
                 *tmp = *tmp - 1;         //decremento 'tmp'
@@ -647,8 +650,9 @@ void keyboard_trans_input(WINDOW *w, int *input, int *tmp, uint32_t *sender,
  * selezione con input, esclusi titolo e 'QUIT')
  */
 
-void print_selection(WINDOW *w, int *tmp, int n_items, int input_index,
-            char *str_input, char selections [MAX_ITEMS][MAX_STR_LEN + 1]){
+void print_selection(WINDOW *w, const int *tmp, const int n_items,
+                const int input_index, const char *str_input,
+                char selections [MAX_ITEMS][MAX_STR_LEN + 1]){
     //stringa temporanea in cui formattare i dati da stampare
     char item [MAX_STR_LEN + 1];
     
@@ -695,9 +699,9 @@ void print_selection(WINDOW *w, int *tmp, int n_items, int input_index,
  * terminale per ogni voce
  */
 
-void print_transaction(WINDOW *w, int *tmp, char *str_sender,
-            char *str_receiver, char *str_amount,
-            char selections [MAX_ITEMS][MAX_STR_LEN + 1]){
+void print_transaction(WINDOW *w, const int *tmp, const char *str_sender,
+                const char *str_receiver, const char *str_amount,
+                char selections [MAX_ITEMS][MAX_STR_LEN + 1]){
     //stringa temporanea in cui formattare i dati da stampare
     char item [MAX_STR_LEN + 1];
     
@@ -770,9 +774,10 @@ void print_transaction(WINDOW *w, int *tmp, char *str_sender,
  * (è spiegato in selection_box perche 'i+1')
  */
 
-void print_selection_box(WINDOW *w, int *tmp, char *title, int n_items,
-            char selections [MAX_ITEMS][MAX_STR_LEN + 1], int input_index,
-            int *invisible){
+void print_selection_box(WINDOW *w, int * const tmp, const char *title,
+                const int n_items,
+                char selections [MAX_ITEMS][MAX_STR_LEN + 1],
+                const int input_index, const int *invisible){
     //stringa temporanea in cui formattare i dati da stampare
     char item [MAX_STR_LEN + 1];
 
@@ -849,8 +854,8 @@ void print_selection_box(WINDOW *w, int *tmp, char *title, int n_items,
  * terminale per ogni voce
  */
 
-void print_transaction_box(WINDOW *w, char *title,
-            char selections [MAX_ITEMS][MAX_STR_LEN + 1]){
+void print_transaction_box(WINDOW *w, const char *title,
+                char selections [MAX_ITEMS][MAX_STR_LEN + 1]){
     //stringa temporanea in cui formattare i dati da stampare
     char item [MAX_STR_LEN + 1];
 
@@ -929,9 +934,10 @@ void print_transaction_box(WINDOW *w, char *title,
  * (è spiegato in selection_box perche 'i+1')
  */
 
-void user_selection(WINDOW *w, int *tmp, int n_items,
-            char selections [MAX_ITEMS][MAX_STR_LEN + 1], int input_index,
-            uint32_t *input_uint, int *invisible){
+void user_selection(WINDOW *w, int * const tmp, const int n_items,
+                char selections [MAX_ITEMS][MAX_STR_LEN + 1],
+                const int input_index, uint32_t * const input_uint,
+                const int *invisible){
     //stringa in cui verrà formattato l''uint' inserito da tastiera
     //per la stampa nella finestra
     char str_input [(int)sizeof(INPUT) + 1] = INPUT;
@@ -986,9 +992,10 @@ void user_selection(WINDOW *w, int *tmp, int n_items,
  * @param[out] amount puntatore alla variabile amount
  */
 
-void user_trans_input(WINDOW *w, int *tmp,
-            char selections [MAX_ITEMS][MAX_STR_LEN + 1], uint32_t *sender,
-            uint32_t *receiver, uint32_t *amount){
+void user_trans_input(WINDOW *w, int * const tmp,
+                char selections [MAX_ITEMS][MAX_STR_LEN + 1],
+                uint32_t * const sender, uint32_t * const receiver,
+                uint32_t * const amount){
     //stringhe in cui verranno formattati gli input 'uint'
     //da tastiera per la stampa nella finestra
     char str_sender [(int)sizeof(INPUT) + 1] = INPUT;

@@ -217,18 +217,19 @@
 
 //funzioni esterne
 
-int selection_box(char *title, int num_items,
-                char selections [MAX_ITEMS][MAX_STR_LEN + 1], int input_index,
-                uint32_t *input_uint, int num_unselect, ...);
+int selection_box(const char *title, const int num_items,
+                char selections [MAX_ITEMS][MAX_STR_LEN + 1],
+                const int input_index, uint32_t * const input_uint,
+                const int num_unselect, ...);
 
-int transaction_box(char *title, uint32_t *sender, uint32_t *receiver,
-                uint32_t *amount);
+int transaction_box(const char *title, uint32_t * const sender,
+                uint32_t * const receiver, uint32_t * const amount);
 
 void welcome_box(void);
 
-void block_box(char *title, block *block_to_print);
+void block_box(const char *title, const block *block_to_print);
 
-void title_box(char *title, int num_rows,
+void title_box(const char *title, const int num_rows,
                 char descriptions [MAX_ITEMS][MAX_STR_LEN + 1]);
 
 void mining_box(WINDOW *w);
@@ -236,41 +237,47 @@ void mining_box(WINDOW *w);
 
 //funzioni interne
 
-int saturate(int value, int max_value);
+int saturate(const int value, const int max_value);
 
 WINDOW *new_window(void);
 
 void set_colors(void);
 
-void keyboard_input(WINDOW *w, int *input, int *tmp, int n_items,
-                int input_index, uint32_t *input_uint, char *str_input,
-                int *invisible);
+void keyboard_input(WINDOW *w, int * const input, int * const tmp,
+                const int n_items, const int input_index,
+                uint32_t * const input_uint, char * const str_input,
+                const int *invisible);
 
-void keyboard_trans_input(WINDOW *w, int *input, int *tmp, uint32_t *sender,
-                uint32_t *receiver, uint32_t *amount, char *str_sender,
-                char *str_receiver, char *str_amount);
+void keyboard_trans_input(WINDOW *w, int * const input, int * const tmp,
+                uint32_t * const sender, uint32_t * const receiver,
+                uint32_t * const amount, char * const str_sender,
+                char * const str_receiver, char * const str_amount);
 
-void print_selection(WINDOW *w, int *tmp, int n_items, int input_index,
-                char *str_input, char selections [MAX_ITEMS][MAX_STR_LEN + 1]);
-
-void print_transaction(WINDOW *w, int *tmp, char *str_sender,
-                char *str_receiver, char *str_amount,
+void print_selection(WINDOW *w, const int * tmp, const int n_items,
+                const int input_index, const char *str_input,
                 char selections [MAX_ITEMS][MAX_STR_LEN + 1]);
 
-void print_selection_box(WINDOW *w, int *tmp, char *title, int n_items,
-                char selections [MAX_ITEMS][MAX_STR_LEN + 1], int input_index,
-                int *invisible);
-
-void print_transaction_box(WINDOW *w, char *title,
+void print_transaction(WINDOW *w, const int *tmp, const char *str_sender,
+                const char *str_receiver, const char *str_amount,
                 char selections [MAX_ITEMS][MAX_STR_LEN + 1]);
 
-void user_selection(WINDOW *w, int *tmp, int n_items,
-                char selections [MAX_ITEMS][MAX_STR_LEN + 1], int input_index,
-                uint32_t *input_uint, int *invisible);
+void print_selection_box(WINDOW *w, int * const tmp, const char *title,
+                const int n_items,
+                char selections [MAX_ITEMS][MAX_STR_LEN + 1],
+                const int input_index, const int *invisible);
 
-void user_trans_input(WINDOW *w, int *tmp,
-                char selections [MAX_ITEMS][MAX_STR_LEN + 1], uint32_t *sender,
-                uint32_t *receiver, uint32_t *amount);
+void print_transaction_box(WINDOW *w, const char *title,
+                char selections [MAX_ITEMS][MAX_STR_LEN + 1]);
+
+void user_selection(WINDOW *w, int * const tmp, const int n_items,
+                char selections [MAX_ITEMS][MAX_STR_LEN + 1],
+                const int input_index, uint32_t * const input_uint,
+                const int *invisible);
+
+void user_trans_input(WINDOW *w, int * const tmp,
+                char selections [MAX_ITEMS][MAX_STR_LEN + 1],
+                uint32_t * const sender, uint32_t * const receiver,
+                uint32_t * const amount);
 
 
 
