@@ -40,7 +40,7 @@
 
 
 /*
- * Esempio finestra di selezione:
+ * Esempio finestra di selezione selection_box:
  *
  *  --------------------------------------------------------------------------------
  *  | Titolo:                                                                      |

@@ -6,6 +6,169 @@
 /*===========================================================================*/
 
 
+/*!
+ * @def MAX_ROWS
+ * @brief Numero masssimo di righe del terminale.
+ * 
+ * La macro definisce la grandezza della schermata del terminale
+ * insieme alla macro MAX_COLS.
+*/
+
+/*!
+ * @def MAX_COLS
+ * @brief Numero masssimo di colonne del terminale.
+ * 
+ * La macro definisce la grandezza della schermata del terminale
+ * insieme alla macro MAX_ROWS.
+*/
+
+/*!
+ * @def MAX_STR_LEN
+ * @brief Lungheza massima di una stringa.
+ * 
+ * La macro definisce la lunghezza massima di una stringa
+ * da stampare in una finestra di MAX_ROWS * MAX_COLS.
+*/
+
+/*!
+ * @def MAX_ITEMS
+ * @brief Massimo numero di elementi in una finestra.
+ * 
+ * La macro definisce il massimo numero di elementi
+ * da stampare in una finestra di MAX_ROWS * MAX_COLS.
+*/
+
+/*!
+ * @def UNUSABLE_ROWS
+ * @brief Numero di righe non utilizzabili dall'alto.
+ * 
+ * La macro definisce il numero di righe a partire dall'alto
+ * della finestra che sono occupate a eventuali margini e titoli.
+*/
+
+/*!
+ * @def UNAVAILABLE
+ * @brief Definizione descrizione elementi non disponibili.
+ * 
+ * La macro definisce la stringa contenente la descrizione degli
+ * elementi non selezionabili dall'utente.
+*/
+
+/*!
+ * @def INPUT
+ * @brief Definizione descrizione elementi con input 'uint'.
+ * 
+ * La macro definisce la stringa contenente la descrizione degli
+ * elementi con input 'uint'.
+*/
+
+/*!
+ * @def BLOCK_LINES
+ * @brief Numero di righe per la stampa dell'header di un blocco.
+ * 
+ * La macro definisce il numero di righe necessarie alla stampa
+ * delle informazioni di un blocco.
+*/
+
+/*!
+ * @def MAX_STR_LEN_MINE
+ * @brief Lunghezza massima delle stringhe schermata 'mine'.
+ * 
+ * La macro definisce la lunghezza massima delle stringhe utilizzate
+ * per generare la grafica ascii della schermata di caricamento
+ * visualizzata durante l'operazione di 'mine'.
+*/
+
+/*!
+ * @def TRANS_ROWS
+ * @brief Numero di righe di una schermata di input transazione.
+ * 
+ * La macro definisce il numero di righe necessarie per la
+ * schermata che permette l'input di transazioni manuali.
+*/
+
+/*!
+ * @def SENDER
+ * @brief stringa da stampare alla vice di inserimento 'sender'.
+ * 
+ * La macro definisce la stringa che verrà sampata sulla selezione
+ * dove sarà possibile inserire la chiave pubblica di 'sender'.
+*/
+
+/*!
+ * @def RECEIVER
+ * @brief stringa da stampare alla voce di inserimento 'receiver'.
+ * 
+ * La macro definisce la stringa che verrà sampata sulla selezione
+ * dove sarà possibile inserire la chiave pubblica di 'receiver'.
+*/
+
+/*!
+ * @def AMOUNT
+ * @brief stringa da stampare alla voce di inserimento 'amount'.
+ * 
+ * La macro definisce la stringa che verrà sampata sulla selezione
+ * dove sarà possibile inserire il valore di 'amount'.
+*/
+
+/*!
+ * @def MAX_TRANS_TO_ADD
+ * @brief numero massimo di transazioni da aggiungere.
+ * 
+ * La macro definisce il numero massimo di transazioni che è
+ * possibile aggiungere ad un blocco.
+*/
+
+/*!
+ * @def TITLE_COLOR
+ * @brief Intero di riverimento per 'COLOR_PAIR()' del titolo.
+ * 
+ * La macro definisce l'intero di riferimeno con cui poi sarà
+ * possibile, attraverso l'oggetto 'COLOR_PAIR()' di 'ncurses'
+ * richiamare le impostazioni di colore del titolo.
+*/
+
+/*!
+ * @def QUIT_COLOR
+ * @brief Intero di riverimento per 'COLOR_PAIR()' della selezione 'QUIT'.
+ * 
+ * La macro definisce l'intero di riferimeno con cui poi sarà
+ * possibile, attraverso l'oggetto 'COLOR_PAIR()' di 'ncurses'
+ * richiamare le impostazioni di colore della selezione 'QUIT'.
+*/
+
+/*!
+ * @def INVISIBLE_COLOR
+ * @brief Intero di riverimento per 'COLOR_PAIR()' delle selezioni
+ * non selezionabili.
+ * 
+ * La macro definisce l'intero di riferimeno con cui poi sarà
+ * possibile, attraverso l'oggetto 'COLOR_PAIR()' di 'ncurses'
+ * richiamare le impostazioni di colore delle selezioni non
+ * selezionabili.
+*/
+
+/*!
+ * @def MINED_COLOR
+ * @brief Intero di riverimento per 'COLOR_PAIR()' del numero
+ * di hash 'minato'.
+ * 
+ * La macro definisce l'intero di riferimeno con cui poi sarà
+ * possibile, attraverso l'oggetto 'COLOR_PAIR()' di 'ncurses'
+ * richiamare le impostazioni di colore del numero di hash 'minato'.
+*/
+
+/*!
+ * @def UNMINED_COLOR
+ * @brief Intero di riverimento per 'COLOR_PAIR()' del numero
+ * di hash non 'minato'.
+ * 
+ * La macro definisce l'intero di riferimeno con cui poi sarà
+ * possibile, attraverso l'oggetto 'COLOR_PAIR()' di 'ncurses'
+ * richiamare le impostazioni di colore del numero di hash
+ * non 'minato'.
+*/
+
 #ifndef GUI_H
 #define GUI_H
 
