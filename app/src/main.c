@@ -17,6 +17,7 @@
 #include <stdio.h>
 
 #include "blockchain.h"
+#include "file_IO.h"
 #include "gui.h"
 
 #define MAX_TRANS_TO_ADD 5000000
@@ -173,6 +174,7 @@ void print_exit_warning(chain *chain_to_free, const unsigned int trans_counter) 
         case 0:
             return;
         case -1:
+            save_chain(chain_to_free, BLOCKCHAIN_TXT);
             free(chain_to_free);
             exit(EXIT_SUCCESS);
         default:
