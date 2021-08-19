@@ -211,11 +211,13 @@ void input_trans(uint32_t sender, uint32_t receiver, uint32_t amount, chain *in_
         (in_chain -> head_block) -> first_trans = (in_chain -> head_block) -> head_trans;
     }
 
+    // Si aggiunge una transazione ad una lista esistente
     else{
         (in_chain -> head_block) -> head_trans =
             new_trans(sender, receiver, amount, (in_chain -> head_block) -> head_trans);
     }
 
+    //copia di parametri utili nelle struct
     (in_chain -> head_block) -> num_trans = ((in_chain -> head_block) -> head_trans) -> count_trans;
     in_chain -> num_block = (in_chain -> head_block) -> count_block;
 }
