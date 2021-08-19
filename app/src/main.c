@@ -12,7 +12,6 @@
  */
 
 
-// Definizione delle librerie utili per il progetto 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
