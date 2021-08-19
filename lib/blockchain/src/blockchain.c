@@ -16,12 +16,10 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <time.h>
-#include <ncurses.h>
 
 #include "hash.h"
 #include "format_string.h"
 #include "file_IO.h"
-#include "gui.h"
 
 
 /**
