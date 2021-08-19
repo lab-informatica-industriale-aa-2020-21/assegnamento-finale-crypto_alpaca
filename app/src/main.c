@@ -22,22 +22,24 @@
 #define MAX_TRANS_TO_ADD 5000000
 
 
-void print_menu(void);
-void print_manual_menu(unsigned int *const trans_counter);
-void print_automatic_menu(unsigned int *const trans_counter);
-void print_exit_warning(const unsigned int trans_counter);
+void print_menu(chain *chain_to_edit);
+void print_manual_menu(chain *chain_to_edit, unsigned int *const trans_counter);
+void print_automatic_menu(chain *chain_to_edit, unsigned int *const trans_counter);
+void print_exit_warning(chain *chain_to_free, const unsigned int trans_counter);
 int print_new_trans_menu(uint32_t *const sender, uint32_t *const receiver, uint32_t *const amount);
 void make_random_trans(const int num_trans);
 
 
 int main(void) {
-    print_menu();
+    chain *chain1 = new_chain(NULL);
+
+    print_menu(chain1);
 
     return 0;
 }
 
 
-void print_menu(void) {
+void print_menu(chain *chain_to_edit) {
     unsigned int trans_counter = 0;
 
     char title[] = "BLOCKCHAIN DEMO";
@@ -51,13 +53,13 @@ void print_menu(void) {
 
         switch (choice) {
             case 0:
-                print_automatic_menu(&trans_counter);
+                print_automatic_menu(chain_to_edit, &trans_counter);
                 break;
             case 1:
-                print_manual_menu(&trans_counter);
+                print_manual_menu(chain_to_edit, &trans_counter);
                 break;
             case -1:
-                print_exit_warning(trans_counter);
+                print_exit_warning(chain_to_edit, trans_counter);
                 break;
             default:
                 exit(EXIT_FAILURE);
@@ -66,7 +68,7 @@ void print_menu(void) {
 }
 
 
-void print_manual_menu(unsigned int *const trans_counter) {
+void print_manual_menu(chain *chain_to_edit, unsigned int *const trans_counter) {
     uint32_t sender = 0;
     uint32_t receiver = 0;
     uint32_t amount = 0;
@@ -104,7 +106,7 @@ void print_manual_menu(unsigned int *const trans_counter) {
     }
 }
 
-void print_automatic_menu(unsigned int *const trans_counter) {
+void print_automatic_menu(chain *chain_to_edit, unsigned int *const trans_counter) {
     char subtitle[] = "INSERIMENTO AUTOMATICO";
     int num_items = 5;
     uint32_t n_trans = 0;
@@ -141,7 +143,7 @@ void print_automatic_menu(unsigned int *const trans_counter) {
                 //Tornare al menu principale
                 return;
             case -1:
-                print_exit_warning(*trans_counter);
+                print_exit_warning(chain_to_edit, *trans_counter);
                 break;
             default:
                 exit(EXIT_FAILURE);
@@ -150,7 +152,7 @@ void print_automatic_menu(unsigned int *const trans_counter) {
     }
 }
 
-void print_exit_warning(const unsigned int trans_counter) {
+void print_exit_warning(chain *chain_to_free, const unsigned int trans_counter) {
     if (trans_counter == 0)
         exit(EXIT_SUCCESS);
 
@@ -160,7 +162,7 @@ void print_exit_warning(const unsigned int trans_counter) {
         sprintf(subtitle, "ATTENZIONE! %u TRANSAZIONE NON E' ANCORA STATA MINATA", trans_counter);
     else
         sprintf(subtitle, "ATTENZIONE! %u TRANSAZIONI NON SONO ANCORA STATE MINATE", trans_counter);
-        
+
     int num_items = 1;
     int choice;
     char selections [MAX_ITEMS][MAX_STR_LEN + 1] = {"Torna al menu precedente per minarle"};
@@ -171,8 +173,10 @@ void print_exit_warning(const unsigned int trans_counter) {
         case 0:
             return;
         case -1:
+            free(chain_to_free);
             exit(EXIT_SUCCESS);
         default:
+            free(chain_to_free);
             exit(EXIT_FAILURE);
     }
 }
