@@ -13,6 +13,9 @@ target_include_directories(format_string
 
 target_link_libraries(format_string
         PUBLIC LII::blockchain
+        PUBLIC LII::gui
+        PUBLIC LII::hash
+        PUBLIC LII::file_IO
         )
 
 add_library(LII::format_string ALIAS format_string)
