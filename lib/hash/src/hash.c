@@ -205,7 +205,9 @@ unsigned int majority (unsigned int x, unsigned int y, unsigned int z)
     decimal_to_bin(z, z_bit, WORD_LEN_BITS);
 
     for (int i = 0; i < WORD_LEN_BITS; i++){
-        if((x_bit[i] && y_bit[i]) || (z_bit[i] && y_bit[i]) || (x_bit[i] && z_bit[i])) 
+        if((x_bit[i] && y_bit[i]) || (z_bit[i] && y_bit[i]) ||
+            (x_bit[i] && z_bit[i]))
+
             num[i] = 1;
         else   
             num[i] = 0;
@@ -257,7 +259,8 @@ void shift_state_reg(unsigned int *vett, int len){
  * comporta l'uscita dal programma con un errore.
  */
 
-bool copy_vector(const unsigned int *vett1, uint32_t len1, unsigned int *vett2, uint32_t len2){
+bool copy_vector(const unsigned int *vett1, uint32_t len1,
+            unsigned int *vett2, uint32_t len2){
     if(len1 != len2){
         printf("Error: what to copy? Lengths are different");
         exit(EXIT_FAILURE);
@@ -281,7 +284,8 @@ return 0;
  * comporta l'uscita dal programma con un errore.
  */
 
-bool sum_vector(const unsigned int *vett1, int len1, unsigned int *vett2, int len2){
+bool sum_vector(const unsigned int *vett1, int len1, unsigned int *vett2,
+            int len2){
     if(len1 != len2){
         printf("Error: what to sum? Lengths are different");
         exit(EXIT_FAILURE);
@@ -306,9 +310,11 @@ uint32_t *make_msg_block(const char *const str_input, uint32_t *const n_blocks) 
     uint8_t free_bytes = get_free_bytes(str_input);
 
     if (free_bytes == 0) 
-        *n_blocks = ceil((strlen(str_input) + sizeof(uint32_t) + MSG_INFO_LEN_BYTES) / (double) MSG_BLOCK_LEN_BYTES);
+        *n_blocks = ceil((strlen(str_input) + sizeof(uint32_t) +
+                    MSG_INFO_LEN_BYTES) / (double) MSG_BLOCK_LEN_BYTES);
     else
-        *n_blocks = ceil ((strlen(str_input) + MSG_INFO_LEN_BYTES) / (double) MSG_BLOCK_LEN_BYTES);
+        *n_blocks = ceil ((strlen(str_input) + MSG_INFO_LEN_BYTES) /
+                    (double) MSG_BLOCK_LEN_BYTES);
     
     uint32_t *msg_data = (uint32_t *) calloc(*n_blocks * 64, sizeof(uint32_t));
 
@@ -325,7 +331,8 @@ uint32_t *make_msg_block(const char *const str_input, uint32_t *const n_blocks) 
  * @param[in] n_blocks numero di blocchi da allocare in memoria
  */
 
-void load_data(const char *const str_input, uint32_t *msg_data, uint32_t *const n_blocks) {
+void load_data(const char *const str_input, uint32_t *msg_data,
+            uint32_t *const n_blocks) {
     uint64_t str_input_len = strlen(str_input);
     uint64_t msg_len = BIT_PER_CHAR * str_input_len;
     uint8_t free_bytes = get_free_bytes(str_input);
@@ -333,20 +340,27 @@ void load_data(const char *const str_input, uint32_t *msg_data, uint32_t *const 
 
     for (uint64_t i = 0; i < n_words_to_fill; i++)
         for (uint8_t j = 0; j < CHARS_PER_WORD; j++) {
-            uint32_t byte_to_write = (uint32_t) str_input[CHARS_PER_WORD * i + j];
-            *(msg_data + i) += byte_to_write << (WORD_LEN_BITS - BIT_PER_CHAR * (1 + j));
+            uint32_t byte_to_write =
+                    (uint32_t) str_input[CHARS_PER_WORD * i + j];
+            *(msg_data + i) += byte_to_write <<
+                    (WORD_LEN_BITS - BIT_PER_CHAR * (1 + j));
 
-            if ((i == (n_words_to_fill - 1)) && (j == (CHARS_PER_WORD - free_bytes)))
+            if ((i == (n_words_to_fill - 1)) && (j ==
+                    (CHARS_PER_WORD - free_bytes)))
                 break;
         }
     
     if (free_bytes == 0)
-        *(msg_data + (str_input_len / CHARS_PER_WORD)) = (1 << (WORD_LEN_BITS - 1));
+        *(msg_data + (str_input_len / CHARS_PER_WORD)) = (1 <<
+                (WORD_LEN_BITS - 1));
     else
-        *(msg_data + (str_input_len / CHARS_PER_WORD)) += (1 << (free_bytes * BIT_PER_CHAR - 1));
+        *(msg_data + (str_input_len / CHARS_PER_WORD)) += (1 <<
+                (free_bytes * BIT_PER_CHAR - 1));
     
-    *(msg_data + *n_blocks * MSG_BLOCK_LEN_WORDS - MSG_INFO_LEN_WORDS) = (uint32_t) (msg_len >> WORD_LEN_BITS/2);
-    *(msg_data + *n_blocks * MSG_BLOCK_LEN_WORDS - MSG_INFO_LEN_WORDS + 1) = (uint32_t) msg_len;
+    *(msg_data + *n_blocks * MSG_BLOCK_LEN_WORDS - MSG_INFO_LEN_WORDS) =
+            (uint32_t) (msg_len >> WORD_LEN_BITS/2);
+    *(msg_data + *n_blocks * MSG_BLOCK_LEN_WORDS - MSG_INFO_LEN_WORDS + 1) =
+            (uint32_t) msg_len;
 }
 
 
@@ -404,10 +418,12 @@ void hash(const char *const str_input, uint32_t *const h_i) {
 
         for (int i = 0; i < 64; i++){               //Opero sulle 64 word. Le prime 16 note, le restanti calcolate come segue.    
             if (i >= DIM_BLOCK_HASH){               
-                words[i] = sigma_1(words[i-2]) + words[i-7] + sigma_0(words[i-15]) + words[i-16];
+                words[i] = sigma_1(words[i-2]) + words[i-7] +
+                        sigma_0(words[i-15]) + words[i-16];
             }
 
-            tmp1 = usigma_1(h_i[4]) + choice(h_i[4], h_i[5], h_i[6]) + h_i[7] + k_constants[i] + words[i];
+            tmp1 = usigma_1(h_i[4]) + choice(h_i[4], h_i[5], h_i[6]) + h_i[7] +
+                    k_constants[i] + words[i];
             tmp2 = usigma_0(h_i[0]) + majority(h_i[0], h_i[1], h_i[2]);
 
             shift_state_reg(h_i, 8);        //Sposto in basso in coeff. a->b, b->c etc.

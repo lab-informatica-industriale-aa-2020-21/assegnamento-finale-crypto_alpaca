@@ -193,11 +193,15 @@ unsigned int bin_to_decimal (bool *x, int len_x);
 void decimal_to_bin (unsigned int x, bool *vett, int len_vett);
 char* int_32_to_char(unsigned int input);
 void shift_state_reg(unsigned int *vett, int len);
-bool copy_vector(const unsigned int *vett1, uint32_t len1, unsigned int *vett2, uint32_t len2);
-bool sum_vector(const unsigned int *vett1, int len1, unsigned int *vett2, int len2);
+bool copy_vector(const unsigned int *vett1, uint32_t len1,
+            unsigned int *vett2, uint32_t len2);
+bool sum_vector(const unsigned int *vett1, int len1,
+            unsigned int *vett2, int len2);
 
-uint32_t *make_msg_block(const char *const str_input, uint32_t *const n_blocks);
-void load_data(const char *const str_input, uint32_t *msg_data, uint32_t * const n_blocks);
+uint32_t *make_msg_block(const char *const str_input,
+            uint32_t *const n_blocks);
+void load_data(const char *const str_input, uint32_t *msg_data,
+            uint32_t * const n_blocks);
 uint8_t get_free_bytes(const char *const string);
 void hash(const char *const str_input, uint32_t *const h_i);
 
