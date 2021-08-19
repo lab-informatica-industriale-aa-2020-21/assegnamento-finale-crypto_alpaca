@@ -204,9 +204,10 @@ int transaction_box(char *title, uint32_t *sender, uint32_t *receiver, uint32_t 
 void welcome_box(void){
     char text [MAX_ITEMS][MAX_STR_LEN + 1] = {"In questo programma simuliamo il funzionamento di una blockchain per il",
                                               "trasferimento di transazioni.",
+                                              " ",
                                               "Potrai scegliere di inserire manualmente le transazioni oppure, se ti",
                                               "ritieni molto prigro, per te ci sarà l'inserimento automatico, in grado",
-                                              "di generare transazioni casuali!",
+                                              "di generarle casualmente!",
                                               "I blocchi 'minati' saranno salvati in ./inout/blockchain.txt e la catena",
                                               "non sarà azzerata al riavvio del programma. Se desideri cancellare la",
                                               "catena, svuota completamente il file :/inout/blockchain.txt; cancellando",
@@ -215,7 +216,7 @@ void welcome_box(void){
                                               " ",
                                               "Buon divertimento! :)"};
 
-    title_box("BENVENUTO!", 12, text);
+    title_box("BENVENUTO!", 13, text);
 }
 
 
