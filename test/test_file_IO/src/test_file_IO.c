@@ -18,7 +18,7 @@ void test_write_block_ShouldWriteBlockInfoOnTxtFile(void) {
 		{213, 19232, 0, 191302, 1752, 1, 5, 12332},		//hash
 		39291,											//nonce
 		3,												//num_trans
-		creation_time,
+		creation_time
 	};
 
 	trans test_trans1 = {
