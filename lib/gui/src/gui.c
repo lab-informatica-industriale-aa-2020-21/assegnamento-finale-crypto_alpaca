@@ -238,7 +238,7 @@ void welcome_box(void){
                                               "trasferimento di transazioni.",
                                               " ",
                                               "Potrai scegliere di inserire manualmente le transazioni oppure, se ti",
-                                              "ritieni molto prigro, per te ci sarà l'inserimento automatico, in grado",
+                                              "ritieni molto pigro, per te ci sarà l'inserimento automatico, in grado",
                                               "di generarle casualmente!",
                                               "I blocchi 'minati' saranno salvati in ./inout/blockchain.txt e la catena",
                                               "non sarà azzerata al riavvio del programma. Se desideri cancellare la",
