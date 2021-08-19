@@ -87,6 +87,9 @@ void print_automatic_menu(unsigned int *const trans_counter) {
 }
 
 void print_exit_warning(const unsigned int *const trans_counter) {
+    if (*trans_counter == 0)
+        exit(EXIT_SUCCESS);
+        
     char subtitle[] = "ATTENZIONE! ALCUNE TRANSAZIONI NON SONO ANCORA STATE MINATE";
     int num_items = 1;
     int choice;
