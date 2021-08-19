@@ -1118,9 +1118,24 @@ void print_manual_menu(chain *chain_to_edit,
                 break;
             case 1:
                 //Minare blocco
+                    //inizializzazione finestra ncurses per visualizzazione schermata di caricamento
+                        //inizializzazione ncurses
+                    initscr();
+                        //inizializzazione colori
+                    set_colors();
+                        //inizializzazione finestra
+                    WINDOW *w = new_window();
+
+                        //schermata di caricamento mining
+                    mining_box(w);
+
                 mine(chain_to_edit);
                 *trans_counter = 0;
                 save_chain(chain_to_edit, BLOCKCHAIN_TXT);
+
+                    //chiusura finestra ncurses
+                    delwin(w);
+                    endwin();
                 break;
             case 2:
                 //Visualizzare blocco
@@ -1182,9 +1197,24 @@ void print_automatic_menu(chain *chain_to_edit,
                 break;
             case 2:
                 //Minare il blocco
+                    //inizializzazione finestra ncurses per visualizzazione schermata di caricamento
+                        //inizializzazione ncurses
+                    initscr();
+                        //inizializzazione colori
+                    set_colors();
+                        //inizializzazione finestra
+                    WINDOW *w = new_window();
+
+                        //schermata di caricamento mining
+                    mining_box(w);
+
                 mine(chain_to_edit);
                 *trans_counter = 0;
                 save_chain(chain_to_edit, BLOCKCHAIN_TXT);
+
+                    //chiusura finestra ncurses
+                    delwin(w);
+                    endwin();
                 break;
             case 3:
                 //Visualizzare il blocco

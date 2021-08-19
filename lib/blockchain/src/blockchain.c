@@ -235,17 +235,6 @@ void input_trans(uint32_t sender, uint32_t receiver, uint32_t amount, chain *in_
 */
 
 void mine(chain *const chain_to_mine){
-    //inizializzazione finestra ncurses per visualizzazione schermata di caricamento
-        //inizializzazione ncurses
-    initscr();
-        //inizializzazione colori
-    set_colors();
-        //inizializzazione finestra
-    WINDOW *w = new_window();
-
-    mining_box(w);
-
-
     // Formattazione della lista di transazioni in una stringa continua:
     char str_for_hash [DIM_STR_HASH + DIM_STR_TRANS *
                 (chain_to_mine -> head_block) -> num_trans + HEX_NUMB_LENGTH + 1];
@@ -273,10 +262,6 @@ void mine(chain *const chain_to_mine){
     }
 
     (chain_to_mine -> head_block) -> creation_time = time(NULL);      // info mm/gg/yy (data) - h:min:sec (ora) sulla creazione del nuovo blocco
-
-    //chiusura finestra ncurses
-    delwin(w);
-    endwin();
 }
 
 
