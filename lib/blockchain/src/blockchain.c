@@ -254,19 +254,21 @@ void mine(chain *const chain_to_mine){
     char nonce_str [HEX_NUMB_LENGTH + 1];
     uint32_to_stringHex((chain_to_mine -> head_block) -> nonce, nonce_str);
     strcat(str_for_hash, nonce_str);
+    //strcat("Prova", nonce_str);
 
     // Calcolo del primo hash:
     hash(str_for_hash, (chain_to_mine -> head_block) -> hash);
     
     // Ciclo di 'mine':
         //controllo se i primi 4 bit (del primo uint_32) dell'hash sono diversi da 0
-    while ((chain_to_mine -> head_block) -> hash[0] > MAX_VALID_FIRST_HASH_ELEMENT){
+    while ((chain_to_mine -> head_block) -> hash[0] > MAX_VALID_FIRST_HASH_ELEMENT) {
         // incremento del valore di 'nonce' fino a trovare quello corretto, in base alle condizione di hash scelte
         (chain_to_mine -> head_block) -> nonce ++;
         uint32_to_stringHex((chain_to_mine -> head_block) -> nonce, nonce_str);
         strcat(str_for_hash - HEX_NUMB_LENGTH - 1, nonce_str);
 
-        hash(str_for_hash, (chain_to_mine -> head_block) -> hash);    }
+        hash(str_for_hash, (chain_to_mine -> head_block) -> hash);
+    }
 
     (chain_to_mine -> head_block) -> creation_time = time(NULL);      // info mm/gg/yy (data) - h:min:sec (ora) sulla creazione del nuovo blocco
 

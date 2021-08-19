@@ -7,7 +7,7 @@
 #include <stdint.h>
 #include <time.h>
 
-#define MAX_VALID_FIRST_HASH_ELEMENT 0x00FFFFFF
+#define MAX_VALID_FIRST_HASH_ELEMENT 0x0FFFFFFF
 #define TIMEINFO_STR_LEN 20                             // definizione della lunghezza della stringa per le info temporali di creazione del blocco
 #define DIM_STR_TRANS (3 * HEX_NUMB_LENGTH)             // dati per ogni transazione -> sender, receiver, amount
 #define DIM_STR_HASH (DIM_HASH * HEX_NUMB_LENGTH)

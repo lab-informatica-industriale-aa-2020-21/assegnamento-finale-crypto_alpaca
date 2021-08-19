@@ -305,6 +305,24 @@ void test_hash_shouldCalculateHashFunctionToStringPassedAsArgument(void) {
 	TEST_ASSERT_EQUAL_HEX_ARRAY_MESSAGE(exp_h_i, h_i, DIM_HASH, "Error: hashing message.");
 }
 
+/*
+void test_mine(void) {
+	char msg[] = "Messaggio di prova per il mining";
+	char test_string[strlen(msg) + 10];
+	uint32_t nonce = 0;
+	uint32_t h_i[DIM_HASH] = {0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF,
+							  0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF};
+
+	while (h_i[0] > 0x00FFFFFF) {
+		sprintf(test_string, "%s%u", msg, nonce);
+		hash(test_string, h_i);
+		nonce++;
+	}
+
+	printf("Mined!\nh[0]: %u\nnonce: %u\n", h_i[0], nonce-1);
+}
+*/
+
 int main(void) {
 
 	UNITY_BEGIN();
@@ -353,6 +371,9 @@ int main(void) {
 	RUN_TEST(boundary_test_shift_state_reg_shouldRightShiftVettOf1Position);
 
 	RUN_TEST(boundary_test_load_data_shouldLoadMsgDataInTheBlock);
+
+	//Tmp
+	//RUN_TEST(test_mine);
 
 	return(UNITY_END());
 }
