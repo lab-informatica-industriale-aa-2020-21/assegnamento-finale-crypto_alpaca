@@ -17,6 +17,9 @@
 
 
 int main(void) {
+    //messaggio di benvenuto
+    welcome_box();
+
     chain *chain1 = new_chain(NULL);
     print_menu(chain1);
 

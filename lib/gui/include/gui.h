@@ -50,6 +50,8 @@ int selection_box(char *title, int num_items, char selections [MAX_ITEMS][MAX_ST
 
 int transaction_box(char *title, uint32_t *sender, uint32_t *receiver, uint32_t *amount);
 
+void welcome_box(void);
+
 void block_box(char *title, block *block_to_print);
 
 void title_box(char *title, int num_rows, char descriptions [MAX_ITEMS][MAX_STR_LEN + 1]);
