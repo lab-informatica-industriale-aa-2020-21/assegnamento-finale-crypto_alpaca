@@ -6,7 +6,7 @@
 /*===========================================================================*/
 
 /*!
- * @def BLOCK_CHAIN_TXT
+ * @def BLOCKCHAIN_TXT
  * @brief Stringa contenente il 'path' di blockchain.txt.
  * 
  * La macro definisce la directory in cui si trova il file
@@ -14,7 +14,7 @@
 */
 
 /*!
- * @def TEST_BLOCK_CHAIN_TXT
+ * @def TEST_BLOCKCHAIN_TXT
  * @brief Stringa contenente il 'path' di test_blockchain.txt.
  * 
  * La macro definisce la directory in cui si trova il file

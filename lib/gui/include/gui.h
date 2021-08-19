@@ -71,6 +71,15 @@
 */
 
 /*!
+ * @def MINE_ROWS
+ * @brief Righe della schermata 'mine'.
+ * 
+ * La macro definisce il numero di righe utilizzate
+ * per generare la grafica ascii della schermata di caricamento
+ * visualizzata durante l'operazione di 'mine'.
+*/
+
+/*!
  * @def MAX_STR_LEN_MINE
  * @brief Lunghezza massima delle stringhe schermata 'mine'.
  * 

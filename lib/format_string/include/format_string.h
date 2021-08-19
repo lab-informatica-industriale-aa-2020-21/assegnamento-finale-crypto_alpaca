@@ -31,7 +31,7 @@
 */
 
 /*!
- * @def NUM_HRADER_LINE
+ * @def NUM_HEADER_LINE
  * @brief Numero di righe per l'header del blocco.
  * 
  * La macro definisce il numero di righe necessarie per la stampa
@@ -39,7 +39,7 @@
 */
 
 /*!
- * @def TRANS_LINE
+ * @def NUM_TRANS_LINE
  * @brief Numero di righe per una transazione.
  * 
  * La macro definisce il numero di righe necessarie per la stampa
