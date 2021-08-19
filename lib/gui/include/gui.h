@@ -217,15 +217,19 @@
 
 //funzioni esterne
 
-int selection_box(char *title, int num_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1], int input_index, uint32_t *input_uint, int num_unselect, ...);
+int selection_box(char *title, int num_items,
+                char selections [MAX_ITEMS][MAX_STR_LEN + 1], int input_index,
+                uint32_t *input_uint, int num_unselect, ...);
 
-int transaction_box(char *title, uint32_t *sender, uint32_t *receiver, uint32_t *amount);
+int transaction_box(char *title, uint32_t *sender, uint32_t *receiver,
+                uint32_t *amount);
 
 void welcome_box(void);
 
 void block_box(char *title, block *block_to_print);
 
-void title_box(char *title, int num_rows, char descriptions [MAX_ITEMS][MAX_STR_LEN + 1]);
+void title_box(char *title, int num_rows,
+                char descriptions [MAX_ITEMS][MAX_STR_LEN + 1]);
 
 void mining_box(WINDOW *w);
 
@@ -238,33 +242,58 @@ WINDOW *new_window(void);
 
 void set_colors(void);
 
-void keyboard_input(WINDOW *w, int *input, int *tmp, int n_items, int input_index, uint32_t *input_uint, char *str_input, int *invisible);
+void keyboard_input(WINDOW *w, int *input, int *tmp, int n_items,
+                int input_index, uint32_t *input_uint, char *str_input,
+                int *invisible);
 
-void keyboard_trans_input(WINDOW *w, int *input, int *tmp, uint32_t *sender, uint32_t *receiver, uint32_t *amount, char *str_sender, char *str_receiver, char *str_amount);
+void keyboard_trans_input(WINDOW *w, int *input, int *tmp, uint32_t *sender,
+                uint32_t *receiver, uint32_t *amount, char *str_sender,
+                char *str_receiver, char *str_amount);
 
-void print_selection(WINDOW *w, int *tmp, int n_items, int input_index, char *str_input, char selections [MAX_ITEMS][MAX_STR_LEN + 1]);
+void print_selection(WINDOW *w, int *tmp, int n_items, int input_index,
+                char *str_input, char selections [MAX_ITEMS][MAX_STR_LEN + 1]);
 
-void print_transaction(WINDOW *w, int *tmp, char *str_sender, char *str_receiver, char *str_amount, char selections [MAX_ITEMS][MAX_STR_LEN + 1]);
+void print_transaction(WINDOW *w, int *tmp, char *str_sender,
+                char *str_receiver, char *str_amount,
+                char selections [MAX_ITEMS][MAX_STR_LEN + 1]);
 
-void print_selection_box(WINDOW *w, int *tmp, char *title, int n_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1], int input_index, int *invisible);
+void print_selection_box(WINDOW *w, int *tmp, char *title, int n_items,
+                char selections [MAX_ITEMS][MAX_STR_LEN + 1], int input_index,
+                int *invisible);
 
-void print_transaction_box(WINDOW *w, char *title, char selections [MAX_ITEMS][MAX_STR_LEN + 1]);
+void print_transaction_box(WINDOW *w, char *title,
+                char selections [MAX_ITEMS][MAX_STR_LEN + 1]);
 
-void user_selection(WINDOW *w, int *tmp, int n_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1], int input_index, uint32_t *input_uint, int *invisible);
+void user_selection(WINDOW *w, int *tmp, int n_items,
+                char selections [MAX_ITEMS][MAX_STR_LEN + 1], int input_index,
+                uint32_t *input_uint, int *invisible);
 
-void user_trans_input(WINDOW *w, int *tmp, char selections [MAX_ITEMS][MAX_STR_LEN + 1], uint32_t *sender, uint32_t *receiver, uint32_t *amount);
+void user_trans_input(WINDOW *w, int *tmp,
+                char selections [MAX_ITEMS][MAX_STR_LEN + 1], uint32_t *sender
+                 uint32_t *receiver, uint32_t *amount);
 
 
 
 //Funzioni menu applicazione
 
 void print_menu(chain *chain_to_edit);
-void print_manual_menu(chain *chain_to_edit, unsigned int *const trans_counter);
-void print_automatic_menu(chain *chain_to_edit, unsigned int *const trans_counter);
-void print_exit_warning(chain *chain_to_free, const unsigned int trans_counter);
-int print_new_trans_menu(uint32_t *const sender, uint32_t *const receiver, uint32_t *const amount);
+
+void print_manual_menu(chain *chain_to_edit,
+                unsigned int *const trans_counter);
+
+void print_automatic_menu(chain *chain_to_edit,
+                unsigned int *const trans_counter);
+
+void print_exit_warning(chain *chain_to_free,
+                const unsigned int trans_counter);
+
+int print_new_trans_menu(uint32_t *const sender, uint32_t *const receiver,
+                uint32_t *const amount);
+
 void make_random_trans(chain *chain_to_edit, const int num_trans);
+
 uint32_t get_random_number(uint32_t lower, uint32_t upper);
+
 void clear_parameters(uint32_t *sender, uint32_t *receiver, uint32_t *amount);
 
 #endif
