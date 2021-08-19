@@ -100,14 +100,16 @@
  * @param[in] num_unselect numero di selezioni che si vogliono rendere "non
  * selezionabili"
  *
- * @param[in] args_aggointivi (...) indici delle eventuali selezioni "non selezionabili" separati
- * da virgole e corrispondenti alle righe della matrice 'selections'
+ * @param[in] args_aggointivi (...) indici delle eventuali selezioni "non selezionabili"
+ * separati da virgole e corrispondenti alle righe della matrice 'selections'
  *
  * @return numero relativo alla selezione dell'utente, corrispondente alla riga
  * di indice 'i' della matrice 'selections'
  */
 
-int selection_box(char *title, int num_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1], int input_index, uint32_t *input_uint, int num_unselect, ...){
+int selection_box(char *title, int num_items,
+            char selections [MAX_ITEMS][MAX_STR_LEN + 1], int input_index,
+            uint32_t *input_uint, int num_unselect, ...){
     //tmp è la variabile che la funzione ritornerà, corrispondente alla
     //selezione fatta a schermo dall'utente.
     //inizializzata a "-1", verà posta a ad un valore '>=0' nel momento
@@ -149,11 +151,13 @@ int selection_box(char *title, int num_items, char selections [MAX_ITEMS][MAX_ST
     WINDOW *w = new_window();
 
     //viene stampata la schermata
-    print_selection_box(w, &tmp, title, n_items, selections, input_index, invisible);
+    print_selection_box(w, &tmp, title, n_items, selections, input_index,
+                        invisible);
 
     //ciclo while che gestisce la selezione dell'utente
     //salva la selezione in 'tmp' e l'intero in input in 'input_uint'
-    user_selection(w, &tmp, n_items, selections, input_index, input_uint, invisible);
+    user_selection(w, &tmp, n_items, selections, input_index, input_uint,
+                        invisible);
 
     //chiusura finestra
     delwin(w);
@@ -185,7 +189,8 @@ int selection_box(char *title, int num_items, char selections [MAX_ITEMS][MAX_ST
  * '-1' se l'utente seleziona'QUIT'
  */
 
-int transaction_box(char *title, uint32_t *sender, uint32_t *receiver, uint32_t *amount){
+int transaction_box(char *title, uint32_t *sender, uint32_t *receiver,
+            uint32_t *amount){
     //variabile che tiene traccia della selezione istantanea dell'utente
     int tmp = 0;
 
@@ -229,19 +234,20 @@ int transaction_box(char *title, uint32_t *sender, uint32_t *receiver, uint32_t 
  */
 
 void welcome_box(void){
-    char text [MAX_ITEMS][MAX_STR_LEN + 1] = {"In questo programma simuliamo il funzionamento di una blockchain per il",
-                                              "trasferimento di transazioni.",
-                                              " ",
-                                              "Potrai scegliere di inserire manualmente le transazioni oppure, se ti",
-                                              "ritieni molto pigro, per te ci sarà l'inserimento automatico, in grado",
-                                              "di generarle casualmente!",
-                                              "I blocchi 'minati' saranno salvati in ./inout/blockchain.txt e la catena",
-                                              "non sarà azzerata al riavvio del programma. Se desideri cancellare la",
-                                              "catena, svuota completamente il file :/inout/blockchain.txt; cancellando",
-                                              "porzioni di testo o l'intero file potresti compromettere l'esecuzione",
-                                              "del programma!",
-                                              " ",
-                                              "Buon divertimento! :D"};
+    char text [MAX_ITEMS][MAX_STR_LEN + 1] =
+    {"In questo programma simuliamo il funzionamento di una blockchain per il",
+     "trasferimento di transazioni.",
+     " ",
+     "Potrai scegliere di inserire manualmente le transazioni oppure, se ti",
+     "ritieni molto pigro, per te ci sarà l'inserimento automatico, in grado",
+     "di generarle casualmente!",
+     "I blocchi 'minati' saranno salvati in ./inout/blockchain.txt e la catena",
+     "non sarà azzerata al riavvio del programma. Se desideri cancellare la",
+     "catena, svuota completamente il file :/inout/blockchain.txt; cancellando",
+     "porzioni di testo o l'intero file potresti compromettere l'esecuzione",
+     "del programma!",
+     " ",
+     "Buon divertimento! :D"};
 
     title_box("BENVENUTO!", 13, text);
 }
@@ -287,23 +293,24 @@ void block_box(char *title, block *block_to_print){
     //stampa blocco
     for (int i = 0; i < BLOCK_LINES; i++){
         if (i > 1 && i < 10) {   //indici delle informazioni di hash
-            if (block_to_print -> hash [0] > MAX_VALID_FIRST_HASH_ELEMENT) {  //condizione blocco non minato
+            if (block_to_print -> hash [0] > MAX_VALID_FIRST_HASH_ELEMENT) { //condizione blocco non minato
                 wattron(w, COLOR_PAIR(UNMINED_COLOR));
-                mvwprintw(w, UNUSABLE_ROWS + i, 2, "%s", block_matrix [i]); //stampa rosso
+                mvwprintw(w, UNUSABLE_ROWS + i, 2, "%s", block_matrix [i]);  //stampa rosso
                 wattroff(w, COLOR_PAIR(UNMINED_COLOR));
             }
-            else {                                                        //condizione blocck minato
+            else {                                                           //condizione blocco minato
                 wattron(w, COLOR_PAIR(MINED_COLOR));
-                mvwprintw(w, UNUSABLE_ROWS + i, 2, "%s", block_matrix [i]); //stampa verde
+                mvwprintw(w, UNUSABLE_ROWS + i, 2, "%s", block_matrix [i]);  //stampa verde
                 wattroff(w, COLOR_PAIR(MINED_COLOR));
             }
         }
         else
-            mvwprintw(w, UNUSABLE_ROWS + i, 2, "%s", block_matrix [i]);     //stampa altre informazioni
+            mvwprintw(w, UNUSABLE_ROWS + i, 2, "%s", block_matrix [i]);      //stampa altre informazioni
     }
 
     //stampa "Press ENTER"
-    mvwprintw(w, MAX_ITEMS + UNUSABLE_ROWS, 2, "%*s", MAX_STR_LEN, "Press ENTER");
+    mvwprintw(w, MAX_ITEMS + UNUSABLE_ROWS, 2, "%*s", MAX_STR_LEN,
+                "Press ENTER");
 
     //sttesa input ENTER
     while(wgetch(w) != '\n'){};
@@ -324,7 +331,8 @@ void block_box(char *title, block *block_to_print){
  * @param[in] descriptions matrice di stringhe contenente le righe della descrizione
  */
 
-void title_box(char*title, int num_rows, char descriptions [MAX_ITEMS][MAX_STR_LEN + 1]){
+void title_box(char*title, int num_rows,
+            char descriptions [MAX_ITEMS][MAX_STR_LEN + 1]){
     //saturazione di num_rows entro i limiti
     int n_rows = saturate(num_rows, MAX_ITEMS);
 
@@ -355,7 +363,8 @@ void title_box(char*title, int num_rows, char descriptions [MAX_ITEMS][MAX_STR_L
         mvwprintw(w, UNUSABLE_ROWS + i, 2, "%s", descriptions [i]);
 
     //stampa "Press ENTER"
-    mvwprintw(w, MAX_ITEMS + UNUSABLE_ROWS, 2, "%*s", MAX_STR_LEN, "Press ENTER");
+    mvwprintw(w, MAX_ITEMS + UNUSABLE_ROWS, 2, "%*s", MAX_STR_LEN,
+                "Press ENTER");
 
     //sttesa input ENTER
     while(wgetch(w) != '\n'){};
@@ -377,29 +386,31 @@ void mining_box(WINDOW *w){
     curs_set(0);
 
     //stampa schermata di mining
-    char matrix [MINE_ROWS][MAX_STR_LEN_MINE + 1] = {"        ______TT______       ",
-                                                     "       /______________\\      ",
-                                                     "              ||             ",
-                                                     "              ||             ",
-                                                     "              ||             ",
-                                                     "              ||             ",
-                                                     "              ||             ",
-                                                     "              \\/             ",
-                                                     "              °°            ",
-                                                     "                             ",
-                                                     "           Mining...         "};
+    char matrix [MINE_ROWS][MAX_STR_LEN_MINE + 1] =
+    {"        ______TT______       ",
+     "       /______________\\      ",
+     "              ||             ",
+     "              ||             ",
+     "              ||             ",
+     "              ||             ",
+     "              ||             ",
+     "              \\/             ",
+     "              °°            ",
+     "                             ",
+     "           Mining...         "};
     
     //stampa schermata
     for (int i = 0; i < MINE_ROWS; i++)
-        mvwprintw(w, MINE_ROWS/2 + i, MAX_STR_LEN/2 - MAX_STR_LEN_MINE/2 + 2, "%s", matrix [i]);
+        mvwprintw(w, MINE_ROWS/2 + i,
+                MAX_STR_LEN/2 - MAX_STR_LEN_MINE/2 + 2, "%s", matrix [i]);
 
     wrefresh(w);
 }
 
 
 /**
- * Ritorna il valore inserito solo se esso è contenuto in un limite scelto, se il valore
- * eccede, la funzione ritorna il massimo accettabile.
+ * Ritorna il valore inserito solo se esso è contenuto in un limite scelto,
+ * se il valore eccede, la funzione ritorna il massimo accettabile.
  * 
  * @param[in] value valore da saturare
  * 
@@ -485,7 +496,9 @@ void set_colors(void){
  * (è spiegato in selection_box perche 'i+1')
  */
 
-void keyboard_input(WINDOW *w, int *input, int *tmp, int n_items, int input_index, uint32_t *input_uint, char *str_input, int *invisible){
+void keyboard_input(WINDOW *w, int *input, int *tmp, int n_items,
+            int input_index, uint32_t *input_uint, char *str_input,
+            int *invisible){
     switch(*input){
             case KEY_UP:    //caso freccia su
                 *tmp = *tmp - 1;         //decremento 'tmp'
@@ -516,10 +529,13 @@ void keyboard_input(WINDOW *w, int *input, int *tmp, int n_items, int input_inde
                 case ' ':   //caso 'spazio' -> modalità di inserimento 'uint'
                 if (*tmp == input_index){
                     //solo se la selezione attuale è sull'elemento con possibilità di input 'uint'
-                    mvwprintw(w, *tmp + UNUSABLE_ROWS, MAX_COLS - (int)strlen(INPUT) - 2, "%-*s", (int)sizeof(INPUT) - 1, "type n: ...");
+                    mvwprintw(w, *tmp + UNUSABLE_ROWS, MAX_COLS -
+                            (int)strlen(INPUT) - 2, "%-*s",
+                            (int)sizeof(INPUT) - 1, "type n: ...");
                     wscanw(w, "%u", input_uint);    //input
                     //formattazione di 'input_uint' in str_input
-                    sprintf(str_input, "n: %*u", (int)sizeof(INPUT) - 4, *input_uint);
+                    sprintf(str_input, "n: %*u", (int)sizeof(INPUT) - 4,
+                            *input_uint);
                     break;
                 }
                 else
@@ -555,7 +571,9 @@ void keyboard_input(WINDOW *w, int *input, int *tmp, int n_items, int input_inde
  * @param[out] str_amount stringa su cui è/verrà formattato il valore di amount
  */
 
-void keyboard_trans_input(WINDOW *w, int *input, int *tmp, uint32_t *sender, uint32_t *receiver, uint32_t *amount, char *str_sender, char *str_receiver, char *str_amount){
+void keyboard_trans_input(WINDOW *w, int *input, int *tmp, uint32_t *sender,
+            uint32_t *receiver, uint32_t *amount, char *str_sender,
+            char *str_receiver, char *str_amount){
     switch(*input){
             case KEY_UP:    //caso freccia su
                 *tmp = *tmp - 1;         //decremento 'tmp'
@@ -572,25 +590,30 @@ void keyboard_trans_input(WINDOW *w, int *input, int *tmp, uint32_t *sender, uin
                 break;
 
             case ' ':   //caso 'spazio' -> modalità di inserimento 'uint'
-                mvwprintw(w, *tmp + UNUSABLE_ROWS, MAX_COLS - (int)strlen(INPUT) - 2, "%-*s", (int)sizeof(INPUT) - 1, "type n: ...");
+                mvwprintw(w, *tmp + UNUSABLE_ROWS, MAX_COLS -
+                        (int)strlen(INPUT) - 2, "%-*s", (int)sizeof(INPUT) - 1,
+                        "type n: ...");
 
                 switch(*tmp){
                     case 0:
                     wscanw(w, "%u", sender);    //input
                     //formattazione di 'sender' in str_sender
-                    sprintf(str_sender, "n: %*u", (int)sizeof(INPUT) - 4, *sender);
+                    sprintf(str_sender, "n: %*u", (int)sizeof(INPUT) - 4,
+                            *sender);
                     break;
 
                     case 1:
                     wscanw(w, "%u", receiver);    //input
                     //formattazione di 'receiver' in str_receiver
-                    sprintf(str_receiver, "n: %*u", (int)sizeof(INPUT) - 4, *receiver);
+                    sprintf(str_receiver, "n: %*u", (int)sizeof(INPUT) - 4,
+                            *receiver);
                     break;
 
                     case 2:
                     wscanw(w, "%u", amount);    //input
                     //formattazione di 'amount' in str_amount
-                    sprintf(str_amount, "n: %*u", (int)sizeof(INPUT) - 4, *amount);
+                    sprintf(str_amount, "n: %*u", (int)sizeof(INPUT) - 4,
+                            *amount);
                     break;
 
                     default: break;
@@ -624,7 +647,8 @@ void keyboard_trans_input(WINDOW *w, int *input, int *tmp, uint32_t *sender, uin
  * selezione con input, esclusi titolo e 'QUIT')
  */
 
-void print_selection(WINDOW *w, int *tmp, int n_items, int input_index, char *str_input, char selections [MAX_ITEMS][MAX_STR_LEN + 1]){
+void print_selection(WINDOW *w, int *tmp, int n_items, int input_index,
+            char *str_input, char selections [MAX_ITEMS][MAX_STR_LEN + 1]){
     //stringa temporanea in cui formattare i dati da stampare
     char item [MAX_STR_LEN + 1];
     
@@ -638,7 +662,8 @@ void print_selection(WINDOW *w, int *tmp, int n_items, int input_index, char *st
         sprintf(item, "%-*s", MAX_STR_LEN - (int)strlen(INPUT), selections[*tmp]);
         mvwprintw(w, *tmp + UNUSABLE_ROWS, 2, "%s", item);
 
-        mvwprintw(w, *tmp + UNUSABLE_ROWS, MAX_COLS - (int)strlen(INPUT) - 2, "%-s", str_input);
+        mvwprintw(w, *tmp + UNUSABLE_ROWS, MAX_COLS - (int)strlen(INPUT) - 2,
+                    "%-s", str_input);
     }
     //stampa di 'QUIT'
     else{
@@ -670,7 +695,9 @@ void print_selection(WINDOW *w, int *tmp, int n_items, int input_index, char *st
  * terminale per ogni voce
  */
 
-void print_transaction(WINDOW *w, int *tmp, char *str_sender, char *str_receiver, char *str_amount, char selections [MAX_ITEMS][MAX_STR_LEN + 1]){
+void print_transaction(WINDOW *w, int *tmp, char *str_sender,
+            char *str_receiver, char *str_amount,
+            char selections [MAX_ITEMS][MAX_STR_LEN + 1]){
     //stringa temporanea in cui formattare i dati da stampare
     char item [MAX_STR_LEN + 1];
     
@@ -683,13 +710,16 @@ void print_transaction(WINDOW *w, int *tmp, char *str_sender, char *str_receiver
         //affianco alla selezione
         switch(*tmp){
             case 0: //sender
-                mvwprintw(w, *tmp + UNUSABLE_ROWS, MAX_COLS - (int)strlen(INPUT) - 2, "%-s", str_sender);
+                mvwprintw(w, *tmp + UNUSABLE_ROWS, MAX_COLS -
+                        (int)strlen(INPUT) - 2, "%-s", str_sender);
                 break;
             case 1: //receiver
-                mvwprintw(w, *tmp + UNUSABLE_ROWS, MAX_COLS - (int)strlen(INPUT) - 2, "%-s", str_receiver);
+                mvwprintw(w, *tmp + UNUSABLE_ROWS, MAX_COLS -
+                        (int)strlen(INPUT) - 2, "%-s", str_receiver);
                 break;
             case 2: //amount
-                mvwprintw(w, *tmp + UNUSABLE_ROWS, MAX_COLS - (int)strlen(INPUT) - 2, "%-s", str_amount);
+                mvwprintw(w, *tmp + UNUSABLE_ROWS, MAX_COLS -
+                        (int)strlen(INPUT) - 2, "%-s", str_amount);
                 break;
         }
     }
@@ -740,7 +770,9 @@ void print_transaction(WINDOW *w, int *tmp, char *str_sender, char *str_receiver
  * (è spiegato in selection_box perche 'i+1')
  */
 
-void print_selection_box(WINDOW *w, int *tmp, char *title, int n_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1], int input_index, int *invisible){
+void print_selection_box(WINDOW *w, int *tmp, char *title, int n_items,
+            char selections [MAX_ITEMS][MAX_STR_LEN + 1], int input_index,
+            int *invisible){
     //stringa temporanea in cui formattare i dati da stampare
     char item [MAX_STR_LEN + 1];
 
@@ -772,16 +804,19 @@ void print_selection_box(WINDOW *w, int *tmp, char *title, int n_items, char sel
         if (invisible [i + 1]){
             //si formattano e stampano gli elementi non selezionabili con gli opportuni attributi
             wattron(w, COLOR_PAIR(INVISIBLE_COLOR));
-            sprintf(item, "%-*s", MAX_STR_LEN - (int)strlen(UNAVAILABLE), selections[i]);
+            sprintf(item, "%-*s", MAX_STR_LEN - (int)strlen(UNAVAILABLE),
+                    selections[i]);
             mvwprintw(w, i + UNUSABLE_ROWS, 2, "%s%s", item, UNAVAILABLE);
         }
         else if (i == input_index){
             //si formatta e stampa l'eventuale selezione con input 'uint'
-            sprintf(item, "%-*s", MAX_STR_LEN - (int)strlen(INPUT), selections[i]);
+            sprintf(item, "%-*s", MAX_STR_LEN - (int)strlen(INPUT),
+                    selections[i]);
             mvwprintw(w, i + UNUSABLE_ROWS, 2, "%s", item);
 
             //si stampa la casella di inserimento 'uint'
-            mvwprintw(w, i + UNUSABLE_ROWS, 2 + (int)strlen(item), "%-s", INPUT);
+            mvwprintw(w, i + UNUSABLE_ROWS, 2 + (int)strlen(item),
+                    "%-s", INPUT);
         }
         else{
             //si stampano le selezioni normali
@@ -814,7 +849,8 @@ void print_selection_box(WINDOW *w, int *tmp, char *title, int n_items, char sel
  * terminale per ogni voce
  */
 
-void print_transaction_box(WINDOW *w, char *title, char selections [MAX_ITEMS][MAX_STR_LEN + 1]){
+void print_transaction_box(WINDOW *w, char *title,
+            char selections [MAX_ITEMS][MAX_STR_LEN + 1]){
     //stringa temporanea in cui formattare i dati da stampare
     char item [MAX_STR_LEN + 1];
 
@@ -840,10 +876,12 @@ void print_transaction_box(WINDOW *w, char *title, char selections [MAX_ITEMS][M
         
         if (i != TRANS_ROWS - 1){
             //si formatta una selezione con input 'uint'
-            sprintf(item, "%-*s", MAX_STR_LEN - (int)strlen(INPUT), selections[i]);
+            sprintf(item, "%-*s", MAX_STR_LEN - (int)strlen(INPUT),
+                    selections[i]);
             mvwprintw(w, i + UNUSABLE_ROWS, 2, "%s", item);
             //si stampa la casella di inserimento 'uint'
-            mvwprintw(w, i + UNUSABLE_ROWS, 2 + (int)strlen(item), "%-s", INPUT);
+            mvwprintw(w, i + UNUSABLE_ROWS, 2 + (int)strlen(item),
+                    "%-s", INPUT);
         }
         else{
             //si stampa "Enter"
@@ -891,7 +929,9 @@ void print_transaction_box(WINDOW *w, char *title, char selections [MAX_ITEMS][M
  * (è spiegato in selection_box perche 'i+1')
  */
 
-void user_selection(WINDOW *w, int *tmp, int n_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1], int input_index, uint32_t *input_uint, int *invisible){
+void user_selection(WINDOW *w, int *tmp, int n_items,
+            char selections [MAX_ITEMS][MAX_STR_LEN + 1], int input_index,
+            uint32_t *input_uint, int *invisible){
     //stringa in cui verrà formattato l''uint' inserito da tastiera
     //per la stampa nella finestra
     char str_input [(int)sizeof(INPUT) + 1] = INPUT;
@@ -914,7 +954,8 @@ void user_selection(WINDOW *w, int *tmp, int n_items, char selections [MAX_ITEMS
 
         //viene modificata 'tmp' in relazione all'input dell'utente
         //(gestisce anche eventualmente l'input dell''uint')
-        keyboard_input(w, &input, tmp, n_items, input_index, input_uint, str_input, invisible);
+        keyboard_input(w, &input, tmp, n_items, input_index, input_uint,
+                    str_input, invisible);
 
         //l'elemento ora selezionato viene ristampato con l'attributo A_STANDOUT 
         wattron(w, A_STANDOUT);
@@ -945,7 +986,9 @@ void user_selection(WINDOW *w, int *tmp, int n_items, char selections [MAX_ITEMS
  * @param[out] amount puntatore alla variabile amount
  */
 
-void user_trans_input(WINDOW *w, int *tmp, char selections [MAX_ITEMS][MAX_STR_LEN + 1], uint32_t *sender, uint32_t *receiver, uint32_t *amount){
+void user_trans_input(WINDOW *w, int *tmp,
+            char selections [MAX_ITEMS][MAX_STR_LEN + 1], uint32_t *sender,
+            uint32_t *receiver, uint32_t *amount){
     //stringhe in cui verranno formattati gli input 'uint'
     //da tastiera per la stampa nella finestra
     char str_sender [(int)sizeof(INPUT) + 1] = INPUT;
@@ -966,15 +1009,18 @@ void user_trans_input(WINDOW *w, int *tmp, char selections [MAX_ITEMS][MAX_STR_L
 
         //dopo l'input dell'utente, l'elemento precedentemente selezionato
         //viene ristampato senza l'attributo A_STANDOUT
-        print_transaction(w, tmp, str_sender, str_receiver, str_amount, selections);
+        print_transaction(w, tmp, str_sender, str_receiver, str_amount,
+                    selections);
 
         //viene modificata 'tmp' in relazione all'input dell'utente
         //vengono salvati gli input 'uint' dell'utente
-        keyboard_trans_input(w, &input, tmp, sender, receiver, amount, str_sender, str_receiver, str_amount);
+        keyboard_trans_input(w, &input, tmp, sender, receiver, amount,
+                    str_sender, str_receiver, str_amount);
 
         //l'elemento ora selezionato viene ristampato con l'attributo A_STANDOUT 
         wattron(w, A_STANDOUT);
-        print_transaction(w, tmp, str_sender, str_receiver, str_amount, selections);
+        print_transaction(w, tmp, str_sender, str_receiver, str_amount,
+                    selections);
         wattroff(w, A_STANDOUT);
     }
 }
@@ -1026,7 +1072,8 @@ void print_menu(chain *chain_to_edit) {
  * @param[in, out] trans_counter contatore delle transazioni non ancora minate
  */
 
-void print_manual_menu(chain *chain_to_edit, unsigned int *const trans_counter) {
+void print_manual_menu(chain *chain_to_edit,
+            unsigned int *const trans_counter) {
     uint32_t sender = 0;
     uint32_t receiver = 0;
     uint32_t amount = 0;
@@ -1041,13 +1088,17 @@ void print_manual_menu(chain *chain_to_edit, unsigned int *const trans_counter) 
 
     while (true) {
         if (*trans_counter == 0 && chain_to_edit->head_block == NULL)
-            choice = selection_box(subtitle, num_items, selections, -1, NULL, 2, 1, 2);
+            choice = selection_box(subtitle, num_items, selections,
+                                -1, NULL, 2, 1, 2);
         else if (*trans_counter == 0 && chain_to_edit->head_block != NULL)
-            choice = selection_box(subtitle, num_items, selections, -1, NULL, 1, 1);
+            choice = selection_box(subtitle, num_items, selections,
+                                -1, NULL, 1, 1);
         else if (*trans_counter >= MAX_TRANS_TO_ADD)
-            choice = selection_box(subtitle, num_items, selections, -1, NULL, 1, 0);
+            choice = selection_box(subtitle, num_items, selections,
+                                -1, NULL, 1, 0);
         else
-            choice = selection_box(subtitle, num_items, selections, -1, NULL, 0);
+            choice = selection_box(subtitle, num_items, selections,
+                                -1, NULL, 0);
 
         switch (choice) {
             case 0:
@@ -1066,7 +1117,8 @@ void print_manual_menu(chain *chain_to_edit, unsigned int *const trans_counter) 
                 break;
             case 2:
                 //Visualizzare blocco
-                block_box("ULTIMO BLOCCO DELLA CATENA", chain_to_edit->head_block);
+                block_box("ULTIMO BLOCCO DELLA CATENA",
+                            chain_to_edit->head_block);
                 break;
             case 3:
                 //Tornare al menu principale
@@ -1089,7 +1141,8 @@ void print_manual_menu(chain *chain_to_edit, unsigned int *const trans_counter) 
  * @param[in, out] trans_counter contatore delle transazioni non ancora minate
  */
 
-void print_automatic_menu(chain *chain_to_edit, unsigned int *const trans_counter) {
+void print_automatic_menu(chain *chain_to_edit,
+            unsigned int *const trans_counter) {
     char subtitle[] = "INSERIMENTO AUTOMATICO";
     int num_items = 5;
     uint32_t n_trans = 0;
@@ -1102,13 +1155,17 @@ void print_automatic_menu(chain *chain_to_edit, unsigned int *const trans_counte
 
     while (true) {
         if (*trans_counter == 0 && chain_to_edit->head_block == NULL)
-            choice = selection_box(subtitle, num_items, selections, 0, &n_trans, 2, 2, 3);
+            choice = selection_box(subtitle, num_items, selections, 0,
+                                    &n_trans, 2, 2, 3);
         else if (*trans_counter == 0 && chain_to_edit->head_block != NULL)
-            choice = selection_box(subtitle, num_items, selections, 0, &n_trans, 1, 2);
+            choice = selection_box(subtitle, num_items, selections, 0,
+                                    &n_trans, 1, 2);
         else if (*trans_counter >= MAX_TRANS_TO_ADD)
-            choice = selection_box(subtitle, num_items, selections, -1, NULL, 1, 0);
+            choice = selection_box(subtitle, num_items, selections, -1,
+                                    NULL, 1, 0);
         else
-            choice = selection_box(subtitle, num_items, selections, 0, &n_trans, 0);
+            choice = selection_box(subtitle, num_items, selections, 0,
+                                    &n_trans, 0);
 
         switch (choice) {
             case 1:
@@ -1124,7 +1181,8 @@ void print_automatic_menu(chain *chain_to_edit, unsigned int *const trans_counte
                 break;
             case 3:
                 //Visualizzare il blocco
-                block_box("ULTIMO BLOCCO DELLA CATENA", chain_to_edit->head_block);
+                block_box("ULTIMO BLOCCO DELLA CATENA",
+                            chain_to_edit->head_block);
                 break;
             case 4:
                 //Tornare al menu principale
@@ -1148,20 +1206,24 @@ void print_automatic_menu(chain *chain_to_edit, unsigned int *const trans_counte
  * @param[in] trans_counter contatore delle transazioni non ancora minate
  */
 
-void print_exit_warning(chain *chain_to_free, const unsigned int trans_counter) {
+void print_exit_warning(chain *chain_to_free,
+            const unsigned int trans_counter) {
     if (trans_counter == 0)
         exit(EXIT_SUCCESS);
 
     char subtitle[MAX_STR_LEN];
 
     if (trans_counter == 1)
-        sprintf(subtitle, "ATTENZIONE! %u TRANSAZIONE NON E' ANCORA STATA MINATA", trans_counter);
+        sprintf(subtitle, "ATTENZIONE! %u TRANSAZIONE NON E' ANCORA STATA MINATA",
+                    trans_counter);
     else
-        sprintf(subtitle, "ATTENZIONE! %u TRANSAZIONI NON SONO ANCORA STATE MINATE", trans_counter);
+        sprintf(subtitle, "ATTENZIONE! %u TRANSAZIONI NON SONO ANCORA STATE MINATE",
+                    trans_counter);
 
     int num_items = 1;
     int choice;
-    char selections [MAX_ITEMS][MAX_STR_LEN + 1] = {"Torna al menu precedente per minarle"};
+    char selections [MAX_ITEMS][MAX_STR_LEN + 1] =
+            {"Torna al menu precedente per minarle"};
 
     choice = selection_box(subtitle, num_items, selections, -1, NULL, 0);
 
@@ -1189,7 +1251,8 @@ void print_exit_warning(chain *chain_to_free, const unsigned int trans_counter) 
  * @return La scelta fatta dall'utente nella schermata.
  */
 
-int print_new_trans_menu(uint32_t *const sender, uint32_t *const receiver, uint32_t *const amount) {
+int print_new_trans_menu(uint32_t *const sender, uint32_t *const receiver,
+            uint32_t *const amount) {
     int choice;
 
     while (*sender == 0 || *receiver == 0 || *amount == 0) {
