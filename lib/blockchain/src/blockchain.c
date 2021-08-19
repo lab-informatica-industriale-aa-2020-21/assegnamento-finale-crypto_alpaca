@@ -37,7 +37,8 @@
 * @return Il puntatore alla nuova transazione creata
 */
 
-trans *new_trans(const uint32_t sender, const uint32_t receiver, const uint32_t amount, trans *const head_trans){  
+trans *new_trans(const uint32_t sender, const uint32_t receiver, const uint32_t amount,
+                trans *const head_trans){  
     // Allocazione di memoria per una transazione
     trans *tmp_trans = (trans *) malloc(sizeof(trans));
 
@@ -218,7 +219,9 @@ void input_trans(uint32_t sender, uint32_t receiver, uint32_t amount, chain *in_
     }
 
     //copia di parametri utili nelle struct
-    (in_chain -> head_block) -> num_trans = ((in_chain -> head_block) -> head_trans) -> count_trans;
+    (in_chain -> head_block) -> num_trans =
+            ((in_chain -> head_block) -> head_trans) -> count_trans;
+
     in_chain -> num_block = (in_chain -> head_block) -> count_block;
 }
 
@@ -244,7 +247,9 @@ void mine(chain *const chain_to_mine){
 
 
     // Formattazione della lista di transazioni in una stringa continua:
-    char str_for_hash [DIM_STR_HASH + DIM_STR_TRANS * (chain_to_mine -> head_block) -> num_trans + HEX_NUMB_LENGTH + 1];
+    char str_for_hash [DIM_STR_HASH + DIM_STR_TRANS *
+                (chain_to_mine -> head_block) -> num_trans + HEX_NUMB_LENGTH + 1];
+
     format_data_for_hash(chain_to_mine -> head_block, str_for_hash);
     
     char nonce_str [HEX_NUMB_LENGTH + 1];
@@ -260,7 +265,8 @@ void mine(chain *const chain_to_mine){
         // incremento del valore di 'nonce' fino a trovare quello corretto, in base alle condizione di hash scelte
         (chain_to_mine -> head_block) -> nonce ++;
         uint32_to_stringHex((chain_to_mine -> head_block) -> nonce, nonce_str);
-        str_for_hash [DIM_STR_HASH + DIM_STR_TRANS * (chain_to_mine -> head_block) -> num_trans + 1] = '\0';
+        str_for_hash [DIM_STR_HASH + DIM_STR_TRANS *
+                    (chain_to_mine -> head_block) -> num_trans + 1] = '\0';
         strcat(str_for_hash, nonce_str);
 
         hash(str_for_hash, (chain_to_mine -> head_block) -> hash);
