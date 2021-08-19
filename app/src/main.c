@@ -15,13 +15,19 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+
+#include "blockchain.h"
 #include "gui.h"
+
+#define MAX_TRANS_TO_ADD 5000000
 
 
 void print_menu(void);
 void print_manual_menu(unsigned int *const trans_counter);
 void print_automatic_menu(unsigned int *const trans_counter);
-void print_exit_warning(const unsigned int *const trans_counter);
+void print_exit_warning(const unsigned int trans_counter);
+int print_new_trans_menu(uint32_t *const sender, uint32_t *const receiver, uint32_t *const amount);
+void make_random_trans(const int num_trans);
 
 
 int main(void) {
@@ -35,7 +41,7 @@ void print_menu(void) {
     unsigned int trans_counter = 0;
 
     char title[] = "BLOCKCHAIN DEMO";
-    int num_items = 2;
+    const int num_items = 2;
     int choice;
     char selections[MAX_ITEMS][MAX_STR_LEN + 1] = {"Inserimento Automatico",
                                                    "Inserimento Manuale"};
@@ -51,7 +57,7 @@ void print_menu(void) {
                 print_manual_menu(&trans_counter);
                 break;
             case -1:
-                print_exit_warning(&trans_counter);
+                print_exit_warning(trans_counter);
                 break;
             default:
                 exit(EXIT_FAILURE);
@@ -61,8 +67,12 @@ void print_menu(void) {
 
 
 void print_manual_menu(unsigned int *const trans_counter) {
+    uint32_t sender = 0;
+    uint32_t receiver = 0;
+    uint32_t amount = 0;
+
     char subtitle[] = "INSERIMENTO MANUALE";
-    int num_items = 4;
+    const int num_items = 4;
     int choice;
     char selections[MAX_ITEMS][MAX_STR_LEN + 1] = {"Aggiungi una transazione",
                                                    "Mina il blocco",
@@ -76,8 +86,10 @@ void print_manual_menu(unsigned int *const trans_counter) {
 
     switch (choice) {
         case 0:
-            break;
             //Aggiungere transazione
+            if (print_new_trans_menu(&sender, &receiver, &amount) == 0)
+                (*trans_counter)++;
+            break;
         case 1:
             //Minare blocco
             break;
@@ -87,6 +99,8 @@ void print_manual_menu(unsigned int *const trans_counter) {
         case 3:
             //Tornare al menu principale
             break;
+        default:
+            exit(EXIT_FAILURE);
     }
 }
 
@@ -101,20 +115,81 @@ void print_automatic_menu(unsigned int *const trans_counter) {
                                                     "Visualizza il blocco",
                                                     "Torna al menu principale"};
 
-    if (*trans_counter == 0)
-        choice = selection_box(subtitle, num_items, selections, 0, &n_trans, 2, 2, 3);
-    else
-        choice = selection_box(subtitle, num_items, selections, 0, &n_trans, 0);
+    while (1) {
+        if (*trans_counter == 0)
+            choice = selection_box(subtitle, num_items, selections, 0, &n_trans, 2, 2, 3);
+        else if (*trans_counter >= MAX_TRANS_TO_ADD)
+            choice = selection_box(subtitle, num_items, selections, -1, NULL, 1, 0);
+        else
+            choice = selection_box(subtitle, num_items, selections, 0, &n_trans, 0);
+
+        switch (choice) {
+            case 0:
+                break;
+            case 1:
+                //Aggiungere nova transazione
+                make_random_trans(n_trans);
+                *trans_counter += (uint32_t) n_trans;
+                break;
+            case 2:
+                //Minare il blocco
+                break;
+            case 3:
+                //Visualizzare il blocco
+                break;
+            case 4:
+                //Tornare al menu principale
+                return;
+            case -1:
+                print_exit_warning(*trans_counter);
+                break;
+            default:
+                exit(EXIT_FAILURE);
+        }
+        n_trans = 0;
+    }
 }
 
-void print_exit_warning(const unsigned int *const trans_counter) {
-    if (*trans_counter == 0)
+void print_exit_warning(const unsigned int trans_counter) {
+    if (trans_counter == 0)
         exit(EXIT_SUCCESS);
 
-    char subtitle[] = "ATTENZIONE! ALCUNE TRANSAZIONI NON SONO ANCORA STATE MINATE";
+    char subtitle[MAX_STR_LEN];
+
+    if (trans_counter == 1)
+        sprintf(subtitle, "ATTENZIONE! %u TRANSAZIONE NON E' ANCORA STATA MINATA", trans_counter);
+    else
+        sprintf(subtitle, "ATTENZIONE! %u TRANSAZIONI NON SONO ANCORA STATE MINATE", trans_counter);
+        
     int num_items = 1;
     int choice;
     char selections [MAX_ITEMS][MAX_STR_LEN + 1] = {"Torna al menu precedente per minarle"};
 
     choice = selection_box(subtitle, num_items, selections, -1, NULL, 0);
+
+    switch (choice) {
+        case 0:
+            return;
+        case -1:
+            exit(EXIT_SUCCESS);
+        default:
+            exit(EXIT_FAILURE);
+    }
+}
+
+
+int print_new_trans_menu(uint32_t *const sender, uint32_t *const receiver, uint32_t *const amount) {
+    int choice;
+
+    while (*sender == 0 || *receiver == 0 || *amount == 0) {
+        choice = transaction_box("NUOVA TRANSAZIONE", sender, receiver, amount);
+        if (choice == -1)
+            break;
+    }
+    return choice;
+}
+
+
+void make_random_trans(const int num_trans) {
+
 }
