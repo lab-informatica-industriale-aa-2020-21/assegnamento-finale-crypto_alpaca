@@ -1,7 +1,16 @@
-/*  Programma 'main' in cui viene implementato il programma principale di gestione 
-    dell'algoritmo di blockchain.
-    In questa parte di software vengono richiamate le sottoparti sviluppate (chain, transaction, block, hash).
-*/
+/**
+ * @mainpage Blockchain Demo
+ * Questa è la pagina principale del progetto.
+ * 
+ * 1. Vengono richiamate le funzioni principali per la gestione della GUI.
+ * 2. Vengono richiamate le funzioni per la creazione di una o più blockchain.
+ * 
+ * @authors Andrea Binotto
+ * @authors Filippo Toffano
+ * @authors Alberto Trabacchin
+ * @authors Emanuele Zanoni
+ */
+
 
 // Definizione delle librerie utili per il progetto 
 #include <stdio.h>
