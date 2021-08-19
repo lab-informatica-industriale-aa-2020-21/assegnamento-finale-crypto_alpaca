@@ -43,6 +43,7 @@ Su una distribuzione basata su Ubuntu / Debian, lo puoi installare così:
 ```bash
 sudo apt install doxygen
 ```
+Per visualizzare la documentazione generata da Doxygen, apri con un browser il file `HTML` in `./build/docs/html/index.html`.
 
 
 ## Compilazione
@@ -85,12 +86,7 @@ cmake .. && make
 Le cartelle contenenti i file eseguibili di test dei moduli, sono nel percorso 
 `./build/test`.
 
-
----
-## Roadmap
-
-Il progetto è predisposto per la gestione dei conflitti di più blockchain.
-Sono già presenti le cartelle `./lib/conflicts` e `./test/test_conflicts` con i relativi file per lo sviluppo.
+*Nota: assicurati di eseguire i test dalla cartella build.*
 
 
 ---
