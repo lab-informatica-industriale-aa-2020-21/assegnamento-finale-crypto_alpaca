@@ -95,12 +95,14 @@ void print_manual_menu(chain *chain_to_edit, unsigned int *const trans_counter) 
         switch (choice) {
             case 0:
                 //Aggiungere transazione
-                if (print_new_trans_menu(&sender, &receiver, &amount) == 0)
+                if (print_new_trans_menu(&sender, &receiver, &amount) == 0) {
+                    input_trans(sender, receiver, amount, chain_to_edit);
                     (*trans_counter)++;
+                }
                 break;
             case 1:
                 //Minare blocco
-                mine(chain_to_edit);
+                //mine(chain_to_edit);
                 *trans_counter = 0;
                 save_chain(chain_to_edit, BLOCKCHAIN_TXT);
                 break;
@@ -208,6 +210,7 @@ int print_new_trans_menu(uint32_t *const sender, uint32_t *const receiver, uint3
         if (choice == -1)
             break;
     }
+
     return choice;
 }
 
