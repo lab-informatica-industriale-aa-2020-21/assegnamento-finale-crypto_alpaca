@@ -56,61 +56,67 @@
 //[*] -> snprintf(char *stringa_output, int dim_max_stringa, "testo", ...);
 
 
-/*Funzione: 'uint32_to_stringHex' 
-*----------------------------------------------------------------------------------------
-* Converte un tipo intero in una stringa di lunghezza 'HEX_NUMB_LENGTH' in 
-* rappresentazione esadecimale; 
-* verranno aggiunti '0' negli eventuali spazi vuoti
-* ---------------------------------------------------------------------------------------
-* args:        number      ->   numero da convertire
-*              str_out     ->   puntatore alla stringa su cui verrà salvato il risultato
-* return:     void
-*
-*/
+/**
+ * Converte un tipo intero in una stringa di lunghezza 'HEX_NUMB_LENGTH' in 
+ * rappresentazione esadecimale;
+ * verranno aggiunti '0' negli eventuali spazi vuoti.
+ * 
+ * @param[in] number numero da convertire
+ * 
+ * @param[out] str_out puntatore alla stringa su cui verrà salvato il risultato
+ */
+
 void uint32_to_stringHex(const uint32_t number, char *str_out){
     snprintf(str_out, HEX_NUMB_LENGTH + 1, "%0*x", HEX_NUMB_LENGTH, number);    //[*]
 }
 
 
-/* Funzione: 'uint32_to_stringDec' 
-*------------------------------------------------------------------------------------------
-* converte un tipo intero in una stringa di lunghezza 'DEC_NUMB_LENGTH' in 
-* rappresentazione decimale;
-* verranno aggiunti '0'  negli eventuali spazi vuoti
-*------------------------------------------------------------------------------------------
-* args:         number      ->  numero da convertire
-*               str_out     ->  puntatore alla stringa su cui verrà salvato il risultato
-* return:     void
-*
-*/
+/**
+ * Converte un tipo intero in una stringa di lunghezza 'DEC_NUMB_LENGTH' in 
+ * rappresentazione decimale;
+ * verranno aggiunti '0'  negli eventuali spazi vuoti.
+ * 
+ * @param[in] number numero da convertire
+ * 
+ * @param[out] str_out puntatore alla stringa su cui verrà salvato il risultato
+ */
+
 void uint32_to_stringDec(const uint32_t number, char *str_out){
     snprintf(str_out, DEC_NUMB_LENGTH + 1, "%0*u", DEC_NUMB_LENGTH, number);    //[*]
 }
 
 
-/* Funzione:'print_line' 
-*-------------------------------------------------------------------------------------------
-* formatta una stringa di lunghezza 'LINE_LENGTH' contenente una riga
-* da stampare nel file 'blockchain.txt'. La riga è composta unendo un titolo
-* (allineato a sx) di lunghezza 'TITLE_LENGTH' e un argomento (allineato a dx) di
-* lunghezza 'ARG_LENGTH'.
-*-------------------------------------------------------------------------------------------
-*
-*line:       Titolo:                   Argomento
-*            \_____________/\__________________/
-*             TITLE_LENGTH       ARG_LENGTH
-*            \_________________________________/
-*                       LINE_LENGTH
-* args:       title       -> puntatore alla stringa contenente il titolo
-*            arg         -> puntatore alla stringa contenente l'argomento
-*            str_out     -> puntatore alla stringa su cui verrà salvato il risultato
-* return:     void
-*/
+/*
+ * line:       Titolo:                   Argomento
+ *             \_____________/\__________________/
+ *              TITLE_LENGTH       ARG_LENGTH
+ *             \_________________________________/
+ *                        LINE_LENGTH
+ */
+/**
+ * Formatta una stringa di lunghezza 'LINE_LENGTH' contenente una riga
+ * da stampare nel file 'blockchain.txt'. La riga è composta unendo un titolo
+ * (allineato a sx) di lunghezza 'TITLE_LENGTH' e un argomento (allineato a dx) di
+ * lunghezza 'ARG_LENGTH'.
+ *
+ * @param[in] title puntatore alla stringa contenente il titolo
+ * 
+ * @param[in] arg puntatore alla stringa contenente l'
+ * 
+ * @param[out] str_out puntatore alla stringa su cui verrà salvato il risultato
+ */
+
 void print_line(const char *title, const char *arg, char *str_out){
     snprintf(str_out, LINE_LENGTH + 1, "%-*s%*s",
             TITLE_LENGTH, title, ARG_LENGTH, arg);  //[*]
 }
 
+
+/**
+ * Aggiunge una riga vuota (di soli caratteri 'spazio') ad una stringa.
+ *
+ * @param[out] str_out puntatore alla stringa su cui verrà salvato il risultato
+ */
 
 void add_empty_line(char *str_out){
     char tmp [LINE_LENGTH + 1];  //per salvare le stringhe momentanee
@@ -119,27 +125,26 @@ void add_empty_line(char *str_out){
 }
 
 
-/* Funzione: 'print_block_header' 
-*-------------------------------------------------------------------------------------------
-* formatta una stringa 11 righe contenenti i dati di un blocco.
-* (vedere anche formattazione completa all'inizio)
-* line1   ->  indice del blocco
-* line2   ->  data e ora di creazione
-* line3   ->  hash
-* line4   ->  hash
-* line5   ->  hash
-* line6   ->  hash
-* line7   ->  hash
-* line8   ->  hash
-* line9   ->  hash
-* line10  ->  hash
-* line11  ->  nonce
-*-------------------------------------------------------------------------------------------
-* 
-* args:        block_to_print  ->  puntatore al blocco da stampare
-*              str_out         ->  puntatore alla stringa su cui verrà salvato il risultato
-* return:      void
-*/
+/**
+ * Formatta una stringa 11 righe contenenti i dati di un blocco.
+ * (vedere anche formattazione completa all'inizio di format_string.c)
+ * line1   ->  indice del blocco
+ * line2   ->  data e ora di creazione
+ * line3   ->  hash
+ * line4   ->  hash
+ * line5   ->  hash
+ * line6   ->  hash
+ * line7   ->  hash
+ * line8   ->  hash
+ * line9   ->  hash
+ * line10  ->  hash
+ * line11  ->  nonce
+ * 
+ * @param[in] block_to_print puntatore al blocco da stampare
+ * 
+ * @param[out] str_out puntatore alla stringa su cui verrà salvato il risultato
+ */
+
 void print_block_header(const block *block_to_print, char *str_out){
     char tmp [ARG_LENGTH + 1];  //per salvare le stringhe momentanee
 
@@ -197,26 +202,25 @@ void print_block_header(const block *block_to_print, char *str_out){
 }
 
 
-/* Funzione: 'block_header_matrix' 
-*-------------------------------------------------------------------------------------------
-* formatta una matrice di 11 righe contenenti i dati di un blocco.
-* line1   ->  indice del blocco
-* line2   ->  data e ora di creazione
-* line3   ->  hash
-* line4   ->  hash
-* line5   ->  hash
-* line6   ->  hash
-* line7   ->  hash
-* line8   ->  hash
-* line9   ->  hash
-* line10  ->  hash
-* line11  ->  nonce
-*-------------------------------------------------------------------------------------------
-* 
-* args:        block_to_print  ->  puntatore al blocco da stampare
-*              matrix          ->  matrice su cui verrà salvato il risultato
-* return:      void
-*/
+/**
+ * Formatta una matrice di 11 righe contenenti i dati di un blocco.
+ * line1   ->  indice del blocco
+ * line2   ->  data e ora di creazione
+ * line3   ->  hash
+ * line4   ->  hash
+ * line5   ->  hash
+ * line6   ->  hash
+ * line7   ->  hash
+ * line8   ->  hash
+ * line9   ->  hash
+ * line10  ->  hash
+ * line11  ->  nonce
+ * 
+ * @param[in] block_to_print puntatore al blocco da stampare
+ * 
+ * @param[out] matrix matrice su cui verrà salvato il risultato
+ */
+
 void block_header_matrix(const block *block_to_print, char matrix [BLOCK_LINES][LINE_LENGTH + 1]){
     char tmp [ARG_LENGTH + 1];  //per salvare le stringhe momentanee
 
@@ -280,22 +284,21 @@ void block_header_matrix(const block *block_to_print, char matrix [BLOCK_LINES][
 }
 
 
-/* Funzione: 'print_trans' 
-*-------------------------------------------------------------------------------------------
-* formatta una stringa di 4 righe contenenti i dati di una transazione.
-* (vedere anche formattazione completa all'inizio)
-* line1   ->  numero transazione
-* line2   ->  numero mittente in esadecimale
-* line3   ->  numero destinatario in esadecimale
-* line4   ->  importo in decimale
-*-------------------------------------------------------------------------------------------
-*
-* args:         count       -> numero transazione
-*               trans       -> puntatore alla transazione da stampare
-*               str_out     -> puntatore alla stringa su cui verrà salvato il risultato
-* return:       void
-*
-*/
+/**
+ * Formatta una stringa di 4 righe contenenti i dati di una transazione.
+ * (vedere anche formattazione completa all'inizio di format_string.c)
+ * line1   ->  numero transazione
+ * line2   ->  numero mittente in esadecimale
+ * line3   ->  numero destinatario in esadecimale
+ * line4   ->  importo in decimale
+ *
+ * @param[in] count numero transazione
+ * 
+ * @param[in] trans puntatore alla transazione da stampare
+ * 
+ * @param[out] str_out puntatore alla stringa su cui verrà salvato il risultato
+ */
+
 void print_trans(const trans *trans_to_print, char *str_out){
     char tmp [ARG_LENGTH];  //per salvare le stringhe momentanee
     
@@ -324,20 +327,18 @@ void print_trans(const trans *trans_to_print, char *str_out){
 }
 
 
-/* Funzione: 'print_block_trans' 
-*-------------------------------------------------------------------------------------------
-* formatta una stringa contenente la lista completa delle
-* transazioni da inserire in un blocco, ognuna di esse formattata da
-* 'print_trans', quindi la lista sarà una stringa di 4 * n_transactions righe.
-* Alla fine della lista viene inserito il numero delle transazioni riportate.
-* (vedere anche formattazione completa all'inizio)
-* ------------------------------------------------------------------------------------------
-*
-* args:         block_to_print  ->  puntatore al blocco da stampare
-*               str_out         ->  puntatore alla stringa su cui verrà salvato il risultato
-* return:       void
-*
-*/
+/**
+ * Formatta una stringa contenente la lista completa delle
+ * transazioni da inserire in un blocco, ognuna di esse formattata da
+ * 'print_trans', quindi la lista sarà una stringa di 4 * n_transactions righe.
+ * Alla fine della lista viene inserito il numero delle transazioni riportate.
+ * (vedere anche formattazione completa all'inizio di format_string.c)
+ *
+ * @param[in] block_to_print puntatore al blocco da stampare
+ * 
+ * @param[out] str_out puntatore alla stringa su cui verrà salvato il risultato
+ */
+
 void print_block_trans(const block *block_to_print, char *str_out){
     char tmp [TRANS_LENGTH + 1];    //per salvare le stringhe momentanee
 
@@ -370,20 +371,16 @@ void print_block_trans(const block *block_to_print, char *str_out){
 }
 
 
-/* Funzione: 'print_block' 
-*-------------------------------------------------------------------------------------------
-* unisce le stringhe formattate da 'print_block_header' e
-* 'print_block_trans' per formare un'unica srtinga contenente tutte le informazioni
-* del blocco.
-* (vedere anche formattazione completa all'inizio)
-*-------------------------------------------------------------------------------------------
-*
-* args:       block_to_print  ->  puntatore al blocco da stampare
-*             str_out         ->  puntatore alla stringa su cui verrà salvato il risultato 
-* return:     void
-*
-*/
-
+/** 
+ * Unisce le stringhe formattate da 'print_block_header' e
+ * 'print_block_trans' per formare un'unica srtinga contenente tutte le informazioni
+ * del blocco.
+ * (vedere anche formattazione completa all'inizio di format_string.c)
+ *
+ * @param[in] block_to_print puntatore al blocco da stampare
+ * 
+ * @param[out] str_out puntatore alla stringa su cui verrà salvato il risultato 
+ */
 
 void print_block(const block *block_to_print, char *str_out){
     //per stampare l'header del blocco e le transazioni
@@ -398,6 +395,15 @@ void print_block(const block *block_to_print, char *str_out){
 }
 
 
+/** 
+ * Prepara una stringa continua contenente l'hash del blocco precedente e
+ * tutte le tranzazioni del blocco attuale.
+ *
+ * @param[in] block_source puntatore al blocco da cui prendere le informazioni
+ * 
+ * @param[out] str_for_hash puntatore alla stringa su cui verrà salvato il risultato 
+ */
+
 void format_data_for_hash(const block *block_source, char *str_for_hash){
     trans *next_to_print = block_source -> first_trans;
     char tmp [HEX_NUMB_LENGTH + 1];
@@ -411,7 +417,7 @@ void format_data_for_hash(const block *block_source, char *str_for_hash){
         for (int i = 0; i < DIM_HASH; i++)                      //copia del vettore prev_hash in previous_hash
             previous_hash [i] = block_source -> prev_hash [i];
 
-    for (int i = 0; i < DIM_HASH; i++){
+    for (int i = 0; i < DIM_HASH; i++){         //formattazione del previous_hash nella stringa
         uint32_to_stringHex(previous_hash[i], tmp);
         if (i == 0)
             strcpy(str_for_hash, tmp);
@@ -419,7 +425,7 @@ void format_data_for_hash(const block *block_source, char *str_for_hash){
             strcat(str_for_hash, tmp);
     }
     
-    do{
+    do{        //salvataggio delle transazioni nella stringa
         uint32_to_stringHex(next_to_print -> sender, tmp);
         strcat(str_for_hash, tmp);
 
