@@ -195,7 +195,8 @@ void add_empty_line(char *str_out);
 
 void print_block_header(const block *block_to_print, char *str_out);
 
-void block_header_matrix(const block *block_to_print, char matrix [BLOCK_LINES][LINE_LENGTH + 1]);
+void block_header_matrix(const block *block_to_print,
+                        char matrix [BLOCK_LINES][LINE_LENGTH + 1]);
 
 void print_trans(const trans *trans_to_print, char *str_out);
 

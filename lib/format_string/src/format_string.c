@@ -96,8 +96,8 @@ void uint32_to_stringDec(const uint32_t number, char *str_out){
 /**
  * Formatta una stringa di lunghezza 'LINE_LENGTH' contenente una riga
  * da stampare nel file 'blockchain.txt'. La riga è composta unendo un titolo
- * (allineato a sx) di lunghezza 'TITLE_LENGTH' e un argomento (allineato a dx) di
- * lunghezza 'ARG_LENGTH'.
+ * (allineato a sx) di lunghezza 'TITLE_LENGTH' e un argomento (allineato a dx)
+ * di lunghezza 'ARG_LENGTH'.
  *
  * @param[in] title puntatore alla stringa contenente il titolo
  * 
@@ -221,7 +221,9 @@ void print_block_header(const block *block_to_print, char *str_out){
  * @param[out] matrix matrice su cui verrà salvato il risultato
  */
 
-void block_header_matrix(const block *block_to_print, char matrix [BLOCK_LINES][LINE_LENGTH + 1]){
+void block_header_matrix(const block *block_to_print,
+                        char matrix [BLOCK_LINES][LINE_LENGTH + 1]){
+
     char tmp [ARG_LENGTH + 1];  //per salvare le stringhe momentanee
 
     //line1 -> index
@@ -366,15 +368,17 @@ void print_block_trans(const block *block_to_print, char *str_out){
 
     //Per stampare alla fine il numero di transizioni inserite nel blocco
     char count_printed_trans [LINE_LENGTH + 1];
-    snprintf(count_printed_trans, LINE_LENGTH + 1, "%-*s%*d", TITLE_LENGTH, NTRNS, ARG_LENGTH, n_cycle); //[*]
+    snprintf(count_printed_trans, LINE_LENGTH + 1, "%-*s%*d",
+            TITLE_LENGTH, NTRNS, ARG_LENGTH, n_cycle); //[*]
+
     strcat(str_out, count_printed_trans);
 }
 
 
 /** 
  * Unisce le stringhe formattate da 'print_block_header' e
- * 'print_block_trans' per formare un'unica srtinga contenente tutte le informazioni
- * del blocco.
+ * 'print_block_trans' per formare un'unica srtinga contenente tutte le
+ * informazioni del blocco.
  * (vedere anche formattazione completa all'inizio di format_string.c)
  *
  * @param[in] block_to_print puntatore al blocco da stampare
@@ -390,7 +394,8 @@ void print_block(const block *block_to_print, char *str_out){
     print_block_trans(block_to_print, trans);
 
     //unione di header e transazioni
-    snprintf(str_out, BLOCK_HEADER_LENGTH + block_to_print -> num_trans * TRANS_LENGTH + LINE_LENGTH + 1 + 1,
+    snprintf(str_out, BLOCK_HEADER_LENGTH + block_to_print -> num_trans *
+                TRANS_LENGTH + LINE_LENGTH + 1 + 1,
             "%s\n%s\n", block_header, trans);   //[*]
 }
 
