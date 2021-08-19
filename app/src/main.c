@@ -18,20 +18,20 @@
 #include "gui.h"
 
 
-void print_main_menu(void);
+void print_menu(void);
 void print_manual_menu(unsigned int *const trans_counter);
 void print_automatic_menu(unsigned int *const trans_counter);
 void print_exit_warning(const unsigned int *const trans_counter);
 
 
 int main(void) {
-    print_main_menu();
+    print_menu();
 
     return 0;
 }
 
 
-void print_main_menu(void) {
+void print_menu(void) {
     unsigned int trans_counter = 0;
 
     char title[] = "BLOCKCHAIN DEMO";
@@ -69,7 +69,25 @@ void print_manual_menu(unsigned int *const trans_counter) {
                                                    "Visualizza il blocco",
                                                    "Torna al menu principale"};
 
-    choice = selection_box(subtitle, num_items, selections, -1, NULL, 0);
+    if (*trans_counter == 0)
+        choice = selection_box(subtitle, num_items, selections, -1, NULL, 2, 1, 2);
+    else
+        choice = selection_box(subtitle, num_items, selections, -1, NULL, 0);
+
+    switch (choice) {
+        case 0:
+            break;
+            //Aggiungere transazione
+        case 1:
+            //Minare blocco
+            break;
+        case 2:
+            //Visualizzare blocco
+            break;
+        case 3:
+            //Tornare al menu principale
+            break;
+    }
 }
 
 void print_automatic_menu(unsigned int *const trans_counter) {
@@ -83,13 +101,16 @@ void print_automatic_menu(unsigned int *const trans_counter) {
                                                     "Visualizza il blocco",
                                                     "Torna al menu principale"};
 
-    choice = selection_box(subtitle, num_items, selections, 0, &n_trans, 0);
+    if (*trans_counter == 0)
+        choice = selection_box(subtitle, num_items, selections, 0, &n_trans, 2, 2, 3);
+    else
+        choice = selection_box(subtitle, num_items, selections, 0, &n_trans, 0);
 }
 
 void print_exit_warning(const unsigned int *const trans_counter) {
     if (*trans_counter == 0)
         exit(EXIT_SUCCESS);
-        
+
     char subtitle[] = "ATTENZIONE! ALCUNE TRANSAZIONI NON SONO ANCORA STATE MINATE";
     int num_items = 1;
     int choice;
