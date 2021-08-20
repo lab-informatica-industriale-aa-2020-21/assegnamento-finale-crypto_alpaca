@@ -26,6 +26,7 @@ add_subdirectory(lib/gui)
 
 if(TARGET_GROUP STREQUAL production)
         add_subdirectory(app)
+	add_subdirectory(docs)
 elseif(TARGET_GROUP STREQUAL test)
         include(CTest)
 
