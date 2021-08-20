@@ -1,31 +1,105 @@
+/*===========================================================================*/
+/**
+ * @file hash.h
+ * @brief File header del modulo SHA-256
+*/
+/*===========================================================================*/
+
+/*!
+ * @def WORD_LEN_BITS
+ * @brief Lunghezza in bit di una word32.
+ * 
+ * La macro definisce la lunghezza in bit di una variabile uint32.
+*/
+
+/*!
+ * @def BIT_PER_CHAR
+ * @brief Bit contenuti in un char.
+ * 
+ * La macro definisce il numero di bit presenti in una variabile di tipo char.
+*/
+
+/*!
+ * @def CHARS_PER_WORD
+ * @brief Variabili char contenute in una word32.
+ * 
+ * La macro definisce il numero di variabili char che possono essere
+ * salvate in una variabile uint32.
+*/
+
+/*!
+ * @def DIM_HASH
+ * @brief Dimensione del vettore di hash.
+ * 
+ * La macro definisce il numero di word32 necessarie per comporre l'array
+ * dell'hash di 256 bit.
+*/
+
+/*!
+ * @def DIM_BLOCK_HASH
+ * @brief Dimensione di un blocco, in byte, da cui viene ricavato l'hash.
+ * 
+ * La macro definisce quanti byte occupa un singolo blocco che contiene
+ * le informazioni per calcolare l'hash. Nel caso di stringhe lunghe è
+ * possibile che siano necessari più blocchi.
+*/
+
+/*!
+ * @def MSG_INFO_LEN_WORDS
+ * @brief Numero di word32 stabilite per codificare la lunghezza del messaggio in bit.
+ * 
+ * La macro definisce il numero di variabili uint32, appartenenti al blocco, che
+ * dovranno contenere la lunghezza del messaggio di input come numero di bit trascritti
+ * nel blocco. 
+*/
+
+/*!
+ * @def MSG_INFO_LEN_BYTES
+ * @brief Numero di byte stabiliti per codificare la lunghezza del messaggio in bit.
+ * 
+ * La macro definisce quanti byte vengono allocati alla fine del blocco per codificare
+ * la lunghezza del messaggio.
+*/
+
+/*!
+ * @def MSG_BLOCK_LEN_WORDS
+ * @brief Numero di word32 contenute in un singolo blocco.
+*/
+
+/*!
+ * @def MSG_BLOCK_LEN_BYTES
+ * @brief Numero di byte necessari per comporre un blocco.
+*/
+
+/*!
+ * @def H_INIZIALI
+ * @brief Coefficienti necessari al calcolo dell'hash.
+ * 
+ * La macro definisce un array di costanti, calcolate come la parte ftazionaria
+ * della radice quadrata dei primi 8 numeri primi.
+*/
+
+/*!
+ * @def KI_INIZIALI
+ * @brief Coefficienti necessari al calcolo dell'hash.
+ * 
+ * La macro definisce un array di costanti, calcolate come la parte frazionaria
+ * della radice cubica dei primi 64 numeri primi.
+*/
+
+
 #ifndef HASH_H
 #define HASH_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <stdint.h>
 #include <stdbool.h>
-#include <math.h>
 
 
 #define WORD_LEN_BITS 32
 #define BIT_PER_CHAR 8
 #define CHARS_PER_WORD 4
 #define DIM_HASH 8                      //L'hash avrà sempre dimensione pari a 256bit -> 8word
-#define PCI_HASH 65                     //Dimensione info di ridondanza definite dall'algoritmo SHA-256
 #define DIM_BLOCK_HASH 16               //Dimensione blocco hash in W32
-#define VAL_MAX_32BIT 2147483648
-#define DIM_PREV_HASH 640               //Dimesione hash sempre pari a 256, per definizione. Poichè la funz. hash accetta in input solo char a seguito della conversione risulta: 
-                                        //8(uint32) * N_CHAR_PER_UINT32 * 8bit(dimensione di un char) = 640.
-
-#define N_CHAR_PER_UINT32 10
-#define N_CHAR_PER_PREV_HASH 20         //N celle char per memorizzare il prev hash 10char per ogni unsigned int, sapendo che l'hash è costituito da 8 unsigned int 
-
-#define OFFSET_MOD_0 32768              //Separatore tra dati e padding in caso di list_trans_len % 4 == 0. 
-#define OFFSET_MOD_1 128                //Separatore tra dati e padding in caso di list_trans_len % 4 == 1. 
-#define OFFSET_MOD_2 2147483648         //Separatore tra dati e padding in caso di list_trans_len % 4 == 2. 
-#define OFFSET_MOD_3 8388608            //Separatore tra dati e padding in caso di list_trans_len % 4 == 3. 
 
 #define MSG_INFO_LEN_WORDS 2
 #define MSG_INFO_LEN_BYTES 8
