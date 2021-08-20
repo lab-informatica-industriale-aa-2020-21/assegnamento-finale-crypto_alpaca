@@ -214,7 +214,7 @@ void welcome_box(void){
                                               "porzioni di testo o l'intero file potresti compromettere l'esecuzione",
                                               "del programma!",
                                               " ",
-                                              "Buon divertimento! :)"};
+                                              "Buon divertimento! :D"};
 
     title_box("BENVENUTO!", 13, text);
 }
