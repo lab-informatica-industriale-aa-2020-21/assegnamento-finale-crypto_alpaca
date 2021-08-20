@@ -991,6 +991,7 @@ void print_manual_menu(chain *chain_to_edit, unsigned int *const trans_counter) 
                 if (print_new_trans_menu(&sender, &receiver, &amount) == 0) {
                     input_trans(sender, receiver, amount, chain_to_edit);
                     (*trans_counter)++;
+                    clear_parameters(&sender, &receiver, &amount);
                 }
                 break;
             case 1:
@@ -1123,4 +1124,10 @@ void make_random_trans(chain *chain_to_edit, const int num_trans) {
 uint32_t get_random_number(uint32_t lower, uint32_t upper) {
     uint32_t num = (rand() % (upper - lower + 1)) + lower;
     return num;
+}
+
+void clear_parameters(uint32_t *sender, uint32_t *receiver, uint32_t *amount) {
+    *sender = 0;
+    *receiver = 0;
+    *amount = 0;
 }

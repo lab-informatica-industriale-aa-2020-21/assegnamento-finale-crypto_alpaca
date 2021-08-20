@@ -92,6 +92,6 @@ void print_exit_warning(chain *chain_to_free, const unsigned int trans_counter);
 int print_new_trans_menu(uint32_t *const sender, uint32_t *const receiver, uint32_t *const amount);
 void make_random_trans(chain *chain_to_edit, const int num_trans);
 uint32_t get_random_number(uint32_t lower, uint32_t upper);
-
+void clear_parameters(uint32_t *sender, uint32_t *receiver, uint32_t *amount);
 
 #endif
