@@ -46,6 +46,33 @@ void test_new_trans_shouldAddNewTransactionToListOfTransactions(void) {
     free(test_trans3);
 }
 
+void boundary_test_new_trans_shouldAddNewTransactionToListOfTransactions(void) {
+    trans *test_trans1 = new_trans(UINT32_MAX, UINT32_MAX, UINT32_MAX, NULL);
+    trans *test_trans2 = new_trans(UINT32_MAX, UINT32_MAX, UINT32_MAX, test_trans1);
+
+    trans exp_trans1 = {
+        test_trans2,
+        UINT32_MAX,
+        UINT32_MAX,
+        UINT32_MAX,
+        1
+    };
+    
+    trans exp_trans2 = {
+        NULL,
+        UINT32_MAX,
+        UINT32_MAX,
+        UINT32_MAX,
+        2
+    };
+
+
+    TEST_ASSERT_EQUAL_MEMORY(&exp_trans1, test_trans1, sizeof(trans));
+    TEST_ASSERT_EQUAL_MEMORY(&exp_trans2, test_trans2, sizeof(trans));
+    free(test_trans1);
+    free(test_trans2);
+}
+
 
 void test_new_block_shouldAddNewBlockToListOfBlocks(void) {
     block *test_block1 = new_block(NULL);
@@ -111,6 +138,7 @@ void test_new_block_shouldAddNewBlockToListOfBlocks(void) {
     free(test_block2);
     free(test_block3);
 }
+
 
 void test_new_chain_shouldAddNewChainToListOfChains(void) {
     chain *test_chain1 = new_chain(NULL);
@@ -194,86 +222,86 @@ void test_input_trans_shouldAddTransactionToEmptyChain(void) {
 }
 
 void test_input_trans_shouldAddTransactionToChainWithMinedBlocks(void) {
-        chain *test_chain = new_chain(NULL);
-        time_t exp_time = (time_t)(0);
-        uint32_t exp_hash[8] = {0xFFFFFFFF, 0, 0, 0, 0, 0, 0, 0};
+    chain *test_chain = new_chain(NULL);
+    time_t exp_time = (time_t)(0);
+    uint32_t exp_hash[8] = {0xFFFFFFFF, 0, 0, 0, 0, 0, 0, 0};
 
-        input_trans(0, 0, 0, test_chain);
-        test_chain->head_block->hash[0] = 0;
-        block *mined_block = test_chain->head_block;
-        input_trans(23482, 23894, 120, test_chain);
+    input_trans(0, 0, 0, test_chain);
+    test_chain->head_block->hash[0] = 0;
+    block *mined_block = test_chain->head_block;
+    input_trans(23482, 23894, 120, test_chain);
 
-        //Test della catena
-        TEST_ASSERT_NULL(test_chain->next_chain);
-        TEST_ASSERT_EQUAL_PTR(mined_block, test_chain->first_block);
-        TEST_ASSERT_NOT_NULL(test_chain->head_block);
-        TEST_ASSERT_EQUAL_UINT32(2, test_chain->num_block);
-        TEST_ASSERT_EQUAL_UINT32(1, test_chain->count_chain);
+    //Test della catena
+    TEST_ASSERT_NULL(test_chain->next_chain);
+    TEST_ASSERT_EQUAL_PTR(mined_block, test_chain->first_block);
+    TEST_ASSERT_NOT_NULL(test_chain->head_block);
+    TEST_ASSERT_EQUAL_UINT32(2, test_chain->num_block);
+    TEST_ASSERT_EQUAL_UINT32(1, test_chain->count_chain);
 
-        //Test del blocco
-        TEST_ASSERT_NULL(test_chain->head_block->next_block);
-        TEST_ASSERT_NOT_NULL(test_chain->head_block->first_trans);
-        TEST_ASSERT_NOT_NULL(test_chain->head_block->head_trans);
-        TEST_ASSERT_EQUAL_UINT32(2, test_chain->head_block->count_block);
-        TEST_ASSERT_EQUAL_PTR(mined_block->hash, test_chain->head_block->prev_hash);
-        TEST_ASSERT_EQUAL_UINT32_ARRAY(exp_hash, test_chain->head_block->hash, 8);
-        TEST_ASSERT_EQUAL_UINT32(0, test_chain->head_block->nonce);
-        TEST_ASSERT_EQUAL_UINT32(1, test_chain->head_block->num_trans);
-        TEST_ASSERT_EQUAL_MEMORY(&exp_time, &test_chain->head_block->creation_time, sizeof(time_t));
+    //Test del blocco
+    TEST_ASSERT_NULL(test_chain->head_block->next_block);
+    TEST_ASSERT_NOT_NULL(test_chain->head_block->first_trans);
+    TEST_ASSERT_NOT_NULL(test_chain->head_block->head_trans);
+    TEST_ASSERT_EQUAL_UINT32(2, test_chain->head_block->count_block);
+    TEST_ASSERT_EQUAL_PTR(mined_block->hash, test_chain->head_block->prev_hash);
+    TEST_ASSERT_EQUAL_UINT32_ARRAY(exp_hash, test_chain->head_block->hash, 8);
+    TEST_ASSERT_EQUAL_UINT32(0, test_chain->head_block->nonce);
+    TEST_ASSERT_EQUAL_UINT32(1, test_chain->head_block->num_trans);
+    TEST_ASSERT_EQUAL_MEMORY(&exp_time, &test_chain->head_block->creation_time, sizeof(time_t));
 
-        //Test delle transazioni
-        TEST_ASSERT_NULL(test_chain->head_block->head_trans->next_trans);
-        TEST_ASSERT_EQUAL_UINT32(23482, test_chain->head_block->head_trans->sender);
-        TEST_ASSERT_EQUAL_UINT32(23894, test_chain->head_block->head_trans->receiver);
-        TEST_ASSERT_EQUAL_UINT32(120, test_chain->head_block->head_trans->amount);
-        TEST_ASSERT_EQUAL_UINT32(1, test_chain->head_block->head_trans->count_trans);
+    //Test delle transazioni
+    TEST_ASSERT_NULL(test_chain->head_block->head_trans->next_trans);
+    TEST_ASSERT_EQUAL_UINT32(23482, test_chain->head_block->head_trans->sender);
+    TEST_ASSERT_EQUAL_UINT32(23894, test_chain->head_block->head_trans->receiver);
+    TEST_ASSERT_EQUAL_UINT32(120, test_chain->head_block->head_trans->amount);
+    TEST_ASSERT_EQUAL_UINT32(1, test_chain->head_block->head_trans->count_trans);
 
-        free_chain(test_chain);
-    }
+    free_chain(test_chain);
+}
 
-    void test_input_trans_shouldAddTransactionToChainWithUnminedBlocks(void) {
-        chain *test_chain = new_chain(NULL);
+void test_input_trans_shouldAddTransactionToChainWithUnminedBlocks(void) {
+    chain *test_chain = new_chain(NULL);
 
-        input_trans(0, 0, 0, test_chain);
-        block *unmined_block = test_chain->head_block;
-        input_trans(23482, 23894, 120, test_chain);
+    input_trans(0, 0, 0, test_chain);
+    block *unmined_block = test_chain->head_block;
+    input_trans(23482, 23894, 120, test_chain);
 
-        //Test della catena
-        TEST_ASSERT_NULL(test_chain->next_chain);
-        TEST_ASSERT_EQUAL_PTR_MESSAGE(unmined_block, test_chain->first_block, "");
-        TEST_ASSERT_EQUAL_PTR_MESSAGE(unmined_block, test_chain->head_block, "Error: head_block != &unmined_block.");
-        TEST_ASSERT_EQUAL_UINT32_MESSAGE(1, test_chain->num_block, "Error: num_block.");
-        TEST_ASSERT_EQUAL_UINT32_MESSAGE(1, test_chain->count_chain, "Error: count_chain.");
+    //Test della catena
+    TEST_ASSERT_NULL(test_chain->next_chain);
+    TEST_ASSERT_EQUAL_PTR_MESSAGE(unmined_block, test_chain->first_block, "");
+    TEST_ASSERT_EQUAL_PTR_MESSAGE(unmined_block, test_chain->head_block, "Error: head_block != &unmined_block.");
+    TEST_ASSERT_EQUAL_UINT32_MESSAGE(1, test_chain->num_block, "Error: num_block.");
+    TEST_ASSERT_EQUAL_UINT32_MESSAGE(1, test_chain->count_chain, "Error: count_chain.");
 
-        //Test del blocco
-        TEST_ASSERT_NULL_MESSAGE(test_chain->head_block->next_block, "Error: next_block.");
-        TEST_ASSERT_EQUAL_PTR_MESSAGE(unmined_block->first_trans, test_chain->head_block->first_trans, "Error: first_trans != &empty_trans.");
-        TEST_ASSERT_NOT_NULL_MESSAGE(test_chain->head_block->head_trans, "Error: head_trans.");
-        TEST_ASSERT_EQUAL_UINT32_MESSAGE(2, test_chain->head_block->num_trans, "Error: num_trans.");
+    //Test del blocco
+    TEST_ASSERT_NULL_MESSAGE(test_chain->head_block->next_block, "Error: next_block.");
+    TEST_ASSERT_EQUAL_PTR_MESSAGE(unmined_block->first_trans, test_chain->head_block->first_trans, "Error: first_trans != &empty_trans.");
+    TEST_ASSERT_NOT_NULL_MESSAGE(test_chain->head_block->head_trans, "Error: head_trans.");
+    TEST_ASSERT_EQUAL_UINT32_MESSAGE(2, test_chain->head_block->num_trans, "Error: num_trans.");
 
-        //Test delle transazioni
-        TEST_ASSERT_EQUAL_PTR_MESSAGE(test_chain->head_block->head_trans, unmined_block->first_trans->next_trans, "Error:head_trans != empty_trans.next_trans.");
-        TEST_ASSERT_NULL(test_chain->head_block->head_trans->next_trans);
-        TEST_ASSERT_EQUAL_UINT32(23482, test_chain->head_block->head_trans->sender);
-        TEST_ASSERT_EQUAL_UINT32(23894, test_chain->head_block->head_trans->receiver);
-        TEST_ASSERT_EQUAL_UINT32(120, test_chain->head_block->head_trans->amount);
-        TEST_ASSERT_EQUAL_UINT32(2, test_chain->head_block->head_trans->count_trans);
+    //Test delle transazioni
+    TEST_ASSERT_EQUAL_PTR_MESSAGE(test_chain->head_block->head_trans, unmined_block->first_trans->next_trans, "Error:head_trans != empty_trans.next_trans.");
+    TEST_ASSERT_NULL(test_chain->head_block->head_trans->next_trans);
+    TEST_ASSERT_EQUAL_UINT32(23482, test_chain->head_block->head_trans->sender);
+    TEST_ASSERT_EQUAL_UINT32(23894, test_chain->head_block->head_trans->receiver);
+    TEST_ASSERT_EQUAL_UINT32(120, test_chain->head_block->head_trans->amount);
+    TEST_ASSERT_EQUAL_UINT32(2, test_chain->head_block->head_trans->count_trans);
 
-        free_chain(test_chain);
-    }
+    free_chain(test_chain);
+}
 
-    void test_mine_shouldMineBlockInGivenChain(void) {
-        chain *test_chain = new_chain(NULL);
-        input_trans(78234, 902843, 891, test_chain);
-        input_trans(42938, 2894, 732, test_chain);
-        input_trans(923, 2983, 12143, test_chain);
+void test_mine_shouldMineBlockInGivenChain(void) {
+    chain *test_chain = new_chain(NULL);
+    input_trans(78234, 902843, 891, test_chain);
+    input_trans(42938, 2894, 732, test_chain);
+    input_trans(923, 2983, 12143, test_chain);
 
-        mine(test_chain);
+    mine(test_chain);
 
-        TEST_ASSERT_MESSAGE(test_chain->head_block->hash[0] <= MAX_VALID_FIRST_HASH_ELEMENT, "Error: Hash not valid for mined block.");
+    TEST_ASSERT_MESSAGE(test_chain->head_block->hash[0] <= MAX_VALID_FIRST_HASH_ELEMENT, "Error: Hash not valid for mined block.");
 
-        free_chain(test_chain);
-    }
+    free_chain(test_chain);
+}
 
 
 int main(void) {
@@ -288,6 +316,9 @@ int main(void) {
     RUN_TEST(test_input_trans_shouldAddTransactionToChainWithMinedBlocks);
     RUN_TEST(test_input_trans_shouldAddTransactionToChainWithUnminedBlocks);
     RUN_TEST(test_mine_shouldMineBlockInGivenChain);
+
+    //Boundary testing
+    RUN_TEST(boundary_test_new_trans_shouldAddNewTransactionToListOfTransactions);
 
     return UNITY_END();
 }
