@@ -1,3 +1,15 @@
+/*===========================================================================*/
+/**
+ * @file file_IO.c
+ * @brief File sorgente del modulo file_IO.
+ * 
+ * Commento modulo file_IO...
+ * 
+ * @author Emanuele Zanoni
+ */
+/*===========================================================================*/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

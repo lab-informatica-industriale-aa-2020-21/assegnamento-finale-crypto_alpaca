@@ -1,3 +1,15 @@
+/*===========================================================================*/
+/**
+ * @file format_string.c
+ * @brief File sorgente del modulo format_string.
+ * 
+ * Commento modulo format_string...
+ * 
+ * @authors Emanuele Zanoni
+ */
+/*===========================================================================*/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

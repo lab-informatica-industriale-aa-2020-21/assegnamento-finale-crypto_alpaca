@@ -1,3 +1,11 @@
+/*===========================================================================*/
+/**
+ * @file format_string.h
+ * @brief Header del modulo format_string.
+*/
+/*===========================================================================*/
+
+
 #ifndef FORMAT_STRING_H
 #define FORMAT_STRING_H
 

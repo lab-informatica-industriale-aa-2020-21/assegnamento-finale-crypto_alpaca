@@ -1,3 +1,19 @@
+/*===========================================================================*/
+/**
+ * @file gui.c
+ * @brief File sorgente della libreria per la GUI.
+ * 
+ * Questo modulo implementa un'interfaccia grafica per l'utente che utilizza
+ * l'applicazione, permettendo di semplificare i passaggi necessari per
+ * gestire la blockchain.
+ * 
+ * @authors Filippo Toffano
+ * @authors Alberto Trabacchin
+ * @authors Emanuele Zanoni
+ */
+/*===========================================================================*/
+
+
 #include <ncurses.h>
 #include <string.h>
 #include <stdint.h>
@@ -962,8 +978,12 @@ void user_trans_input(WINDOW *w, int *tmp, char selections [MAX_ITEMS][MAX_STR_L
 
 
 
-
-//Funzioni menu applicazione
+/**
+ * Stampa la schermata principale, in cui è possibile scegliere di inserire
+ * manualmente o automaticamente le transazioni nella blockchain.
+ *
+ * @param[out] chain_to_edit blockchain in cui gestire le transazioni
+ */
 
 void print_menu(chain *chain_to_edit) {
     unsigned int trans_counter = 0;
@@ -993,6 +1013,14 @@ void print_menu(chain *chain_to_edit) {
     }
 }
 
+
+/**
+ * Stampa la schermata in cui viene gestita la blockchain con le transazioni
+ * inserite manualmente.
+ *
+ * @param[out] chain_to_edit blockchain in cui gestire le transazioni
+ * @param[in, out] trans_counter contatore delle transazioni non ancora minate
+ */
 
 void print_manual_menu(chain *chain_to_edit, unsigned int *const trans_counter) {
     uint32_t sender = 0;
@@ -1048,6 +1076,15 @@ void print_manual_menu(chain *chain_to_edit, unsigned int *const trans_counter) 
     }
 }
 
+
+/**
+ * Stampa la schermata in cui viene gestita la blockchain con le transazioni
+ * inserite automaticamente.
+ *
+ * @param[out] chain_to_edit blockchain in cui gestire le transazioni
+ * @param[in, out] trans_counter contatore delle transazioni non ancora minate
+ */
+
 void print_automatic_menu(chain *chain_to_edit, unsigned int *const trans_counter) {
     char subtitle[] = "INSERIMENTO AUTOMATICO";
     int num_items = 5;
@@ -1097,6 +1134,16 @@ void print_automatic_menu(chain *chain_to_edit, unsigned int *const trans_counte
     }
 }
 
+
+/**
+ * Stampa la schermata di avviso che alcune transazioni non sono ancora state
+ * minate. Serve a gestire il caso critico in cui, nell'intenzione di uscire
+ * dal programma, alcuni dati possano andare perduti.
+ *
+ * @param[out] chain_to_free blockchain da liberare nel caso di uscita da programma
+ * @param[in] trans_counter contatore delle transazioni non ancora minate
+ */
+
 void print_exit_warning(chain *chain_to_free, const unsigned int trans_counter) {
     if (trans_counter == 0)
         exit(EXIT_SUCCESS);
@@ -1127,6 +1174,17 @@ void print_exit_warning(chain *chain_to_free, const unsigned int trans_counter) 
 }
 
 
+/**
+ * Stampa la schermata in cui è possibile inserire i parametri di una nuova
+ * transazione.
+ *
+ * @param[out] sender mittente della transazione
+ * @param[out] receiver destinatario della transazione
+ * @param[out] amount ammontare della transazione
+ * 
+ * @return La scelta fatta dall'utente nella schermata.
+ */
+
 int print_new_trans_menu(uint32_t *const sender, uint32_t *const receiver, uint32_t *const amount) {
     int choice;
 
@@ -1140,6 +1198,15 @@ int print_new_trans_menu(uint32_t *const sender, uint32_t *const receiver, uint3
 }
 
 
+/**
+ * Genera delle transazioni con valori casuali di mittente, destinatario
+ * ed ammontare della transazione. Le quantità assegnate rispettano sempre
+ * i limiti delle variabili in cui sono contenute.
+ *
+ * @param[out] chain_to_edit blockchain in cui aggiungere le nuove transazioni
+ * @param[in] num_trans numero di transazioni da generare
+ */
+
 void make_random_trans(chain *chain_to_edit, const int num_trans) {
     for (int i = 0; i < num_trans; i++) {
         uint32_t sender = get_random_number(1, UINT32_MAX);
@@ -1150,10 +1217,30 @@ void make_random_trans(chain *chain_to_edit, const int num_trans) {
     }
 }
 
+
+/**
+ * Genera un numero casuale compreso fra i limiti lower e upper.
+ *
+ * @param[in] lower limite inferiore del numero da generare
+ * @param[in] upper limite superiore del numero da generare
+ * 
+ * @return Il numero casuale.
+ */
+
 uint32_t get_random_number(uint32_t lower, uint32_t upper) {
     uint32_t num = (rand() % (upper - lower + 1)) + lower;
     return num;
 }
+
+
+/**
+ * Azzera i parametri di sender, receiver e amount dopo che una transazione
+ * viene aggiunta con successo alla lista delle transazioni.
+ *
+ * @param[out] sender mittente della transazione
+ * @param[out] receiver destinatario della transazione
+ * @param[out] amount ammontare della transazione
+ */
 
 void clear_parameters(uint32_t *sender, uint32_t *receiver, uint32_t *amount) {
     *sender = 0;

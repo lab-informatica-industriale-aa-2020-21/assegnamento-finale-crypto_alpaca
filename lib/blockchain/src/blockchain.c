@@ -1,3 +1,16 @@
+/*===========================================================================*/
+/**
+ * @file blockchain.c
+ * @brief File sorgente del modulo blockchain.
+ * 
+ * Commento modulo blockchain...
+ * 
+ * @authors Filippo Toffano
+ * @authors Emanuele Zanoni
+ */
+/*===========================================================================*/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
