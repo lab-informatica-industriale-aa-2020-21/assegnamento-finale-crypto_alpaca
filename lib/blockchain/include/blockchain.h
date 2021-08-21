@@ -86,8 +86,7 @@ typedef struct Trans trans;
  * la blockchain.
  */
 
-struct Block
-{
+struct Block {
     struct Block *next_block;       ///< puntatore al blocco successivo
     struct Trans *first_trans;      ///< puntatore alla prima transazione della lista per lettura 
     struct Trans *head_trans;       ///< puntatore alla transazione più recente della lista per scrittura
@@ -111,8 +110,7 @@ typedef struct Block block;
  * Questo tipo di struttura è predisposta per la gestione dei conflitti.
  */
 
-struct Chain
-{
+struct Chain {
     struct Chain *next_chain;       ///< puntatore alla chain successiva
     struct Block *first_block;      ///< puntatore al primo blocco della chain
     struct Block *head_block;       ///< puntatore al blocco più recente della chain
@@ -122,9 +120,9 @@ struct Chain
 typedef struct Chain chain;
 
 
-//definizione funzioni
 
-trans *new_trans(const uint32_t sender, const uint32_t receiver, const uint32_t amount, trans *const head_trans);
+trans *new_trans(const uint32_t sender, const uint32_t receiver, const uint32_t amount,
+                trans *const head_trans);
 
 chain *new_chain(chain *const head_chain);
 
