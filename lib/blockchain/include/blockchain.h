@@ -6,6 +6,41 @@
 /*===========================================================================*/
 
 
+/*!
+ * @def MAX_VALID_FIRST_HASH_ELEMENT
+ * @brief Valore massimo che può assumere il primo elemento dell'hash.
+ * 
+ * La macro definisce il vincolo dell'hash durante il mining del blocco.
+ * Se l'hash del blocco minato ha valore inferiore a quello imposto, ossia
+ * ha almeno un certo numero di zeri in serie, allora il blocco è considerato
+ * minato.
+*/
+
+
+/*!
+ * @def TIMEINFO_STR_LEN
+ * @brief Lunghezza della stringa che descrive il tempo di creazione.
+ * 
+ * La macro definisce la lunghezza della stringa che contiene le informazioni
+ * temporali di quando un blocco viene minato e aggiunto alla blockchain.
+*/
+
+
+/*!
+ * @def DIM_STR_TRANS
+ * @brief Lunghezza della stringa che contiene le info della transazione.
+ * 
+ * La macro definisce la lunghezza della stringa che contiene le informazioni
+ * del mittente, del destinatario e dell'importo della transazione.
+*/
+
+
+/*!
+ * @def DIM_STR_HASH
+ * @brief Lunghezza della stringa che contiene l'hash.
+*/
+
+
 #ifndef BLOCKCHAIN_H
 #define BLOCKCHAIN_H
 
@@ -15,9 +50,10 @@
 #include <stdint.h>
 #include <time.h>
 
+
 #define MAX_VALID_FIRST_HASH_ELEMENT 0x000FFFFF
-#define TIMEINFO_STR_LEN 20                             // definizione della lunghezza della stringa per le info temporali di creazione del blocco
-#define DIM_STR_TRANS (3 * HEX_NUMB_LENGTH)             // dati per ogni transazione -> sender, receiver, amount
+#define TIMEINFO_STR_LEN 20
+#define DIM_STR_TRANS (3 * HEX_NUMB_LENGTH)
 #define DIM_STR_HASH (DIM_HASH * HEX_NUMB_LENGTH)
 
 
