@@ -22,7 +22,12 @@
 
 
 /**
- * Commento struttura
+ * @brief Struttura della Transazione
+ * 
+ * Nella struttura Transazione sono definiti gli attributi che compongono una
+ * transazione elettronica.
+ * L'oggetto transazione viene rappresentato come un elemento di una lista
+ * concatenata unidirezionale, detta lista delle transazioni.
  */
 
 struct Trans {
@@ -33,6 +38,17 @@ struct Trans {
     uint32_t count_trans;           ///< conteggio del numero di transazioni
 };
 typedef struct Trans trans;
+
+
+/**
+ * @brief Struttura del Blocco
+ * 
+ * Nella struttura Blocco vengono definiti gli attributi di un blocco che
+ * viene aggiunto alla blockchain.
+ * L'oggetto blocco viene rappresentato come un elemento di una lista
+ * concatenata unidirezionale, detta lista dei blocchi, che andrà poi a comporre
+ * la blockchain.
+ */
 
 struct Block
 {
@@ -48,6 +64,17 @@ struct Block
 };
 typedef struct Block block;
 
+
+/**
+ * @brief Struttura della Blockchain
+ * 
+ * Nella struttura Chain vengono definiti gli attributi di una blockchain
+ * che contiene i blocchi minati volta per volta.
+ * L'oggetto blockchain viene rappresentato come un elemento di una lista
+ * concatenata unidirezionale, detta lista delle blockchain.
+ * Questo tipo di struttura è predisposta per la gestione dei conflitti.
+ */
+
 struct Chain
 {
     struct Chain *next_chain;       ///< puntatore alla chain successiva
@@ -57,6 +84,7 @@ struct Chain
     uint32_t count_chain;           ///< conteggio del numero di chain 
 };
 typedef struct Chain chain;
+
 
 //definizione funzioni
 
