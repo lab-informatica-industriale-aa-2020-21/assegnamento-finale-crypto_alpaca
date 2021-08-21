@@ -39,22 +39,7 @@
 //-mined_box
 
 
-
-/**
- * Funzione: 'selection_box' 
- *-------------------------------------------------------------------------------------------
- * Formatta su terminale una finestra di selezione, completa di titolo, selezioni, e
- * selezione di uscita 'QUIT'. Ritorna l'indice di selezione (corrispondente a quello
- * della matrice 'selections') e, in caso si selezione 'QUIT', ritorna "-1".
- * Può stampare delle selezioni "non selezionabili" per eventuali schermate in cui sia
- * utile mostrare delle funzioni che si attiveranno nello sviluppo del programma.
- * Se necessario, può implementare una selezione speciale con la possibilità aggiuntiva
- * di inserire un input di tipo 'uint' da tastiera che sarà ritornato con un puntatore.
- *
- * Dimensioni massime stringhe:
- * titolo e selezioni "normali" -> MAX_STR_LEN + 1
- * selezioni non disponibili e con input 'uint' -> MAX_STR_LEN - 14 + 1
- *
+/*
  * Esempio finestra di selezione:
  *
  *  --------------------------------------------------------------------------------
@@ -81,14 +66,26 @@
  *  |                                                                              |
  *  | QUIT                                                                         | <- return -1
  *  --------------------------------------------------------------------------------
+ */
+
+/**
+ * Formatta su terminale una finestra di selezione, completa di titolo, selezioni, e
+ * selezione di uscita 'QUIT'. Ritorna l'indice di selezione (corrispondente a quello
+ * della matrice 'selections') e, in caso si selezione 'QUIT', ritorna "-1".
+ * Può stampare delle selezioni "non selezionabili" per eventuali schermate in cui sia
+ * utile mostrare delle funzioni che si attiveranno nello sviluppo del programma.
+ * Se necessario, può implementare una selezione speciale con la possibilità aggiuntiva
+ * di inserire un input di tipo 'uint' da tastiera che sarà ritornato con un puntatore.
  *
- *-------------------------------------------------------------------------------------------
+ * Dimensioni massime stringhe:
+ * titolo e selezioni "normali" -> MAX_STR_LEN + 1
+ * selezioni non disponibili e con input 'uint' -> MAX_STR_LEN - 14 + 1
  * 
- * @param[in] title  stringa contenete il titolo della schermata
- *
- * @param[in] num_items  numero delle selezioni TOTALI (comprese le non
- * selezionabili e l'eventuale selezione con input, esclusi titolo e 'QUIT')
- *
+ * @param[in] title stringa contenete il titolo della schermata
+ * 
+ * @param[in] num_items numero delle selezioni TOTALI (comprese le non
+ *selezionabili e l'eventuale selezione con input, esclusi titolo e 'QUIT')
+ * 
  * @param[in] selections puntatore alla matrice contenente le 'num_items'
  * selezioni, minori di 'MAX_ITEMS' nel formato di stringa (comprese le non
  * selezionabili e l'eventuale selezione con input, esclusi titolo e 'QUIT')
@@ -109,6 +106,7 @@
  * @return numero relativo alla selezione dell'utente, corrispondente alla riga
  * di indice 'i' della matrice 'selections'
  */
+
 int selection_box(char *title, int num_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1], int input_index, uint32_t *input_uint, int num_unselect, ...){
     //tmp è la variabile che la funzione ritornerà, corrispondente alla
     //selezione fatta a schermo dall'utente.
@@ -170,13 +168,10 @@ int selection_box(char *title, int num_items, char selections [MAX_ITEMS][MAX_ST
 
 
 /**
- * Funzione: 'transaction_box' 
- *-------------------------------------------------------------------------------------------
  * Stampa su terminale una schermata per l'inserimento dati di una transazone.
  * Si naviga con le frecce direzionali e si inserisce un valore premento 'spazio',
  * alla pressione di ENTER la funzione ritorna '-1' se l'utente ha selezionato 'QUIT', '0'
  * in tutti gli altri casi.
- *-------------------------------------------------------------------------------------------
  * 
  * @param[in] title stringa contenente il titlo (dim<MAX_STR_LEN)
  * 
@@ -189,6 +184,7 @@ int selection_box(char *title, int num_items, char selections [MAX_ITEMS][MAX_ST
  * @return: '0' se l'utente seleziona 'Enter'
  * '-1' se l'utente seleziona'QUIT'
  */
+
 int transaction_box(char *title, uint32_t *sender, uint32_t *receiver, uint32_t *amount){
     //variabile che tiene traccia della selezione istantanea dell'utente
     int tmp = 0;
@@ -228,11 +224,10 @@ int transaction_box(char *title, uint32_t *sender, uint32_t *receiver, uint32_t 
 
 /**
  * Funzione: 'welcome_box' 
- *-------------------------------------------------------------------------------------------
  * Stampa il messaggio di benvenuto all'avvio del programma.
- *-------------------------------------------------------------------------------------------
  * 
  */
+
 void welcome_box(void){
     char text [MAX_ITEMS][MAX_STR_LEN + 1] = {"In questo programma simuliamo il funzionamento di una blockchain per il",
                                               "trasferimento di transazioni.",
@@ -253,17 +248,15 @@ void welcome_box(void){
 
 
 /**
- * Funzione: 'block_box' 
- *-------------------------------------------------------------------------------------------
  * Stampa su terminale una schermata con titolo e informazioni di un blocco spacificato
  * negli argomenti; l'hash sarà stampato in verde se il blocco è minato, in rosso se non
  * lo è ancora.
- *-------------------------------------------------------------------------------------------
  * 
  * @param[in] title stringa contenente il titlo (dim<MAX_STR_LEN)
  * 
  * @param[in] block_to_print puntatore al blocco da stampare
  */
+
 void block_box(char *title, block *block_to_print){
     //inizializzazione matrice con informazioni sul blocco
     char block_matrix [BLOCK_LINES][LINE_LENGTH + 1];
@@ -322,10 +315,7 @@ void block_box(char *title, block *block_to_print){
 
 
 /**
- * Funzione: 'title_box' 
- *-------------------------------------------------------------------------------------------
  * Stampa su terminale una schermata di avvio con titolo e desctrizione.
- *-------------------------------------------------------------------------------------------
  * 
  * @param[in] title stringa contenente il titlo (dim<MAX_STR_LEN)
  * 
@@ -333,6 +323,7 @@ void block_box(char *title, block *block_to_print){
  * 
  * @param[in] descriptions matrice di stringhe contenente le righe della descrizione
  */
+
 void title_box(char*title, int num_rows, char descriptions [MAX_ITEMS][MAX_STR_LEN + 1]){
     //saturazione di num_rows entro i limiti
     int n_rows = saturate(num_rows, MAX_ITEMS);
@@ -376,12 +367,9 @@ void title_box(char*title, int num_rows, char descriptions [MAX_ITEMS][MAX_STR_L
 
 
 /**
- * Funzione: 'mining_box' 
- *-------------------------------------------------------------------------------------------
  * Stampa su terminale una schermata di caricamento durante il 'mining'.
- *-------------------------------------------------------------------------------------------
- * 
  */
+
 void mining_box(WINDOW *w){
     //vengono definiti i comportamenti della finestra agli input
     noecho();
@@ -410,11 +398,8 @@ void mining_box(WINDOW *w){
 
 
 /**
- * Funzione: 'saturate' 
- *-------------------------------------------------------------------------------------------
  * Ritorna il valore inserito solo se esso è contenuto in un limite scelto, se il valore
  * eccede, la funzione ritorna il massimo accettabile.
- *-------------------------------------------------------------------------------------------
  * 
  * @param[in] value valore da saturare
  * 
@@ -422,6 +407,7 @@ void mining_box(WINDOW *w){
  * 
  * @return valore saturato
  */
+
 int saturate(int value, int max_value){
     if (value > max_value)
         return max_value;
@@ -431,13 +417,11 @@ int saturate(int value, int max_value){
 
 
 /**
- * Funzione: 'new_window' 
- *-------------------------------------------------------------------------------------------
  * Crea una finestra della libreria 'ncurses' e ritorna un puntatore ad essa.
- *-------------------------------------------------------------------------------------------
  * 
- * @return puntatore alla nuova finestra
+ * @return Il puntatore alla nuova finestra
  */
+
 WINDOW *new_window(void){
     WINDOW *w;      //puntatore WINDOW per il return
     w = newwin(MAX_ROWS, MAX_COLS, 0, 0);       //creazione finestra
@@ -448,13 +432,10 @@ WINDOW *new_window(void){
 
 
 /**
- * Funzione: 'set_colors' 
- *-------------------------------------------------------------------------------------------
  * Inizializza i 'COLOR_PAIR()' della libreria 'ncurses' se il terminale li supporta,
  * essi vengono poi associati a delle macro richiamabili quando necessario.
- *-------------------------------------------------------------------------------------------
- *
  */
+
 void set_colors(void){
     if (has_colors()){  //controllo supporto colori del terminale
         start_color();  //inizializzazione colori libreria 'ncurses'
@@ -470,14 +451,11 @@ void set_colors(void){
 
 
 /**
- * Funzione: 'keyboard_input' 
- *-------------------------------------------------------------------------------------------
  * Gestisce l'input da tastiera durante la selezione modificando 'tmp', che corrisponde
  * alla posizione in tempo reale della selezione dell'utente; è in grado di gestire anche
  * gli eventiali elementi non selezionabili.
  * Nel caso sia presente la selezione con possibilità di input 'uint', modifica anche
  * 'input_uint' e 'str_input' in base al numero inserito dall'utente.
- *-------------------------------------------------------------------------------------------
  * 
  * @param[in, out] w puntatore ad una finestra precedentemente inizializzata
  * 
@@ -506,6 +484,7 @@ void set_colors(void){
  * (gli altri elementi sono '0')
  * (è spiegato in selection_box perche 'i+1')
  */
+
 void keyboard_input(WINDOW *w, int *input, int *tmp, int n_items, int input_index, uint32_t *input_uint, char *str_input, int *invisible){
     switch(*input){
             case KEY_UP:    //caso freccia su
@@ -550,12 +529,9 @@ void keyboard_input(WINDOW *w, int *input, int *tmp, int n_items, int input_inde
 
 
 /**
- * Funzione: 'keyboard_trans_input' 
- *-------------------------------------------------------------------------------------------
  * Gestisce l'input da tastiera durante la selezione modificando 'tmp', che corrisponde
  * alla posizione in tempo reale della selezione dell'utente.
  * Gestisce anche l'inserimento di 'uint' per ogni voce selezionabile
- *-------------------------------------------------------------------------------------------
  * 
  * @param[in, out] w puntatore ad una finestra precedentemente inizializzata
  * 
@@ -578,6 +554,7 @@ void keyboard_input(WINDOW *w, int *input, int *tmp, int n_items, int input_inde
  * 
  * @param[out] str_amount stringa su cui è/verrà formattato il valore di amount
  */
+
 void keyboard_trans_input(WINDOW *w, int *input, int *tmp, uint32_t *sender, uint32_t *receiver, uint32_t *amount, char *str_sender, char *str_receiver, char *str_amount){
     switch(*input){
             case KEY_UP:    //caso freccia su
@@ -624,11 +601,8 @@ void keyboard_trans_input(WINDOW *w, int *input, int *tmp, uint32_t *sender, uin
 
 
 /**
- * Funzione: 'print_selection' 
- *-------------------------------------------------------------------------------------------
  * Stampa a schermo la selezione di indice 'tmp'. Viene utilizzata nella funzione
  * 'user_selection'.
- *-------------------------------------------------------------------------------------------
  * 
  * @param[in, out] w puntatore ad una finestra precedentemente inizializzata
  * 
@@ -649,6 +623,7 @@ void keyboard_trans_input(WINDOW *w, int *input, int *tmp, uint32_t *sender, uin
  * minori di 'MAX_ITEMS' nel formato di stringa (comprese le non selezionabili e l'eventuale
  * selezione con input, esclusi titolo e 'QUIT')
  */
+
 void print_selection(WINDOW *w, int *tmp, int n_items, int input_index, char *str_input, char selections [MAX_ITEMS][MAX_STR_LEN + 1]){
     //stringa temporanea in cui formattare i dati da stampare
     char item [MAX_STR_LEN + 1];
@@ -676,11 +651,8 @@ void print_selection(WINDOW *w, int *tmp, int n_items, int input_index, char *st
 
 
 /**
- * Funzione: 'print_transaction' 
- *-------------------------------------------------------------------------------------------
  * Stampa a schermo la selezione di indice 'tmp'. Viene utilizzata nella funzione
  * 'user_trans_input'.
- *-------------------------------------------------------------------------------------------
  * 
  * @param[in, out] w puntatore ad una finestra precedentemente inizializzata
  * 
@@ -697,6 +669,7 @@ void print_selection(WINDOW *w, int *tmp, int n_items, int input_index, char *st
  * @param[in] selections puntatore alla matrice contenente gli elementi da stampare su
  * terminale per ogni voce
  */
+
 void print_transaction(WINDOW *w, int *tmp, char *str_sender, char *str_receiver, char *str_amount, char selections [MAX_ITEMS][MAX_STR_LEN + 1]){
     //stringa temporanea in cui formattare i dati da stampare
     char item [MAX_STR_LEN + 1];
@@ -736,14 +709,11 @@ void print_transaction(WINDOW *w, int *tmp, char *str_sender, char *str_receiver
 
 
 /**
- * Funzione: 'print_selection_box' 
- *-------------------------------------------------------------------------------------------
  * Stampa a terminale in una finestra in ordine: titolo, selezioni ('QUIT' compreso).
  * Serve per poter leggere la schermata delle selezioni prima che l'utenete inizi ad
  * interagire con il terminale; durante l'interazione la GUI sarà gestita dalla funzione
  * 'user_selection'.
  * !! vedere decrizione 'selection_box' !!
- *-------------------------------------------------------------------------------------------
  * 
  * @param[in, out] w puntatore ad una finestra precedentemente inizializzata
  * 
@@ -769,6 +739,7 @@ void print_transaction(WINDOW *w, int *tmp, char *str_sender, char *str_receiver
  * (gli altri elementi sono '0')
  * (è spiegato in selection_box perche 'i+1')
  */
+
 void print_selection_box(WINDOW *w, int *tmp, char *title, int n_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1], int input_index, int *invisible){
     //stringa temporanea in cui formattare i dati da stampare
     char item [MAX_STR_LEN + 1];
@@ -832,11 +803,8 @@ void print_selection_box(WINDOW *w, int *tmp, char *title, int n_items, char sel
 
 
 /**
- * Funzione: 'print_transaction_box' 
- *-------------------------------------------------------------------------------------------
  * Stampa a terminale in una finestra in ordine: titolo, selezioni con input 'uint',
  * selezione 'Enter' e selezione 'QUIT'.
- *-------------------------------------------------------------------------------------------
  * 
  * @param[in, out] w puntatore ad una finestra precedentemente inizializzata
  * 
@@ -845,6 +813,7 @@ void print_selection_box(WINDOW *w, int *tmp, char *title, int n_items, char sel
  * @param[in] selections puntatore alla matrice contenente gli elementi da stampare su
  * terminale per ogni voce
  */
+
 void print_transaction_box(WINDOW *w, char *title, char selections [MAX_ITEMS][MAX_STR_LEN + 1]){
     //stringa temporanea in cui formattare i dati da stampare
     char item [MAX_STR_LEN + 1];
@@ -896,11 +865,8 @@ void print_transaction_box(WINDOW *w, char *title, char selections [MAX_ITEMS][M
 
 
 /**
- * Funzione: 'user_selection' 
- *-------------------------------------------------------------------------------------------
  * Gestisce il momento in cui l'utenete ineragisce con il terminale: salva un valore di
  * 'tmp' che corrisponde alla slezione dell'utente e gestisce anche l'eventuale input 'uint'
- *-------------------------------------------------------------------------------------------
  * 
  * @param[in, out] w puntatore ad una finestra precedentemente inizializzata
  * 
@@ -924,6 +890,7 @@ void print_transaction_box(WINDOW *w, char *title, char selections [MAX_ITEMS][M
  * (gli altri elementi sono '0')
  * (è spiegato in selection_box perche 'i+1')
  */
+
 void user_selection(WINDOW *w, int *tmp, int n_items, char selections [MAX_ITEMS][MAX_STR_LEN + 1], int input_index, uint32_t *input_uint, int *invisible){
     //stringa in cui verrà formattato l''uint' inserito da tastiera
     //per la stampa nella finestra
@@ -958,12 +925,9 @@ void user_selection(WINDOW *w, int *tmp, int n_items, char selections [MAX_ITEMS
 
 
 /**
- * Funzione: 'user_trans_input' 
- *-------------------------------------------------------------------------------------------
  * Gestisce il momento in cui l'utenete ineragisce con il terminale: salva un valore di
  * 'tmp' che corrisponde alla slezione dell'utente e gestisce l'input di 'uint' per ogni
  * selezione.
- *-------------------------------------------------------------------------------------------
  * 
  * @param[in, out] w puntatore ad una finestra precedentemente inizializzata
  * 
@@ -980,6 +944,7 @@ void user_selection(WINDOW *w, int *tmp, int n_items, char selections [MAX_ITEMS
  * 
  * @param[out] amount puntatore alla variabile amount
  */
+
 void user_trans_input(WINDOW *w, int *tmp, char selections [MAX_ITEMS][MAX_STR_LEN + 1], uint32_t *sender, uint32_t *receiver, uint32_t *amount){
     //stringhe in cui verranno formattati gli input 'uint'
     //da tastiera per la stampa nella finestra
