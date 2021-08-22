@@ -44,6 +44,21 @@ Su una distribuzione basata su Ubuntu / Debian, lo puoi installare così:
 sudo apt install doxygen
 ```
 
+
+## Compilazione
+
+È possibile compilare il programma principale, oppure la parte di testing dell'applicazione.
+Per scegliere l'opzione desiderata modifica il file `CMakeLists.txt` presente nel percorso principale.
+
+
+### Programma principale
+
+Per compilare il programma principale, imposta il file cmake come di seguito:
+
+```cmake
+set(TARGET_GROUP production CACHE STRING "Group to build")
+```
+
 Successivamente, crea una cartella `build` dal percorso principale, e da tale cartella esegui il comando `cmake`:
 
 ```bash
@@ -51,6 +66,24 @@ cmake .. && make && ./app/application
 ```
 
 *Nota: assicurati di eseguire l'applicazione dalla cartella build.*
+
+
+### Testing
+
+Per compilare la parte di testing, imposta il file cmake come di seguito:
+
+```cmake
+set(TARGET_GROUP test CACHE STRING "Group to build")
+```
+
+Successivamente, crea una cartella `build` dal percorso principale, e da tale cartella esegui il comando `cmake`:
+
+```bash
+cmake .. && make
+```
+
+Le cartelle contenenti i file eseguibili di test dei moduli, sono nel percorso 
+`./build/test`.
 
 
 ---
