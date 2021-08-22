@@ -85,12 +85,7 @@ cmake .. && make
 Le cartelle contenenti i file eseguibili di test dei moduli, sono nel percorso 
 `./build/test`.
 
-
----
-## Roadmap
-
-Il progetto è predisposto per la gestione dei conflitti di più blockchain.
-Sono già presenti le cartelle `./lib/conflicts` e `./test/test_conflicts` con i relativi file per lo sviluppo.
+*Nota: assicurati di eseguire i test dalla cartella build.*
 
 
 ---
