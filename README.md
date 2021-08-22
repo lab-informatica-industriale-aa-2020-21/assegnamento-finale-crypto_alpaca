@@ -43,6 +43,7 @@ Su una distribuzione basata su Ubuntu / Debian, lo puoi installare così:
 ```bash
 sudo apt install doxygen
 ```
+Per visualizzare la documentazione generata da Doxygen, apri con un browser il file `HTML` in `./build/docs/html/index.html`.
 
 
 ## Compilazione
