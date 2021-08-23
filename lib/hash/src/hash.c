@@ -229,6 +229,12 @@ return bin_to_decimal(num, WORD_LEN_BITS);
 
 char* int_32_to_char(unsigned int input) {
     char *string = malloc((HEX_NUMB_LENGTH + 1) * sizeof(char));
+    
+    // Controllo funzionamento della malloc():
+    if(string == NULL){
+        printf("Error: malloc() failure");
+        exit(EXIT_FAILURE);
+    } 
     uint32_to_stringDec(input, string);
     return string;
 }
@@ -317,6 +323,12 @@ uint32_t *make_msg_block(const char *const str_input, uint32_t *const n_blocks) 
                     (double) MSG_BLOCK_LEN_BYTES);
     
     uint32_t *msg_data = (uint32_t *) calloc(*n_blocks * 64, sizeof(uint32_t));
+
+    // Controllo funzionamento della malloc():
+    if(msg_data == NULL){
+        printf("Error: calloc() failure");
+        exit(EXIT_FAILURE);
+    } 
 
     return msg_data;
 }
