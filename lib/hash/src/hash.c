@@ -217,28 +217,6 @@ return bin_to_decimal(num, WORD_LEN_BITS);
 }
 
 
-/**
- * Converte un numero uint32 in un vettore di char che ne descrive
- * le singole cifre.
- *
- * @param[in] input numero da analizzare
- *
- * @return Il puntatore ad un array di char che contiene le cifre di input
- * codificate come caratteri ASCII.
- */
-
-char* int_32_to_char(unsigned int input) {
-    char *string = malloc((HEX_NUMB_LENGTH + 1) * sizeof(char));
-    
-    // Controllo funzionamento della malloc():
-    if(string == NULL){
-        printf("Error: malloc() failure");
-        exit(EXIT_FAILURE);
-    } 
-    uint32_to_stringDec(input, string);
-    return string;
-}
-
 
 /**
  * Esegue lo shift di un array, a destra di una posizione.
