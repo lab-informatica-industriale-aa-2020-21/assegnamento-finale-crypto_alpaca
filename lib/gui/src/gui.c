@@ -1268,10 +1268,10 @@ void print_exit_warning(chain *chain_to_free,
         case 0:
             return;
         case -1:
-            free(chain_to_free);
+            free_chain(chain_to_free);
             exit(EXIT_SUCCESS);
         default:
-            free(chain_to_free);
+            free_chain(chain_to_free);
             exit(EXIT_FAILURE);
     }
 }
