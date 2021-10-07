@@ -62,7 +62,7 @@ void test_print_block_header_ShouldFormatFixedLenStringWithBlockHeaderInfo(void)
 								 "                           00000001\n"
 								 "                           00000005\n"
 								 "                           0000302c\n"
-								 "Nonce number:              0000997b",
+								 "Nonce number:            0000039291",
 								 test_string, BLOCK_HEADER_LENGTH + 1);
 }
 
@@ -147,7 +147,7 @@ void test_print_block_trans_ShouldFormatFixedLenStringWithAllBlockTransInfo(void
 								 "Sender:                    00003021\n"
 								 "Receiver:                  0000266a\n"
 								 "Amount:                  0000000010\n"
-								 "N. di trans.                      3",
+								 "N. of trans.                      3",
 								 test_string, TRANS_LENGTH * 3 + LINE_LENGTH + 1);
 }
 
@@ -209,7 +209,7 @@ void test_print_block_ShouldFormatFixedLenStringWithBlockInfo(void) {
 								 "                           00000001\n"
 								 "                           00000005\n"
 								 "                           0000302c\n"
-								 "Nonce number:              0000997b\n"
+								 "Nonce number:            0000039291\n"
 								 "Transaction n.           0000000001\n"
 								 "Sender:                    00005d69\n"
 								 "Receiver:                  008b7100\n"
@@ -222,7 +222,7 @@ void test_print_block_ShouldFormatFixedLenStringWithBlockInfo(void) {
 								 "Sender:                    00003021\n"
 								 "Receiver:                  0000266a\n"
 								 "Amount:                  0000000010\n"
-								 "N. di trans.                      3\n",
+								 "N. of trans.                      3\n",
 								 test_string, BLOCK_HEADER_LENGTH + TRANS_LENGTH * 3 + LINE_LENGTH + 1 + 1);
 }
 

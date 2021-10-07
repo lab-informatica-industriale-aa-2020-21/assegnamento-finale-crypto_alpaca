@@ -135,26 +135,6 @@ void boundary_test_majority_shouldReturnsMajorityBitwiseXYZ(void) {
 }
 
 
-//Ricordarsi di togliere la funzione da hash.c
-void test_int32_to_char_shouldReturnsStringRepresentingDigitsOfUint32(void) {
-	char exp_array[11] = "1948430201";
-	TEST_ASSERT_EQUAL_MEMORY(exp_array, int_32_to_char(1948430201), 11);
-	TEST_ASSERT_EQUAL_STRING_LEN(exp_array, int_32_to_char(1948430201), 10);
-}
-
-void boundary_test_int32_to_char_shouldReturnsStringRepresentingDigitsOfUint32(void) {
-	char exp_array1[11] = "4294967295";
-	char exp_array2[11] = "0000000000";
-	char exp_array3[11] = "0000000001";
-	char exp_array4[11] = "0999999999";
-
-	TEST_ASSERT_EQUAL_MEMORY(exp_array1, int_32_to_char(4294967295), 10);
-	TEST_ASSERT_EQUAL_MEMORY(exp_array2, int_32_to_char(0), 10);
-	TEST_ASSERT_EQUAL_MEMORY(exp_array3, int_32_to_char(1), 10);
-	TEST_ASSERT_EQUAL_MEMORY(exp_array4, int_32_to_char(999999999), 10);
-}
-//
-
 
 void test_copy_vector_shouldCopyVett1IntoVett2(void) {
 	uint32_t vett1[10] = {1,2,3,4,5,6,7,8,9,0};
@@ -337,7 +317,6 @@ int main(void) {
 
 	RUN_TEST(test_decimal_to_bin_shouldConvertUint32ToBinary);
 	RUN_TEST(test_bin_to_decimal_shouldConvertBinaryToUint32);
-	RUN_TEST(test_int32_to_char_shouldReturnsStringRepresentingDigitsOfUint32);
 
 	RUN_TEST(test_choice_shouldAssignYorXtoZdependingOnX);
 	RUN_TEST(test_majority_shouldReturnsMajorityBitwiseXYZ);
@@ -361,8 +340,6 @@ int main(void) {
 
 	RUN_TEST(boundary_test_decimal_to_bin_shouldConvertUint32ToBinary);
 	RUN_TEST(boundary_test_bin_to_decimal_shouldConvertBinaryToUint32);
-	RUN_TEST(boundary_test_int32_to_char_shouldReturnsStringRepresentingDigitsOfUint32);
-
 	RUN_TEST(boundary_test_choice_shouldAssignYorXtoZdependingOnX);
 	RUN_TEST(boundary_test_majority_shouldReturnsMajorityBitwiseXYZ);
 
